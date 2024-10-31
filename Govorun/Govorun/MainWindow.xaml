@@ -1,0 +1,264 @@
+﻿<Window x:Class="Govorun.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Govorun"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="Говорун"
+        Height="500" Width="700"
+        MinHeight="300" MinWidth="700"
+        d:Height="350" d:Width="700"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Dictionaries/MainDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <!-- Команды группы "Книга" -->
+        <CommandBinding Command="local:AppCommands.Play"
+                        CanExecute="Play_CanExecute"
+                        Executed="Play_Executed" />
+        <CommandBinding Command="local:AppCommands.Edit"
+                        CanExecute="Edit_CanExecute"
+                        Executed="Edit_Executed" />
+        <CommandBinding Command="local:AppCommands.Delete"
+                        CanExecute="Delete_CanExecute"
+                        Executed="Delete_Executed" />
+        <!-- Команды группы "Библиотека" -->
+        <CommandBinding Command="local:AppCommands.AddBook"
+                        Executed="AddBook_Executed" />
+        <CommandBinding Command="local:AppCommands.FindBooks"
+                        Executed="FindBooks_Executed" />
+        <CommandBinding Command="local:AppCommands.Authors"
+                        Executed="Authors_Executed" />
+        <CommandBinding Command="local:AppCommands.Lectors"
+                        Executed="Lectors_Executed" />
+        <CommandBinding Command="local:AppCommands.CheckLibrary"
+                        Executed="CheckLibrary_Executed" />
+        <CommandBinding Command="local:AppCommands.Shrink"
+                        Executed="Shrink_Executed" />
+        <!-- Команды группы "Справка" -->
+        <CommandBinding Command="local:AppCommands.About"
+                        Executed="About_Executed" />
+    </Window.CommandBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="Книга">
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Play">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="Play" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Edit">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconEntypo Kind="Edit" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Delete">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="Delete" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem x:Name="CloseMenuItem" Header="Выход" InputGestureText="Alt+F4" Click="CloseMenuItem_Click" />
+            </MenuItem>
+            <MenuItem Header="Библиотека">
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.AddBook">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconBoxIcons Kind="SolidBookAdd" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.FindBooks">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconPhosphorIcons Kind="BinocularsFill" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Authors">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="Account" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Lectors">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconRemixIcon Kind="UserVoiceFill" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.CheckLibrary">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="Database" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Shrink">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="Transfer" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Справка">
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.About">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconIonicons Kind="HelpiOS" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <ToolBarTray Grid.Row="1">
+            <ToolBar x:Name="BookToolBar">
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Play">
+                    <iconPacks:PackIconMaterial Kind="Play" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Edit">
+                    <iconPacks:PackIconEntypo Kind="Edit" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Separator />
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Delete">
+                    <iconPacks:PackIconMaterial Kind="Delete" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+            </ToolBar>
+            <ToolBar x:Name="LibraryToolBar">
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.AddBook">
+                    <iconPacks:PackIconBoxIcons Kind="SolidBookAdd" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.FindBooks">
+                    <iconPacks:PackIconPhosphorIcons Kind="BinocularsFill" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Separator />
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Authors">
+                    <iconPacks:PackIconMaterial Kind="Account" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Lectors">
+                    <iconPacks:PackIconRemixIcon Kind="UserVoiceFill" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Separator />
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.CheckLibrary">
+                    <iconPacks:PackIconMaterial Kind="Database" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Shrink">
+                    <iconPacks:PackIconMaterial Kind="Transfer" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+            </ToolBar>
+            <ToolBar x:Name="HelpToolBar">
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.About">
+                    <iconPacks:PackIconIonicons Kind="HelpiOS" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+            </ToolBar>
+            <!-- Для подбора значков -->
+            <!--<ToolBar>
+                <Button Style="{StaticResource ToolBarButtonStyle}">
+                    <iconPacks:PackIconMaterial Kind="FileFind" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Button Style="{StaticResource ToolBarButtonStyle}">
+                    <iconPacks:PackIconMaterial Kind="FileFindOutline" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Button Style="{StaticResource ToolBarButtonStyle}">
+                    <iconPacks:PackIconPhosphorIcons Kind="BinocularsFill" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+            </ToolBar>-->
+        </ToolBarTray>
+
+        <Grid Grid.Row="2" Margin="8,10,8,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Автор" Margin="0,0,10,0" />
+            <ComboBox Grid.Column="1" x:Name="AuthorComboBox" Margin="0,0,25,0" />
+            <TextBlock Grid.Column="2" Text="Чтец" Margin="0,0,10,0" />
+            <ComboBox Grid.Column="3" x:Name="LectorComboBox" />
+        </Grid>
+
+        <ListView Grid.Row="3" x:Name="BooksListView"
+                  MouseDoubleClick="BooksListView_MouseDoubleClick"
+                  SelectionChanged="BooksListView_SelectionChanged"
+                  SizeChanged="BooksListView_SizeChanged">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Top" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="TextElement.Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn Header="Название">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Title}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Автор" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Author}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Чтец" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Lector}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Время" Width="65">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DurationText}" TextAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StatusBar Grid.Row="4">
+            <StatusBarItem>
+                <TextBlock>Всего книг:</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock x:Name="StatusBarBooksCount">0</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Margin="10,0,0,0">
+                <TextBlock>Выбрано:</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock x:Name="StatusBarSelectedCount">0</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <iconPacks:PackIconMaterial Kind="ResizeBottomRight" Foreground="Gray" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

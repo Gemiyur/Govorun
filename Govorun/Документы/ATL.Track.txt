@@ -1,0 +1,135 @@
+==================================================
+Понедельник начинается в субботу.m4b
+==================================================
+
+-	track	{ATL.Track}	ATL.Track
+		Album	"ПОНЕДЕЛЬНИК НАЧИНАЕТСЯ В СУББОТУ"	string
+		AlbumArtist	"Стругацкие А. Н. и Б. Н."	string
+		Artist	"Стругацкие А. Н. и Б. Н."	string
++		Chapters	Count = 17	System.Collections.Generic.IList<ATL.ChapterInfo> {System.Collections.Generic.List<ATL.ChapterInfo>}
+		Comment	""	string
+		Description	""	string
+		Duration	34672	int	(секунды)
+		DurationMs	34672000.833333336	double	(миллисекунды)
+-		EmbeddedPictures	Count = 1	System.Collections.Generic.IList<ATL.PictureInfo> {System.Collections.Generic.List<ATL.PictureInfo>}
+	-		[0]	{0130000000N14}	ATL.PictureInfo
+				Description	""	string
+		+		PictureData	{byte[262144]}	byte[]
+		Genre	"Audiobook"	string
+-		Lyrics	{ATL.LyricsInfo}	ATL.LyricsInfo
+			ContentType	LYRICS	ATL.LyricsInfo.LyricsType
+			Description	""	string
+			LanguageCode	""	string
+	+		SynchronizedLyrics	Count = 0	System.Collections.Generic.IList<ATL.LyricsInfo.LyricsPhrase> {System.Collections.Generic.List<ATL.LyricsInfo.LyricsPhrase>}
+			UnsynchronizedLyrics	"Перед вами самая известная и популярная книга братьев Стругацких – полная юмора и сатирических намеков фантастическая сказочная повесть, воспитавшая не одно поколение читателей и растасканная на цитаты. \r\nОна повествует о буднях НИИЧАВО (Научно-исследовательского института чародейства и волшебства) – месте, где причудливо перемешались быт солидного учреждения и фольклорно-сказочная круговерть. В филиале Академии наук есть отделы Линейного счастья и Абсолютного знания, Предсказаний и пророчеств и Вечной молодости, а его штатные сотрудники могут проходить сквозь стены и становиться невидимыми. Дракона каждую пятницу возят на полигон для опытов, а курс управления волшебной палочкой занимает восемь семестров и требует основательного знания квантовой алхимии. Смотрителем музея старины является Баба-Яга, которую зовут Наина Киевна Горыныч, а за использование неразменного пятака можно запросто угодить в милицию…"	string
+		Path	"C:\\Users\\Геннадий\\Source\\Локальные\\Говорун\\Книги\\Понедельник начинается в субботу.m4b"	string
+		SeriesPart	""	string
+		SeriesTitle	""	string
+-		TechnicalInformation	{ATL.TechnicalInfo}	ATL.TechnicalInfo
+			AudioDataOffset	4890879	long
+			AudioDataSize	231997979	long
+		Title	"Понедельник начинается в субботу"	string
+		TrackNumber	0	int?
+		TrackTotal	0	int?
+		Year	2012	int?
+
+----------
+
+-	chapter	{ATL.ChapterInfo}	ATL.ChapterInfo
+		EndOffset	0	uint
+		EndTime	1720544	uint
+		Picture	null	ATL.PictureInfo
+		StartOffset	0	uint
+		StartTime	0	uint
+		Subtitle	""	string
+		Title	"01 01"	string
+		UniqueID	""	string
+		Url	null	ATL.ChapterInfo.UrlInfo
+		UseOffset	false	bool
+
+-	chapter	{ATL.ChapterInfo}	ATL.ChapterInfo
+		EndOffset	0	uint
+		EndTime	3354496	uint
+		Picture	null	ATL.PictureInfo
+		StartOffset	0	uint
+		StartTime	1720544	uint
+		Subtitle	""	string
+		Title	"01 02"	string
+		UniqueID	""	string
+		Url	null	ATL.ChapterInfo.UrlInfo
+		UseOffset	false	bool
+
+
+==================================================
+Трудно быть богом.m4b
+==================================================
+
+-	track	{ATL.Track}	ATL.Track
+		Album	"Трудно быть богом"	string
+		AlbumArtist	""	string
+		Artist	"Аркадий и Борис Стругацкие"	string
++		Chapters	Count = 12	System.Collections.Generic.IList<ATL.ChapterInfo> {System.Collections.Generic.List<ATL.ChapterInfo>}
+		Comment	""	string
+		Description	"Аркадий Натанович и Борис Натанович Стругацкие – классики современной научной и социальной фантастики. Произведения Стругацких издавались в переводах на 42 языках в 33 странах мира. На русском языке вышло четыре полных собрания их сочинений. \r\n«Трудно ..."	string
+		Duration	29841	int	(секунды)
+		DurationMs	29840584	double	(миллисекунды)
+-		EmbeddedPictures	Count = 1	System.Collections.Generic.IList<ATL.PictureInfo> {System.Collections.Generic.List<ATL.PictureInfo>}
+	-		[0]	{0130000000N13}	ATL.PictureInfo
+				Description	""	string
+		+		PictureData	{byte[49029]}	byte[]
+		Genre	"Audiobook"	string
+-		Lyrics	{ATL.LyricsInfo}	ATL.LyricsInfo
+			ContentType	LYRICS	ATL.LyricsInfo.LyricsType
+			Description	""	string
+			LanguageCode	""	string
+	+		SynchronizedLyrics	Count = 0	System.Collections.Generic.IList<ATL.LyricsInfo.LyricsPhrase> {System.Collections.Generic.List<ATL.LyricsInfo.LyricsPhrase>}
+			UnsynchronizedLyrics	""	string
+		Path	"C:\\Users\\Геннадий\\Source\\Локальные\\Говорун\\Книги\\Трудно быть богом.m4b"	string
+		SeriesPart	""	string
+		SeriesTitle	""	string
+-		TechnicalInformation	{ATL.TechnicalInfo}	ATL.TechnicalInfo
+			AudioDataOffset	36	long
+			AudioDataSize	227534512	long
+		Title	"Трудно быть богом"	string
+		TrackNumber	0	int?
+		TrackTotal	0	int?
+		Year	1964	int?
+
+----------
+
+-	chapter	{ATL.ChapterInfo}	ATL.ChapterInfo
+		EndOffset	0	uint
+		EndTime	1814830	uint
+		Picture	null	ATL.PictureInfo
+		StartOffset	0	uint
+		StartTime	0	uint
+		Subtitle	""	string
+		Title	"Пролог"	string
+		UniqueID	""	string
+		Url	null	ATL.ChapterInfo.UrlInfo
+		UseOffset	false	bool
+
+-	chapter	{ATL.ChapterInfo}	ATL.ChapterInfo
+		EndOffset	0	uint
+		EndTime	5515130	uint
+		Picture	null	ATL.PictureInfo
+		StartOffset	0	uint
+		StartTime	1814830	uint
+		Subtitle	""	string
+		Title	"01"	string
+		UniqueID	""	string
+		Url	null	ATL.ChapterInfo.UrlInfo
+		UseOffset	false	bool
+
+==================================================
+Lyrics
+==================================================
+
+-	phrase1	{ATL.LyricsInfo.LyricsPhrase}	ATL.LyricsInfo.LyricsPhrase
+		Text	"I'm the 1"	string
+		TimestampMs	12000	int
+-	phrase2	{ATL.LyricsInfo.LyricsPhrase}	ATL.LyricsInfo.LyricsPhrase
+		Text	"I'm the 2"	string
+		TimestampMs	45000	int
+
+==================================================

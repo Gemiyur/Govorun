@@ -1,0 +1,94 @@
+﻿using System.Windows.Input;
+
+namespace Govorun
+{
+    /// <summary>
+    /// Статический класс команд приложения.
+    /// </summary>
+    public static class AppCommands
+    {
+        #region Команды группы "Книга".
+
+        /// <summary>
+        /// Команда воспроизведения книги.
+        /// </summary>
+        public static RoutedUICommand Play { get; private set; }
+
+        /// <summary>
+        /// Команда редактирования данных книги.
+        /// </summary>
+        public static RoutedUICommand Edit { get; private set; }
+
+        /// <summary>
+        /// Команда удаления выбранных книг.
+        /// </summary>
+        public static RoutedUICommand Delete { get; private set; }
+
+        #endregion
+
+        #region Команды группы "Библиотека".
+
+        /// <summary>
+        /// Команда добавления книги в библиотеку.
+        /// </summary>
+        public static RoutedUICommand AddBook { get; private set; }
+
+        /// <summary>
+        /// Команда поиска книг в папке.
+        /// </summary>
+        public static RoutedUICommand FindBooks { get; private set; }
+
+        /// <summary>
+        /// Команда редактирования авторов.
+        /// </summary>
+        public static RoutedUICommand Authors { get; private set; }
+
+        /// <summary>
+        /// Команда редактирования чтецов.
+        /// </summary>
+        public static RoutedUICommand Lectors { get; private set; }
+
+        /// <summary>
+        /// Команда проверки библиотеки на наличие файлов книг.
+        /// </summary>
+        public static RoutedUICommand CheckLibrary { get; private set; }
+
+        /// <summary>
+        /// Команда сжатия библиотеки.
+        /// </summary>
+        public static RoutedUICommand Shrink { get; private set; }
+
+        #endregion
+
+        #region Команды группы "Справка".
+
+        /// <summary>
+        /// Команда отображения окна "О программе".
+        /// </summary>
+        public static RoutedUICommand About { get; private set; }
+
+        #endregion
+
+        /// <summary>
+        /// Статический конструктор класса. Инициализирует команды приложения.
+        /// </summary>
+        static AppCommands()
+        {
+            // Команды группы "Книга".
+            Play = new RoutedUICommand("Слушать", "Play", typeof(AppCommands));
+            Edit = new RoutedUICommand("Изменить...", "Edit", typeof(AppCommands));
+            Delete = new RoutedUICommand("Удалить...", "Delete", typeof(AppCommands));
+
+            // Команды группы "Библиотека".
+            AddBook = new RoutedUICommand("Добавить книгу...", "AddBook", typeof(AppCommands));
+            FindBooks = new RoutedUICommand("Найти книги в папке...", "FindBooks", typeof(AppCommands));
+            Authors = new RoutedUICommand("Авторы...", "Authors", typeof(AppCommands));
+            Lectors = new RoutedUICommand("Чтецы...", "Lectors", typeof(AppCommands));
+            CheckLibrary = new RoutedUICommand("Проверить библиотеку...", "CheckLibrary", typeof(AppCommands));
+            Shrink = new RoutedUICommand("Сжать библиотеку...", "Shrink", typeof(AppCommands));
+
+            // Команды группы "Справка"
+            About = new RoutedUICommand("О программе...", "About", typeof(AppCommands));
+        }
+    }
+}
