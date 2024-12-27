@@ -7,7 +7,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Подбор значков"
-        Height="180" Width="950"
+        Height="180" Width="800"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -29,58 +29,53 @@
         <!-- Панели инструментов -->
         <ToolBarTray Grid.Row="0">
             <ToolBar x:Name="BookToolBar">
-                <Button Style="{StaticResource ToolBarButtonStyle}">
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Слушать">
                     <iconPacks:PackIconMaterial Kind="Play" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}">
+                <Separator />
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Содержание">
+                    <iconPacks:PackIconMaterial Kind="FormatListBulletedSquare" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Закладки">
+                    <iconPacks:PackIconBoxIcons Kind="RegularBookmark" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Separator />
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Изменить">
                     <iconPacks:PackIconEntypo Kind="Edit" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}">
+                <Separator />
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Удалить">
                     <iconPacks:PackIconMaterial Kind="Delete" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
             </ToolBar>
-            <ToolBar x:Name="ViewToolBar">
-                <Button Style="{StaticResource ToolBarButtonStyle}">
-                    <iconPacks:PackIconMaterial Kind="FormatListBulletedSquare" Style="{StaticResource ToolBarIconStyle}" />
-                </Button>
-                <CheckBox x:Name="FilterCheckBox"
-                          IsChecked="False"
-                          Style="{StaticResource ToolBarButtonStyle}"
-                          CommandParameter="FilterCheckBox">
-                    <iconPacks:PackIconMaterial Kind="Filter" Style="{StaticResource ToolBarIconStyle}" />
-                </CheckBox>
-                <Separator />
-                <CheckBox x:Name="DetailCheckBox"
-                          IsChecked="True"
-                          Style="{StaticResource ToolBarButtonStyle}"
-                          CommandParameter="DetailCheckBox">
-                    <iconPacks:PackIconEntypo Kind="Info" Style="{StaticResource ToolBarIconStyle}" />
-                </CheckBox>
-            </ToolBar>
             <ToolBar x:Name="LibraryToolBar">
-                <Button Style="{StaticResource ToolBarButtonStyle}">
-                    <iconPacks:PackIconBoxIcons Kind="SolidBookAdd" Style="{StaticResource ToolBarIconStyle}" />
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Добавть книгу">
+                    <iconPacks:PackIconBoxIcons Kind="RegularBookAdd" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}">
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Найти книги в папке">
                     <iconPacks:PackIconPhosphorIcons Kind="BinocularsFill" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
-                <Button Style="{StaticResource ToolBarButtonStyle}">
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Авторы">
                     <iconPacks:PackIconMaterial Kind="Account" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}">
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Чтецы">
                     <iconPacks:PackIconRemixIcon Kind="UserVoiceFill" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
-                <Button Style="{StaticResource ToolBarButtonStyle}">
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Проверить библиотеку">
                     <iconPacks:PackIconMaterial Kind="Database" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}">
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Сжать библиотеку">
                     <iconPacks:PackIconMaterial Kind="Transfer" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Separator />
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Настройки">
+                    <iconPacks:PackIconMaterial Kind="Cog" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
             </ToolBar>
             <ToolBar x:Name="HelpToolBar">
-                <Button Style="{StaticResource ToolBarButtonStyle}">
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="О программе">
                     <iconPacks:PackIconIonicons Kind="HelpiOS" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
             </ToolBar>
@@ -101,11 +96,11 @@
         <!-- Проигрыватель -->
         <Border Grid.Row="1" Background="Transparent">
             <StackPanel Orientation="Horizontal" Margin="5,10,5,10">
-                <Button x:Name="Unmuted"
+                <Button x:Name="Volume"
                         Style="{StaticResource GridButtonStyle}"
                         Template="{StaticResource GridButtonTemplate}"
                         VerticalAlignment="Center"
-                        ToolTip="Выключить звук">
+                        ToolTip="Громкость">
                     <iconPacks:PackIconFontAwesome Kind="VolumeHighSolid" Style="{StaticResource GridIconStyle}" />
                 </Button>
                 <RepeatButton x:Name="Decrease"
@@ -139,7 +134,7 @@
                         Margin="5,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Воспроизвести">
-                    <iconPacks:PackIconModern Kind="ControlPlay" Style="{StaticResource GridIconStyle}" />
+                    <iconPacks:PackIconMaterial Kind="Play" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Button x:Name="Pause"
                         Style="{StaticResource GridButtonStyle}"
@@ -166,20 +161,36 @@
                     <iconPacks:PackIconMaterial Kind="FastForward30" Style="{StaticResource GridIconStyle}" />
                 </Button>
 
-                <Button x:Name="Stories"
+                <Button x:Name="Chapters"
                         Style="{StaticResource GridButtonStyle}"
                         Template="{StaticResource GridButtonTemplate}"
                         Margin="20,0,0,0"
                         VerticalAlignment="Center"
-                        ToolTip="Список историй">
-                    <iconPacks:PackIconMaterial Kind="FormatAlignJustify" Style="{StaticResource GridIconStyle}" />
+                        ToolTip="Содержание">
+                    <iconPacks:PackIconMaterial Kind="FormatListBulletedSquare" Style="{StaticResource GridIconStyle}" />
+                </Button>
+                <Button x:Name="Bookmarks"
+                        Style="{StaticResource GridButtonStyle}"
+                        Template="{StaticResource GridButtonTemplate}"
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        ToolTip="Закладки">
+                    <iconPacks:PackIconBoxIcons Kind="RegularBookmark" Style="{StaticResource GridIconStyle}" />
+                </Button>
+                <Button x:Name="AddBookmarks"
+                        Style="{StaticResource GridButtonStyle}"
+                        Template="{StaticResource GridButtonTemplate}"
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        ToolTip="Добавить закладку">
+                    <iconPacks:PackIconBoxIcons Kind="RegularBookmarkPlus" Style="{StaticResource GridIconStyle}" />
                 </Button>
                 <Button x:Name="Edit"
                         Style="{StaticResource GridButtonStyle}"
                         Template="{StaticResource GridButtonTemplate}"
                         Margin="5,0,0,0"
                         VerticalAlignment="Center"
-                        ToolTip="Изменить историю">
+                        ToolTip="Изменить">
                     <iconPacks:PackIconEntypo Kind="Edit" Style="{StaticResource GridIconStyle}" />
                 </Button>
             </StackPanel>

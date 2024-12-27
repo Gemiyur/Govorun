@@ -16,6 +16,36 @@
 
   <ItemGroup>
     <None Remove="Images\About.png" />
+    <None Remove="Images\Buttons\Disabled\AddBookmark.png" />
+    <None Remove="Images\Buttons\Disabled\Back.png" />
+    <None Remove="Images\Buttons\Disabled\Bookmarks.png" />
+    <None Remove="Images\Buttons\Disabled\Chapters.png" />
+    <None Remove="Images\Buttons\Disabled\Delete.png" />
+    <None Remove="Images\Buttons\Disabled\Edit.png" />
+    <None Remove="Images\Buttons\Disabled\Play.png" />
+    <None Remove="Images\Buttons\Disabled\Skip.png" />
+    <None Remove="Images\Buttons\Enabled\About.png" />
+    <None Remove="Images\Buttons\Enabled\AddBook.png" />
+    <None Remove="Images\Buttons\Enabled\AddBookmark.png" />
+    <None Remove="Images\Buttons\Enabled\Authors.png" />
+    <None Remove="Images\Buttons\Enabled\Back.png" />
+    <None Remove="Images\Buttons\Enabled\Bookmarks.png" />
+    <None Remove="Images\Buttons\Enabled\Chapters.png" />
+    <None Remove="Images\Buttons\Enabled\CheckLibrary.png" />
+    <None Remove="Images\Buttons\Enabled\Decrease.png" />
+    <None Remove="Images\Buttons\Enabled\Delete.png" />
+    <None Remove="Images\Buttons\Enabled\Edit.png" />
+    <None Remove="Images\Buttons\Enabled\FindBooks.png" />
+    <None Remove="Images\Buttons\Enabled\Increase.png" />
+    <None Remove="Images\Buttons\Enabled\Lectors.png" />
+    <None Remove="Images\Buttons\Enabled\Pause.png" />
+    <None Remove="Images\Buttons\Enabled\Play.png" />
+    <None Remove="Images\Buttons\Enabled\Replay.png" />
+    <None Remove="Images\Buttons\Enabled\Resize.png" />
+    <None Remove="Images\Buttons\Enabled\Settings.png" />
+    <None Remove="Images\Buttons\Enabled\Shrink.png" />
+    <None Remove="Images\Buttons\Enabled\Skip.png" />
+    <None Remove="Images\Buttons\Enabled\Volume.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +66,36 @@
 
   <ItemGroup>
     <Resource Include="Images\About.png" />
+    <Resource Include="Images\Buttons\Disabled\AddBookmark.png" />
+    <Resource Include="Images\Buttons\Disabled\Back.png" />
+    <Resource Include="Images\Buttons\Disabled\Bookmarks.png" />
+    <Resource Include="Images\Buttons\Disabled\Chapters.png" />
+    <Resource Include="Images\Buttons\Disabled\Delete.png" />
+    <Resource Include="Images\Buttons\Disabled\Edit.png" />
+    <Resource Include="Images\Buttons\Disabled\Play.png" />
+    <Resource Include="Images\Buttons\Disabled\Skip.png" />
+    <Resource Include="Images\Buttons\Enabled\About.png" />
+    <Resource Include="Images\Buttons\Enabled\AddBook.png" />
+    <Resource Include="Images\Buttons\Enabled\AddBookmark.png" />
+    <Resource Include="Images\Buttons\Enabled\Authors.png" />
+    <Resource Include="Images\Buttons\Enabled\Back.png" />
+    <Resource Include="Images\Buttons\Enabled\Bookmarks.png" />
+    <Resource Include="Images\Buttons\Enabled\Chapters.png" />
+    <Resource Include="Images\Buttons\Enabled\CheckLibrary.png" />
+    <Resource Include="Images\Buttons\Enabled\Decrease.png" />
+    <Resource Include="Images\Buttons\Enabled\Delete.png" />
+    <Resource Include="Images\Buttons\Enabled\Edit.png" />
+    <Resource Include="Images\Buttons\Enabled\FindBooks.png" />
+    <Resource Include="Images\Buttons\Enabled\Increase.png" />
+    <Resource Include="Images\Buttons\Enabled\Lectors.png" />
+    <Resource Include="Images\Buttons\Enabled\Pause.png" />
+    <Resource Include="Images\Buttons\Enabled\Play.png" />
+    <Resource Include="Images\Buttons\Enabled\Replay.png" />
+    <Resource Include="Images\Buttons\Enabled\Resize.png" />
+    <Resource Include="Images\Buttons\Enabled\Settings.png" />
+    <Resource Include="Images\Buttons\Enabled\Shrink.png" />
+    <Resource Include="Images\Buttons\Enabled\Skip.png" />
+    <Resource Include="Images\Buttons\Enabled\Volume.png" />
   </ItemGroup>
 
   <ItemGroup>

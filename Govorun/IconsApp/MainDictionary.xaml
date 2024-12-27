@@ -18,10 +18,7 @@
 
     <!-- Кисти -->
     <SolidColorBrush x:Key="GridButtonBackground" Color="Transparent" />
-    <!--<SolidColorBrush x:Key="GridButtonForeground" Color="White" />-->
-    <!--<SolidColorBrush x:Key="GridButtonBorderMouseOverBackground" Color="#BF808080" />-->
-    <!--<SolidColorBrush x:Key="GridButtonBorderMouseOverForeground" Color="White" />-->
-    <SolidColorBrush x:Key="GridButtonBorderMouseOverBackground" Color="Cyan" />
+    <SolidColorBrush x:Key="GridButtonBorderMouseOverBackground" Color="LightCyan" />
     <SolidColorBrush x:Key="GridButtonBorderMouseOverForeground" Color="Black" />
 
     <!-- Стили иконок -->
@@ -43,14 +40,12 @@
     <!-- Стили кнопок -->
     <Style x:Key="GridButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource GridButtonBackground}" />
-        <!--<Setter Property="Foreground" Value="{StaticResource GridButtonForeground}" />-->
-        <Setter Property="Height" Value="48" />
-        <Setter Property="Width" Value="48" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Width" Value="32" />
     </Style>
 
     <Style x:Key="VolumeButtonStyle" TargetType="RepeatButton">
         <Setter Property="Background" Value="{StaticResource GridButtonBackground}" />
-        <!--<Setter Property="Foreground" Value="{StaticResource GridButtonForeground}" />-->
         <Setter Property="Height" Value="24" />
         <Setter Property="Width" Value="24" />
     </Style>
