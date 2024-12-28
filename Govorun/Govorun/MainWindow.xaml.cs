@@ -122,24 +122,48 @@ namespace Govorun
 
         #region Обработчики команд группы "Книга".
 
-        private void Play_CanExecute(object sender, CanExecuteRoutedEventArgs e) =>
+        private void Play_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+            if (!IsVisible)
+                return;
+            var bitmap = App.GetBitmap(
+                e.CanExecute ? @"Images\Buttons\Enabled\Play.png" : @"Images\Buttons\Disabled\Play.png");
+            ((Image)PlayButton.Content).Source = bitmap;
+            ((Image)PlayMenuItem.Icon).Source = bitmap;
+        }
 
         private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
         }
 
-        private void Edit_CanExecute(object sender, CanExecuteRoutedEventArgs e) =>
+        private void Edit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+            if (!IsVisible)
+                return;
+            var bitmap = App.GetBitmap(
+                e.CanExecute ? @"Images\Buttons\Enabled\Edit.png" : @"Images\Buttons\Disabled\Edit.png");
+            ((Image)EditButton.Content).Source = bitmap;
+            ((Image)EditMenuItem.Icon).Source = bitmap;
+        }
 
         private void Edit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
         }
 
-        private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e) =>
+        private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count > 0;
+            if (!IsVisible)
+                return;
+            var bitmap = App.GetBitmap(
+                e.CanExecute ? @"Images\Buttons\Enabled\Delete.png" : @"Images\Buttons\Disabled\Delete.png");
+            ((Image)DeleteButton.Content).Source = bitmap;
+            ((Image)DeleteMenuItem.Icon).Source = bitmap;
+        }
 
         private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
         {

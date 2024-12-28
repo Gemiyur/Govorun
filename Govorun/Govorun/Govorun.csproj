@@ -10,7 +10,7 @@
     <Company>Gemiyur</Company>
     <Product>Говорун</Product>
     <Description>Библиотека аудиокниг с проигрывателем.</Description>
-    <Copyright>Copyright © Gemiyur 2024</Copyright>
+    <Copyright>Copyright © Gemiyur 2025</Copyright>
     <ApplicationIcon>Images\Govorun.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -54,7 +54,6 @@
 
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="5.0.21" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="5.1.0" />
     <PackageReference Include="z440.atl.core" Version="6.11.0" />
   </ItemGroup>
 

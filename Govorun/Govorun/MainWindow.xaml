@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Govorun"
-        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Говорун"
         Height="500" Width="700"
@@ -60,20 +59,20 @@
 
         <Menu Grid.Row="0">
             <MenuItem Header="Книга">
-                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Play">
+                <MenuItem x:Name="PlayMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Play">
                     <MenuItem.Icon>
-                        <iconPacks:PackIconMaterial Kind="Play" />
+                        <Image Source="Images\Buttons\Enabled\Play.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Edit">
+                <MenuItem x:Name="EditMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Edit">
                     <MenuItem.Icon>
-                        <iconPacks:PackIconEntypo Kind="Edit" />
+                        <Image Source="Images\Buttons\Enabled\Edit.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Delete">
+                <MenuItem x:Name="DeleteMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Delete">
                     <MenuItem.Icon>
-                        <iconPacks:PackIconMaterial Kind="Delete" />
+                        <Image Source="Images\Buttons\Enabled\Delete.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
@@ -82,41 +81,41 @@
             <MenuItem Header="Библиотека">
                 <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.AddBook">
                     <MenuItem.Icon>
-                        <iconPacks:PackIconBoxIcons Kind="SolidBookAdd" />
+                        <Image Source="Images\Buttons\Enabled\AddBook.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.FindBooks">
                     <MenuItem.Icon>
-                        <iconPacks:PackIconPhosphorIcons Kind="BinocularsFill" />
+                        <Image Source="Images\Buttons\Enabled\FindBooks.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
                 <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Authors">
                     <MenuItem.Icon>
-                        <iconPacks:PackIconMaterial Kind="Account" />
+                        <Image Source="Images\Buttons\Enabled\Authors.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Lectors">
                     <MenuItem.Icon>
-                        <iconPacks:PackIconRemixIcon Kind="UserVoiceFill" />
+                        <Image Source="Images\Buttons\Enabled\Lectors.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
                 <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.CheckLibrary">
                     <MenuItem.Icon>
-                        <iconPacks:PackIconMaterial Kind="Database" />
+                        <Image Source="Images\Buttons\Enabled\CheckLibrary.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Shrink">
                     <MenuItem.Icon>
-                        <iconPacks:PackIconMaterial Kind="Transfer" />
+                        <Image Source="Images\Buttons\Enabled\Shrink.png" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.About">
                     <MenuItem.Icon>
-                        <iconPacks:PackIconIonicons Kind="HelpiOS" />
+                        <Image Source="Images\Buttons\Enabled\About.png" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -124,56 +123,44 @@
 
         <ToolBarTray Grid.Row="1">
             <ToolBar x:Name="BookToolBar">
-                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Play">
-                    <iconPacks:PackIconMaterial Kind="Play" Style="{StaticResource ToolBarIconStyle}" />
+                <Button x:Name="PlayButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Play">
+                    <Image Source="Images\Buttons\Enabled\Play.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Edit">
-                    <iconPacks:PackIconEntypo Kind="Edit" Style="{StaticResource ToolBarIconStyle}" />
+                <Button x:Name="EditButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Edit">
+                    <Image Source="Images\Buttons\Enabled\Edit.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
-                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Delete">
-                    <iconPacks:PackIconMaterial Kind="Delete" Style="{StaticResource ToolBarIconStyle}" />
+                <Button x:Name="DeleteButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Delete">
+                    <Image Source="Images\Buttons\Enabled\Delete.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
             </ToolBar>
             <ToolBar x:Name="LibraryToolBar">
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.AddBook">
-                    <iconPacks:PackIconBoxIcons Kind="SolidBookAdd" Style="{StaticResource ToolBarIconStyle}" />
+                    <Image Source="Images\Buttons\Enabled\AddBook.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.FindBooks">
-                    <iconPacks:PackIconPhosphorIcons Kind="BinocularsFill" Style="{StaticResource ToolBarIconStyle}" />
+                    <Image Source="Images\Buttons\Enabled\FindBooks.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Authors">
-                    <iconPacks:PackIconMaterial Kind="Account" Style="{StaticResource ToolBarIconStyle}" />
+                    <Image Source="Images\Buttons\Enabled\Authors.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Lectors">
-                    <iconPacks:PackIconRemixIcon Kind="UserVoiceFill" Style="{StaticResource ToolBarIconStyle}" />
+                    <Image Source="Images\Buttons\Enabled\Lectors.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.CheckLibrary">
-                    <iconPacks:PackIconMaterial Kind="Database" Style="{StaticResource ToolBarIconStyle}" />
+                    <Image Source="Images\Buttons\Enabled\CheckLibrary.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Shrink">
-                    <iconPacks:PackIconMaterial Kind="Transfer" Style="{StaticResource ToolBarIconStyle}" />
+                    <Image Source="Images\Buttons\Enabled\Shrink.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
             </ToolBar>
             <ToolBar x:Name="HelpToolBar">
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.About">
-                    <iconPacks:PackIconIonicons Kind="HelpiOS" Style="{StaticResource ToolBarIconStyle}" />
+                    <Image Source="Images\Buttons\Enabled\About.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
             </ToolBar>
-            <!-- Для подбора значков -->
-            <!--<ToolBar>
-                <Button Style="{StaticResource ToolBarButtonStyle}">
-                    <iconPacks:PackIconMaterial Kind="FileFind" Style="{StaticResource ToolBarIconStyle}" />
-                </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}">
-                    <iconPacks:PackIconMaterial Kind="FileFindOutline" Style="{StaticResource ToolBarIconStyle}" />
-                </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}">
-                    <iconPacks:PackIconPhosphorIcons Kind="BinocularsFill" Style="{StaticResource ToolBarIconStyle}" />
-                </Button>
-            </ToolBar>-->
         </ToolBarTray>
 
         <Grid Grid.Row="2" Margin="8,10,8,10">
@@ -257,7 +244,7 @@
                 <TextBlock x:Name="StatusBarSelectedCount">0</TextBlock>
             </StatusBarItem>
             <StatusBarItem HorizontalAlignment="Right">
-                <iconPacks:PackIconMaterial Kind="ResizeBottomRight" Foreground="Gray" />
+                <Image Source="Images\Buttons\Enabled\Resize.png" Style="{StaticResource StatusBarIconStyle}" />
             </StatusBarItem>
         </StatusBar>
     </Grid>
