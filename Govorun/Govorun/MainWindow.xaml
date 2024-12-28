@@ -24,6 +24,12 @@
         <CommandBinding Command="local:AppCommands.Play"
                         CanExecute="Play_CanExecute"
                         Executed="Play_Executed" />
+        <CommandBinding Command="local:AppCommands.Chapters"
+                        CanExecute="Chapters_CanExecute"
+                        Executed="Chapters_Executed" />
+        <CommandBinding Command="local:AppCommands.Bookmarks"
+                        CanExecute="Bookmarks_CanExecute"
+                        Executed="Bookmarks_Executed" />
         <CommandBinding Command="local:AppCommands.Edit"
                         CanExecute="Edit_CanExecute"
                         Executed="Edit_Executed" />
@@ -43,6 +49,8 @@
                         Executed="CheckLibrary_Executed" />
         <CommandBinding Command="local:AppCommands.Shrink"
                         Executed="Shrink_Executed" />
+        <CommandBinding Command="local:AppCommands.Settings"
+                        Executed="Settings_Executed" />
         <!-- Команды группы "Справка" -->
         <CommandBinding Command="local:AppCommands.About"
                         Executed="About_Executed" />
@@ -64,6 +72,18 @@
                         <Image Source="Images\Buttons\Enabled\Play.png" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator />
+                <MenuItem x:Name="ChaptersMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Chapters">
+                    <MenuItem.Icon>
+                        <Image Source="Images\Buttons\Enabled\Chapters.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="BookmarksMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Bookmarks">
+                    <MenuItem.Icon>
+                        <Image Source="Images\Buttons\Enabled\Bookmarks.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
                 <MenuItem x:Name="EditMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Edit">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Edit.png" />
@@ -111,6 +131,12 @@
                         <Image Source="Images\Buttons\Enabled\Shrink.png" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator />
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Settings">
+                    <MenuItem.Icon>
+                        <Image Source="Images\Buttons\Enabled\Settings.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.About">
@@ -126,6 +152,14 @@
                 <Button x:Name="PlayButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Play">
                     <Image Source="Images\Buttons\Enabled\Play.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
+                <Separator />
+                <Button x:Name="ChaptersButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Chapters">
+                    <Image Source="Images\Buttons\Enabled\Chapters.png" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Button x:Name="BookmarksButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Bookmarks">
+                    <Image Source="Images\Buttons\Enabled\Bookmarks.png" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Separator />
                 <Button x:Name="EditButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Edit">
                     <Image Source="Images\Buttons\Enabled\Edit.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
@@ -154,6 +188,10 @@
                 </Button>
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Shrink">
                     <Image Source="Images\Buttons\Enabled\Shrink.png" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Separator />
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Settings">
+                    <Image Source="Images\Buttons\Enabled\Settings.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
             </ToolBar>
             <ToolBar x:Name="HelpToolBar">

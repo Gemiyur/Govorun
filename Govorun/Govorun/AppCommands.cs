@@ -15,6 +15,16 @@ namespace Govorun
         public static RoutedUICommand Play { get; private set; }
 
         /// <summary>
+        /// Команда содержания книги.
+        /// </summary>
+        public static RoutedUICommand Chapters { get; private set; }
+
+        /// <summary>
+        /// Команда закладок книги.
+        /// </summary>
+        public static RoutedUICommand Bookmarks { get; private set; }
+
+        /// <summary>
         /// Команда редактирования данных книги.
         /// </summary>
         public static RoutedUICommand Edit { get; private set; }
@@ -58,6 +68,11 @@ namespace Govorun
         /// </summary>
         public static RoutedUICommand Shrink { get; private set; }
 
+        /// <summary>
+        /// Команда настроек приложения.
+        /// </summary>
+        public static RoutedUICommand Settings { get; private set; }
+
         #endregion
 
         #region Команды группы "Справка".
@@ -76,6 +91,8 @@ namespace Govorun
         {
             // Команды группы "Книга".
             Play = new RoutedUICommand("Слушать", "Play", typeof(AppCommands));
+            Chapters = new RoutedUICommand("Содержание...", "Chapters", typeof(AppCommands));
+            Bookmarks = new RoutedUICommand("Закладки...", "Bookmarks", typeof(AppCommands));
             Edit = new RoutedUICommand("Изменить...", "Edit", typeof(AppCommands));
             Delete = new RoutedUICommand("Удалить...", "Delete", typeof(AppCommands));
 
@@ -86,6 +103,7 @@ namespace Govorun
             Lectors = new RoutedUICommand("Чтецы...", "Lectors", typeof(AppCommands));
             CheckLibrary = new RoutedUICommand("Проверить библиотеку...", "CheckLibrary", typeof(AppCommands));
             Shrink = new RoutedUICommand("Сжать библиотеку...", "Shrink", typeof(AppCommands));
+            Settings = new RoutedUICommand("Настройки...", "Settings", typeof(AppCommands));
 
             // Команды группы "Справка"
             About = new RoutedUICommand("О программе...", "About", typeof(AppCommands));

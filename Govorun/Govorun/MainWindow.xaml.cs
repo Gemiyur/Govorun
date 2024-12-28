@@ -21,8 +21,6 @@ namespace Govorun
 {
     #region Задачи (TODO).
 
-    // TODO: Форматы (расширения) файлов аудиокниг: M4B/M4A/MP3.
-
     #endregion
 
     /// <summary>
@@ -47,7 +45,7 @@ namespace Govorun
             CheckPathExists = true,
             ValidateNames = true,
             Title = "Добавить книгу",
-            Filter = "Файлы книг|*.m4b;*.m4a"
+            Filter = "Файлы книг|*.m4b;*.m4a;*.mp3"
         };
 
         private readonly OpenFolderDialog FindBooksDialog = new()
@@ -138,6 +136,38 @@ namespace Govorun
 
         }
 
+        private void Chapters_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+            if (!IsVisible)
+                return;
+            var bitmap = App.GetBitmap(
+                e.CanExecute ? @"Images\Buttons\Enabled\Chapters.png" : @"Images\Buttons\Disabled\Chapters.png");
+            ((Image)ChaptersButton.Content).Source = bitmap;
+            ((Image)ChaptersMenuItem.Icon).Source = bitmap;
+        }
+
+        private void Chapters_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+            if (!IsVisible)
+                return;
+            var bitmap = App.GetBitmap(
+                e.CanExecute ? @"Images\Buttons\Enabled\Bookmarks.png" : @"Images\Buttons\Disabled\Bookmarks.png");
+            ((Image)BookmarksButton.Content).Source = bitmap;
+            ((Image)BookmarksMenuItem.Icon).Source = bitmap;
+        }
+
+        private void Bookmarks_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
         private void Edit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
@@ -217,6 +247,11 @@ namespace Govorun
             Db.Shrink();
             Cursor = null;
             MessageBox.Show($"Сжатие базы данных библиотеки завершено.", Title);
+        }
+
+        private void Settings_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
         }
 
         #endregion
