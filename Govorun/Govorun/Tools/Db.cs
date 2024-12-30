@@ -20,42 +20,102 @@ namespace Govorun.Tools
         {
             using var db = GetDatabase();
 
-            var book = new Book() { Title = "Книга 1", Author = "Иван Петров", Lector = "Вера Надеждина" };
-            var chapter = new Chapter { Title = "Книга 1. Часть 1" };
-            var subchapter = new Chapter { Title = "Книга 1. Часть 1. Глава 1" };
-            chapter.Chapters.Add(subchapter);
-            subchapter = new Chapter { Title = "Книга 1. Часть 1. Глава 2" };
-            chapter.Chapters.Add(subchapter);
-            subchapter = new Chapter { Title = "Книга 1. Часть 1. Глава 3" };
-            chapter.Chapters.Add(subchapter);
+            var author = new Author() { Name = "Иван", Surname = "Петров" };
+            InsertAuthor(author, db);
+            var book = new Book() { Title = "Книга 1", Lector = "Вера Надеждина" };
+            book.Authors.Add(author);
+            var chapter = new Chapter { Title = "Книга 1. Часть 1. Глава 1" };
             book.Chapters.Add(chapter);
-            chapter = new Chapter { Title = "Книга 1. Часть 2" };
-            subchapter = new Chapter { Title = "Книга 1. Часть 2. Глава 1" };
-            chapter.Chapters.Add(subchapter);
-            subchapter = new Chapter { Title = "Книга 1. Часть 2. Глава 2" };
-            chapter.Chapters.Add(subchapter);
+            chapter = new Chapter { Title = "Книга 1. Часть 1. Глава 2" };
+            book.Chapters.Add(chapter);
+            chapter = new Chapter { Title = "Книга 1. Часть 1. Глава 3" };
+            book.Chapters.Add(chapter);
+            chapter = new Chapter { Title = "Книга 1. Часть 2. Глава 1" };
+            book.Chapters.Add(chapter);
+            chapter = new Chapter { Title = "Книга 1. Часть 2. Глава 2" };
             book.Chapters.Add(chapter);
             InsertBook(book, db);
 
-            book = new Book() { Title = "Книга 2", Author = "Пётр Сидоров", Lector = "Любовь Надеждина" };
-            chapter = new Chapter { Title = "Книга 2. Часть 1" };
-            subchapter = new Chapter { Title = "Книга 2. Часть 1. Глава 1" };
-            chapter.Chapters.Add(subchapter);
-            subchapter = new Chapter { Title = "Книга 2. Часть 1. Глава 2" };
-            chapter.Chapters.Add(subchapter);
-            subchapter = new Chapter { Title = "Книга 2. Часть 1. Глава 3" };
-            chapter.Chapters.Add(subchapter);
+            author = new Author() { Name = "Пётр", Surname = "Сидоров" };
+            InsertAuthor(author, db);
+            book = new Book() { Title = "Книга 2", Lector = "Любовь Надеждина" };
+            book.Authors.Add(author);
+            chapter = new Chapter { Title = "Книга 2. Часть 1. Глава 1" };
             book.Chapters.Add(chapter);
-            chapter = new Chapter { Title = "Книга 2. Часть 2" };
-            subchapter = new Chapter { Title = "Книга 2. Часть 2. Глава 1" };
-            chapter.Chapters.Add(subchapter);
-            subchapter = new Chapter { Title = "Книга 2. Часть 2. Глава 2" };
-            chapter.Chapters.Add(subchapter);
+            chapter = new Chapter { Title = "Книга 2. Часть 1. Глава 2" };
+            book.Chapters.Add(chapter);
+            chapter = new Chapter { Title = "Книга 2. Часть 1. Глава 3" };
+            book.Chapters.Add(chapter);
+            chapter = new Chapter { Title = "Книга 2. Часть 2. Глава 1" };
+            book.Chapters.Add(chapter);
+            chapter = new Chapter { Title = "Книга 2. Часть 2. Глава 2" };
             book.Chapters.Add(chapter);
             InsertBook(book, db);
         }
 
+        #region Получение коллекций.
+
+        public static ILiteCollection<Author> GetAuthorsCollection(LiteDatabase db) => db.GetCollection<Author>("Authors");
+
         public static ILiteCollection<Book> GetBooksCollection(LiteDatabase db) => db.GetCollection<Book>("Books");
+
+        #endregion
+
+        #region Авторы.
+
+        public static Author GetAuthor(int authorId)
+        {
+            using var db = GetDatabase();
+            return GetAuthor(authorId, db);
+        }
+
+        public static Author GetAuthor(int authorId, LiteDatabase db) => GetAuthorsCollection(db).FindById(authorId);
+
+        public static List<Author> GetAuthors()
+        {
+            using var db = GetDatabase();
+            return GetAuthors(db);
+        }
+
+        public static List<Author> GetAuthors(LiteDatabase db) => GetAuthorsCollection(db).FindAll().ToList();
+
+        public static int InsertAuthor(Author author)
+        {
+            using var db = GetDatabase();
+            return InsertAuthor(author, db);
+        }
+
+        public static int InsertAuthor(Author author, LiteDatabase db) => GetAuthorsCollection(db).Insert(author);
+
+        public static bool DeleteAuthor(int authorId)
+        {
+            using var db = GetDatabase();
+            return DeleteAuthor(authorId, db);
+        }
+
+        public static bool DeleteAuthor(int authorId, LiteDatabase db)
+        {
+            var booksCollection = GetBooksCollection(db);
+            var books = booksCollection.Find(x => x.Authors.Exists(a => a.AuthorId == authorId)).ToList();
+            foreach (var book in books)
+            {
+                book.Authors.RemoveAll(x => x.AuthorId == authorId);
+                booksCollection.Update(book);
+            }
+            return GetAuthorsCollection(db).Delete(authorId);
+        }
+
+        public static bool UpdateAuthor(Author author)
+        {
+            using var db = GetDatabase();
+            return UpdateAuthor(author, db);
+        }
+
+        public static bool UpdateAuthor(Author author, LiteDatabase db) => GetAuthorsCollection(db).Update(author);
+
+        #endregion
+
+        #region Книги.
 
         public static Book GetBook(int bookId)
         {
@@ -63,7 +123,8 @@ namespace Govorun.Tools
             return GetBook(bookId, db);
         }
 
-        public static Book GetBook(int bookId, LiteDatabase db) => GetBooksCollection(db).FindById(bookId);
+        public static Book GetBook(int bookId, LiteDatabase db) =>
+            GetBooksCollection(db).Include(x => x.Authors).FindById(bookId);
 
         public static List<Book> GetBooks()
         {
@@ -73,20 +134,22 @@ namespace Govorun.Tools
 
         public static List<Book> GetBooks(LiteDatabase db) =>
             GetBooksCollection(db)
+                .Include(x => x.Authors)
                 .FindAll()
                 .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
                 .ToList();
 
-        public static List<Book> GetAuthorBooks(string author)
+        public static List<Book> GetAuthorBooks(int authorId)
         {
             using var db = GetDatabase();
-            return GetAuthorBooks(author, db);
+            return GetAuthorBooks(authorId, db);
         }
 
-        public static List<Book> GetAuthorBooks(string author, LiteDatabase db) =>
+        public static List<Book> GetAuthorBooks(int authorId, LiteDatabase db) =>
             GetBooksCollection(db)
+                .Include(x => x.Authors)
                 .FindAll()
-                .Where(x => x.Author != null && x.Author.Equals(author, StringComparison.CurrentCultureIgnoreCase))
+                .Where(x => x.Authors.Exists(a => a.AuthorId == authorId))
                 .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
                 .ToList();
 
@@ -111,6 +174,32 @@ namespace Govorun.Tools
 
         public static int InsertBook(Book book, LiteDatabase db) => GetBooksCollection(db).Insert(book);
 
+        public static bool DeleteBook(int bookId)
+        {
+            using (var db = GetDatabase())
+            {
+                return GetBooksCollection(db).Delete(bookId);
+            }
+        }
+
+        public static bool DeleteBook(Book book)
+        {
+            using (var db = GetDatabase())
+            {
+                return GetBooksCollection(db).Delete(book.BookId);
+            }
+        }
+
+        public static void DeleteBooks(List<Book> books)
+        {
+            using (var db = GetDatabase())
+            {
+                var collection = GetBooksCollection(db);
+                foreach (var book in books)
+                    collection.Delete(book.BookId);
+            }
+        }
+
         public static bool UpdateBook(Book book)
         {
             using var db = GetDatabase();
@@ -118,5 +207,7 @@ namespace Govorun.Tools
         }
 
         public static bool UpdateBook(Book book, LiteDatabase db) => GetBooksCollection(db).Update(book);
+
+        #endregion
     }
 }

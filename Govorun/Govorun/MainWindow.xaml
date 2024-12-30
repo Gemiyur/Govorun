@@ -246,7 +246,7 @@
                     <GridViewColumn Header="Автор" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Author}" />
+                                <TextBlock TextWrapping="Wrap" Text="{Binding AuthorsText}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

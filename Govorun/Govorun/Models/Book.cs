@@ -43,20 +43,18 @@ namespace Govorun.Models
             }
         }
 
-        private string author = string.Empty;
+        /// <summary>
+        /// Список авторов книги.
+        /// </summary>
+        [BsonRef("Authors")]
+        public List<Author> Authors { get; set; } = [];
 
         /// <summary>
-        /// Автор книги.
+        /// Возвращает список авторов книги в виде строки.
         /// </summary>
-        public string Author
-        {
-            get => author;
-            set
-            {
-                author = value;
-                OnPropertyChanged("Author");
-            }
-        }
+        [BsonIgnore]
+        public string AuthorsText =>
+            App.ListToString(Authors, ", ", x => ((Author)x).NameSurname, StringComparer.CurrentCultureIgnoreCase);
 
         private string lector = string.Empty;
 
