@@ -60,8 +60,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -201,7 +201,7 @@
             </ToolBar>
         </ToolBarTray>
 
-        <Grid Grid.Row="2" Margin="8,10,8,10">
+        <!--<Grid Grid.Row="2" Margin="8,10,8,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
@@ -212,9 +212,85 @@
             <ComboBox Grid.Column="1" x:Name="AuthorComboBox" Margin="0,0,25,0" />
             <TextBlock Grid.Column="2" Text="Чтец" Margin="0,0,10,0" />
             <ComboBox Grid.Column="3" x:Name="LectorComboBox" />
+        </Grid>-->
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" MinWidth="100" MaxWidth="200" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Авторы" Margin="8,4,0,4" />
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="Книги" Margin="8,4,0,4" />
+            <ListBox Grid.Row="1" Grid.Column="0" x:Name="AutorsListBox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding SurnameName}" ToolTip="{Binding SurnameName}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <GridSplitter Grid.Row="1" Grid.Column="1" Width="5"
+                          HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+            <ListView Grid.Row="1" Grid.Column="2" x:Name="BooksListView" MinWidth="400"
+                      MouseDoubleClick="BooksListView_MouseDoubleClick"
+                      SelectionChanged="BooksListView_SelectionChanged"
+                      SizeChanged="BooksListView_SizeChanged">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment" Value="Top" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridView.ColumnHeaderContainerStyle>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="TextElement.Foreground" Value="Black" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </GridView.ColumnHeaderContainerStyle>
+                        <GridViewColumn Header="Название">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Title}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Автор" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding AuthorsText}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Чтец" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Lector}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Время" Width="65">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding DurationText}" TextAlignment="Center" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
 
-        <ListView Grid.Row="3" x:Name="BooksListView"
+        <!--<ListView Grid.Row="3" x:Name="BooksListView"
                   MouseDoubleClick="BooksListView_MouseDoubleClick"
                   SelectionChanged="BooksListView_SelectionChanged"
                   SizeChanged="BooksListView_SizeChanged">
@@ -266,7 +342,7 @@
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
-        </ListView>
+        </ListView>-->
 
         <StatusBar Grid.Row="4">
             <StatusBarItem>

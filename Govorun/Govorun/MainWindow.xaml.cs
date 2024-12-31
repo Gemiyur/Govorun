@@ -38,6 +38,8 @@ namespace Govorun
         /// </summary>
         private ObservableCollectionEx<Book> shownBooks = [];
 
+        private List<Author> Authors = [];
+
         private readonly OpenFileDialog AddBookDialog = new()
         {
             AddToRecent = false,
@@ -74,6 +76,9 @@ namespace Govorun
             SortShownBooks();
             BooksListView.ItemsSource = shownBooks;
             UpdateStatusBarBooksCount();
+
+            Authors.AddRange(Db.GetAuthors());
+            AutorsListBox.ItemsSource = Authors;
         }
 
         /// <summary>
