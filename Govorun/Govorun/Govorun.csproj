@@ -15,6 +15,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Controls\PlayerImages\Disabled\Bookmarks.png" />
+    <None Remove="Controls\PlayerImages\Disabled\Chapters.png" />
+    <None Remove="Controls\PlayerImages\Disabled\Edit.png" />
+    <None Remove="Controls\PlayerImages\Disabled\Play.png" />
+    <None Remove="Controls\PlayerImages\Enabled\Bookmarks.png" />
+    <None Remove="Controls\PlayerImages\Enabled\Chapters.png" />
+    <None Remove="Controls\PlayerImages\Enabled\Edit.png" />
+    <None Remove="Controls\PlayerImages\Enabled\Play.png" />
+    <None Remove="Controls\PlayerImages\Enabled\Volume.png" />
     <None Remove="Images\About.png" />
     <None Remove="Images\Buttons\Disabled\AddBookmark.png" />
     <None Remove="Images\Buttons\Disabled\Back.png" />
@@ -45,7 +54,6 @@
     <None Remove="Images\Buttons\Enabled\Settings.png" />
     <None Remove="Images\Buttons\Enabled\Shrink.png" />
     <None Remove="Images\Buttons\Enabled\Skip.png" />
-    <None Remove="Images\Buttons\Enabled\Volume.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,37 +72,45 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Controls\PlayerImages\Disabled\Bookmarks.png" />
+    <Resource Include="Controls\PlayerImages\Disabled\Chapters.png" />
+    <Resource Include="Controls\PlayerImages\Disabled\Edit.png" />
+    <Resource Include="Controls\PlayerImages\Disabled\Play.png" />
+    <Resource Include="Controls\PlayerImages\Enabled\Bookmarks.png" />
+    <Resource Include="Controls\PlayerImages\Enabled\Chapters.png" />
+    <Resource Include="Controls\PlayerImages\Enabled\Edit.png" />
+    <Resource Include="Controls\PlayerImages\Enabled\Play.png" />
+    <Resource Include="Controls\PlayerImages\Enabled\Volume.png" />
     <Resource Include="Images\About.png" />
-    <Resource Include="Images\Buttons\Disabled\AddBookmark.png" />
-    <Resource Include="Images\Buttons\Disabled\Back.png" />
+    <Resource Include="Controls\PlayerImages\Disabled\AddBookmark.png" />
+    <Resource Include="Controls\PlayerImages\Disabled\Back.png" />
     <Resource Include="Images\Buttons\Disabled\Bookmarks.png" />
     <Resource Include="Images\Buttons\Disabled\Chapters.png" />
     <Resource Include="Images\Buttons\Disabled\Delete.png" />
     <Resource Include="Images\Buttons\Disabled\Edit.png" />
     <Resource Include="Images\Buttons\Disabled\Play.png" />
-    <Resource Include="Images\Buttons\Disabled\Skip.png" />
+    <Resource Include="Controls\PlayerImages\Disabled\Skip.png" />
     <Resource Include="Images\Buttons\Enabled\About.png" />
     <Resource Include="Images\Buttons\Enabled\AddBook.png" />
-    <Resource Include="Images\Buttons\Enabled\AddBookmark.png" />
+    <Resource Include="Controls\PlayerImages\Enabled\AddBookmark.png" />
     <Resource Include="Images\Buttons\Enabled\Authors.png" />
-    <Resource Include="Images\Buttons\Enabled\Back.png" />
+    <Resource Include="Controls\PlayerImages\Enabled\Back.png" />
     <Resource Include="Images\Buttons\Enabled\Bookmarks.png" />
     <Resource Include="Images\Buttons\Enabled\Chapters.png" />
     <Resource Include="Images\Buttons\Enabled\CheckLibrary.png" />
-    <Resource Include="Images\Buttons\Enabled\Decrease.png" />
+    <Resource Include="Controls\PlayerImages\Enabled\Decrease.png" />
     <Resource Include="Images\Buttons\Enabled\Delete.png" />
     <Resource Include="Images\Buttons\Enabled\Edit.png" />
     <Resource Include="Images\Buttons\Enabled\FindBooks.png" />
-    <Resource Include="Images\Buttons\Enabled\Increase.png" />
+    <Resource Include="Controls\PlayerImages\Enabled\Increase.png" />
     <Resource Include="Images\Buttons\Enabled\Lectors.png" />
-    <Resource Include="Images\Buttons\Enabled\Pause.png" />
+    <Resource Include="Controls\PlayerImages\Enabled\Pause.png" />
     <Resource Include="Images\Buttons\Enabled\Play.png" />
-    <Resource Include="Images\Buttons\Enabled\Replay.png" />
+    <Resource Include="Controls\PlayerImages\Enabled\Replay.png" />
     <Resource Include="Images\Buttons\Enabled\Resize.png" />
     <Resource Include="Images\Buttons\Enabled\Settings.png" />
     <Resource Include="Images\Buttons\Enabled\Shrink.png" />
-    <Resource Include="Images\Buttons\Enabled\Skip.png" />
-    <Resource Include="Images\Buttons\Enabled\Volume.png" />
+    <Resource Include="Controls\PlayerImages\Enabled\Skip.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -122,10 +138,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controls\" />
   </ItemGroup>
 
 </Project>

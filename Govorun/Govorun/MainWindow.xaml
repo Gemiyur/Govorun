@@ -1,4 +1,4 @@
-﻿<Window x:Class="Govorun.MainWindow"
+﻿<Window xmlns:Controls="clr-namespace:Govorun.Controls"  x:Class="Govorun.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -61,7 +61,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -343,6 +343,8 @@
                 </GridView>
             </ListView.View>
         </ListView>-->
+
+        <Controls:PlayerControl Grid.Row="3" Height="100"  />
 
         <StatusBar Grid.Row="4">
             <StatusBarItem>

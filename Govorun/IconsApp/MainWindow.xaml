@@ -7,7 +7,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Подбор значков"
-        Height="180" Width="800"
+        Height="150" Width="700"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -97,101 +97,101 @@
         <Border Grid.Row="1" Background="Transparent">
             <StackPanel Orientation="Horizontal" Margin="5,10,5,10">
                 <Button x:Name="Volume"
-                        Style="{StaticResource GridButtonStyle}"
-                        Template="{StaticResource GridButtonTemplate}"
+                        Style="{StaticResource ButtonStyle}"
+                        Template="{StaticResource ButtonTemplate}"
                         VerticalAlignment="Center"
                         ToolTip="Громкость">
-                    <iconPacks:PackIconFontAwesome Kind="VolumeHighSolid" Style="{StaticResource GridIconStyle}" />
+                    <iconPacks:PackIconFontAwesome Kind="VolumeHighSolid" Style="{StaticResource IconStyle}" />
                 </Button>
                 <RepeatButton x:Name="Decrease"
                         Style="{StaticResource VolumeButtonStyle}"
-                        Template="{StaticResource GridButtonTemplate}"
+                        Template="{StaticResource ButtonTemplate}"
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Тише">
-                    <iconPacks:PackIconMaterial Kind="MinusBox" Style="{StaticResource VolumeIconStyle}" />
+                    <iconPacks:PackIconMaterial Kind="MinusBoxOutline" Style="{StaticResource VolumeIconStyle}" />
                 </RepeatButton>
                 <RepeatButton x:Name="Increase"
                         Style="{StaticResource VolumeButtonStyle}"
-                        Template="{StaticResource GridButtonTemplate}"
+                        Template="{StaticResource ButtonTemplate}"
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Громче">
-                    <iconPacks:PackIconMaterial Kind="PlusBox" Style="{StaticResource VolumeIconStyle}" />
+                    <iconPacks:PackIconMaterial Kind="PlusBoxOutline" Style="{StaticResource VolumeIconStyle}" />
                 </RepeatButton>
 
                 <Button x:Name="Back"
-                        Style="{StaticResource GridButtonStyle}"
-                        Template="{StaticResource GridButtonTemplate}"
+                        Style="{StaticResource ButtonStyle}"
+                        Template="{StaticResource ButtonTemplate}"
                         Margin="20,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Перейти назад">
-                    <iconPacks:PackIconMaterial Kind="Rewind10" Style="{StaticResource GridIconStyle}" />
+                    <iconPacks:PackIconMaterial Kind="Rewind10" Style="{StaticResource IconStyle}" />
                 </Button>
                 <Button x:Name="Play"
-                        Style="{StaticResource GridButtonStyle}"
-                        Template="{StaticResource GridButtonTemplate}"
+                        Style="{StaticResource ButtonStyle}"
+                        Template="{StaticResource ButtonTemplate}"
                         Margin="5,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Воспроизвести">
-                    <iconPacks:PackIconMaterial Kind="Play" Style="{StaticResource ToolBarIconStyle}" />
+                    <iconPacks:PackIconMaterial Kind="Play" Style="{StaticResource IconStyle}" />
                 </Button>
                 <Button x:Name="Pause"
-                        Style="{StaticResource GridButtonStyle}"
-                        Template="{StaticResource GridButtonTemplate}"
+                        Style="{StaticResource ButtonStyle}"
+                        Template="{StaticResource ButtonTemplate}"
                         Margin="5,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Пауза">
-                    <iconPacks:PackIconModern Kind="ControlPause" Style="{StaticResource GridIconStyle}" />
+                    <iconPacks:PackIconModern Kind="ControlPause" Style="{StaticResource IconStyle}" />
                 </Button>
                 <Button x:Name="Replay"
-                        Style="{StaticResource GridButtonStyle}"
-                        Template="{StaticResource GridButtonTemplate}"
+                        Style="{StaticResource ButtonStyle}"
+                        Template="{StaticResource ButtonTemplate}"
                         Margin="5,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Повторить">
-                    <iconPacks:PackIconModern Kind="TransformRotateCounterclockwise" Style="{StaticResource GridIconStyle}" />
+                    <iconPacks:PackIconModern Kind="TransformRotateCounterclockwise" Style="{StaticResource IconStyle}" />
                 </Button>
                 <Button x:Name="Skip"
-                        Style="{StaticResource GridButtonStyle}"
-                        Template="{StaticResource GridButtonTemplate}"
+                        Style="{StaticResource ButtonStyle}"
+                        Template="{StaticResource ButtonTemplate}"
                         Margin="5,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Пропустить">
-                    <iconPacks:PackIconMaterial Kind="FastForward30" Style="{StaticResource GridIconStyle}" />
+                    <iconPacks:PackIconMaterial Kind="FastForward30" Style="{StaticResource IconStyle}" />
                 </Button>
 
                 <Button x:Name="Chapters"
-                        Style="{StaticResource GridButtonStyle}"
-                        Template="{StaticResource GridButtonTemplate}"
+                        Style="{StaticResource ButtonStyle}"
+                        Template="{StaticResource ButtonTemplate}"
                         Margin="20,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Содержание">
-                    <iconPacks:PackIconMaterial Kind="FormatListBulletedSquare" Style="{StaticResource GridIconStyle}" />
+                    <iconPacks:PackIconMaterial Kind="FormatListBulletedSquare" Style="{StaticResource IconStyle}" />
                 </Button>
                 <Button x:Name="Bookmarks"
-                        Style="{StaticResource GridButtonStyle}"
-                        Template="{StaticResource GridButtonTemplate}"
+                        Style="{StaticResource ButtonStyle}"
+                        Template="{StaticResource ButtonTemplate}"
                         Margin="5,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Закладки">
-                    <iconPacks:PackIconBoxIcons Kind="RegularBookmark" Style="{StaticResource GridIconStyle}" />
+                    <iconPacks:PackIconBoxIcons Kind="RegularBookmark" Style="{StaticResource IconStyle}" />
                 </Button>
                 <Button x:Name="AddBookmarks"
-                        Style="{StaticResource GridButtonStyle}"
-                        Template="{StaticResource GridButtonTemplate}"
+                        Style="{StaticResource ButtonStyle}"
+                        Template="{StaticResource ButtonTemplate}"
                         Margin="5,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Добавить закладку">
-                    <iconPacks:PackIconBoxIcons Kind="RegularBookmarkPlus" Style="{StaticResource GridIconStyle}" />
+                    <iconPacks:PackIconBoxIcons Kind="RegularBookmarkPlus" Style="{StaticResource IconStyle}" />
                 </Button>
                 <Button x:Name="Edit"
-                        Style="{StaticResource GridButtonStyle}"
-                        Template="{StaticResource GridButtonTemplate}"
+                        Style="{StaticResource ButtonStyle}"
+                        Template="{StaticResource ButtonTemplate}"
                         Margin="5,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Изменить">
-                    <iconPacks:PackIconEntypo Kind="Edit" Style="{StaticResource GridIconStyle}" />
+                    <iconPacks:PackIconEntypo Kind="Edit" Style="{StaticResource IconStyle}" />
                 </Button>
             </StackPanel>
         </Border>
