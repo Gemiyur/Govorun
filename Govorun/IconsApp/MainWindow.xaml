@@ -33,6 +33,9 @@
                     <iconPacks:PackIconMaterial Kind="Play" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="О книге">
+                    <iconPacks:PackIconBoxIcons Kind="RegularBook" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
                 <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Содержание">
                     <iconPacks:PackIconMaterial Kind="FormatListBulletedSquare" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
@@ -161,10 +164,18 @@
                     <iconPacks:PackIconMaterial Kind="FastForward30" Style="{StaticResource IconStyle}" />
                 </Button>
 
-                <Button x:Name="Chapters"
+                <Button x:Name="Info"
                         Style="{StaticResource ButtonStyle}"
                         Template="{StaticResource ButtonTemplate}"
                         Margin="20,0,0,0"
+                        VerticalAlignment="Center"
+                        ToolTip="О книге">
+                    <iconPacks:PackIconBoxIcons Kind="RegularBook" Style="{StaticResource IconStyle}" />
+                </Button>
+                <Button x:Name="Chapters"
+                        Style="{StaticResource ButtonStyle}"
+                        Template="{StaticResource ButtonTemplate}"
+                        Margin="5,0,0,0"
                         VerticalAlignment="Center"
                         ToolTip="Содержание">
                     <iconPacks:PackIconMaterial Kind="FormatListBulletedSquare" Style="{StaticResource IconStyle}" />

@@ -75,6 +75,11 @@ namespace Govorun.Controls
 
         }
 
+        private void InfoButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void ChaptersButton_Click(object sender, RoutedEventArgs e)
         {
 

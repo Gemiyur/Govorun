@@ -141,6 +141,22 @@ namespace Govorun
 
         }
 
+        private void Info_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+            if (!IsVisible)
+                return;
+            var bitmap = App.GetBitmap(
+                e.CanExecute ? @"Images\Buttons\Enabled\Info.png" : @"Images\Buttons\Disabled\Info.png");
+            ((Image)InfoButton.Content).Source = bitmap;
+            ((Image)InfoMenuItem.Icon).Source = bitmap;
+        }
+
+        private void Info_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
         private void Chapters_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;

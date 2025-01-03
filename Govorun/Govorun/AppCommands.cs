@@ -15,6 +15,11 @@ namespace Govorun
         public static RoutedUICommand Play { get; private set; }
 
         /// <summary>
+        /// Команда информации о книге.
+        /// </summary>
+        public static RoutedUICommand Info { get; private set; }
+
+        /// <summary>
         /// Команда содержания книги.
         /// </summary>
         public static RoutedUICommand Chapters { get; private set; }
@@ -91,6 +96,7 @@ namespace Govorun
         {
             // Команды группы "Книга".
             Play = new RoutedUICommand("Слушать", "Play", typeof(AppCommands));
+            Info = new RoutedUICommand("О книге...", "Info", typeof(AppCommands));
             Chapters = new RoutedUICommand("Содержание...", "Chapters", typeof(AppCommands));
             Bookmarks = new RoutedUICommand("Закладки...", "Bookmarks", typeof(AppCommands));
             Edit = new RoutedUICommand("Изменить...", "Edit", typeof(AppCommands));

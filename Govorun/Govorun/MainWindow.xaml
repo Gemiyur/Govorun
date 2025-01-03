@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Говорун"
         Height="500" Width="700"
-        MinHeight="300" MinWidth="700"
+        MinHeight="350" MinWidth="700"
         d:Height="350" d:Width="700"
         WindowStartupLocation="CenterScreen">
 
@@ -24,6 +24,9 @@
         <CommandBinding Command="local:AppCommands.Play"
                         CanExecute="Play_CanExecute"
                         Executed="Play_Executed" />
+        <CommandBinding Command="local:AppCommands.Info"
+                        CanExecute="Info_CanExecute"
+                        Executed="Info_Executed" />
         <CommandBinding Command="local:AppCommands.Chapters"
                         CanExecute="Chapters_CanExecute"
                         Executed="Chapters_Executed" />
@@ -73,6 +76,11 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
+                <MenuItem x:Name="InfoMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Info">
+                    <MenuItem.Icon>
+                        <Image Source="Images\Buttons\Enabled\Info.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem x:Name="ChaptersMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Chapters">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Chapters.png" />
@@ -153,6 +161,9 @@
                     <Image Source="Images\Buttons\Enabled\Play.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
+                <Button x:Name="InfoButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Info">
+                    <Image Source="Images\Buttons\Enabled\Info.png" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
                 <Button x:Name="ChaptersButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Chapters">
                     <Image Source="Images\Buttons\Enabled\Chapters.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
@@ -200,19 +211,6 @@
                 </Button>
             </ToolBar>
         </ToolBarTray>
-
-        <!--<Grid Grid.Row="2" Margin="8,10,8,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Автор" Margin="0,0,10,0" />
-            <ComboBox Grid.Column="1" x:Name="AuthorComboBox" Margin="0,0,25,0" />
-            <TextBlock Grid.Column="2" Text="Чтец" Margin="0,0,10,0" />
-            <ComboBox Grid.Column="3" x:Name="LectorComboBox" />
-        </Grid>-->
 
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
@@ -264,21 +262,14 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Автор" Width="150">
+                        <GridViewColumn Header="Автор" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock TextWrapping="Wrap" Text="{Binding AuthorsText}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Чтец" Width="150">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding Lector}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Время" Width="65">
+                        <GridViewColumn Header="Время" Width="70">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding DurationText}" TextAlignment="Center" />

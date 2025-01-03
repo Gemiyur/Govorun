@@ -51,6 +51,27 @@ namespace Govorun.Tools
             chapter = new Chapter { Title = "Книга 2. Часть 2. Глава 2" };
             book.Chapters.Add(chapter);
             InsertBook(book, db);
+
+            author = new Author() { Name = "Аркадий и Борис", Surname = "Стругацкие" };
+            InsertAuthor(author, db);
+            book = new Book() { Title = "Понедельник начинается в субботу", Lector = "Александр Левашов" };
+            book.Authors.Add(author);
+            InsertBook(book, db);
+
+            author = new Author() { Name = "С.", Surname = "Витицкий" };
+            InsertAuthor(author, db);
+            book = new Book() { Title = "Поиск предназначения, или Двадцать седьмая теорема этики", Lector = "" };
+            book.Authors.Add(author);
+            InsertBook(book, db);
+
+            book = new Book() { Title = "История рыжего демона", Lector = "Аудиоспектакль" };
+            author = new Author() { Name = "Роджер", Surname = "Желязны" };
+            InsertAuthor(author, db);
+            book.Authors.Add(author);
+            author = new Author() { Name = "Роберт", Surname = "Шекли" };
+            InsertAuthor(author, db);
+            book.Authors.Add(author);
+            InsertBook(book, db);
         }
 
         #region Получение коллекций.

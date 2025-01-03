@@ -135,12 +135,20 @@
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="ChaptersButton"
+            <Button x:Name="InfoButton"
                     Style="{StaticResource ButtonStyle}"
                     Template="{StaticResource ButtonTemplate}"
                     Margin="0,4,0,4"
-                    ToolTip="Содержание"
+                    ToolTip="О книге"
                     Click="ChaptersButton_Click">
+                <Image Source="PlayerImages\Enabled\Info.png" Style="{StaticResource IconStyle}" />
+            </Button>
+            <Button x:Name="ChaptersButton"
+                    Style="{StaticResource ButtonStyle}"
+                    Template="{StaticResource ButtonTemplate}"
+                    Margin="8,4,0,4"
+                    ToolTip="Содержание"
+                    Click="InfoButton_Click">
                 <Image Source="PlayerImages\Enabled\Chapters.png" Style="{StaticResource IconStyle}" />
             </Button>
             <Button x:Name="BookmarksButton"
