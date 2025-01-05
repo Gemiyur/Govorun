@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using System.IO;
-using System.Net.WebSockets;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,11 +27,6 @@ namespace Govorun
     /// </summary>
     public partial class MainWindow : Window
     {
-        /// <summary>
-        /// Окно проигрывателя.
-        /// </summary>
-        public PlayerWindow? PlayerWindow;
-
         /// <summary>
         /// Список отображаемых книг.
         /// </summary>
@@ -159,7 +153,13 @@ namespace Govorun
 
         private void Chapters_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+            // TODOL: Надо ли проверять книгу на наличие содержания для разрешения команды?
+            e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1 &&
+                ((Book)BooksListView.SelectedItem).Chapters.Any();
+
+            // Без проверки книги на наличие содержания.
+            //e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+
             if (!IsVisible)
                 return;
             var bitmap = App.GetBitmap(
@@ -175,7 +175,13 @@ namespace Govorun
 
         private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+            // TODOL: Надо ли проверять книгу на наличие закладок для разрешения команды?
+            e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1 &&
+                ((Book)BooksListView.SelectedItem).Bookmarks.Any();
+
+            // Без проверки книги на наличие закладок.
+            //e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+
             if (!IsVisible)
                 return;
             var bitmap = App.GetBitmap(
@@ -185,6 +191,28 @@ namespace Govorun
         }
 
         private void Bookmarks_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void Reset_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            // TODOL: Надо ли проверять позицию воспроизведения книги для разрешения команды?
+            e.CanExecute = BooksListView != null &&
+                BooksListView.SelectedItems.Cast<Book>().Any(x => x.PlayPosition > TimeSpan.Zero);
+
+            // Без проверки позиции воспроизведения книги.
+            //e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count > 0;
+
+            if (!IsVisible)
+                return;
+            var bitmap = App.GetBitmap(
+                e.CanExecute ? @"Images\Buttons\Enabled\Reset.png" : @"Images\Buttons\Disabled\Reset.png");
+            ((Image)ResetButton.Content).Source = bitmap;
+            ((Image)ResetMenuItem.Icon).Source = bitmap;
+        }
+
+        private void Reset_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
         }
@@ -224,6 +252,25 @@ namespace Govorun
         #endregion
 
         #region Обработчики команд группы "Библиотека".
+
+        private void Listening_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            bool isChecked;
+            if (e.Parameter == null)
+                return;
+            if (e.Parameter.ToString() == "ListeningMenuItem")
+            {
+                isChecked = ListeningMenuItem.IsChecked;
+                ListeningCheckBox.IsChecked = isChecked;
+            }
+            else if (e.Parameter.ToString() == "ListeningCheckBox")
+            {
+                isChecked = App.SimpleBool(ListeningCheckBox.IsChecked);
+                ListeningMenuItem.IsChecked = isChecked;
+            }
+            else
+                return;
+        }
 
         private void AddBook_Executed(object sender, ExecutedRoutedEventArgs e)
         {

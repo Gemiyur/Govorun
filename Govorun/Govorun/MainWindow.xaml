@@ -14,7 +14,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Dictionaries/MainDictionary.xaml" />
+                <ResourceDictionary Source="MainDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -33,6 +33,9 @@
         <CommandBinding Command="local:AppCommands.Bookmarks"
                         CanExecute="Bookmarks_CanExecute"
                         Executed="Bookmarks_Executed" />
+        <CommandBinding Command="local:AppCommands.Reset"
+                        CanExecute="Reset_CanExecute"
+                        Executed="Reset_Executed" />
         <CommandBinding Command="local:AppCommands.Edit"
                         CanExecute="Edit_CanExecute"
                         Executed="Edit_Executed" />
@@ -40,6 +43,8 @@
                         CanExecute="Delete_CanExecute"
                         Executed="Delete_Executed" />
         <!-- Команды группы "Библиотека" -->
+        <CommandBinding Command="local:AppCommands.Listening"
+                        Executed="Listening_Executed" />
         <CommandBinding Command="local:AppCommands.AddBook"
                         Executed="AddBook_Executed" />
         <CommandBinding Command="local:AppCommands.FindBooks"
@@ -92,6 +97,12 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
+                <MenuItem x:Name="ResetMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Reset">
+                    <MenuItem.Icon>
+                        <Image Source="Images\Buttons\Enabled\Reset.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
                 <MenuItem x:Name="EditMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Edit">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Edit.png" />
@@ -107,6 +118,17 @@
                 <MenuItem x:Name="CloseMenuItem" Header="Выход" InputGestureText="Alt+F4" Click="CloseMenuItem_Click" />
             </MenuItem>
             <MenuItem Header="Библиотека">
+                <MenuItem x:Name="ListeningMenuItem"
+                          IsCheckable="True"
+                          IsChecked="False"
+                          Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Listening"
+                          CommandParameter="ListeningMenuItem">
+                    <MenuItem.Icon>
+                        <Image Source="Images\Buttons\Enabled\Listening.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
                 <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.AddBook">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\AddBook.png" />
@@ -171,6 +193,10 @@
                     <Image Source="Images\Buttons\Enabled\Bookmarks.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
+                <Button x:Name="ResetButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Reset">
+                    <Image Source="Images\Buttons\Enabled\Reset.png" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Separator />
                 <Button x:Name="EditButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Edit">
                     <Image Source="Images\Buttons\Enabled\Edit.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
@@ -180,6 +206,14 @@
                 </Button>
             </ToolBar>
             <ToolBar x:Name="LibraryToolBar">
+                <CheckBox x:Name="ListeningCheckBox"
+                          IsChecked="False"
+                          Style="{StaticResource ToolBarButtonStyle}"
+                          Command="local:AppCommands.Listening"
+                          CommandParameter="ListeningCheckBox">
+                    <Image Source="Images\Buttons\Enabled\Listening.png" Style="{StaticResource ToolBarIconStyle}" />
+                </CheckBox>
+                <Separator />
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.AddBook">
                     <Image Source="Images\Buttons\Enabled\AddBook.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
@@ -281,61 +315,7 @@
             </ListView>
         </Grid>
 
-        <!--<ListView Grid.Row="3" x:Name="BooksListView"
-                  MouseDoubleClick="BooksListView_MouseDoubleClick"
-                  SelectionChanged="BooksListView_SelectionChanged"
-                  SizeChanged="BooksListView_SizeChanged">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <Setter Property="VerticalContentAlignment" Value="Top" />
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.View>
-                <GridView>
-                    <GridView.ColumnHeaderContainerStyle>
-                        <Style TargetType="GridViewColumnHeader">
-                            <Setter Property="IsEnabled" Value="False"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="TextElement.Foreground" Value="Black" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </GridView.ColumnHeaderContainerStyle>
-                    <GridViewColumn Header="Название">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Title}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Автор" Width="150">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding AuthorsText}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Чтец" Width="150">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Lector}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Время" Width="65">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding DurationText}" TextAlignment="Center" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>-->
-
-        <Controls:PlayerControl Grid.Row="3" Height="100"  />
+        <Controls:PlayerControl Grid.Row="3" Height="100" x:Name="Player" />
 
         <StatusBar Grid.Row="4">
             <StatusBarItem>

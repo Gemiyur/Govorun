@@ -43,6 +43,10 @@
                     <iconPacks:PackIconBoxIcons Kind="RegularBookmark" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="В начало">
+                    <iconPacks:PackIconTypicons Kind="ArrowBack" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Separator />
                 <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Изменить">
                     <iconPacks:PackIconEntypo Kind="Edit" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
@@ -52,6 +56,10 @@
                 </Button>
             </ToolBar>
             <ToolBar x:Name="LibraryToolBar">
+                <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Книги которые слушаю">
+                    <iconPacks:PackIconMaterial Kind="Headphones" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Separator />
                 <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="Добавть книгу">
                     <iconPacks:PackIconBoxIcons Kind="RegularBookAdd" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>

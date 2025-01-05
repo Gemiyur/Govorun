@@ -34,6 +34,9 @@ namespace Govorun.Tools
             book.Chapters.Add(chapter);
             chapter = new Chapter { Title = "Книга 1. Часть 2. Глава 2" };
             book.Chapters.Add(chapter);
+            var bookmark = new Bookmark { Position = new TimeSpan(0, 0, 25), Title = "Книга 1. Закладка 1" };
+            book.Bookmarks.Add(bookmark);
+            book.PlayPosition = new TimeSpan(0, 15, 0);
             InsertBook(book, db);
 
             author = new Author() { Name = "Пётр", Surname = "Сидоров" };
@@ -50,6 +53,9 @@ namespace Govorun.Tools
             book.Chapters.Add(chapter);
             chapter = new Chapter { Title = "Книга 2. Часть 2. Глава 2" };
             book.Chapters.Add(chapter);
+            bookmark = new Bookmark { Position = new TimeSpan(0, 0, 25), Title = "Книга 2. Закладка 1" };
+            book.Bookmarks.Add(bookmark);
+            book.PlayPosition = new TimeSpan(0, 0, 25);
             InsertBook(book, db);
 
             author = new Author() { Name = "Аркадий и Борис", Surname = "Стругацкие" };

@@ -67,7 +67,7 @@
                    Margin="0,0,8,0"
                    Text="0:00:00"
                    HorizontalAlignment="Right"
-                   ToolTip="Продолжительность видео" />
+                   ToolTip="Продолжительность" />
 
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
             <Image  Grid.Row="3" Grid.Column="0"
@@ -112,7 +112,7 @@
                     Style="{StaticResource ButtonStyle}"
                     Template="{StaticResource ButtonTemplate}"
                     Margin="0,4,0,4"
-                    ToolTip="Перейти назад"
+                    ToolTip="Назад на 10 секунд"
                     Click="BackButton_Click">
                 <Image Source="PlayerImages\Enabled\Back.png" Style="{StaticResource IconStyle}" />
             </Button>
@@ -120,7 +120,7 @@
                     Style="{StaticResource ButtonStyle}"
                     Template="{StaticResource ButtonTemplate}"
                     Margin="8,4,0,4"
-                    ToolTip="Воспроизвести"
+                    ToolTip="Слушать"
                     Click="PlayButton_Click">
                 <Image Source="PlayerImages\Enabled\Play.png" Style="{StaticResource IconStyle}" />
             </Button>
@@ -128,7 +128,7 @@
                     Style="{StaticResource ButtonStyle}"
                     Template="{StaticResource ButtonTemplate}"
                     Margin="8,4,0,4"
-                    ToolTip="Пропустить"
+                    ToolTip="Пропустить 30 секунд"
                     Click="SkipButton_Click">
                 <Image Source="PlayerImages\Enabled\Skip.png" Style="{StaticResource IconStyle}" />
             </Button>
