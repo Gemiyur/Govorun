@@ -22,7 +22,7 @@
 			LanguageCode	""	string
 	+		SynchronizedLyrics	Count = 0	System.Collections.Generic.IList<ATL.LyricsInfo.LyricsPhrase> {System.Collections.Generic.List<ATL.LyricsInfo.LyricsPhrase>}
 			UnsynchronizedLyrics	"Перед вами самая известная и популярная книга братьев Стругацких – полная юмора и сатирических намеков фантастическая сказочная повесть, воспитавшая не одно поколение читателей и растасканная на цитаты. \r\nОна повествует о буднях НИИЧАВО (Научно-исследовательского института чародейства и волшебства) – месте, где причудливо перемешались быт солидного учреждения и фольклорно-сказочная круговерть. В филиале Академии наук есть отделы Линейного счастья и Абсолютного знания, Предсказаний и пророчеств и Вечной молодости, а его штатные сотрудники могут проходить сквозь стены и становиться невидимыми. Дракона каждую пятницу возят на полигон для опытов, а курс управления волшебной палочкой занимает восемь семестров и требует основательного знания квантовой алхимии. Смотрителем музея старины является Баба-Яга, которую зовут Наина Киевна Горыныч, а за использование неразменного пятака можно запросто угодить в милицию…"	string
-		Path	"C:\\Users\\Геннадий\\Source\\Локальные\\Говорун\\Книги\\Понедельник начинается в субботу.m4b"	string
+		Path	"C:\\MyTemp\\Книги\\Понедельник начинается в субботу.m4b"	string
 		SeriesPart	""	string
 		SeriesTitle	""	string
 -		TechnicalInformation	{ATL.TechnicalInfo}	ATL.TechnicalInfo
@@ -84,7 +84,7 @@
 			LanguageCode	""	string
 	+		SynchronizedLyrics	Count = 0	System.Collections.Generic.IList<ATL.LyricsInfo.LyricsPhrase> {System.Collections.Generic.List<ATL.LyricsInfo.LyricsPhrase>}
 			UnsynchronizedLyrics	""	string
-		Path	"C:\\Users\\Геннадий\\Source\\Локальные\\Говорун\\Книги\\Трудно быть богом.m4b"	string
+		Path	"C:\\MyTemp\\Книги\\Трудно быть богом.m4b"	string
 		SeriesPart	""	string
 		SeriesTitle	""	string
 -		TechnicalInformation	{ATL.TechnicalInfo}	ATL.TechnicalInfo
