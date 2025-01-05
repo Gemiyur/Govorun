@@ -11,7 +11,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using Gemiyur.Collections;
 using Govorun.Dialogs;
 using Govorun.Models;
 using Govorun.Tools;
