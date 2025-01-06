@@ -1,0 +1,865 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gemiyur</name>
+    </assembly>
+    <members>
+        <member name="T:Gemiyur.Collections.ObservableCollectionEx`1">
+            <summary>
+            Динамическая коллекция данных, обеспечивающая выдачу уведомлений при изменении элементов.<br/>
+            Наследуется от ObservableCollection и содержит дополнительные методы.
+            </summary>
+            <typeparam name="T">Тип элементов в коллекции.</typeparam>
+        </member>
+        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.AddRange(System.Collections.Generic.IEnumerable{`0},System.Collections.Specialized.NotifyCollectionChangedAction)">
+            <summary> 
+            Добавляет элементы указанной коллекции в конец коллекции ObservableCollection.
+            </summary> 
+            <param name="collection">Коллекция добавляемых элементов.</param>
+            <param name="notificationMode">Действие, вызванное событием CollectionChanged.<br/>
+            Должно быть Add (по умолчанию) или Reset.</param>
+            <remarks>
+            Не работает если количество элементов в коллекции больше одного.<br/>
+            Выбрасывает исключение "Операции с диапазоном не поддерживаются".<br/>
+            Почему так - непонятно. Разбираться пока нет желания.
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.RemoveRange(System.Collections.Generic.IEnumerable{`0},System.Collections.Specialized.NotifyCollectionChangedAction)">
+            <summary> 
+            Удаляет первое появление каждого элемента в указанной коллекции из ObservableCollection.
+            </summary> 
+            <param name="collection">Коллекция удаляемых элементов.</param>
+            <param name="notificationMode">Действие, вызванное событием CollectionChanged.<br/>
+            Должно быть Remove или Reset (по умолчанию).</param>
+            <remarks>
+            С notificationMode = Remove стартовый индекс удаленных элементов не устанавливается.
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.Replace(`0)">
+            <summary> 
+            Очищает текущую коллекцию и заменяет её указанным элементом.
+            </summary> 
+            <param name="item">Элемент, которым заменяются элементы коллекции.</param>
+        </member>
+        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.ReplaceRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary> 
+            Очищает текущую коллекцию и заменяет её элементами указанной коллекции.
+            </summary> 
+            <param name="collection">Коллекция, элементами которой заменяются элементы коллекции.</param>
+        </member>
+        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.Sort``1(System.Func{`0,``0})">
+            <summary>
+            Сортирует элементы коллекции в порядке возрастания ключа.
+            </summary>
+            <typeparam name="TKey">Тип ключа, возвращаемого параметром <paramref name="keySelector"/>.</typeparam>
+            <param name="keySelector">Функция извлечения ключа из элемента.</param>
+        </member>
+        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.Sort``1(System.Func{`0,``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Сортирует элементы коллекции в порядке возрастания ключа, используя указанный компаратор.
+            </summary>
+            <typeparam name="TKey">Тип ключа, возвращаемого параметром <paramref name="keySelector"/>.</typeparam>
+            <param name="keySelector">Функция извлечения ключа из элемента.</param>
+            <param name="comparer">Компаратор <see cref="T:System.Collections.Generic.IComparer`1"/> для сравнения ключей.</param>
+        </member>
+        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.SortDescending``1(System.Func{`0,``0})">
+            <summary>
+            Сортирует элементы коллекции в порядке убывания ключа.
+            </summary>
+            <typeparam name="TKey">Тип ключа, возвращаемого параметром <paramref name="keySelector"/>.</typeparam>
+            <param name="keySelector">Функция извлечения ключа из элемента.</param>
+        </member>
+        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.SortDescending``1(System.Func{`0,``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Сортирует элементы коллекции в порядке убывания ключа, используя указанный компаратор.
+            </summary>
+            <typeparam name="TKey">Тип ключа, возвращаемого параметром <paramref name="keySelector"/>.</typeparam>
+            <param name="keySelector">Функция извлечения ключа из элемента.</param>
+            <param name="comparer">Компаратор <see cref="T:System.Collections.Generic.IComparer`1"/> для сравнения ключей.</param>
+        </member>
+        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.InternalSort(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Перемещает элементы коллекции, так что их порядок будут такими же, как у указанной коллекции.
+            </summary>
+            <param name="sortedItems">Коллекция <see cref="T:System.Collections.Generic.IEnumerable`1"/>, содержащая элементы в требуемом порядке.</param>
+        </member>
+        <member name="T:Gemiyur.Comparers.BoolKeyComparer">
+            <summary>
+            Класс компаратора объектов по их ключам типа bool.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа bool.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new BoolKeyComparer(x => ((MyListItem)x).BoolMember);<br/><br/>
+            BoolKeyComparer myComparer = new(x => ((MyListItem)x).BoolMember);
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.BoolKeyComparer.#ctor(System.Func{System.Object,System.Boolean},System.Boolean)">
+            <summary>
+            Класс компаратора объектов по их ключам типа bool.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа bool.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new BoolKeyComparer(x => ((MyListItem)x).BoolMember);<br/><br/>
+            BoolKeyComparer myComparer = new(x => ((MyListItem)x).BoolMember);
+            </remarks>
+        </member>
+        <member name="F:Gemiyur.Comparers.BoolKeyComparer.keyGetter">
+            <summary>
+            Функция извлечения ключа типа bool.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.BoolKeyComparer.Descending">
+            <summary>
+            Нужно ли сортировать в порядке убывания ключа.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.BoolKeyComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Сравнивает два объекта по их ключам типа bool.
+            </summary>
+            <param name="x">Первый объект.</param>
+            <param name="y">Второй объект.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.CompareResult">
+            <summary>
+            Статический класс методов для результата сравнения.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.CompareResult.Invert(System.Int32)">
+            <summary>
+            Возвращает инвертированный результат сравнения.
+            </summary>
+            <param name="compareResult">Результат сравнения.</param>
+            <returns>Инвертированный результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.DateTimeKeyComparer">
+            <summary>
+            Класс компаратора объектов по их ключам типа DateTime.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа DateTime.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new DateTimeKeyComparer(x => ((MyListItem)x).DateTimeMember);<br/><br/>
+            DateTimeKeyComparer myComparer = new(x => ((MyListItem)x).DateTimeMember);
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.DateTimeKeyComparer.#ctor(System.Func{System.Object,System.DateTime},System.Boolean)">
+            <summary>
+            Класс компаратора объектов по их ключам типа DateTime.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа DateTime.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new DateTimeKeyComparer(x => ((MyListItem)x).DateTimeMember);<br/><br/>
+            DateTimeKeyComparer myComparer = new(x => ((MyListItem)x).DateTimeMember);
+            </remarks>
+        </member>
+        <member name="F:Gemiyur.Comparers.DateTimeKeyComparer.keyGetter">
+            <summary>
+            Функция извлечения ключа типа DateTime.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.DateTimeKeyComparer.Descending">
+            <summary>
+            Нужно ли сортировать в порядке убывания ключа.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.DateTimeKeyComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Сравнивает два объекта по их ключам типа DateTime.
+            </summary>
+            <param name="x">Первый объект.</param>
+            <param name="y">Второй объект.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.DecimalKeyComparer">
+            <summary>
+            Класс компаратора объектов по их ключам типа decimal.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа decimal.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new DecimalKeyComparer(x => ((MyListItem)x).DecimalMember);<br/><br/>
+            DecimalKeyComparer myComparer = new(x => ((MyListItem)x).DecimalMember);
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.DecimalKeyComparer.#ctor(System.Func{System.Object,System.Decimal},System.Boolean)">
+            <summary>
+            Класс компаратора объектов по их ключам типа decimal.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа decimal.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new DecimalKeyComparer(x => ((MyListItem)x).DecimalMember);<br/><br/>
+            DecimalKeyComparer myComparer = new(x => ((MyListItem)x).DecimalMember);
+            </remarks>
+        </member>
+        <member name="F:Gemiyur.Comparers.DecimalKeyComparer.keyGetter">
+            <summary>
+            Функция извлечения ключа типа decimal.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.DecimalKeyComparer.Descending">
+            <summary>
+            Нужно ли сортировать в порядке убывания ключа.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.DecimalKeyComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Сравнивает два объекта по их ключам типа decimal.
+            </summary>
+            <param name="x">Первый объект.</param>
+            <param name="y">Второй объект.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.DoubleKeyComparer">
+            <summary>
+            Класс компаратора объектов по их ключам типа double.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа double.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <param name="delta">Разница между значениями ключей, игнорируемая при сравнении.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new DoubleKeyComparer(x => ((MyListItem)x).DoubleMember);<br/><br/>
+            DoubleKeyComparer myComparer = new(x => ((MyListItem)x).DoubleMember);
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.DoubleKeyComparer.#ctor(System.Func{System.Object,System.Double},System.Boolean,System.Double)">
+            <summary>
+            Класс компаратора объектов по их ключам типа double.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа double.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <param name="delta">Разница между значениями ключей, игнорируемая при сравнении.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new DoubleKeyComparer(x => ((MyListItem)x).DoubleMember);<br/><br/>
+            DoubleKeyComparer myComparer = new(x => ((MyListItem)x).DoubleMember);
+            </remarks>
+        </member>
+        <member name="F:Gemiyur.Comparers.DoubleKeyComparer.keyGetter">
+            <summary>
+            Функция извлечения ключа типа double.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.DoubleKeyComparer.Descending">
+            <summary>
+            Нужно ли сортировать в порядке убывания ключа.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.DoubleKeyComparer.Delta">
+            <summary>
+            Разница между значениями ключей, игнорируемая при сравнении.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.DoubleKeyComparer.CompareWithDelta(System.Double,System.Double)">
+            <summary>
+            Сравнивает два числа типа double с учётом игнорируемой разницы значений.
+            </summary>
+            <param name="a">Первое число.</param>
+            <param name="b">Второе число.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="M:Gemiyur.Comparers.DoubleKeyComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Сравнивает два объекта по их ключам типа double.
+            </summary>
+            <param name="x">Первый объект.</param>
+            <param name="y">Второй объект.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.IntKeyComparer">
+            <summary>
+            Класс компаратора объектов по их ключам типа int.
+            </summary>
+            <param name="keyGetter">Функция извлечения ключа типа int.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new IntKeyComparer(x => ((MyListItem)x).IntMember);<br/><br/>
+            IntKeyComparer myComparer = new(x => ((MyListItem)x).IntMember);
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.IntKeyComparer.#ctor(System.Func{System.Object,System.Int32},System.Boolean)">
+            <summary>
+            Класс компаратора объектов по их ключам типа int.
+            </summary>
+            <param name="keyGetter">Функция извлечения ключа типа int.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new IntKeyComparer(x => ((MyListItem)x).IntMember);<br/><br/>
+            IntKeyComparer myComparer = new(x => ((MyListItem)x).IntMember);
+            </remarks>
+        </member>
+        <member name="F:Gemiyur.Comparers.IntKeyComparer.keyGetter">
+            <summary>
+            Функция извлечения ключа типа int.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.IntKeyComparer.Descending">
+            <summary>
+            Нужно ли сортировать в порядке убывания ключа.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.IntKeyComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Сравнивает два объекта по их ключам типа int.
+            </summary>
+            <param name="x">Первый объект.</param>
+            <param name="y">Второй объект.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.LongKeyComparer">
+            <summary>
+            Класс компаратора объектов по их ключам типа long.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа long.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new LongKeyComparer(x => ((MyListItem)x).LongMember);<br/><br/>
+            LongKeyComparer myComparer = new(x => ((MyListItem)x).LongMember);
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.LongKeyComparer.#ctor(System.Func{System.Object,System.Int64},System.Boolean)">
+            <summary>
+            Класс компаратора объектов по их ключам типа long.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа long.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new LongKeyComparer(x => ((MyListItem)x).LongMember);<br/><br/>
+            LongKeyComparer myComparer = new(x => ((MyListItem)x).LongMember);
+            </remarks>
+        </member>
+        <member name="F:Gemiyur.Comparers.LongKeyComparer.keyGetter">
+            <summary>
+            Функция извлечения ключа типа long.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.LongKeyComparer.Descending">
+            <summary>
+            Нужно ли сортировать в порядке убывания ключа.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.LongKeyComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Сравнивает два объекта по их ключам типа long.
+            </summary>
+            <param name="x">Первый объект.</param>
+            <param name="y">Второй объект.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.MultiKeyComparer">
+            <summary>
+            Класс компаратора объектов с последовательным применением нескольких компараторов.
+            </summary>
+            <param name="comparers">Список компараторов для сравнения объектов.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new MultiKeyComparer(<br/>
+            [new IntKeyComparer(x => ((MyListItem)x).IntMember), new StringKeyComparer(x => ((MyListItem)x).StringMember)]);<br/><br/>
+            MultiKeyComparer myComparer =<br/>
+            new([new IntKeyComparer(x => ((MyListItem)x).IntMember), new StringKeyComparer(x => ((MyListItem)x).StringMember)]);
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.MultiKeyComparer.#ctor(System.Collections.Generic.List{System.Collections.Generic.IComparer{System.Object}})">
+            <summary>
+            Класс компаратора объектов с последовательным применением нескольких компараторов.
+            </summary>
+            <param name="comparers">Список компараторов для сравнения объектов.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new MultiKeyComparer(<br/>
+            [new IntKeyComparer(x => ((MyListItem)x).IntMember), new StringKeyComparer(x => ((MyListItem)x).StringMember)]);<br/><br/>
+            MultiKeyComparer myComparer =<br/>
+            new([new IntKeyComparer(x => ((MyListItem)x).IntMember), new StringKeyComparer(x => ((MyListItem)x).StringMember)]);
+            </remarks>
+        </member>
+        <member name="P:Gemiyur.Comparers.MultiKeyComparer.Comparers">
+            <summary>
+            Список компараторов для сравнения объектов.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.MultiKeyComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Сравнивает два объекта, последовательно применяя компараторы из списка компараторов до первого неравенства.
+            </summary>
+            <param name="x">Первый объект.</param>
+            <param name="y">Второй объект.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.SmartStringComparer">
+            <summary>
+            Класс интеллектуального компаратора строк, учитывающего числовые значения.
+            </summary>
+            <param name="comparisonType">Правила сортировки текстовых частей строк.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания.</param>
+            <remarks>
+            По-умолчанию используются:<br/>
+            - правила сортировки текущего языка без учёта регистра символов<br/>
+            - сортировка в порядке возрастания
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.SmartStringComparer.#ctor(System.StringComparison,System.Boolean)">
+            <summary>
+            Класс интеллектуального компаратора строк, учитывающего числовые значения.
+            </summary>
+            <param name="comparisonType">Правила сортировки текстовых частей строк.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания.</param>
+            <remarks>
+            По-умолчанию используются:<br/>
+            - правила сортировки текущего языка без учёта регистра символов<br/>
+            - сортировка в порядке возрастания
+            </remarks>
+        </member>
+        <member name="P:Gemiyur.Comparers.SmartStringComparer.ComparisonType">
+            <summary>
+            Правила сортировки текстовых частей строк.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.SmartStringComparer.Descending">
+            <summary>
+            Нужно ли сортировать в порядке убывания.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.SmartStringComparer.Compare(System.String,System.String)">
+            <summary>
+            Сравнивает две строки.
+            </summary>
+            <param name="x">Первая строка.</param>
+            <param name="y">Вторая строка.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="M:Gemiyur.Comparers.SmartStringComparer.CompareStrings(System.String,System.String,System.StringComparison)">
+            <summary>
+            Сравнивает две строки с указанными правилами сортировки текстовых частей строк.
+            </summary>
+            <param name="x">Первая строка.</param>
+            <param name="y">Вторая строка.</param>
+            <param name="comparisonType">Правила сортировки текстовых частей строк.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="M:Gemiyur.Comparers.SmartStringComparer.GetStringList(System.String)">
+            <summary>
+            Возвращает список частей указанной строки для сравнения.
+            </summary>
+            <param name="s">Строка.</param>
+            <returns>Список частей строки для сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.SmartStringKeyComparer">
+            <summary>
+            Класс компаратора объектов по их ключам типа string, учитывающего числовые значения.
+            </summary>
+            <param name="keyGetter">Функция извлечения ключа типа string.</param>
+            <param name="comparisonType">Правила сортировки текстовых частей строк ключей.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            По-умолчанию используются:<br/>
+            - правила сортировки текущего языка без учёта регистра символов<br/>
+            - сортировка в порядке возрастания ключа<br/><br/>
+            Примеры:<br/><br/>
+            var myComparer = new SmartStringKeyComparer(x => ((MyListItem)x).StringMember);<br/><br/>
+            SmartStringKeyComparer myComparer = new(x => ((MyListItem)x).StringMember);
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.SmartStringKeyComparer.#ctor(System.Func{System.Object,System.String},System.StringComparison,System.Boolean)">
+            <summary>
+            Класс компаратора объектов по их ключам типа string, учитывающего числовые значения.
+            </summary>
+            <param name="keyGetter">Функция извлечения ключа типа string.</param>
+            <param name="comparisonType">Правила сортировки текстовых частей строк ключей.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            По-умолчанию используются:<br/>
+            - правила сортировки текущего языка без учёта регистра символов<br/>
+            - сортировка в порядке возрастания ключа<br/><br/>
+            Примеры:<br/><br/>
+            var myComparer = new SmartStringKeyComparer(x => ((MyListItem)x).StringMember);<br/><br/>
+            SmartStringKeyComparer myComparer = new(x => ((MyListItem)x).StringMember);
+            </remarks>
+        </member>
+        <member name="F:Gemiyur.Comparers.SmartStringKeyComparer.keyGetter">
+            <summary>
+            Функция извлечения ключа типа string.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.SmartStringKeyComparer.ComparisonType">
+            <summary>
+            Правила сортировки.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.SmartStringKeyComparer.Descending">
+            <summary>
+            Нужно ли сортировать в порядке убывания ключа.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.SmartStringKeyComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Сравнивает два объекта по их ключам типа string.
+            </summary>
+            <param name="x">Первый объект.</param>
+            <param name="y">Второй объект.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.StringKeyComparer">
+            <summary>
+            Класс компаратора объектов по их ключам типа string.
+            </summary>
+            <param name="keyGetter">Функция извлечения ключа типа string.</param>
+            <param name="comparisonType">Правила сортировки строк ключей.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            По-умолчанию используются:<br/>
+            - правила сортировки текущего языка без учёта регистра символов<br/>
+            - сортировка в порядке возрастания ключа<br/><br/>
+            Примеры:<br/><br/>
+            var myComparer = new StringKeyComparer(x => ((MyListItem)x).StringMember);<br/><br/>
+            StringKeyComparer myComparer = new(x => ((MyListItem)x).StringMember);
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.StringKeyComparer.#ctor(System.Func{System.Object,System.String},System.StringComparison,System.Boolean)">
+            <summary>
+            Класс компаратора объектов по их ключам типа string.
+            </summary>
+            <param name="keyGetter">Функция извлечения ключа типа string.</param>
+            <param name="comparisonType">Правила сортировки строк ключей.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            По-умолчанию используются:<br/>
+            - правила сортировки текущего языка без учёта регистра символов<br/>
+            - сортировка в порядке возрастания ключа<br/><br/>
+            Примеры:<br/><br/>
+            var myComparer = new StringKeyComparer(x => ((MyListItem)x).StringMember);<br/><br/>
+            StringKeyComparer myComparer = new(x => ((MyListItem)x).StringMember);
+            </remarks>
+        </member>
+        <member name="F:Gemiyur.Comparers.StringKeyComparer.keyGetter">
+            <summary>
+            Функция извлечения ключа типа string.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.StringKeyComparer.ComparisonType">
+            <summary>
+            Правила сортировки.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.StringKeyComparer.Descending">
+            <summary>
+            Нужно ли сортировать в порядке убывания ключа.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.StringKeyComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Сравнивает два объекта по их ключам типа string.
+            </summary>
+            <param name="x">Первый объект.</param>
+            <param name="y">Второй объект.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.TimeSpanKeyComparer">
+            <summary>
+            Класс компаратора объектов по их ключам типа TimeSpan.
+            </summary>
+            <param name="keyGetter">Функция извлечения ключа типа TimeSpan.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new TimeSpanKeyComparer(x => ((MyListItem)x).TimeSpanMember);<br/><br/>
+            TimeSpanKeyComparer myComparer = new(x => ((MyListItem)x).TimeSpanMember);
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.TimeSpanKeyComparer.#ctor(System.Func{System.Object,System.TimeSpan},System.Boolean)">
+            <summary>
+            Класс компаратора объектов по их ключам типа TimeSpan.
+            </summary>
+            <param name="keyGetter">Функция извлечения ключа типа TimeSpan.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new TimeSpanKeyComparer(x => ((MyListItem)x).TimeSpanMember);<br/><br/>
+            TimeSpanKeyComparer myComparer = new(x => ((MyListItem)x).TimeSpanMember);
+            </remarks>
+        </member>
+        <member name="F:Gemiyur.Comparers.TimeSpanKeyComparer.keyGetter">
+            <summary>
+            Функция извлечения ключа типа TimeSpan.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.TimeSpanKeyComparer.Descending">
+            <summary>
+            Нужно ли сортировать в порядке убывания ключа.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.TimeSpanKeyComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Сравнивает два объекта по их ключам типа TimeSpan.
+            </summary>
+            <param name="x">Первый объект.</param>
+            <param name="y">Второй объект.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.UintKeyComparer">
+            <summary>
+            Класс компаратора объектов по их ключам типа uint.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа uint.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new UintKeyComparer(x => ((MyListItem)x).UintMember);<br/><br/>
+            UintKeyComparer myComparer = new(x => ((MyListItem)x).UintMember);
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.UintKeyComparer.#ctor(System.Func{System.Object,System.UInt32},System.Boolean)">
+            <summary>
+            Класс компаратора объектов по их ключам типа uint.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа uint.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new UintKeyComparer(x => ((MyListItem)x).UintMember);<br/><br/>
+            UintKeyComparer myComparer = new(x => ((MyListItem)x).UintMember);
+            </remarks>
+        </member>
+        <member name="F:Gemiyur.Comparers.UintKeyComparer.keyGetter">
+            <summary>
+            Функция извлечения ключа типа uint.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.UintKeyComparer.Descending">
+            <summary>
+            Нужно ли сортировать в порядке убывания ключа.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.UintKeyComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Сравнивает два объекта по их ключам типа uint.
+            </summary>
+            <param name="x">Первый объект.</param>
+            <param name="y">Второй объект.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Comparers.UlongKeyComparer">
+            <summary>
+            Класс компаратора объектов по их ключам типа ulong.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа ulong.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new UlongKeyComparer(x => ((MyListItem)x).UlongMember);<br/><br/>
+            UlongKeyComparer myComparer = new(x => ((MyListItem)x).UlongMember);
+            </remarks>
+        </member>
+        <member name="M:Gemiyur.Comparers.UlongKeyComparer.#ctor(System.Func{System.Object,System.UInt64},System.Boolean)">
+            <summary>
+            Класс компаратора объектов по их ключам типа ulong.
+            </summary>
+            <param name="keyGetter">Делегат, возвращающий ключ типа ulong.</param>
+            <param name="descending">Нужно ли сортировать в порядке убывания ключа.</param>
+            <remarks>
+            Примеры:<br/><br/>
+            var myComparer = new UlongKeyComparer(x => ((MyListItem)x).UlongMember);<br/><br/>
+            UlongKeyComparer myComparer = new(x => ((MyListItem)x).UlongMember);
+            </remarks>
+        </member>
+        <member name="F:Gemiyur.Comparers.UlongKeyComparer.keyGetter">
+            <summary>
+            Функция извлечения ключа типа ulong.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Comparers.UlongKeyComparer.Descending">
+            <summary>
+            Нужно ли сортировать в порядке убывания ключа.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Comparers.UlongKeyComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Сравнивает два объекта по их ключам типа ulong.
+            </summary>
+            <param name="x">Первый объект.</param>
+            <param name="y">Второй объект.</param>
+            <returns>Результат сравнения.</returns>
+        </member>
+        <member name="T:Gemiyur.Threading.TextFileThreadWriter">
+            <summary>
+            Класс записи строк в текстовый файл в отдельном потоке.
+            Сигналом для завершения потока является постановка в очередь значения null.
+            В случае ошибки записи в файл, поток завершается, а Error содержит сообщение об ошибке.
+            </summary>
+        </member>
+        <member name="F:Gemiyur.Threading.TextFileThreadWriter.buffer">
+            <summary>
+            Список буфера строк.
+            </summary>
+        </member>
+        <member name="F:Gemiyur.Threading.TextFileThreadWriter.bufferSize">
+            <summary>
+            Размер буфера в строках.
+            </summary>
+        </member>
+        <member name="F:Gemiyur.Threading.TextFileThreadWriter.error">
+            <summary>
+            Сообщение об ошибке, если была ошибка записи в файл. Иначе null.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Threading.TextFileThreadWriter.Error">
+            <summary>
+            Возвращает сообщение об ошибке, если была ошибка записи в файл. Иначе возвращает null.
+            </summary>
+        </member>
+        <member name="F:Gemiyur.Threading.TextFileThreadWriter.fileName">
+            <summary>
+            Имя файла с полным путём.
+            </summary>
+        </member>
+        <member name="F:Gemiyur.Threading.TextFileThreadWriter.idle">
+            <summary>
+            Находится ли записывающий поток в бездействии (ожидании).
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Threading.TextFileThreadWriter.Idle">
+            <summary>
+            Возвращает находится ли записывающий поток в бездействии (ожидании).
+            </summary>
+        </member>
+        <member name="F:Gemiyur.Threading.TextFileThreadWriter.locker">
+            <summary>
+            Объект для блокировки данных.
+            </summary>
+        </member>
+        <member name="F:Gemiyur.Threading.TextFileThreadWriter.queue">
+            <summary>
+            Очередь строк.
+            </summary>
+        </member>
+        <member name="F:Gemiyur.Threading.TextFileThreadWriter.waitHandle">
+            <summary>
+            Синхронизированное событие потока.
+            </summary>
+        </member>
+        <member name="P:Gemiyur.Threading.TextFileThreadWriter.WasError">
+            <summary>
+            Возвращает была ли ошибка в процессе записи строк в файл.
+            </summary>
+        </member>
+        <member name="F:Gemiyur.Threading.TextFileThreadWriter.writer">
+            <summary>
+            Поток записи в файл.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Threading.TextFileThreadWriter.#ctor(System.String,System.Int32)">
+            <summary>
+            Инициализирует новый экземпляр класса.
+            </summary>
+            <param name="fileName">Имя файла с полным путём.</param>
+            <param name="bufferSize">Размер буфера в строках.</param>
+        </member>
+        <member name="M:Gemiyur.Threading.TextFileThreadWriter.Dispose">
+            <summary>
+            Завершает запись в файл и освобождает все ресурсы, используемые текущим экземпляром класса.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Threading.TextFileThreadWriter.Enqueue(System.String)">
+            <summary>
+            Ставит указанную строку в очередь для записи в файл.
+            </summary>
+            <param name="item">Строка для записи в файл.</param>
+        </member>
+        <member name="M:Gemiyur.Threading.TextFileThreadWriter.Flash">
+            <summary>
+            Записывает строки из буфера в файл.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Threading.TextFileThreadWriter.Write">
+            <summary>
+            Метод потока. Записывает строки из очереди в файл.
+            </summary>
+        </member>
+        <member name="T:Gemiyur.Transliteration.CyrillicLatinTransliter">
+            <summary>
+            Статический класс транслитерации из кириллицы в латиницу и наоборот.
+            </summary>
+            <remarks>
+            Имеет встроенные словари транслитерации по ГОСТ 16876-71 и ISO 9-95.<br/>
+            Поддерживается транслитерация по пользовательскому словарю транслитерации.<br/>
+            Пользовательский словарь должен быть Dictionary,
+            где ключ (string) - кириллица, значение (string) - латиница.
+            </remarks>
+        </member>
+        <member name="F:Gemiyur.Transliteration.CyrillicLatinTransliter.gostDictionary">
+            <summary>
+            Словарь транслитерации по ГОСТ 16876-71.
+            </summary>
+        </member>
+        <member name="F:Gemiyur.Transliteration.CyrillicLatinTransliter.isoDictionary">
+            <summary>
+            Словарь транслитерации по ISO 9-95.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Transliteration.CyrillicLatinTransliter.#cctor">
+            <summary>
+            Статический конструктор.
+            Инициализирует встроенные словари транслитерации по ГОСТ 16876-71 и ISO 9-95.
+            </summary>
+        </member>
+        <member name="M:Gemiyur.Transliteration.CyrillicLatinTransliter.CyrillicToLatin(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Возвращает результат транслитерации указанной строки из кириллицы в латиницу по указанному словарю.
+            </summary>
+            <param name="text">Строка для транслитерации.</param>
+            <param name="dictionary">Словарь транслитерации.</param>
+            <returns>Результат транслитерации по указанному словарю.</returns>
+        </member>
+        <member name="M:Gemiyur.Transliteration.CyrillicLatinTransliter.CyrillicToLatinGost(System.String)">
+            <summary>
+            Возвращает результат транслитерации указанной строки из кириллицы в латиницу по ГОСТ 16876-71.
+            </summary>
+            <param name="text">Строка для транслитерации.</param>
+            <returns>Результат транслитерации по ГОСТ 16876-71.</returns>
+        </member>
+        <member name="M:Gemiyur.Transliteration.CyrillicLatinTransliter.CyrillicToLatinIso(System.String)">
+            <summary>
+            Возвращает результат транслитерации указанной строки из кириллицы в латиницу по ISO 9-95.
+            </summary>
+            <param name="text">Строка для транслитерации.</param>
+            <returns>Результат транслитерации по ISO 9-95.</returns>
+        </member>
+        <member name="M:Gemiyur.Transliteration.CyrillicLatinTransliter.LatinToCyrillic(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Возвращает результат транслитерации указанной строки из латиницы в кириллицу по указанному словарю.
+            </summary>
+            <param name="text">Строка для транслитерации.</param>
+            <param name="dictionary">Словарь транслитерации.</param>
+            <returns>Результат транслитерации по указанному словарю.</returns>
+        </member>
+        <member name="M:Gemiyur.Transliteration.CyrillicLatinTransliter.LatinToCyrillicGost(System.String)">
+            <summary>
+            Возвращает результат транслитерации указанной строки из латиницы в кириллицу по ГОСТ 16876-71.
+            </summary>
+            <param name="text">Строка для транслитерации.</param>
+            <returns>Результат транслитерации по ГОСТ 16876-71.</returns>
+        </member>
+        <member name="M:Gemiyur.Transliteration.CyrillicLatinTransliter.LatinToCyrillicIso(System.String)">
+            <summary>
+            Возвращает результат транслитерации указанной строки из латиницы в кириллицу по ISO 9-95.
+            </summary>
+            <param name="text">Строка для транслитерации.</param>
+            <returns>Результат транслитерации по ISO 9-95.</returns>
+        </member>
+    </members>
+</doc>
