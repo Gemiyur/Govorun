@@ -73,6 +73,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Gemiyur">
+      <HintPath>..\Libraries\Gemiyur.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Controls\PlayerImages\Disabled\Bookmarks.png" />
     <Resource Include="Controls\PlayerImages\Disabled\Chapters.png" />
     <Resource Include="Controls\PlayerImages\Disabled\Edit.png" />
