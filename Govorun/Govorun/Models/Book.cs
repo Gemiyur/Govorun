@@ -1,5 +1,4 @@
 ﻿using LiteDB;
-using System.Windows.Media.Imaging;
 
 namespace Govorun.Models
 {
@@ -25,21 +24,6 @@ namespace Govorun.Models
             {
                 title = value ?? string.Empty;
                 OnPropertyChanged("Title");
-            }
-        }
-
-        private string comment = string.Empty;
-
-        /// <summary>
-        /// Описание книги.
-        /// </summary>
-        public string Comment
-        {
-            get => comment;
-            set
-            {
-                comment = value ?? string.Empty;
-                OnPropertyChanged("Comment");
             }
         }
 
@@ -71,6 +55,21 @@ namespace Govorun.Models
             }
         }
 
+        private string comment = string.Empty;
+
+        /// <summary>
+        /// Описание книги.
+        /// </summary>
+        public string Comment
+        {
+            get => comment;
+            set
+            {
+                comment = value ?? string.Empty;
+                OnPropertyChanged("Comment");
+            }
+        }
+
         /// <summary>
         /// Файл книги с полным путём.
         /// </summary>
@@ -91,17 +90,6 @@ namespace Govorun.Models
         /// Позиция, с которой надо продолжить воспроизведение.
         /// </summary>
         public TimeSpan PlayPosition { get; set; }
-
-        /// <summary>
-        /// Изображение обложки книги.
-        /// </summary>
-        [BsonIgnore]
-        public BitmapFrame? Picture => PictureData != null ? App.GetBitmap(PictureData) : null;
-
-        /// <summary>
-        /// Массив байт изображения обложки книги.
-        /// </summary>
-        public byte[]? PictureData;
 
         /// <summary>
         /// Список разделов книги.
