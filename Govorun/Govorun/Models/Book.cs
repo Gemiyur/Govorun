@@ -92,6 +92,12 @@ namespace Govorun.Models
         public TimeSpan PlayPosition { get; set; }
 
         /// <summary>
+        /// Находится ли книга в состоянии прослушивания.
+        /// </summary>
+        [BsonIgnore]
+        public bool Listening => PlayPosition > TimeSpan.Zero;
+
+        /// <summary>
         /// Список разделов книги.
         /// </summary>
         public List<Chapter> Chapters { get; set; } = [];

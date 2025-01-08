@@ -24,5 +24,20 @@ namespace Govorun.Tools
         {
             AllBooks = Db.GetBooks();
         }
+
+        /// <summary>
+        /// Возвращает является ли указанный автор автором указанной книги.
+        /// </summary>
+        /// <param name="book">Книга.</param>
+        /// <param name="authorId">Идентификатор автора.</param>
+        /// <returns>Является ли указанный автор автором указанной книги.</returns>
+        public static bool BookHasAuthor(Book book, int authorId) => book.Authors.Any(x => x.AuthorId == authorId);
+
+        /// <summary>
+        /// Возвращает список книг указанного автора.
+        /// </summary>
+        /// <param name="authorId">Идентификатор автора.</param>
+        /// <returns>Список книг указанного автора.</returns>
+        public static List<Book> GetAuthorBooks(int authorId) => AllBooks.FindAll(x => BookHasAuthor(x, authorId));
     }
 }

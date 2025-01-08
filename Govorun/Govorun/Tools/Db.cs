@@ -60,6 +60,9 @@ namespace Govorun.Tools
 
             author = new Author() { Name = "Аркадий и Борис", Surname = "Стругацкие" };
             InsertAuthor(author, db);
+            book = new Book() { Title = "Трудно быть богом", Lector = "Аудиоспектакль" };
+            book.Authors.Add(author);
+            InsertBook(book, db);
             book = new Book() { Title = "Понедельник начинается в субботу", Lector = "Александр Левашов" };
             book.Authors.Add(author);
             InsertBook(book, db);
@@ -104,7 +107,8 @@ namespace Govorun.Tools
             return GetAuthors(db);
         }
 
-        public static List<Author> GetAuthors(LiteDatabase db) => GetAuthorsCollection(db).FindAll().ToList();
+        public static List<Author> GetAuthors(LiteDatabase db) =>
+            GetAuthorsCollection(db).FindAll().OrderBy(x => x.SurnameName, StringComparer.CurrentCultureIgnoreCase).ToList();
 
         public static int InsertAuthor(Author author)
         {

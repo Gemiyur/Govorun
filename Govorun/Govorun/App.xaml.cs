@@ -27,14 +27,6 @@ namespace Govorun
             Current?.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate { }));
 
         /// <summary>
-        /// Возвращает BitmapFrame из указанного массива байт.
-        /// </summary>
-        /// <param name="data">Массив байт.</param>
-        /// <returns>Изображение.</returns>
-        public static BitmapFrame GetBitmap(byte[] data) =>
-            BitmapDecoder.Create(new MemoryStream(data), BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames[0];
-
-        /// <summary>
         /// Возвращает BitmapImage из указанного файла изображения.
         /// </summary>
         /// <param name="path">Путь к файлу.</param>

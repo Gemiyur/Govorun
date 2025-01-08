@@ -1,5 +1,4 @@
-﻿using System.Windows.Media.Imaging;
-using ATL;
+﻿using ATL;
 
 namespace Govorun.Media
 {
@@ -7,26 +6,27 @@ namespace Govorun.Media
     {
         public string Title;
 
-        public string Comment;
-
         public string Artist;
 
-        public List<ChapterData> Chapters = [];
+        public string Comment;
+
+        public string Description;
+
+        public string Lyrics;
 
         public TimeSpan Duration;
 
-        public List<BitmapFrame> Pictures = [];
-
-        public List<byte[]> PicturesData = [];
-
-        public byte[] PictureData => PicturesData.Count > 0 ? PicturesData[0] : [];
+        public List<ChapterData> Chapters = [];
 
         public TrackData(string filename)
         {
             var track = new Track(filename);
             Title = track.Title;
-            Comment = track.Comment;
             Artist = track.Artist;
+            Comment = track.Comment;
+            Description = track.Description;
+            Lyrics = track.Lyrics.UnsynchronizedLyrics;
+            Duration = TimeSpan.FromSeconds(track.Duration);
             foreach (var chapter in track.Chapters)
             {
                 var chapterData = new ChapterData()
@@ -36,12 +36,6 @@ namespace Govorun.Media
                     EndTime = TimeSpan.FromMilliseconds(chapter.EndTime),
                 };
                 Chapters.Add(chapterData);
-            }
-            Duration = TimeSpan.FromSeconds(track.Duration);
-            foreach (var picture in track.EmbeddedPictures)
-            {
-                Pictures.Add(App.GetBitmap(picture.PictureData));
-                PicturesData.Add(picture.PictureData);
             }
         }
     }

@@ -30,9 +30,12 @@ namespace Govorun
         /// <summary>
         /// Список отображаемых книг.
         /// </summary>
-        private ObservableCollectionEx<Book> shownBooks = [];
+        private readonly ObservableCollectionEx<Book> ShownBooks = [];
 
-        private List<Author> Authors = [];
+        /// <summary>
+        /// Список авторов.
+        /// </summary>
+        private readonly ObservableCollectionEx<Author> Authors = [];
 
         private readonly OpenFileDialog AddBookDialog = new()
         {
@@ -66,19 +69,32 @@ namespace Govorun
                 Db.GenerateTestDb();
             }
             //var books = Db.GetBooks();
-            shownBooks.AddRange(Books.AllBooks);
-            SortShownBooks();
-            BooksListView.ItemsSource = shownBooks;
-            UpdateStatusBarBooksCount();
 
             Authors.AddRange(Db.GetAuthors());
-            AutorsListBox.ItemsSource = Authors;
+            AuthorsListBox.ItemsSource = Authors;
+
+            ShownBooks.AddRange(Books.AllBooks);
+            //SortShownBooks();
+            BooksListView.ItemsSource = ShownBooks;
+            UpdateStatusBarBooksCount();
         }
 
         /// <summary>
         /// Сортирует список отображаемых книг по названию.
         /// </summary>
-        private void SortShownBooks() => shownBooks.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
+        private void SortShownBooks() => ShownBooks.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
+
+        /// <summary>
+        /// Обновляет список отображаемых книг.
+        /// </summary>
+        private void UpdateShownBooks()
+        {
+            var author = (Author)AuthorsListBox.SelectedItem;
+            var books = author == null ? Books.AllBooks : Books.GetAuthorBooks(author.AuthorId);
+            if (ListeningMenuItem.IsChecked)
+                books = books.FindAll(x => x.Listening);
+            ShownBooks.ReplaceRange(books);
+        }
 
         /// <summary>
         /// Обновляет количество отображаемых книг в строке статуса.
@@ -90,6 +106,17 @@ namespace Govorun
         private void CloseMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void AllAuthorsButton_Click(object sender, RoutedEventArgs e)
+        {
+            AuthorsListBox.SelectedIndex = -1;
+        }
+
+        private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AllAuthorsButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
+            UpdateShownBooks();
         }
 
         private void BooksListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -198,8 +225,7 @@ namespace Govorun
         private void Reset_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             // TODOL: Надо ли проверять позицию воспроизведения книги для разрешения команды?
-            e.CanExecute = BooksListView != null &&
-                BooksListView.SelectedItems.Cast<Book>().Any(x => x.PlayPosition > TimeSpan.Zero);
+            e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Cast<Book>().Any(x => x.Listening);
 
             // Без проверки позиции воспроизведения книги.
             //e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count > 0;
@@ -270,6 +296,7 @@ namespace Govorun
             }
             else
                 return;
+            UpdateShownBooks();
         }
 
         private void AddBook_Executed(object sender, ExecutedRoutedEventArgs e)
