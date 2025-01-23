@@ -20,6 +20,8 @@ namespace Govorun
 {
     #region Задачи (TODO).
 
+    // TODO: Надо бы подобрать картинку для кнопки "Все авторы" (AllAuthorsButton).
+
     #endregion
 
     /// <summary>
@@ -256,6 +258,9 @@ namespace Govorun
 
         private void Edit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            var editor = new BookEditor() { Owner = this };
+            if (!App.SimpleBool(editor.ShowDialog()))
+                return;
 
         }
 
@@ -303,6 +308,9 @@ namespace Govorun
         {
             AddBookDialog.FileName = string.Empty;
             if (!App.SimpleBool(AddBookDialog.ShowDialog()))
+                return;
+            var editor = new BookEditor() { Owner = this };
+            if (!App.SimpleBool(editor.ShowDialog()))
                 return;
 
         }
