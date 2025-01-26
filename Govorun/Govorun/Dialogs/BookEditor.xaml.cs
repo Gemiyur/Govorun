@@ -14,6 +14,12 @@ using System.Windows.Shapes;
 
 namespace Govorun.Dialogs
 {
+    #region Задачи (TODO).
+
+    // TODO: Подобрать цвет фона для TextBox только для чтения.
+
+    #endregion
+
     /// <summary>
     /// Класс редактора книги.
     /// </summary>
@@ -22,6 +28,36 @@ namespace Govorun.Dialogs
         public BookEditor()
         {
             InitializeComponent();
+        }
+
+        private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void PickAuthorButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RemoveAuthorButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNewAuthorButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PickLectorButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PickFileButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void LoadTagButton_Click(object sender, RoutedEventArgs e)
