@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Книга"
-        Width="800" Height="550" ResizeMode="NoResize"
+        Width="700" Height="500" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -29,12 +29,12 @@
     <Grid Margin="10,10,10,10" >
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="25" />
+            <RowDefinition Height="16" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="250" />
         </Grid.ColumnDefinitions>
 
         <!-- Редактор -->
@@ -45,7 +45,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <!-- Название -->
             <GroupBox Grid.Row="0" Header="Название">
@@ -53,7 +52,7 @@
                          x:Name="TitleTextBox"
                          VerticalAlignment="Center"
                          Margin="0,4,0,0"
-                         Text="Поиск предназначения, или Двадцать седьмая теорема этики" />
+                         TextChanged="TitleTextBox_TextChanged" />
             </GroupBox>
             <!-- Авторы -->
             <GroupBox Grid.Row="1" Header="Авторы" Margin="0,10,0,0">
@@ -70,6 +69,7 @@
                              x:Name="AuthorsListBox"
                              Height="65"
                              Margin="0,0,10,0"
+                             SelectionMode="Multiple"
                              SelectionChanged="AuthorsListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -84,6 +84,7 @@
                             Click="PickAuthorButton_Click" />
                     <Button Grid.Row="1" Grid.Column="1"
                             x:Name="RemoveAuthorButton" Content="Удалить"
+                            IsEnabled="False"
                             Style="{StaticResource EditorButtonStyle}"
                             VerticalAlignment="Bottom"
                             Click="RemoveAuthorButton_Click" />
@@ -104,12 +105,15 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Фамилия" VerticalAlignment="Center" Margin="0,0,5,0" />
                     <TextBox Grid.Row="0" Grid.Column="1"
-                             x:Name="NewAuthorSurnameTextBox" />
+                             x:Name="NewAuthorSurnameTextBox"
+                             TextChanged="NewAuthorSurnameTextBox_TextChanged" />
                     <TextBlock Grid.Row="0" Grid.Column="2" Text="Имя" VerticalAlignment="Center" Margin="10,0,5,0" />
                     <TextBox Grid.Row="0" Grid.Column="3"
-                             x:Name="NewAuthorNameTextBox" />
+                             x:Name="NewAuthorNameTextBox"
+                             TextChanged="NewAuthorNameTextBox_TextChanged" />
                     <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
                             x:Name="AddNewAuthorButton" Content="Добавить"
+                            IsEnabled="False"
                             Style="{StaticResource EditorButtonStyle}"
                             HorizontalAlignment="Right"
                             Margin="0,10,0,0"
@@ -140,27 +144,12 @@
                          Margin="0,4,0,0"
                          Text="Поиск предназначения, или Двадцать седьмая теорема этики" />
             </GroupBox>
-            <!-- Файл -->
-            <GroupBox Grid.Row="5" Header="Файл" Margin="0,10,0,0">
-                <Grid Grid.Row="5" Margin="0,4,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0"
-                             x:Name="FileTextBox" />
-                    <Button Grid.Column="1"
-                            x:Name="PickFileButton" Content="Выбрать"
-                            Style="{StaticResource EditorButtonStyle}"
-                            Margin="10,0,0,0"
-                            Click="PickFileButton_Click" />
-                </Grid>
-            </GroupBox>
         </Grid>
 
         <!-- Данные из тэга -->
         <Grid Grid.Row="0" Grid.Column="1" Margin="20,0,0,0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -168,7 +157,7 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Данные из тэга" HorizontalAlignment="Left" VerticalAlignment="Center" />
                 <Button Grid.Column="1" x:Name="LoadTagButton" Content="Загрузить"
@@ -176,24 +165,29 @@
                         HorizontalAlignment="Right" VerticalAlignment="Center"
                         Click="LoadTagButton_Click" />
             </Grid>
+            <!-- Файл книги не найден -->
+            <TextBlock Grid.Row="1" x:Name="FileNotFoundTextBlock"
+                       Text="* Файл книги не найден"
+                       Foreground="Red"
+                       Margin="0,10,0,0" />
             <!-- Данные -->
-            <ScrollViewer Grid.Row="1" Margin="0,10,0,0" Padding="0,0,5,0">
+            <ScrollViewer Grid.Row="2" Margin="0,10,0,0" Padding="0,0,5,0">
                 <StackPanel>
                     <!-- Название (Title) -->
                     <GroupBox Header="Название" Margin="0,0,0,0">
-                        <TextBox x:Name="TagTitle" TextWrapping="Wrap" IsReadOnly="True" Margin="0,4,0,0"
+                        <TextBox x:Name="TagTitleTextBox" TextWrapping="Wrap" IsReadOnly="True" Margin="0,4,0,0"
                                  Text="Поиск предназначения, или Двадцать седьмая теорема этики"
                                  Style="{StaticResource ReadOnlyTextBoxStyle}" />
                     </GroupBox>
                     <!-- Автор (Artist) -->
                     <GroupBox Header="Автор" Margin="0,10,0,0">
-                        <TextBox x:Name="TagAuthor" TextWrapping="Wrap" IsReadOnly="True" Margin="0,4,0,0"
+                        <TextBox x:Name="TagAuthorTextBox" TextWrapping="Wrap" IsReadOnly="True" Margin="0,4,0,0"
                                  Text="Автор книги из тэга Автор книги из тэга Автор книги из тэга Автор книги из тэга"
                                  Style="{StaticResource ReadOnlyTextBoxStyle}" />
                     </GroupBox>
                     <!-- Комментарии (Comment, Description, Lyrics) -->
                     <GroupBox Header="Комментарии" Margin="0,10,0,0">
-                        <TextBox TextWrapping="Wrap" IsReadOnly="True" Margin="0,4,0,0"
+                        <TextBox x:Name="TagCommentsTextBox" TextWrapping="Wrap" IsReadOnly="True" Margin="0,4,0,0"
                                  Text="Комментарии книги из тэга Комментарии книги из тэга Комментарии книги из тэга"
                                  Style="{StaticResource ReadOnlyTextBoxStyle}" />
                     </GroupBox>
@@ -213,6 +207,7 @@
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="SaveButton" Content="Сохранить"
+                    IsEnabled="False"
                     Style="{StaticResource BottomButtonStyle}"
                     Margin="0,0,10,0"
                     Click="SaveButton_Click" />

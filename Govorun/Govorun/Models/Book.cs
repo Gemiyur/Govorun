@@ -1,4 +1,5 @@
 ﻿using LiteDB;
+using System.IO;
 
 namespace Govorun.Models
 {
@@ -74,6 +75,12 @@ namespace Govorun.Models
         /// Файл книги с полным путём.
         /// </summary>
         public string FileName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Существует ли файл книги.
+        /// </summary>
+        [BsonIgnore]
+        public bool FileExists => File.Exists(FileName);
 
         /// <summary>
         /// Продолжительность аудио книги.

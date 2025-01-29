@@ -258,7 +258,8 @@ namespace Govorun
 
         private void Edit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var editor = new BookEditor() { Owner = this };
+            var book = (Book)BooksListView.SelectedItem;
+            var editor = new BookEditor(book, false) { Owner = this };
             if (!App.SimpleBool(editor.ShowDialog()))
                 return;
 
@@ -309,9 +310,9 @@ namespace Govorun
             AddBookDialog.FileName = string.Empty;
             if (!App.SimpleBool(AddBookDialog.ShowDialog()))
                 return;
-            var editor = new BookEditor() { Owner = this };
-            if (!App.SimpleBool(editor.ShowDialog()))
-                return;
+            //var editor = new BookEditor() { Owner = this };
+            //if (!App.SimpleBool(editor.ShowDialog()))
+            //    return;
 
         }
 
