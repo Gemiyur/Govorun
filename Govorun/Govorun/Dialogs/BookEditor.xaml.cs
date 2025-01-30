@@ -27,7 +27,7 @@ namespace Govorun.Dialogs
     #endregion
 
     /// <summary>
-    /// Класс редактора книги.
+    /// Класс окна редактора книги.
     /// </summary>
     public partial class BookEditor : Window
     {
@@ -144,7 +144,10 @@ namespace Govorun.Dialogs
 
         private void PickLectorButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var picker = new LectorPicker() { Owner = this };
+            if (!App.SimpleBool(picker.ShowDialog()))
+                return;
+            LectorTextBox.Text = picker.Lector;
         }
 
         private void LoadTagButton_Click(object sender, RoutedEventArgs e)

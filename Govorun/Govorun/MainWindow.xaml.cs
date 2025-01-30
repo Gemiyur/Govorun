@@ -331,7 +331,7 @@ namespace Govorun
 
         private void Lectors_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            //var lectors = Books.Lectors;
         }
 
         private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)

@@ -18,6 +18,16 @@ namespace Govorun.Tools
         public static readonly List<Book> AllBooks;
 
         /// <summary>
+        /// Возвращает список всех чтецов.
+        /// </summary>
+        public static List<string> Lectors =>
+            AllBooks.Select(x => x.Lector)
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Distinct()
+                    .Order(StringComparer.CurrentCultureIgnoreCase)
+                    .ToList();
+
+        /// <summary>
         /// Статический конструктор.
         /// </summary>
         static Books()
