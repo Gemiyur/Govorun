@@ -9,7 +9,10 @@ namespace Govorun.Dialogs
     /// </summary>
     public partial class LectorPicker : Window
     {
-        public string Lector = string.Empty;
+        /// <summary>
+        /// Выбранный чтец.
+        /// </summary>
+        public string PickedLector = string.Empty;
 
         public LectorPicker()
         {
@@ -24,7 +27,7 @@ namespace Govorun.Dialogs
 
         private void PickButton_Click(object sender, RoutedEventArgs e)
         {
-            Lector = (string)LectorsListBox.SelectedItem;
+            PickedLector = (string)LectorsListBox.SelectedItem;
             DialogResult = true;
         }
 

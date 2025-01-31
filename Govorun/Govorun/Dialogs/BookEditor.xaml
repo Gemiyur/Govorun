@@ -78,16 +78,16 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <Button Grid.Row="0" Grid.Column="1"
-                            x:Name="PickAuthorButton" Content="Выбрать"
+                            x:Name="PickAuthorsButton" Content="Выбрать"
                             Style="{StaticResource EditorButtonStyle}"
                             VerticalAlignment="Top"
-                            Click="PickAuthorButton_Click" />
+                            Click="PickAuthorsButton_Click" />
                     <Button Grid.Row="1" Grid.Column="1"
-                            x:Name="RemoveAuthorButton" Content="Удалить"
+                            x:Name="RemoveAuthorsButton" Content="Удалить"
                             IsEnabled="False"
                             Style="{StaticResource EditorButtonStyle}"
                             VerticalAlignment="Bottom"
-                            Click="RemoveAuthorButton_Click" />
+                            Click="RemoveAuthorsButton_Click" />
                 </Grid>
             </GroupBox>
             <!-- Новый автор -->

@@ -16,12 +16,12 @@ using System.Windows.Shapes;
 using Gemiyur.Comparers;
 using Govorun.Media;
 using Govorun.Models;
+using Govorun.Tools;
 
 namespace Govorun.Dialogs
 {
     #region Задачи (TODO).
 
-    // TODO: Подумать над сортировкой авторов - где и когда сортировать.
     // TODO: Подобрать цвет фона для TextBox только для чтения.
 
     #endregion
@@ -31,10 +31,27 @@ namespace Govorun.Dialogs
     /// </summary>
     public partial class BookEditor : Window
     {
+        /// <summary>
+        /// Редактируемая книга.
+        /// </summary>
         private readonly Book book;
 
+        /// <summary>
+        /// Список авторов книги.
+        /// </summary>
         private readonly List<Author> authors = [];
 
+        /// <summary>
+        /// Список всех авторов в библиотеке.
+        /// </summary>
+        private readonly List<Author> allAuthors = Db.GetAuthors();
+
+        /// <summary>
+        /// Инициализирует новый экземпляр класса.
+        /// </summary>
+        /// <param name="book">Книга.</param>
+        /// <param name="loadTag">Загружать ли данные из тега файла книги.</param>
+        /// <exception cref="ArgumentException"></exception>
         public BookEditor(Book book, bool loadTag)
         {
             InitializeComponent();
@@ -56,18 +73,42 @@ namespace Govorun.Dialogs
             }
         }
 
+        /// <summary>
+        /// Устанавливает доступность кнопки добавления нового автора.
+        /// </summary>
+        private void CheckAddNewAuthorButton()
+        {
+            AddNewAuthorButton.IsEnabled =
+                !string.IsNullOrWhiteSpace(NewAuthorNameTextBox.Text) ||
+                !string.IsNullOrWhiteSpace(NewAuthorSurnameTextBox.Text);
+        }
+
+        /// <summary>
+        /// Очищает поля ввода имени и фамилии нового автора.
+        /// </summary>
+        private void ClearNewAuthor()
+        {
+            NewAuthorNameTextBox.Text = string.Empty;
+            NewAuthorSurnameTextBox.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// Загружает книгу в редактор.
+        /// </summary>
         private void LoadBook()
         {
             TitleTextBox.Text = book.Title;
             authors.Clear();
             authors.AddRange(book.Authors);
-            // TODO: Нужно ли сортировать авторов при загрузке книги? Надо подумать.
             SortAuthors();
             UpdateAuthorsSource();
             LectorTextBox.Text = book.Lector;
             CommentTextBox.Text = book.Comment;
         }
 
+        /// <summary>
+        /// Загружает данные из тега файла книги в редактор.
+        /// </summary>
         private void LoadTag()
         {
             var tag = new TrackData(book.FileName);
@@ -85,24 +126,18 @@ namespace Govorun.Dialogs
             TagCommentsTextBox.Text = comments;
         }
 
+        /// <summary>
+        /// Сортирует список авторов книги по фамилии и имени.
+        /// </summary>
         private void SortAuthors() => authors.Sort(new StringKeyComparer(x => ((Author)x).SurnameName));
 
+        /// <summary>
+        /// Обновляет источник элементов списка авторов книги.
+        /// </summary>
         private void UpdateAuthorsSource()
         {
-            // TODO: Возможно, тут следует сортировать авторов. Надо подумать.
             AuthorsListBox.ItemsSource = null;
             AuthorsListBox.ItemsSource = authors;
-        }
-
-        private void CheckAddNewAuthorButton()
-        {
-            //if (NewAuthorSurnameTextBox.Text.Any())
-            //AddNewAuthorButton.IsEnabled = NewAuthorSurnameTextBox.Text.Any() || NewAuthorNameTextBox.Text.Any();
-
-            AddNewAuthorButton.IsEnabled =
-                !string.IsNullOrWhiteSpace(NewAuthorSurnameTextBox.Text) ||
-                !string.IsNullOrWhiteSpace(NewAuthorNameTextBox.Text);
-
         }
 
         #region Обработчики событий элементов управления.
@@ -114,17 +149,23 @@ namespace Govorun.Dialogs
 
         private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RemoveAuthorButton.IsEnabled = AuthorsListBox.SelectedItems.Count > 0;
+            RemoveAuthorsButton.IsEnabled = AuthorsListBox.SelectedItems.Count > 0;
         }
 
-        private void PickAuthorButton_Click(object sender, RoutedEventArgs e)
+        private void PickAuthorsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var picker = new AuthorsPicker() { Owner = this };
+            if (!App.SimpleBool(picker.ShowDialog()))
+                return;
+            authors.AddRange(picker.PickedAuthors.Where(x => !authors.Exists(a => a.AuthorId == x.AuthorId)));
+            SortAuthors();
+            UpdateAuthorsSource();
         }
 
-        private void RemoveAuthorButton_Click(object sender, RoutedEventArgs e)
+        private void RemoveAuthorsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            authors.RemoveAll(x => AuthorsListBox.SelectedItems.Cast<Author>().Contains(x));
+            UpdateAuthorsSource();
         }
 
         private void NewAuthorSurnameTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -139,7 +180,32 @@ namespace Govorun.Dialogs
 
         private void AddNewAuthorButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var name = NewAuthorNameTextBox.Text.Trim();
+            var surname = NewAuthorSurnameTextBox.Text.Trim();
+            var author = allAuthors.Find(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) &&
+                                              x.Surname.Equals(surname, StringComparison.CurrentCultureIgnoreCase));
+            if (author != null)
+            {
+                if (authors.Exists(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) &&
+                                        x.Surname.Equals(surname, StringComparison.CurrentCultureIgnoreCase)))
+                {
+                    ClearNewAuthor();
+                    return;
+                }
+                else
+                {
+                    authors.Add(author);
+                }
+            }
+            else
+            {
+                author = new Author() { Name = name, Surname = surname };
+                allAuthors.Add(author);
+                authors.Add(author);
+            }
+            SortAuthors();
+            UpdateAuthorsSource();
+            ClearNewAuthor();
         }
 
         private void PickLectorButton_Click(object sender, RoutedEventArgs e)
@@ -147,7 +213,7 @@ namespace Govorun.Dialogs
             var picker = new LectorPicker() { Owner = this };
             if (!App.SimpleBool(picker.ShowDialog()))
                 return;
-            LectorTextBox.Text = picker.Lector;
+            LectorTextBox.Text = picker.PickedLector;
         }
 
         private void LoadTagButton_Click(object sender, RoutedEventArgs e)
