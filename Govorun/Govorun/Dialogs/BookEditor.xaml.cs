@@ -98,7 +98,6 @@ namespace Govorun.Dialogs
         private void LoadBook()
         {
             TitleTextBox.Text = book.Title;
-            authors.Clear();
             authors.AddRange(book.Authors);
             SortAuthors();
             UpdateAuthorsSource();
@@ -124,6 +123,63 @@ namespace Govorun.Dialogs
             else if (tag.Lyrics.Any())
                 comments = comments + "\r\n" + tag.Lyrics;
             TagCommentsTextBox.Text = comments;
+        }
+
+        /// <summary>
+        /// Сохраняет данные из редактора в редактируемую книгу.
+        /// </summary>
+        /// <returns>Были ли внесены изменения в книгу.</returns>
+        private bool SaveBook()
+        {
+            // В книге есть изменения?
+            var changed = false;
+            // Название.
+            if (book.Title != TitleTextBox.Text)
+            {
+                book.Title = TitleTextBox.Text;
+                changed = true;
+            }
+            // Авторы.
+            if (authors.Any(x => book.Authors.Exists(a => a.AuthorId != x.AuthorId)) ||
+                book.Authors.Any(x => authors.Exists(a => a.AuthorId != x.AuthorId)))
+            {
+                book.Authors.Clear();
+                book.Authors.AddRange(authors);
+                changed = true;
+            }
+            // Чтец.
+            if (book.Lector != LectorTextBox.Text)
+            {
+                book.Lector = LectorTextBox.Text;
+                changed = true;
+            }
+            // Комментарий.
+            if (book.Comment != CommentTextBox.Text)
+            {
+                book.Comment = CommentTextBox.Text;
+                changed = true;
+            }
+            // Возврат результата: были ли внесены изменения в книгу.
+            return changed;
+        }
+
+        /// <summary>
+        /// Сохраняет новых авторов и присваивает им идентификаторы.
+        /// </summary>
+        /// <returns>Были ли авторы сохранены успешно.</returns>
+        private bool SaveNewAuthors()
+        {
+            var newAuthors = authors.FindAll(x => x.AuthorId == 0);
+            if (!newAuthors.Any())
+                return true;
+            using var db = Db.GetDatabase();
+            foreach (var author in newAuthors)
+            {
+                author.AuthorId = Db.InsertAuthor(author, db);
+                if (author.AuthorId < 1)
+                    return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -199,9 +255,7 @@ namespace Govorun.Dialogs
             }
             else
             {
-                author = new Author() { Name = name, Surname = surname };
-                allAuthors.Add(author);
-                authors.Add(author);
+                authors.Add(new Author() { Name = name, Surname = surname });
             }
             SortAuthors();
             UpdateAuthorsSource();
@@ -238,7 +292,22 @@ namespace Govorun.Dialogs
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (!SaveNewAuthors())
+            {
+                MessageBox.Show("Не удалось сохранить новых авторов.", Title);
+                return;
+            }
+            if (!SaveBook())
+            {
+                DialogResult = false;
+                return;
+            }
+            if (!Db.UpdateBook(book))
+            {
+                MessageBox.Show("Не удалось сохранить книгу.", Title);
+                return;
+            }
+            DialogResult = true;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

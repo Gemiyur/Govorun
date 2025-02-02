@@ -39,7 +39,7 @@ namespace Govorun.Models
         /// </summary>
         [BsonIgnore]
         public string AuthorsText =>
-            App.ListToString(Authors, ", ", x => ((Author)x).NameSurname, StringComparer.CurrentCultureIgnoreCase);
+            App.ListToString(Authors, ", ", x => ((Author)x).SurnameName, StringComparer.CurrentCultureIgnoreCase);
 
         private string lector = string.Empty;
 
@@ -59,7 +59,7 @@ namespace Govorun.Models
         private string comment = string.Empty;
 
         /// <summary>
-        /// Описание книги.
+        /// Комментарий к книге.
         /// </summary>
         public string Comment
         {
