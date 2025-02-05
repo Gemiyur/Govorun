@@ -124,17 +124,7 @@ namespace Govorun.Tools
             return DeleteAuthor(authorId, db);
         }
 
-        public static bool DeleteAuthor(int authorId, LiteDatabase db)
-        {
-            var booksCollection = GetBooksCollection(db);
-            var books = booksCollection.Find(x => x.Authors.Exists(a => a.AuthorId == authorId)).ToList();
-            foreach (var book in books)
-            {
-                book.Authors.RemoveAll(x => x.AuthorId == authorId);
-                booksCollection.Update(book);
-            }
-            return GetAuthorsCollection(db).Delete(authorId);
-        }
+        public static bool DeleteAuthor(int authorId, LiteDatabase db) => GetAuthorsCollection(db).Delete(authorId);
 
         public static bool UpdateAuthor(Author author)
         {

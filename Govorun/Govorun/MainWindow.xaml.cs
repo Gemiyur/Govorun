@@ -326,6 +326,9 @@ namespace Govorun
 
         private void Authors_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            var editor = new AuthorsEditor() { Owner = this };
+            if (!App.SimpleBool(editor.ShowDialog()))
+                return;
 
         }
 
