@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Gemiyur.Comparers;
 using Govorun.Media;
 using Govorun.Models;
@@ -31,6 +18,16 @@ namespace Govorun.Dialogs
     /// </summary>
     public partial class BookEditor : Window
     {
+        /// <summary>
+        /// Были ли изменения в авторах книги.
+        /// </summary>
+        public bool AuthorsChanged;
+
+        /// <summary>
+        /// Было ли изменено название книги.
+        /// </summary>
+        public bool TitleChanged;
+
         /// <summary>
         /// Редактируемая книга.
         /// </summary>
@@ -138,6 +135,7 @@ namespace Govorun.Dialogs
             {
                 book.Title = TitleTextBox.Text;
                 changed = true;
+                TitleChanged = true;
             }
             // Авторы.
             if (authors.Any(x => book.Authors.Exists(a => a.AuthorId != x.AuthorId)) ||
@@ -146,6 +144,7 @@ namespace Govorun.Dialogs
                 book.Authors.Clear();
                 book.Authors.AddRange(authors);
                 changed = true;
+                AuthorsChanged = true;
             }
             // Чтец.
             if (book.Lector != LectorTextBox.Text)

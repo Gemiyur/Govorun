@@ -112,11 +112,14 @@ namespace Govorun
 
         private void AllAuthorsButton_Click(object sender, RoutedEventArgs e)
         {
+            // TODO: Сохранять ли выбор книг при переходе от книг автора ко всем книгам?
             AuthorsListBox.SelectedIndex = -1;
+            SortShownBooks();
         }
 
         private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // TODO: Сохранять ли выбор книг при переходе от всех книг к книгам автора?
             AllAuthorsButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
             UpdateShownBooks();
         }
@@ -262,7 +265,22 @@ namespace Govorun
             var editor = new BookEditor(book, false) { Owner = this };
             if (!App.SimpleBool(editor.ShowDialog()))
                 return;
-
+            if (AuthorsListBox.SelectedIndex >= 0 && editor.AuthorsChanged)
+            {
+                var author = (Author)AuthorsListBox.SelectedItem;
+                if (!book.Authors.Exists(x => x.AuthorId == author.AuthorId))
+                {
+                    ShownBooks.Remove(book);
+                    return;
+                }
+            }
+            if (editor.TitleChanged)
+            {
+                SortShownBooks();
+                BooksListView.SelectedItem = book;
+                BooksListView.ScrollIntoView(BooksListView.SelectedItem);
+            }
+            book.OnPropertyChanged("AuthorsText");
         }
 
         private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -327,9 +345,19 @@ namespace Govorun
         private void Authors_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var editor = new AuthorsEditor() { Owner = this };
-            if (!App.SimpleBool(editor.ShowDialog()))
+            editor.ShowDialog();
+            if (!editor.HasChanges)
                 return;
-
+            var selectedAuthor = (Author)AuthorsListBox.SelectedItem;
+            Authors.ReplaceRange(Db.GetAuthors());
+            if (selectedAuthor != null)
+            {
+                var author = Authors.First(x => x.AuthorId == selectedAuthor.AuthorId);
+                AuthorsListBox.SelectedItem = author;
+                AuthorsListBox.ScrollIntoView(AuthorsListBox.SelectedItem);
+            }
+            foreach (var book in ShownBooks)
+                book.OnPropertyChanged("AuthorsText");
         }
 
         private void Lectors_Executed(object sender, ExecutedRoutedEventArgs e)

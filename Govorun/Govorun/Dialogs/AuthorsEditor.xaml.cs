@@ -110,7 +110,7 @@ namespace Govorun.Dialogs
                 ClearEditor();
             foreach (var book in books)
             {
-                book.Authors.RemoveAll(x =>  x.AuthorId == author.AuthorId);
+                book.Authors.RemoveAll(x => x.AuthorId == author.AuthorId);
             }
             Authors.Remove(author);
             HasChanges = true;
@@ -143,6 +143,15 @@ namespace Govorun.Dialogs
                 {
                     MessageBox.Show("Не удалось изменить данные автора.", "Ошибка");
                     return;
+                }
+                var books = Books.GetAuthorBooks(EditedAuthor.AuthorId);
+                foreach (var book in books)
+                {
+                    var author = book.Authors.Find(x => x.AuthorId == EditedAuthor.AuthorId);
+                    if (author == null)
+                        continue;
+                    author.Name = EditedAuthor.Name;
+                    author.Surname = EditedAuthor.Surname;
                 }
             }
             Authors.Sort(x => x.SurnameName, StringComparer.CurrentCultureIgnoreCase);
