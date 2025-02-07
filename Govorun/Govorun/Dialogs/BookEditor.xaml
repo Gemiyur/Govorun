@@ -176,19 +176,16 @@
                     <!-- Название (Title) -->
                     <GroupBox Header="Название" Margin="0,0,0,0">
                         <TextBox x:Name="TagTitleTextBox" TextWrapping="Wrap" IsReadOnly="True" Margin="0,4,0,0"
-                                 Text="Поиск предназначения, или Двадцать седьмая теорема этики"
                                  Style="{StaticResource ReadOnlyTextBoxStyle}" />
                     </GroupBox>
                     <!-- Автор (Artist) -->
                     <GroupBox Header="Автор" Margin="0,10,0,0">
                         <TextBox x:Name="TagAuthorTextBox" TextWrapping="Wrap" IsReadOnly="True" Margin="0,4,0,0"
-                                 Text="Автор книги из тэга Автор книги из тэга Автор книги из тэга Автор книги из тэга"
                                  Style="{StaticResource ReadOnlyTextBoxStyle}" />
                     </GroupBox>
                     <!-- Комментарии (Comment, Description, Lyrics) -->
                     <GroupBox Header="Комментарии" Margin="0,10,0,0">
                         <TextBox x:Name="TagCommentsTextBox" TextWrapping="Wrap" IsReadOnly="True" Margin="0,4,0,0"
-                                 Text="Комментарии книги из тэга Комментарии книги из тэга Комментарии книги из тэга"
                                  Style="{StaticResource ReadOnlyTextBoxStyle}" />
                     </GroupBox>
                 </StackPanel>

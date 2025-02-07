@@ -26,7 +26,8 @@
         </Grid.RowDefinitions>
 
         <ListBox Grid.Row="0" x:Name="AuthorsListBox"
-                 SelectionMode="Multiple"
+                 SelectionMode="Extended"
+                 MouseDoubleClick="AuthorsListBox_MouseDoubleClick"
                  SelectionChanged="AuthorsListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -39,10 +40,12 @@
             <Button x:Name="PickButton" Content="Выбрать"
                     IsEnabled="False"
                     Style="{StaticResource ButtonStyle}"
+                    IsDefault="True"
                     Margin="0,0,10,0"
                     Click="PickButton_Click" />
             <Button x:Name="CancelButton" Content="Отмена"
                     Style="{StaticResource ButtonStyle}"
+                    IsCancel="True"
                     Click="CancelButton_Click" />
         </StackPanel>
     </Grid>

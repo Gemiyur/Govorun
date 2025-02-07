@@ -47,6 +47,6 @@
         <Button Grid.Row="5" Grid.Column="2" x:Name="CloseButton" Content="Закрыть"
                 Height="25" Width="75"
                 HorizontalAlignment="Right"
-                Click="CloseButton_Click" />
+                Click="CloseButton_Click" IsCancel="True" IsDefault="True" />
     </Grid>
 </Window>

@@ -20,7 +20,7 @@ namespace Govorun
 {
     #region Задачи (TODO).
 
-    // TODO: Надо бы подобрать картинку для кнопки "Все авторы" (AllAuthorsButton).
+    // TODOL: Надо бы подобрать картинку для кнопки "Все авторы" (AllAuthorsButton).
 
     #endregion
 
@@ -112,14 +112,14 @@ namespace Govorun
 
         private void AllAuthorsButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Сохранять ли выбор книг при переходе от книг автора ко всем книгам?
+            // TODOL: Сохранять ли выбор книг при переходе от книг автора ко всем книгам?
             AuthorsListBox.SelectedIndex = -1;
             SortShownBooks();
         }
 
         private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // TODO: Сохранять ли выбор книг при переходе от всех книг к книгам автора?
+            // TODOL: Сохранять ли выбор книг при переходе от всех книг к книгам автора?
             AllAuthorsButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
             UpdateShownBooks();
         }

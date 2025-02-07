@@ -9,8 +9,6 @@ namespace Govorun.Dialogs
 {
     #region Задачи (TODO).
 
-    // TODO: Подобрать цвет фона для TextBox только для чтения.
-
     #endregion
 
     /// <summary>
@@ -54,7 +52,7 @@ namespace Govorun.Dialogs
             InitializeComponent();
             if (book == null)
             {
-                // TODO: Выдавать сообщение всегда или только при отладке?
+                // TODOL: Выдавать сообщение всегда или только при отладке?
                 MessageBox.Show("Не указана книга: book == null.", "Ошибка");
                 throw new ArgumentException("Не указана книга: book == null.", nameof(book));
             }

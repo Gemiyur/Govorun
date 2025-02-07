@@ -21,6 +21,15 @@ namespace Govorun.Dialogs
             AuthorsListBox.ItemsSource = Db.GetAuthors();
         }
 
+        private void AuthorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.OriginalSource is TextBlock && AuthorsListBox.SelectedItem != null)
+            {
+                PickedAuthors.Add((Author)AuthorsListBox.SelectedItem);
+                DialogResult = true;
+            }
+        }
+
         private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PickButton.IsEnabled = AuthorsListBox.SelectedIndex > -1;

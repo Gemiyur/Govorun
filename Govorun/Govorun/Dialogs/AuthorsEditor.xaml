@@ -104,6 +104,7 @@
         <Button Grid.Row="2" Grid.Column="2"
                 x:Name="CloseButton" Content="Закрыть"
                 Style="{StaticResource ButtonStyle}"
+                IsCancel="True"
                 HorizontalAlignment="Right"
                 Click="CloseButton_Click" />
     </Grid>
