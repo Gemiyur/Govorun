@@ -292,7 +292,30 @@ namespace Govorun
 
         private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            if (BooksListView.SelectedItems.Count == 1)
+            {
+                var book = (Book)BooksListView.SelectedItem;
+                if (MessageBox.Show($"Удалить книгу \"{book.Title}\"?", Title,
+                                    MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+                Db.DeleteBook(book);
+                Books.AllBooks.Remove(book);
+                ShownBooks.Remove(book);
+                UpdateStatusBarBooksCount();
+                return;
+            }
+            var books = BooksListView.SelectedItems.Cast<Book>().ToList();
+            if (MessageBox.Show("Удалить выбранные книги?", Title,
+                                MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            {
+                return;
+            }
+            Db.DeleteBooks(books);
+            Books.AllBooks.RemoveAll(books.Contains);
+            ShownBooks.RemoveRange(books);
+            UpdateStatusBarBooksCount();
         }
 
         #endregion
