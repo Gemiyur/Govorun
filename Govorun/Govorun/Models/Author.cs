@@ -22,7 +22,7 @@ namespace Govorun.Models
             get => name;
             set
             {
-                name = value;
+                name = value ?? string.Empty;
                 OnPropertyChanged("Name");
                 OnPropertyChanged("NameSurname");
                 OnPropertyChanged("SurnameName");
@@ -39,7 +39,7 @@ namespace Govorun.Models
             get => surname;
             set
             {
-                surname = value;
+                surname = value ?? string.Empty;
                 OnPropertyChanged("Surname");
                 OnPropertyChanged("NameSurname");
                 OnPropertyChanged("SurnameName");

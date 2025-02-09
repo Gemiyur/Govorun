@@ -53,7 +53,7 @@ namespace Govorun.Models
             get => title;
             set
             {
-                title = value;
+                title = value ?? string.Empty;
                 OnPropertyChanged("Title");
             }
         }

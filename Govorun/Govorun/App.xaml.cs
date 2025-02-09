@@ -8,6 +8,8 @@ namespace Govorun
 {
     #region Задачи (TODO).
 
+    // TODOL: Reset.png для кнопки сброса позиции прослушивания книги пока оставлен на всякий случай.
+
     #endregion
 
     /// <summary>
