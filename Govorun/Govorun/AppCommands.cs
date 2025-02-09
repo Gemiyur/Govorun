@@ -30,11 +30,6 @@ namespace Govorun
         public static RoutedUICommand Bookmarks { get; private set; }
 
         /// <summary>
-        /// Команда сброса позиции прослушивания книги.
-        /// </summary>
-        public static RoutedUICommand Reset { get; private set; }
-
-        /// <summary>
         /// Команда редактирования данных книги.
         /// </summary>
         public static RoutedUICommand Edit { get; private set; }
@@ -109,7 +104,6 @@ namespace Govorun
             Info = new RoutedUICommand("О книге...", "Info", typeof(AppCommands));
             Chapters = new RoutedUICommand("Содержание...", "Chapters", typeof(AppCommands));
             Bookmarks = new RoutedUICommand("Закладки...", "Bookmarks", typeof(AppCommands));
-            Reset = new RoutedUICommand("В начало", "Reset", typeof(AppCommands));
             Edit = new RoutedUICommand("Изменить...", "Edit", typeof(AppCommands));
             Delete = new RoutedUICommand("Удалить...", "Delete", typeof(AppCommands));
 

@@ -242,27 +242,6 @@ namespace Govorun
 
         }
 
-        private void Reset_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            // TODOL: Надо ли проверять позицию воспроизведения книги для разрешения команды?
-            e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Cast<Book>().Any(x => x.Listening);
-
-            // Без проверки позиции воспроизведения книги.
-            //e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count > 0;
-
-            if (!IsVisible)
-                return;
-            var bitmap = App.GetBitmap(
-                e.CanExecute ? @"Images\Buttons\Enabled\Reset.png" : @"Images\Buttons\Disabled\Reset.png");
-            ((Image)ResetButton.Content).Source = bitmap;
-            ((Image)ResetMenuItem.Icon).Source = bitmap;
-        }
-
-        private void Reset_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
-
         private void Edit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;

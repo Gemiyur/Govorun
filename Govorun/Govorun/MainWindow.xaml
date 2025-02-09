@@ -33,9 +33,6 @@
         <CommandBinding Command="local:AppCommands.Bookmarks"
                         CanExecute="Bookmarks_CanExecute"
                         Executed="Bookmarks_Executed" />
-        <CommandBinding Command="local:AppCommands.Reset"
-                        CanExecute="Reset_CanExecute"
-                        Executed="Reset_Executed" />
         <CommandBinding Command="local:AppCommands.Edit"
                         CanExecute="Edit_CanExecute"
                         Executed="Edit_Executed" />
@@ -94,12 +91,6 @@
                 <MenuItem x:Name="BookmarksMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Bookmarks">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Bookmarks.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <Separator />
-                <MenuItem x:Name="ResetMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Reset">
-                    <MenuItem.Icon>
-                        <Image Source="Images\Buttons\Enabled\Reset.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
@@ -186,10 +177,6 @@
                 </Button>
                 <Button x:Name="BookmarksButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Bookmarks">
                     <Image Source="Images\Buttons\Enabled\Bookmarks.png" Style="{StaticResource ToolBarIconStyle}" />
-                </Button>
-                <Separator />
-                <Button x:Name="ResetButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Reset">
-                    <Image Source="Images\Buttons\Enabled\Reset.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
                 <Button x:Name="EditButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Edit">
@@ -315,7 +302,7 @@
                         <GridViewColumn Header="Время" Width="70">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding DurationText}" TextAlignment="Center" />
+                                    <TextBlock Text="{Binding DurationText}" TextAlignment="Right" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
