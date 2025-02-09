@@ -118,12 +118,7 @@
                 <MenuItem x:Name="CloseMenuItem" Header="Выход" InputGestureText="Alt+F4" Click="CloseMenuItem_Click" />
             </MenuItem>
             <MenuItem Header="Библиотека">
-                <MenuItem x:Name="ListeningMenuItem"
-                          IsCheckable="True"
-                          IsChecked="False"
-                          Style="{StaticResource MenuItemStyle}"
-                          Command="local:AppCommands.Listening"
-                          CommandParameter="ListeningMenuItem">
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Listening">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Listening.png" />
                     </MenuItem.Icon>
@@ -206,13 +201,9 @@
                 </Button>
             </ToolBar>
             <ToolBar x:Name="LibraryToolBar">
-                <CheckBox x:Name="ListeningCheckBox"
-                          IsChecked="False"
-                          Style="{StaticResource ToolBarButtonStyle}"
-                          Command="local:AppCommands.Listening"
-                          CommandParameter="ListeningCheckBox">
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Listening">
                     <Image Source="Images\Buttons\Enabled\Listening.png" Style="{StaticResource ToolBarIconStyle}" />
-                </CheckBox>
+                </Button>
                 <Separator />
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.AddBook">
                     <Image Source="Images\Buttons\Enabled\AddBook.png" Style="{StaticResource ToolBarIconStyle}" />

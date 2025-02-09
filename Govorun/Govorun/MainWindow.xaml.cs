@@ -112,8 +112,6 @@ namespace Govorun
         {
             var author = (Author)AuthorsListBox.SelectedItem;
             var books = author == null ? Books.AllBooks : Books.GetAuthorBooks(author.AuthorId);
-            if (ListeningMenuItem.IsChecked)
-                books = books.FindAll(x => x.Listening);
             ShownBooks.ReplaceRange(books);
         }
 
@@ -324,22 +322,7 @@ namespace Govorun
 
         private void Listening_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            bool isChecked;
-            if (e.Parameter == null)
-                return;
-            if (e.Parameter.ToString() == "ListeningMenuItem")
-            {
-                isChecked = ListeningMenuItem.IsChecked;
-                ListeningCheckBox.IsChecked = isChecked;
-            }
-            else if (e.Parameter.ToString() == "ListeningCheckBox")
-            {
-                isChecked = App.SimpleBool(ListeningCheckBox.IsChecked);
-                ListeningMenuItem.IsChecked = isChecked;
-            }
-            else
-                return;
-            UpdateShownBooks();
+
         }
 
         private void AddBook_Executed(object sender, ExecutedRoutedEventArgs e)
