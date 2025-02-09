@@ -246,6 +246,7 @@
             </ToolBar>
         </ToolBarTray>
 
+        <!-- Авторы и книги -->
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -256,6 +257,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+            <!-- Заголовки списков -->
             <Grid Grid.Row="0" Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -263,13 +265,14 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Авторы" Margin="8,4,0,4" />
                 <Button Grid.Column="1" x:Name="AllAuthorsButton"
-                        Content="*" ToolTip="Все авторы"
-                        Width="16" Height="16" HorizontalAlignment="Right"
+                        Content="X" FontWeight="Bold" ToolTip="Снять выбор автора"
+                        Width="20" Height="20" HorizontalAlignment="Right"
                         Margin="0,0,2,0"
                         IsEnabled="False"
                         Click="AllAuthorsButton_Click" />
             </Grid>
             <TextBlock Grid.Row="0" Grid.Column="2" Text="Книги" Margin="8,4,0,4" />
+            <!-- Список авторов -->
             <ListBox Grid.Row="1" Grid.Column="0" x:Name="AuthorsListBox"
                      SelectionChanged="AuthorsListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
@@ -278,8 +281,10 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <!-- Сплиттер -->
             <GridSplitter Grid.Row="1" Grid.Column="1" Width="5"
                           HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+            <!-- Список книг -->
             <ListView Grid.Row="1" Grid.Column="2" x:Name="BooksListView" MinWidth="400"
                       MouseDoubleClick="BooksListView_MouseDoubleClick"
                       SelectionChanged="BooksListView_SelectionChanged"
@@ -328,6 +333,7 @@
             </ListView>
         </Grid>
 
+        <!-- Проигрыватель -->
         <Controls:PlayerControl Grid.Row="3" Height="100" x:Name="Player" />
 
         <StatusBar Grid.Row="4">

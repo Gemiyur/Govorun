@@ -2,22 +2,50 @@
 
 namespace Govorun.Media
 {
+    /// <summary>
+    /// Класс данных книги из тега файла книги.
+    /// </summary>
     public class TrackData
     {
+        /// <summary>
+        /// Название книги.
+        /// </summary>
         public string Title;
 
+        /// <summary>
+        /// Автор книги.
+        /// </summary>
         public string Artist;
 
+        /// <summary>
+        /// Комментарий к книге.
+        /// </summary>
         public string Comment;
 
+        /// <summary>
+        /// Описание книги.
+        /// </summary>
         public string Description;
 
+        /// <summary>
+        /// Дополнительное описание книги.
+        /// </summary>
         public string Lyrics;
 
+        /// <summary>
+        /// Продолжительность воспроизведения книги.
+        /// </summary>
         public TimeSpan Duration;
 
+        /// <summary>
+        /// Содержание книги.
+        /// </summary>
         public List<ChapterData> Chapters = [];
 
+        /// <summary>
+        /// Инициализирует новый экземпляр класса.
+        /// </summary>
+        /// <param name="filename">Имя файла книги с полным путём.</param>
         public TrackData(string filename)
         {
             var track = new Track(filename);

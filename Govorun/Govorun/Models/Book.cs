@@ -51,7 +51,7 @@ namespace Govorun.Models
             get => lector;
             set
             {
-                lector = value;
+                lector = value ?? string.Empty;
                 OnPropertyChanged("Lector");
             }
         }
@@ -71,10 +71,20 @@ namespace Govorun.Models
             }
         }
 
+        private string filename = string.Empty;
+
         /// <summary>
         /// Файл книги с полным путём.
         /// </summary>
-        public string FileName { get; set; } = string.Empty;
+        public string FileName // { get; set; } = string.Empty;
+        {
+            get => filename;
+            set
+            {
+                filename = value ?? string.Empty;
+                OnPropertyChanged("FileName");
+            }
+        }
 
         /// <summary>
         /// Существует ли файл книги.

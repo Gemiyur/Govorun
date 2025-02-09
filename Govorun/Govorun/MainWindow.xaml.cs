@@ -15,12 +15,11 @@ using Gemiyur.Collections;
 using Govorun.Dialogs;
 using Govorun.Models;
 using Govorun.Tools;
+using Govorun.Media;
 
 namespace Govorun
 {
     #region Задачи (TODO).
-
-    // TODOL: Надо бы подобрать картинку для кнопки "Все авторы" (AllAuthorsButton).
 
     #endregion
 
@@ -39,19 +38,25 @@ namespace Govorun
         /// </summary>
         private readonly ObservableCollectionEx<Author> Authors = [];
 
+        /// <summary>
+        /// Диалог выбора файла книги.
+        /// </summary>
         private readonly OpenFileDialog AddBookDialog = new()
         {
             AddToRecent = false,
             CheckFileExists = true,
             CheckPathExists = true,
             ValidateNames = true,
-            Title = "Добавить книгу",
+            Title = "Выбрать файл книги",
             Filter = "Файлы книг|*.m4b;*.m4a;*.mp3"
         };
 
+        /// <summary>
+        /// Диалог выбора папки с файлами книг.
+        /// </summary>
         private readonly OpenFolderDialog FindBooksDialog = new()
         {
-            Title = "Найти книги в папке",
+            Title = "Выбрать папку с файлами книг",
             ValidateNames = true
         };
 
@@ -66,11 +71,10 @@ namespace Govorun
 #else
             App.DbName = Properties.Settings.Default.DbName;
 #endif
-            if (!File.Exists(App.DbName))
-            {
-                Db.GenerateTestDb();
-            }
-            //var books = Db.GetBooks();
+            //if (!File.Exists(App.DbName))
+            //{
+            //    Db.GenerateTestDb();
+            //}
 
             Authors.AddRange(Db.GetAuthors());
             AuthorsListBox.ItemsSource = Authors;
@@ -85,6 +89,21 @@ namespace Govorun
         /// Сортирует список отображаемых книг по названию.
         /// </summary>
         private void SortShownBooks() => ShownBooks.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
+
+        /// <summary>
+        /// Обновляет список авторов книг.
+        /// </summary>
+        private void UpdateAuthors()
+        {
+            var selectedAuthor = (Author)AuthorsListBox.SelectedItem;
+            Authors.ReplaceRange(Db.GetAuthors());
+            if (selectedAuthor != null)
+            {
+                var author = Authors.First(x => x.AuthorId == selectedAuthor.AuthorId);
+                AuthorsListBox.SelectedItem = author;
+                AuthorsListBox.ScrollIntoView(AuthorsListBox.SelectedItem);
+            }
+        }
 
         /// <summary>
         /// Обновляет список отображаемых книг.
@@ -112,14 +131,12 @@ namespace Govorun
 
         private void AllAuthorsButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODOL: Сохранять ли выбор книг при переходе от книг автора ко всем книгам?
             AuthorsListBox.SelectedIndex = -1;
             SortShownBooks();
         }
 
         private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // TODOL: Сохранять ли выбор книг при переходе от всех книг к книгам автора?
             AllAuthorsButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
             UpdateShownBooks();
         }
@@ -262,9 +279,11 @@ namespace Govorun
         private void Edit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var book = (Book)BooksListView.SelectedItem;
-            var editor = new BookEditor(book, false) { Owner = this };
+            var editor = new BookEditor(book, null) { Owner = this };
             if (!App.SimpleBool(editor.ShowDialog()))
                 return;
+            if (editor.HasNewAuthors)
+                UpdateAuthors();
             if (AuthorsListBox.SelectedIndex >= 0 && editor.AuthorsChanged)
             {
                 var author = (Author)AuthorsListBox.SelectedItem;
@@ -328,10 +347,42 @@ namespace Govorun
             AddBookDialog.FileName = string.Empty;
             if (!App.SimpleBool(AddBookDialog.ShowDialog()))
                 return;
-            //var editor = new BookEditor() { Owner = this };
-            //if (!App.SimpleBool(editor.ShowDialog()))
-            //    return;
-
+            var filename = AddBookDialog.FileName;
+            if (Books.BookWithFileExists(filename))
+            {
+                MessageBox.Show("Книга с этим файлом уже есть в библиотеке.", "Добавление книги");
+                return;
+            }
+            var book = new Book();
+            var tag = new TrackData(filename);
+            book.Title = tag.Title;
+            book.FileName = filename;
+            book.Duration = tag.Duration;
+            foreach (var chapter in tag.Chapters)
+            {
+                book.Chapters.Add(new Chapter()
+                {
+                    Title = chapter.Title,
+                    StartTime = chapter.StartTime,
+                    EndTime = chapter.EndTime
+                });
+            }
+            var editor = new BookEditor(book, tag) { Owner = this };
+            if (!App.SimpleBool(editor.ShowDialog()))
+                return;
+            Books.AllBooks.Add(book);
+            if (editor.HasNewAuthors)
+                UpdateAuthors();
+            if (AuthorsListBox.SelectedItem != null &&
+                !Books.BookHasAuthor(book, ((Author)AuthorsListBox.SelectedItem).AuthorId))
+            {
+                AuthorsListBox.SelectedItem = null;
+            }
+            ShownBooks.Add(book);
+            SortShownBooks();
+            BooksListView.SelectedItem = book;
+            BooksListView.ScrollIntoView(AuthorsListBox.SelectedItem);
+            book.OnPropertyChanged("AuthorsText");
         }
 
         private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -348,14 +399,7 @@ namespace Govorun
             editor.ShowDialog();
             if (!editor.HasChanges)
                 return;
-            var selectedAuthor = (Author)AuthorsListBox.SelectedItem;
-            Authors.ReplaceRange(Db.GetAuthors());
-            if (selectedAuthor != null)
-            {
-                var author = Authors.First(x => x.AuthorId == selectedAuthor.AuthorId);
-                AuthorsListBox.SelectedItem = author;
-                AuthorsListBox.ScrollIntoView(AuthorsListBox.SelectedItem);
-            }
+            UpdateAuthors();
             foreach (var book in ShownBooks)
                 book.OnPropertyChanged("AuthorsText");
         }

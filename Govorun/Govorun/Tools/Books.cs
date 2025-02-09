@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Govorun.Models;
+﻿using Govorun.Models;
 
 namespace Govorun.Tools
 {
@@ -41,7 +36,15 @@ namespace Govorun.Tools
         /// <param name="book">Книга.</param>
         /// <param name="authorId">Идентификатор автора.</param>
         /// <returns>Является ли указанный автор автором указанной книги.</returns>
-        public static bool BookHasAuthor(Book book, int authorId) => book.Authors.Any(x => x.AuthorId == authorId);
+        public static bool BookHasAuthor(Book book, int authorId) => book.Authors.Exists(x => x.AuthorId == authorId);
+
+        /// <summary>
+        /// Возвращает есть ли книга с указанным именем файла.
+        /// </summary>
+        /// <param name="filename">Имя файла.</param>
+        /// <returns>Есть ли книга с указанным именем файла.</returns>
+        public static bool BookWithFileExists(string filename) =>
+            AllBooks.Exists(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
 
         /// <summary>
         /// Возвращает список книг указанного автора.
@@ -49,5 +52,13 @@ namespace Govorun.Tools
         /// <param name="authorId">Идентификатор автора.</param>
         /// <returns>Список книг указанного автора.</returns>
         public static List<Book> GetAuthorBooks(int authorId) => AllBooks.FindAll(x => BookHasAuthor(x, authorId));
+
+        /// <summary>
+        /// Возвращает книгу с указанным именем файла.
+        /// </summary>
+        /// <param name="filename">Имя файла.</param>
+        /// <returns>Книга с указанным именем файла.</returns>
+        public static Book? GetBookWithFile(string filename) =>
+            AllBooks.Find(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
     }
 }

@@ -22,6 +22,11 @@ namespace Govorun.Dialogs
         public bool AuthorsChanged;
 
         /// <summary>
+        /// Были ли добавлены новые авторы книг в библиотеку.
+        /// </summary>
+        public bool HasNewAuthors;
+
+        /// <summary>
         /// Было ли изменено название книги.
         /// </summary>
         public bool TitleChanged;
@@ -30,6 +35,11 @@ namespace Govorun.Dialogs
         /// Редактируемая книга.
         /// </summary>
         private readonly Book book;
+
+        /// <summary>
+        /// Данные книги из тега файла книги.
+        /// </summary>
+        private TrackData? tag;
 
         /// <summary>
         /// Список авторов книги.
@@ -45,9 +55,9 @@ namespace Govorun.Dialogs
         /// Инициализирует новый экземпляр класса.
         /// </summary>
         /// <param name="book">Книга.</param>
-        /// <param name="loadTag">Загружать ли данные из тега файла книги.</param>
+        /// <param name="tag">Данные книги из тега файла книги.</param>
         /// <exception cref="ArgumentException"></exception>
-        public BookEditor(Book book, bool loadTag)
+        public BookEditor(Book book, TrackData? tag)
         {
             InitializeComponent();
             if (book == null)
@@ -57,15 +67,11 @@ namespace Govorun.Dialogs
                 throw new ArgumentException("Не указана книга: book == null.", nameof(book));
             }
             this.book = book;
+            this.tag = tag;
             FileNotFoundTextBlock.Visibility = book.FileExists ? Visibility.Collapsed : Visibility.Visible;
+            LoadTagButton.IsEnabled = book.FileExists && tag == null;
             LoadBook();
-            if (!book.FileExists)
-                LoadTagButton.IsEnabled = false;
-            else if (loadTag)
-            {
-                LoadTag();
-                LoadTagButton.IsEnabled = false;
-            }
+            LoadTag();
         }
 
         /// <summary>
@@ -105,7 +111,8 @@ namespace Govorun.Dialogs
         /// </summary>
         private void LoadTag()
         {
-            var tag = new TrackData(book.FileName);
+            if (tag == null)
+                return;
             TagTitleTextBox.Text = tag.Title;
             TagAuthorTextBox.Text = tag.Artist;
             var comments = tag.Comment;
@@ -128,6 +135,8 @@ namespace Govorun.Dialogs
         {
             // В книге есть изменения?
             var changed = false;
+            // Новая книга.
+            changed = book.BookId < 1;
             // Название.
             if (book.Title != TitleTextBox.Text)
             {
@@ -136,7 +145,8 @@ namespace Govorun.Dialogs
                 TitleChanged = true;
             }
             // Авторы.
-            if (authors.Any(x => book.Authors.Exists(a => a.AuthorId != x.AuthorId)) ||
+            if (authors.Count != book.Authors.Count ||
+                authors.Any(x => book.Authors.Exists(a => a.AuthorId != x.AuthorId)) ||
                 book.Authors.Any(x => authors.Exists(a => a.AuthorId != x.AuthorId)))
             {
                 book.Authors.Clear();
@@ -169,6 +179,7 @@ namespace Govorun.Dialogs
             var newAuthors = authors.FindAll(x => x.AuthorId == 0);
             if (!newAuthors.Any())
                 return true;
+            HasNewAuthors = true;
             using var db = Db.GetDatabase();
             foreach (var author in newAuthors)
             {
@@ -271,7 +282,10 @@ namespace Govorun.Dialogs
         {
             // Так сделано на случай если после загрузки книги в редактор файл книги был удалён или переименован.
             if (book.FileExists)
+            {
+                tag = new TrackData(book.FileName);
                 LoadTag();
+            }
             else
                 FileNotFoundTextBlock.Visibility = Visibility.Visible;
             LoadTagButton.IsEnabled = false;
@@ -299,10 +313,22 @@ namespace Govorun.Dialogs
                 DialogResult = false;
                 return;
             }
-            if (!Db.UpdateBook(book))
+            if (book.BookId > 0)
             {
-                MessageBox.Show("Не удалось сохранить книгу.", Title);
-                return;
+                if (!Db.UpdateBook(book))
+                {
+                    MessageBox.Show("Не удалось сохранить книгу.", Title);
+                    return;
+                }
+            }
+            else
+            {
+                book.BookId = Db.InsertBook(book);
+                if (book.BookId < 1)
+                {
+                    MessageBox.Show("Не удалось добавить книгу.", Title);
+                    return;
+                }
             }
             DialogResult = true;
         }
