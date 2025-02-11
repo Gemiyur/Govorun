@@ -43,5 +43,17 @@ namespace Govorun.Properties {
                 this["DbName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int PlayerVolume {
+            get {
+                return ((int)(this["PlayerVolume"]));
+            }
+            set {
+                this["PlayerVolume"] = value;
+            }
+        }
     }
 }

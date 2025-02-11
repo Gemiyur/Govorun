@@ -127,13 +127,10 @@ namespace Govorun
             var book = Player.Book;
             if (book == null)
                 return;
-
             var position = Player.Player.Position < Player.Player.NaturalDuration.TimeSpan
                 ? Player.Player.Position
                 : TimeSpan.Zero;
             book.PlayPosition = position;
-
-            //book.PlayPosition = Player.Player.Position;
             Db.UpdateBook(book);
             book.OnPropertyChanged("PlayPosition");
         }
@@ -143,9 +140,8 @@ namespace Govorun
         /// </summary>
         private void SavePlayerVolume()
         {
-            // TODOH: Сохранить громкость проигрывателя в настройках приложения.
-            var volume = Player.Player.Volume;
-
+            Properties.Settings.Default.PlayerVolume = (int)(Player.Player.Volume * 100);
+            Properties.Settings.Default.Save();
         }
 
         private void Window_Closed(object sender, EventArgs e)

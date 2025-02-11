@@ -133,8 +133,7 @@ namespace Govorun.Controls
         {
             InitializeComponent();
             playTimer.Tick += PlayTimer_Tick;
-            // TODOH: Загрузить громкость звука из настроек приложения.
-            //Player.Volume = (double)Properties.Settings.Default.PlayerVolume / 100;
+            Player.Volume = (double)Properties.Settings.Default.PlayerVolume / 100;
             VolumeSlider.Value = Player.Volume;
         }
 
