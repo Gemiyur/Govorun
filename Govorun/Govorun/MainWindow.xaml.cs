@@ -78,13 +78,9 @@ namespace Govorun
 
             Authors.AddRange(Db.GetAuthors());
             AuthorsListBox.ItemsSource = Authors;
-
             ShownBooks.AddRange(Books.AllBooks);
-            //SortShownBooks();
             BooksListView.ItemsSource = ShownBooks;
             UpdateStatusBarBooksCount();
-
-            //Player.Book = null;
             Player.IsEnabled = false;
         }
 
@@ -122,6 +118,41 @@ namespace Govorun
         /// Обновляет количество отображаемых книг в строке статуса.
         /// </summary>
         private void UpdateStatusBarBooksCount() => StatusBarBooksCount.Text = BooksListView.Items.Count.ToString();
+
+        /// <summary>
+        /// Сохраняет позицию воспроизведения книги в проигрывателе в базе данных.
+        /// </summary>
+        private void SaveBookPlayPosition()
+        {
+            var book = Player.Book;
+            if (book == null)
+                return;
+
+            var position = Player.Player.Position < Player.Player.NaturalDuration.TimeSpan
+                ? Player.Player.Position
+                : TimeSpan.Zero;
+            book.PlayPosition = position;
+
+            //book.PlayPosition = Player.Player.Position;
+            Db.UpdateBook(book);
+            book.OnPropertyChanged("PlayPosition");
+        }
+
+        /// <summary>
+        /// Сохраняет громкость проигрывателя в настройках приложения.
+        /// </summary>
+        private void SavePlayerVolume()
+        {
+            // TODOH: Сохранить громкость проигрывателя в настройках приложения.
+            var volume = Player.Player.Volume;
+
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            SaveBookPlayPosition();
+            SavePlayerVolume();
+        }
 
         #region Обработчики событий элементов управления.
 
@@ -182,6 +213,7 @@ namespace Govorun
 
         private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            SaveBookPlayPosition();
             Player.Book = (Book)BooksListView.SelectedItem;
         }
 

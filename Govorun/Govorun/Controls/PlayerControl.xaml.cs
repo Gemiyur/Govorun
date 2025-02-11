@@ -133,7 +133,7 @@ namespace Govorun.Controls
         {
             InitializeComponent();
             playTimer.Tick += PlayTimer_Tick;
-            // TODO: Сделать сохранение громкости звука в настройках.
+            // TODOH: Загрузить громкость звука из настроек приложения.
             //Player.Volume = (double)Properties.Settings.Default.PlayerVolume / 100;
             VolumeSlider.Value = Player.Volume;
         }
@@ -241,12 +241,16 @@ namespace Govorun.Controls
 
         private void Player_MediaOpened(object sender, RoutedEventArgs e)
         {
-            // TODO: Надо начинать воспроизведение с сохранённой позиции прослушивания.
-            PassTimeTextBlock.Text = App.TimeSpanToString(TimeSpan.Zero);
+            var position = book != null && book.PlayPosition < Player.NaturalDuration.TimeSpan
+                ? book.PlayPosition
+                : TimeSpan.Zero;
+            PassTimeTextBlock.Text = App.TimeSpanToString(position);
             FullTimeTextBlock.Text = App.TimeSpanToString(Player.NaturalDuration.TimeSpan);
-            LeftTimeTextBlock.Text = App.TimeSpanToString(Player.NaturalDuration.TimeSpan);
+            LeftTimeTextBlock.Text = App.TimeSpanToString(Player.NaturalDuration.TimeSpan - position);
             TimeSlider.Maximum = Player.NaturalDuration.TimeSpan.TotalSeconds;
+            TimeSlider.Value = position.TotalSeconds;
             SetPlayingControlsEnabled(true);
+            Player.Position = position;
             playTimer.Start();
         }
 
