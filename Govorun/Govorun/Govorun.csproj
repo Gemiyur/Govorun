@@ -17,12 +17,15 @@
   <ItemGroup>
     <None Remove="Controls\PlayerImages\Disabled\Bookmarks.png" />
     <None Remove="Controls\PlayerImages\Disabled\Chapters.png" />
-    <None Remove="Controls\PlayerImages\Disabled\Edit.png" />
+    <None Remove="Controls\PlayerImages\Disabled\Decrease.png" />
+    <None Remove="Controls\PlayerImages\Disabled\Increase.png" />
     <None Remove="Controls\PlayerImages\Disabled\Info.png" />
+    <None Remove="Controls\PlayerImages\Disabled\Pause.png" />
     <None Remove="Controls\PlayerImages\Disabled\Play.png" />
+    <None Remove="Controls\PlayerImages\Disabled\Replay.png" />
+    <None Remove="Controls\PlayerImages\Disabled\Volume.png" />
     <None Remove="Controls\PlayerImages\Enabled\Bookmarks.png" />
     <None Remove="Controls\PlayerImages\Enabled\Chapters.png" />
-    <None Remove="Controls\PlayerImages\Enabled\Edit.png" />
     <None Remove="Controls\PlayerImages\Enabled\Info.png" />
     <None Remove="Controls\PlayerImages\Enabled\Play.png" />
     <None Remove="Controls\PlayerImages\Enabled\Volume.png" />
@@ -81,12 +84,15 @@
   <ItemGroup>
     <Resource Include="Controls\PlayerImages\Disabled\Bookmarks.png" />
     <Resource Include="Controls\PlayerImages\Disabled\Chapters.png" />
-    <Resource Include="Controls\PlayerImages\Disabled\Edit.png" />
+    <Resource Include="Controls\PlayerImages\Disabled\Decrease.png" />
+    <Resource Include="Controls\PlayerImages\Disabled\Increase.png" />
     <Resource Include="Controls\PlayerImages\Disabled\Info.png" />
+    <Resource Include="Controls\PlayerImages\Disabled\Pause.png" />
     <Resource Include="Controls\PlayerImages\Disabled\Play.png" />
+    <Resource Include="Controls\PlayerImages\Disabled\Replay.png" />
+    <Resource Include="Controls\PlayerImages\Disabled\Volume.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Bookmarks.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Chapters.png" />
-    <Resource Include="Controls\PlayerImages\Enabled\Edit.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Info.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Play.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Volume.png" />

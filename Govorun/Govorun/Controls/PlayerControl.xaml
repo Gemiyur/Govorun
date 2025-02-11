@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Govorun.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="110" d:DesignWidth="700">
+             d:DesignHeight="110" d:DesignWidth="700"
+             IsEnabledChanged="UserControl_IsEnabledChanged">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -40,7 +41,11 @@
         <TextBlock x:Name="TitleTextBlock" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                    Style="{StaticResource TitleTextBlockStyle}"
                    Margin="8,4"
-                   Text="Название" />
+                   Text="Нет книги" />
+
+        <!--<TextBlock x:Name="TitleTextBlock" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   Margin="8,4" />-->
 
         <Slider x:Name="TimeSlider" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                 Margin="8,4"
@@ -71,6 +76,7 @@
 
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
             <Image  Grid.Row="3" Grid.Column="0"
+                    x:Name="VolumeImage"
                     Style="{StaticResource IconStyle}"
                     Margin="8,4,0,4"
                     Source="PlayerImages\Enabled\Volume.png" />
@@ -140,7 +146,7 @@
                     Template="{StaticResource ButtonTemplate}"
                     Margin="0,4,0,4"
                     ToolTip="О книге"
-                    Click="ChaptersButton_Click">
+                    Click="InfoButton_Click">
                 <Image Source="PlayerImages\Enabled\Info.png" Style="{StaticResource IconStyle}" />
             </Button>
             <Button x:Name="ChaptersButton"
@@ -148,7 +154,7 @@
                     Template="{StaticResource ButtonTemplate}"
                     Margin="8,4,0,4"
                     ToolTip="Содержание"
-                    Click="InfoButton_Click">
+                    Click="ChaptersButton_Click">
                 <Image Source="PlayerImages\Enabled\Chapters.png" Style="{StaticResource IconStyle}" />
             </Button>
             <Button x:Name="BookmarksButton"
@@ -159,21 +165,13 @@
                     Click="BookmarksButton_Click">
                 <Image Source="PlayerImages\Enabled\Bookmarks.png" Style="{StaticResource IconStyle}" />
             </Button>
-            <Button x:Name="AddBookmarksButton"
-                    Style="{StaticResource ButtonStyle}"
-                    Template="{StaticResource ButtonTemplate}"
-                    Margin="8,4,0,4"
-                    ToolTip="Добавить закладку"
-                    Click="AddBookmarksButton_Click">
-                <Image Source="PlayerImages\Enabled\AddBookmark.png" Style="{StaticResource IconStyle}" />
-            </Button>
-            <Button x:Name="EditButton"
+            <Button x:Name="AddBookmarkButton"
                     Style="{StaticResource ButtonStyle}"
                     Template="{StaticResource ButtonTemplate}"
                     Margin="8,4,8,4"
-                    ToolTip="Изменить"
-                    Click="EditButton_Click">
-                <Image Source="PlayerImages\Enabled\Edit.png" Style="{StaticResource IconStyle}" />
+                    ToolTip="Добавить закладку"
+                    Click="AddBookmarkButton_Click">
+                <Image Source="PlayerImages\Enabled\AddBookmark.png" Style="{StaticResource IconStyle}" />
             </Button>
         </StackPanel>
     </Grid>

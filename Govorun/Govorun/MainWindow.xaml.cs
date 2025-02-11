@@ -83,6 +83,9 @@ namespace Govorun
             //SortShownBooks();
             BooksListView.ItemsSource = ShownBooks;
             UpdateStatusBarBooksCount();
+
+            //Player.Book = null;
+            Player.IsEnabled = false;
         }
 
         /// <summary>
@@ -179,7 +182,7 @@ namespace Govorun
 
         private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            Player.Book = (Book)BooksListView.SelectedItem;
         }
 
         private void Info_CanExecute(object sender, CanExecuteRoutedEventArgs e)
