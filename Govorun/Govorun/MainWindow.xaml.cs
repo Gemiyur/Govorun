@@ -21,6 +21,8 @@ namespace Govorun
 {
     #region Задачи (TODO).
 
+    // TODO: Сделать сохранение и загрузку при запуске программы книги в проигрывателе. 
+
     #endregion
 
     /// <summary>
@@ -355,7 +357,11 @@ namespace Govorun
 
         private void Listening_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            var dialog = new ListeningDialog() { Owner = this };
+            if (!App.SimpleBool(dialog.ShowDialog()) || dialog.BookForPlay == Player.Book)
+                return;
+            SaveBookPlayPosition();
+            Player.Book = dialog.BookForPlay;
         }
 
         private void AddBook_Executed(object sender, ExecutedRoutedEventArgs e)

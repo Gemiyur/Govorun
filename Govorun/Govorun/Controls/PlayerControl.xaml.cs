@@ -17,6 +17,12 @@ using System.Windows.Threading;
 
 namespace Govorun.Controls
 {
+    #region Задачи (TODO).
+
+    // TODO: Сделать шрифт названия и времени жирным. Или не надо?
+
+    #endregion
+
     /// <summary>
     /// Класс проигрывателя.
     /// </summary>
@@ -47,7 +53,7 @@ namespace Govorun.Controls
                     return;
                 }
                 Player.Source = new Uri(book.FileName);
-                // TODO: Надо бы отображать не только название книги, но и авторов.
+                // TODO: Отображать не только название книги, но и авторов. Или не надо?
                 TitleTextBlock.Text = book.Title;
                 SetPlayingControlsEnabled(true);
                 Playing = true;

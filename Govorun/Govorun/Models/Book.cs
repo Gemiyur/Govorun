@@ -93,20 +93,26 @@ namespace Govorun.Models
         public bool FileExists => File.Exists(FileName);
 
         /// <summary>
-        /// Продолжительность аудио книги.
+        /// Продолжительность книги.
         /// </summary>
         public TimeSpan Duration { get; set; }
 
         /// <summary>
-        /// Продолжительность аудио книги в виде строки.
+        /// Продолжительность книги в виде строки.
         /// </summary>
         [BsonIgnore]
         public string DurationText => App.TimeSpanToString(Duration);
 
         /// <summary>
-        /// Позиция, с которой надо продолжить воспроизведение.
+        /// Позиция воспроизведения.
         /// </summary>
         public TimeSpan PlayPosition { get; set; }
+
+        /// <summary>
+        /// Позиция воспроизведения в виде строки.
+        /// </summary>
+        [BsonIgnore]
+        public string PlayPositionText => App.TimeSpanToString(PlayPosition);
 
         /// <summary>
         /// Находится ли книга в состоянии прослушивания.

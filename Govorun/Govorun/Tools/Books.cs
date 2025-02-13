@@ -60,5 +60,14 @@ namespace Govorun.Tools
         /// <returns>Книга с указанным именем файла.</returns>
         public static Book? GetBookWithFile(string filename) =>
             AllBooks.Find(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
+
+        /// <summary>
+        /// Возвращает список слушаемых книг отсортированных по названию.
+        /// </summary>
+        /// <returns>Список слушаемых книг отсортированных по названию.</returns>
+        public static List<Book> GetListeningBooks() =>
+            AllBooks.FindAll(x => x.PlayPosition > TimeSpan.Zero)
+                    .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
+                    .ToList();
     }
 }

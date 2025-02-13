@@ -44,7 +44,7 @@ namespace Govorun
         #region Команды группы "Библиотека".
 
         /// <summary>
-        /// Команда фильтра книг которые слушаю.
+        /// Команда окна слушаемых книг.
         /// </summary>
         public static RoutedUICommand Listening { get; private set; }
 
@@ -108,7 +108,7 @@ namespace Govorun
             Delete = new RoutedUICommand("Удалить...", "Delete", typeof(AppCommands));
 
             // Команды группы "Библиотека".
-            Listening = new RoutedUICommand("Книги которые слушаю", "Listening", typeof(AppCommands));
+            Listening = new RoutedUICommand("Слушаемые книги...", "Listening", typeof(AppCommands));
             AddBook = new RoutedUICommand("Добавить книгу...", "AddBook", typeof(AppCommands));
             FindBooks = new RoutedUICommand("Найти книги в папке...", "FindBooks", typeof(AppCommands));
             Authors = new RoutedUICommand("Авторы...", "Authors", typeof(AppCommands));
