@@ -35,11 +35,26 @@ namespace Govorun.Models
         public List<Author> Authors { get; set; } = [];
 
         /// <summary>
-        /// Возвращает список авторов книги в виде строки.
+        /// Возвращает список авторов книги в виде строки Фамилия-Имя.
+        /// Список отсортирован по Фамилия-Имя.
         /// </summary>
         [BsonIgnore]
-        public string AuthorsText =>
+        public string AuthorsSurnameNameText =>
             App.ListToString(Authors, ", ", x => ((Author)x).SurnameName, StringComparer.CurrentCultureIgnoreCase);
+
+        /// <summary>
+        /// Возвращает список авторов книги в виде строки Имя-Фамилия.
+        /// Список отсортирован по Фамилия-Имя.
+        /// </summary>
+        [BsonIgnore]
+        public string AuthorsNameSurnameText
+        {
+            get
+            {
+                var authorsList = Authors.OrderBy(x => x.SurnameName).ToList();
+                return App.ListToString(Authors, ", ", x => ((Author)x).NameSurname);
+            }
+        }
 
         private string lector = string.Empty;
 
@@ -76,7 +91,7 @@ namespace Govorun.Models
         /// <summary>
         /// Файл книги с полным путём.
         /// </summary>
-        public string FileName // { get; set; } = string.Empty;
+        public string FileName
         {
             get => filename;
             set

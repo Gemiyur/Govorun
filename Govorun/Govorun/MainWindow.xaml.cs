@@ -173,7 +173,8 @@ namespace Govorun
 
         private void BooksListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            if (e.OriginalSource is TextBlock && BooksListView.SelectedItem != null)
+                new BookInfoDialog((Book)BooksListView.SelectedItem) { Owner = this }.ShowDialog();
         }
 
         private void BooksListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -228,7 +229,7 @@ namespace Govorun
 
         private void Info_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            new BookInfoDialog((Book)BooksListView.SelectedItem) { Owner = this }.ShowDialog();
         }
 
         private void Chapters_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -309,7 +310,8 @@ namespace Govorun
                 BooksListView.SelectedItem = book;
                 BooksListView.ScrollIntoView(BooksListView.SelectedItem);
             }
-            book.OnPropertyChanged("AuthorsText");
+            book.OnPropertyChanged("AuthorsSurnameNameText");
+            book.OnPropertyChanged("AuthorsNameSurnameText");
         }
 
         private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -404,7 +406,8 @@ namespace Govorun
             SortShownBooks();
             BooksListView.SelectedItem = book;
             BooksListView.ScrollIntoView(AuthorsListBox.SelectedItem);
-            book.OnPropertyChanged("AuthorsText");
+            book.OnPropertyChanged("AuthorsSurnameNameText");
+            book.OnPropertyChanged("AuthorsNameSurnameText");
         }
 
         private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -423,7 +426,10 @@ namespace Govorun
                 return;
             UpdateAuthors();
             foreach (var book in ShownBooks)
-                book.OnPropertyChanged("AuthorsText");
+            {
+                book.OnPropertyChanged("AuthorsSurnameNameText");
+                book.OnPropertyChanged("AuthorsNameSurnameText");
+            }
         }
 
         private void Lectors_Executed(object sender, ExecutedRoutedEventArgs e)

@@ -1,5 +1,4 @@
-﻿using Govorun.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Govorun.Dialogs;
+using Govorun.Models;
 
 namespace Govorun.Controls
 {
@@ -327,7 +328,8 @@ namespace Govorun.Controls
 
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (book != null)
+                new BookInfoDialog(book) { Owner = Window.GetWindow(this) }.ShowDialog();
         }
 
         private void ChaptersButton_Click(object sender, RoutedEventArgs e)
