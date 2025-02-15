@@ -237,13 +237,8 @@ namespace Govorun
 
         private void Chapters_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            // TODOL: Надо ли проверять книгу на наличие содержания для разрешения команды?
             e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1 &&
                 ((Book)BooksListView.SelectedItem).Chapters.Any();
-
-            // Без проверки книги на наличие содержания.
-            //e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
-
             if (!IsVisible)
                 return;
             var bitmap = App.GetBitmap(
@@ -269,13 +264,8 @@ namespace Govorun
 
         private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            // TODOL: Надо ли проверять книгу на наличие закладок для разрешения команды?
             e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1 &&
                 ((Book)BooksListView.SelectedItem).Bookmarks.Any();
-
-            // Без проверки книги на наличие закладок.
-            //e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
-
             if (!IsVisible)
                 return;
             var bitmap = App.GetBitmap(

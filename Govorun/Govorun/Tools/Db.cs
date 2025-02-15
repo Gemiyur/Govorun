@@ -160,54 +160,6 @@ namespace Govorun.Tools
                 .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
                 .ToList();
 
-        // TODOL: Нужны ли методы GetAuthorBooks получения списка книг авторов? Пока закомментированы.
-
-        //public static List<Book> GetAuthorBooks(int authorId)
-        //{
-        //    using var db = GetDatabase();
-        //    return GetAuthorBooks(authorId, db);
-        //}
-
-        //public static List<Book> GetAuthorBooks(int authorId, LiteDatabase db) =>
-        //    GetBooksCollection(db)
-        //        .Include(x => x.Authors)
-        //        .FindAll()
-        //        .Where(x => x.Authors.Exists(a => a.AuthorId == authorId))
-        //        .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
-        //        .ToList();
-
-        // TODOL: Нужны ли методы GetLectorBooks получения списка книг чтецов? Пока закомментированы.
-
-        //public static List<Book> GetLectorBooks(string lector)
-        //{
-        //    using var db = GetDatabase();
-        //    return GetLectorBooks(lector, db);
-        //}
-
-        //public static List<Book> GetLectorBooks(string lector, LiteDatabase db) =>
-        //    GetBooksCollection(db)
-        //        .Include(x => x.Authors)
-        //        .FindAll()
-        //        .Where(x => x.Lector != null && x.Lector.Equals(lector, StringComparison.CurrentCultureIgnoreCase))
-        //        .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
-        //        .ToList();
-
-        // TODOL: Нужны ли методы GetListeningBooks получения списка слушаемых книг? Пока закомментированы.
-
-        //public static List<Book> GetListeningBooks()
-        //{
-        //    var db = GetDatabase();
-        //    return GetListeningBooks(db); 
-        //}
-
-        //public static List<Book> GetListeningBooks(LiteDatabase db) =>
-        //    GetBooksCollection(db)
-        //        .Include(x => x.Authors)
-        //        .FindAll()
-        //        .Where(x => x.PlayPosition > TimeSpan.Zero)
-        //        .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
-        //        .ToList();
-
         public static int InsertBook(Book book)
         {
             using var db = GetDatabase();
