@@ -212,8 +212,11 @@ namespace Govorun
 
         private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            var book = (Book)BooksListView.SelectedItem;
+            if (book == Player.Book)
+                return;
             SaveBookPlayPosition();
-            Player.Book = (Book)BooksListView.SelectedItem;
+            Player.Book = book;
         }
 
         private void Info_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -252,7 +255,16 @@ namespace Govorun
         private void Chapters_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var book = (Book)BooksListView.SelectedItem;
-            var dialog = new ChaptersDialog(book) { Owner = this }.ShowDialog();
+            var dialog = new ChaptersDialog(book) { Owner = this };
+            if (!App.SimpleBool(dialog.ShowDialog()) || dialog.Chapter == null)
+                return;
+            if (book != Player.Book)
+            {
+                book.PlayPosition = dialog.Chapter.StartTime;
+                Player.Book = book;
+            }
+            else
+                Player.PlayPosition = dialog.Chapter.StartTime;
         }
 
         private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)

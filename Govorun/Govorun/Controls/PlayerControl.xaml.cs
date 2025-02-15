@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using Govorun.Dialogs;
 using Govorun.Models;
@@ -20,6 +8,8 @@ namespace Govorun.Controls
 {
     #region Задачи (TODO).
 
+    // TODO: Реализовать работу с закладками.
+    // TODO: Стоит ли добавить кнопки перехода к предыдущей и следующей главе?
     // TODO: Сделать шрифт названия и времени жирным. Или не надо?
 
     #endregion
@@ -29,12 +19,24 @@ namespace Govorun.Controls
     /// </summary>
     public partial class PlayerControl : UserControl
     {
+        /// <summary>
+        /// Путь к изображениям для доступных кнопок.
+        /// </summary>
         const string EnabledPath = @"PlayerImages\Enabled\";
 
+        /// <summary>
+        /// Путь к изображениям для недоступных кнопок.
+        /// </summary>
         const string DisabledPath = @"PlayerImages\Disabled\";
 
+        /// <summary>
+        /// Воспроизводимая книга.
+        /// </summary>
         private Book? book;
 
+        /// <summary>
+        /// Возвращает или задаёт воспроизводимую книгу.
+        /// </summary>
         public Book? Book
         {
             get => book;
@@ -51,14 +53,32 @@ namespace Govorun.Controls
                     FullTimeTextBlock.Text = App.TimeSpanToString(TimeSpan.Zero);
                     LeftTimeTextBlock.Text = App.TimeSpanToString(TimeSpan.Zero);
                     SetPlayingControlsEnabled(false);
+                    SetInfoButtonEnabled(false);
+                    SetChaptersButtonEnabled(false);
+                    SetBookmarksButtonEnabled(false);
+                    SetAddBookmarkButtonEnabled(false);
                     return;
                 }
                 Player.Source = new Uri(book.FileName);
                 // TODO: Отображать не только название книги, но и авторов. Или не надо?
                 TitleTextBlock.Text = book.Title;
                 SetPlayingControlsEnabled(true);
+                SetInfoButtonEnabled(true);
+                SetChaptersButtonEnabled(book.Chapters.Any());
+                SetBookmarksButtonEnabled(book.Bookmarks.Any());
+                SetAddBookmarkButtonEnabled(true);
                 Playing = true;
             }
+        }
+
+        /// <summary>
+        /// Возвращает или задаёт позицию воспроизведения книги.
+        /// </summary>
+        /// <remarks>Работает только если книга загружена в проигрыватель.</remarks>
+        public TimeSpan PlayPosition
+        {
+            get => Player.Position;
+            set => TimeSlider.Value = value.TotalSeconds;
         }
 
         /// <summary>
@@ -136,12 +156,63 @@ namespace Govorun.Controls
             }
         }
 
+        /// <summary>
+        /// Инициализирует новый экземпляр класса.
+        /// </summary>
         public PlayerControl()
         {
             InitializeComponent();
             playTimer.Tick += PlayTimer_Tick;
             Player.Volume = (double)Properties.Settings.Default.PlayerVolume / 100;
             VolumeSlider.Value = Player.Volume;
+        }
+
+        /// <summary>
+        /// Устанавливает доступность кнопки добавления закладки.
+        /// </summary>
+        /// <param name="enabled">Должна ли быть доступна кнопка.</param>
+        private void SetAddBookmarkButtonEnabled(bool enabled)
+        {
+            AddBookmarkButton.IsEnabled = enabled;
+            ((Image)AddBookmarkButton.Content).Source = enabled
+                ? App.GetBitmap($"{EnabledPath}AddBookmark.png")
+                : App.GetBitmap($"{DisabledPath}AddBookmark.png");
+        }
+
+        /// <summary>
+        /// Устанавливает доступность кнопки окна списка закладок.
+        /// </summary>
+        /// <param name="enabled">Должна ли быть доступна кнопка.</param>
+        private void SetBookmarksButtonEnabled(bool enabled)
+        {
+            BookmarksButton.IsEnabled = enabled;
+            ((Image)BookmarksButton.Content).Source = enabled
+                ? App.GetBitmap($"{EnabledPath}Bookmarks.png")
+                : App.GetBitmap($"{DisabledPath}Bookmarks.png");
+        }
+
+        /// <summary>
+        /// Устанавливает доступность кнопки окна содержания.
+        /// </summary>
+        /// <param name="enabled">Должна ли быть доступна кнопка.</param>
+        private void SetChaptersButtonEnabled(bool enabled)
+        {
+            ChaptersButton.IsEnabled = enabled;
+            ((Image)ChaptersButton.Content).Source = enabled
+                ? App.GetBitmap($"{EnabledPath}Chapters.png")
+                : App.GetBitmap($"{DisabledPath}Chapters.png");
+        }
+
+        /// <summary>
+        /// Устанавливает доступность кнопки окна информации о книге.
+        /// </summary>
+        /// <param name="enabled">Должна ли быть доступна кнопка.</param>
+        private void SetInfoButtonEnabled(bool enabled)
+        {
+            InfoButton.IsEnabled = enabled;
+            ((Image)InfoButton.Content).Source = enabled
+                ? App.GetBitmap($"{EnabledPath}Info.png")
+                : App.GetBitmap($"{DisabledPath}Info.png");
         }
 
         /// <summary>
@@ -334,7 +405,11 @@ namespace Govorun.Controls
 
         private void ChaptersButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (book == null)
+                return;
+            var dialog = new ChaptersDialog(book) { Owner = Window.GetWindow(this) };
+            if (App.SimpleBool(dialog.ShowDialog()) && dialog.Chapter != null)
+                PlayPosition = dialog.Chapter.StartTime;
         }
 
         private void BookmarksButton_Click(object sender, RoutedEventArgs e)
