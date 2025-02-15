@@ -25,6 +25,12 @@ namespace Govorun.Models
         private TimeSpan endTime;
 
         /// <summary>
+        /// Позиция начала главы книги в виде строки.
+        /// </summary>
+        [BsonIgnore]
+        public string StartTimeText => App.TimeSpanToString(StartTime);
+
+        /// <summary>
         /// Позиция конца раздела в файле части книги.
         /// </summary>
         public TimeSpan EndTime
@@ -42,6 +48,12 @@ namespace Govorun.Models
         /// </summary>
         [BsonIgnore]
         public TimeSpan Duration => EndTime - StartTime;
+
+        /// <summary>
+        /// Продолжительность главы книги в виде строки.
+        /// </summary>
+        [BsonIgnore]
+        public string DurationText => App.TimeSpanToString(Duration);
 
         private string title = string.Empty;
 

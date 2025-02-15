@@ -251,7 +251,8 @@ namespace Govorun
 
         private void Chapters_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            var book = (Book)BooksListView.SelectedItem;
+            var dialog = new ChaptersDialog(book) { Owner = this }.ShowDialog();
         }
 
         private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)
