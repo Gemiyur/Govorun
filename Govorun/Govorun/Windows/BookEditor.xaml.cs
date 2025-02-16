@@ -5,7 +5,7 @@ using Govorun.Media;
 using Govorun.Models;
 using Govorun.Tools;
 
-namespace Govorun.Dialogs
+namespace Govorun.Windows
 {
     #region Задачи (TODO).
 

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Govorun.Dialogs
+namespace Govorun.Windows
 {
     /// <summary>
     /// Класс окна редактора главы книги.

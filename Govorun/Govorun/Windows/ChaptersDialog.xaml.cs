@@ -4,7 +4,7 @@ using Gemiyur.Collections;
 using Govorun.Models;
 using Govorun.Tools;
 
-namespace Govorun.Dialogs
+namespace Govorun.Windows
 {
     /// <summary>
     /// Класс окна содержания книги.
@@ -22,7 +22,7 @@ namespace Govorun.Dialogs
         private readonly Book book;
 
         /// <summary>
-        /// Список глав книги.
+        /// Коллекция глав книги.
         /// </summary>
         private readonly ObservableCollectionEx<Chapter> chapters = [];
 
