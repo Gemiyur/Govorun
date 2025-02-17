@@ -1,14 +1,16 @@
-﻿namespace Govorun.Models
+﻿using LiteDB;
+
+namespace Govorun.Models
 {
     /// <summary>
-    /// Класс закладки.
+    /// Класс закладки книги.
     /// </summary>
     public class Bookmark : BaseModel
     {
         private TimeSpan position;
 
         /// <summary>
-        /// Позиция закладки в файле части книги.
+        /// Позиция закладки книги.
         /// </summary>
         public TimeSpan Position
         {
@@ -20,10 +22,16 @@
             }
         }
 
+        /// <summary>
+        /// Позиция закладки книги в виде строки.
+        /// </summary>
+        [BsonIgnore]
+        public string PositionText => App.TimeSpanToString(Position);
+
         private string title = string.Empty;
 
         /// <summary>
-        /// Название закладки.
+        /// Название закладки книги.
         /// </summary>
         public string Title
         {

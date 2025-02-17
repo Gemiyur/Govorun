@@ -1,11 +1,11 @@
-﻿<Window x:Class="Govorun.Dialogs.ChaptersDialog"
+﻿<Window x:Class="Govorun.Dialogs.BookmarksDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
-        Title="Содержание книги"
+        Title="Закладки книги"
         Width="600" Height="500"
         MinWidth="500" MinHeight="350"
         d:Width="600" d:Height="350"
@@ -37,12 +37,12 @@
                    HorizontalAlignment="Center"
                    Margin="0,10,0,0" />
 
-        <!-- Список глав книги -->
-        <ListView Grid.Row="2" x:Name="ChaptersListView"
+        <!-- Список закладок книги -->
+        <ListView Grid.Row="2" x:Name="BookmarksListView"
                   SelectionMode="Single"
                   Margin="0,16,0,0"
-                  SelectionChanged="ChaptersListView_SelectionChanged"
-                  SizeChanged="ChaptersListView_SizeChanged">
+                  SelectionChanged="BookmarksListView_SelectionChanged"
+                  SizeChanged="BookmarksListView_SizeChanged">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -71,14 +71,7 @@
                     <GridViewColumn Header="Позиция" Width="70">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding StartTimeText}" TextAlignment="Right" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Время" Width="70">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding DurationText}" TextAlignment="Right" />
+                                <TextBlock TextWrapping="Wrap" Text="{Binding PositionText}" TextAlignment="Right" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

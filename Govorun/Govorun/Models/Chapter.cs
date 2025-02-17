@@ -3,14 +3,14 @@
 namespace Govorun.Models
 {
     /// <summary>
-    /// Класс раздела книги.
+    /// Класс главы книги.
     /// </summary>
     public class Chapter : BaseModel
     {
         private TimeSpan startTime;
 
         /// <summary>
-        /// Позиция начала раздела в файле части книги.
+        /// Позиция начала главы книги.
         /// </summary>
         public TimeSpan StartTime
         {
@@ -22,16 +22,16 @@ namespace Govorun.Models
             }
         }
 
-        private TimeSpan endTime;
-
         /// <summary>
         /// Позиция начала главы книги в виде строки.
         /// </summary>
         [BsonIgnore]
         public string StartTimeText => App.TimeSpanToString(StartTime);
 
+        private TimeSpan endTime;
+
         /// <summary>
-        /// Позиция конца раздела в файле части книги.
+        /// Позиция конца главы книги.
         /// </summary>
         public TimeSpan EndTime
         {
@@ -44,7 +44,7 @@ namespace Govorun.Models
         }
 
         /// <summary>
-        /// Продолжительность аудио раздела книги.
+        /// Продолжительность главы книги.
         /// </summary>
         [BsonIgnore]
         public TimeSpan Duration => EndTime - StartTime;
@@ -58,7 +58,7 @@ namespace Govorun.Models
         private string title = string.Empty;
 
         /// <summary>
-        /// Название раздела книги.
+        /// Название главы книги.
         /// </summary>
         public string Title
         {
