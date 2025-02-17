@@ -291,14 +291,9 @@ namespace Govorun.Dialogs
             LoadTagButton.IsEnabled = false;
         }
 
-        private void ChaptersButton_Click(object sender, RoutedEventArgs e)
+        private void FileButton_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void BookmarksButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            // TODO: Исправление имени файла книги если файл не найден.
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)

@@ -13,7 +13,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="BottomButtonStyle" TargetType="Button">
-                <Setter Property="Width" Value="90" />
+                <Setter Property="Width" Value="85" />
                 <Setter Property="Height" Value="25" />
             </Style>
             <Style x:Key="EditorButtonStyle" TargetType="Button">
@@ -194,13 +194,10 @@
 
         <!-- Кнопки нижней части окна -->
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
-            <Button x:Name="ChaptersButton" Content="Содержание"
+            <Button x:Name="FileButton" Content="Файл"
+                    IsEnabled="False"
                     Style="{StaticResource BottomButtonStyle}"
-                    Click="ChaptersButton_Click" />
-            <Button x:Name="BookmarksButton" Content="Закладки"
-                    Style="{StaticResource BottomButtonStyle}"
-                    Margin="10,0,0,0"
-                    Click="BookmarksButton_Click" />
+                    Click="FileButton_Click" />
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="SaveButton" Content="Сохранить"
