@@ -4,7 +4,7 @@ using Gemiyur.Collections;
 using Govorun.Models;
 using Govorun.Tools;
 
-namespace Govorun.Windows
+namespace Govorun.Dialogs
 {
     /// <summary>
     /// Класс окна редактора авторов.

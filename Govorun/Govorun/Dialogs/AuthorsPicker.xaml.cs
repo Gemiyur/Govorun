@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using Govorun.Models;
 using Govorun.Tools;
 
-namespace Govorun.Windows
+namespace Govorun.Dialogs
 {
     /// <summary>
     /// Класс окна выбора авторов.

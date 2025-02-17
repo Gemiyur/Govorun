@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Windows;
 
-namespace Govorun.Windows
+namespace Govorun.Dialogs
 {
     /// <summary>
     /// Класс окна "О программе".

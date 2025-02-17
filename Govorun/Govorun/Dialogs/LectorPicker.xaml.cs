@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using Govorun.Tools;
 
-namespace Govorun.Windows
+namespace Govorun.Dialogs
 {
     /// <summary>
     /// Класс окна выбора чтеца.

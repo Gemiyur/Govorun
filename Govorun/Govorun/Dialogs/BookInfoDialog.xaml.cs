@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using Govorun.Models;
 
-namespace Govorun.Windows
+namespace Govorun.Dialogs
 {
     /// <summary>
     /// Класс окна информации о книге.

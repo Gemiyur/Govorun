@@ -5,7 +5,7 @@ using Gemiyur.Collections;
 using Govorun.Models;
 using Govorun.Tools;
 
-namespace Govorun.Windows
+namespace Govorun.Dialogs
 {
     /// <summary>
     /// Класс окна слушаемых книг.
@@ -13,12 +13,12 @@ namespace Govorun.Windows
     public partial class ListeningDialog : Window
     {
         /// <summary>
-        /// Книга, выбранная для воспроизведения.
+        /// Книга, выбранная для слушания.
         /// </summary>
         public Book? BookForPlay;
 
         /// <summary>
-        /// Коллекция слушаемых книг.
+        /// Список слушаемых книг.
         /// </summary>
         private readonly ObservableCollectionEx<Book> books = [];
 
