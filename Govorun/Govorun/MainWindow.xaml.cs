@@ -30,6 +30,8 @@ namespace Govorun
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static ChaptersWindow? ChaptersWindow;
+
         /// <summary>
         /// Список отображаемых книг.
         /// </summary>
@@ -87,6 +89,31 @@ namespace Govorun
         }
 
         /// <summary>
+        /// Сохраняет позицию воспроизведения книги в проигрывателе в базе данных.
+        /// </summary>
+        private void SaveBookPlayPosition()
+        {
+            var book = Player.Book;
+            if (book == null)
+                return;
+            var position = Player.Player.Position < Player.Player.NaturalDuration.TimeSpan
+                ? Player.Player.Position
+                : TimeSpan.Zero;
+            book.PlayPosition = position;
+            Db.UpdateBook(book);
+            book.OnPropertyChanged("PlayPosition");
+        }
+
+        /// <summary>
+        /// Сохраняет громкость проигрывателя в настройках приложения.
+        /// </summary>
+        private void SavePlayerVolume()
+        {
+            Properties.Settings.Default.PlayerVolume = (int)(Player.Player.Volume * 100);
+            Properties.Settings.Default.Save();
+        }
+
+        /// <summary>
         /// Сортирует список отображаемых книг по названию.
         /// </summary>
         private void SortShownBooks() => ShownBooks.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
@@ -121,36 +148,25 @@ namespace Govorun
         /// </summary>
         private void UpdateStatusBarBooksCount() => StatusBarBooksCount.Text = BooksListView.Items.Count.ToString();
 
-        /// <summary>
-        /// Сохраняет позицию воспроизведения книги в проигрывателе в базе данных.
-        /// </summary>
-        private void SaveBookPlayPosition()
-        {
-            var book = Player.Book;
-            if (book == null)
-                return;
-            var position = Player.Player.Position < Player.Player.NaturalDuration.TimeSpan
-                ? Player.Player.Position
-                : TimeSpan.Zero;
-            book.PlayPosition = position;
-            Db.UpdateBook(book);
-            book.OnPropertyChanged("PlayPosition");
-        }
-
-        /// <summary>
-        /// Сохраняет громкость проигрывателя в настройках приложения.
-        /// </summary>
-        private void SavePlayerVolume()
-        {
-            Properties.Settings.Default.PlayerVolume = (int)(Player.Player.Volume * 100);
-            Properties.Settings.Default.Save();
-        }
-
         private void Window_Closed(object sender, EventArgs e)
         {
             SaveBookPlayPosition();
             SavePlayerVolume();
         }
+
+        #region Обработчики действий (делегаты) для других окон.
+
+        //private void PlayBookmarkHandler(Book book, Bookmark bookmark)
+        //{
+
+        //}
+
+        private void PlayChapterHandler(Book book, Chapter chapter)
+        {
+
+        }
+
+        #endregion
 
         #region Обработчики событий элементов управления.
 
@@ -250,16 +266,32 @@ namespace Govorun
         private void Chapters_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var book = (Book)BooksListView.SelectedItem;
-            var dialog = new ChaptersDialog(book) { Owner = this };
-            if (!App.SimpleBool(dialog.ShowDialog()) || dialog.Chapter == null)
-                return;
-            if (book != Player.Book)
+            //var window = ChaptersWindow;
+            if (ChaptersWindow == null)
             {
-                book.PlayPosition = dialog.Chapter.StartTime;
-                Player.Book = book;
+                ChaptersWindow = new ChaptersWindow(book) { Owner = this };
+                //ChaptersWindow = new ChaptersWindow(book);
+                ChaptersWindow.Show();
             }
             else
-                Player.PlayPosition = dialog.Chapter.StartTime;
+            {
+                ChaptersWindow.Book = book;
+                ChaptersWindow.Activate();
+                if (ChaptersWindow.WindowState != WindowState.Normal)
+                    ChaptersWindow.WindowState = WindowState.Normal;
+            }
+
+            //var book = (Book)BooksListView.SelectedItem;
+            //var dialog = new ChaptersDialog(book) { Owner = this };
+            //if (!App.SimpleBool(dialog.ShowDialog()) || dialog.Chapter == null)
+            //    return;
+            //if (book != Player.Book)
+            //{
+            //    book.PlayPosition = dialog.Chapter.StartTime;
+            //    Player.Book = book;
+            //}
+            //else
+            //    Player.PlayPosition = dialog.Chapter.StartTime;
         }
 
         private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)

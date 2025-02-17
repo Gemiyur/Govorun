@@ -29,6 +29,10 @@ namespace Govorun.Controls
         /// </summary>
         const string DisabledPath = @"PlayerImages\Disabled\";
 
+        private MainWindow MainWindow => (MainWindow)Window.GetWindow(this);
+
+        private ChaptersWindow? ChaptersWindow => MainWindow.ChaptersWindow;
+
         /// <summary>
         /// Воспроизводимая книга.
         /// </summary>
@@ -407,7 +411,7 @@ namespace Govorun.Controls
         {
             if (book == null)
                 return;
-            var dialog = new ChaptersDialog(book) { Owner = Window.GetWindow(this) };
+            var dialog = new ChaptersDialog(book) { Owner = MainWindow };
             if (App.SimpleBool(dialog.ShowDialog()) && dialog.Chapter != null)
                 PlayPosition = dialog.Chapter.StartTime;
         }
