@@ -31,12 +31,12 @@ namespace Govorun
     public partial class MainWindow : Window
     {
         /// <summary>
-        /// Список отображаемых книг.
+        /// Коллекция отображаемых книг.
         /// </summary>
         private readonly ObservableCollectionEx<Book> ShownBooks = [];
 
         /// <summary>
-        /// Список авторов.
+        /// Коллекция авторов.
         /// </summary>
         private readonly ObservableCollectionEx<Author> Authors = [];
 
@@ -87,7 +87,32 @@ namespace Govorun
         }
 
         /// <summary>
-        /// Сортирует список отображаемых книг по названию.
+        /// Сохраняет позицию воспроизведения книги в проигрывателе в базе данных.
+        /// </summary>
+        private void SaveBookPlayPosition()
+        {
+            var book = Player.Book;
+            if (book == null)
+                return;
+            var position = Player.Player.Position < Player.Player.NaturalDuration.TimeSpan
+                ? Player.Player.Position
+                : TimeSpan.Zero;
+            book.PlayPosition = position;
+            Db.UpdateBook(book);
+            book.OnPropertyChanged("PlayPosition");
+        }
+
+        /// <summary>
+        /// Сохраняет громкость проигрывателя в настройках приложения.
+        /// </summary>
+        private void SavePlayerVolume()
+        {
+            Properties.Settings.Default.PlayerVolume = (int)(Player.Player.Volume * 100);
+            Properties.Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// Сортирует коллекцию отображаемых книг по названию.
         /// </summary>
         private void SortShownBooks() => ShownBooks.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
 
@@ -120,31 +145,6 @@ namespace Govorun
         /// Обновляет количество отображаемых книг в строке статуса.
         /// </summary>
         private void UpdateStatusBarBooksCount() => StatusBarBooksCount.Text = BooksListView.Items.Count.ToString();
-
-        /// <summary>
-        /// Сохраняет позицию воспроизведения книги в проигрывателе в базе данных.
-        /// </summary>
-        private void SaveBookPlayPosition()
-        {
-            var book = Player.Book;
-            if (book == null)
-                return;
-            var position = Player.Player.Position < Player.Player.NaturalDuration.TimeSpan
-                ? Player.Player.Position
-                : TimeSpan.Zero;
-            book.PlayPosition = position;
-            Db.UpdateBook(book);
-            book.OnPropertyChanged("PlayPosition");
-        }
-
-        /// <summary>
-        /// Сохраняет громкость проигрывателя в настройках приложения.
-        /// </summary>
-        private void SavePlayerVolume()
-        {
-            Properties.Settings.Default.PlayerVolume = (int)(Player.Player.Volume * 100);
-            Properties.Settings.Default.Save();
-        }
 
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -255,6 +255,7 @@ namespace Govorun
                 return;
             if (book != Player.Book)
             {
+                SaveBookPlayPosition();
                 book.PlayPosition = dialog.Chapter.StartTime;
                 Player.Book = book;
             }

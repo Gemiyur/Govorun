@@ -12,7 +12,7 @@ namespace Govorun.Dialogs
     public partial class ChaptersDialog : Window
     {
         /// <summary>
-        /// Выбранная глава книги для слушания.
+        /// Выбранная глава книги.
         /// </summary>
         public Chapter? Chapter;
 
@@ -22,7 +22,7 @@ namespace Govorun.Dialogs
         private readonly Book book;
 
         /// <summary>
-        /// Список глав книги.
+        /// Коллекция глав книги.
         /// </summary>
         private readonly ObservableCollectionEx<Chapter> chapters = [];
 

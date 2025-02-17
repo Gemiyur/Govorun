@@ -18,7 +18,7 @@ namespace Govorun.Dialogs
         public Book? BookForPlay;
 
         /// <summary>
-        /// Список слушаемых книг.
+        /// Коллекция слушаемых книг.
         /// </summary>
         private readonly ObservableCollectionEx<Book> books = [];
 
