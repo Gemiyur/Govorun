@@ -18,12 +18,11 @@ namespace Govorun.Dialogs
             DurationTextBlock.Text = book.DurationText;
             CommentTextBox.Text = book.Comment;
             FileTextBox.Text = book.FileName;
-            ChaptersButton.IsEnabled = book.Chapters.Any();
         }
 
-        private void ChaptersButton_Click(object sender, RoutedEventArgs e)
+        private void ListenButton_Click(object sender, RoutedEventArgs e)
         {
-
+            DialogResult = true;
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

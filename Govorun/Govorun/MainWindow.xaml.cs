@@ -87,6 +87,19 @@ namespace Govorun
         }
 
         /// <summary>
+        /// Запускает и выполняет диалоговое окно информации о книге.
+        /// </summary>
+        /// <param name="book"></param>
+        private void RunBookInfoDialog(Book book)
+        {
+            var dialog = new BookInfoDialog(book) { Owner = this };
+            if (!App.SimpleBool(dialog.ShowDialog()) || book == Player.Book)
+                return;
+            SaveBookPlayPosition();
+            Player.Book = book;
+        }
+
+        /// <summary>
         /// Сохраняет позицию воспроизведения книги в проигрывателе в базе данных.
         /// </summary>
         private void SaveBookPlayPosition()
@@ -174,7 +187,7 @@ namespace Govorun
         private void BooksListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.OriginalSource is TextBlock && BooksListView.SelectedItem != null)
-                new BookInfoDialog((Book)BooksListView.SelectedItem) { Owner = this }.ShowDialog();
+                RunBookInfoDialog((Book)BooksListView.SelectedItem);
         }
 
         private void BooksListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -232,7 +245,7 @@ namespace Govorun
 
         private void Info_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            new BookInfoDialog((Book)BooksListView.SelectedItem) { Owner = this }.ShowDialog();
+            RunBookInfoDialog((Book)BooksListView.SelectedItem);
         }
 
         private void Chapters_CanExecute(object sender, CanExecuteRoutedEventArgs e)

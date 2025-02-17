@@ -15,7 +15,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="Width" Value="90" />
+                <Setter Property="Width" Value="75" />
                 <Setter Property="Height" Value="25" />
             </Style>
         </ResourceDictionary>
@@ -74,10 +74,10 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" x:Name="ChaptersButton" Content="Содержание"
+            <Button Grid.Column="0" x:Name="ListenButton" Content="Слушать"
                     HorizontalAlignment="Left"
                     Style="{StaticResource ButtonStyle}"
-                    Click="ChaptersButton_Click" />
+                    Click="ListenButton_Click" />
             <Button Grid.Column="1" x:Name="CloseButton" Content="Закрыть"
                     HorizontalAlignment="Right"
                     IsCancel="True"
