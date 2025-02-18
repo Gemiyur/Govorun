@@ -278,12 +278,8 @@ namespace Govorun
 
         private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            // TODOH: Так для разработки. Не забыть заменить!
-            e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
-
-            //e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1 &&
-            //    ((Book)BooksListView.SelectedItem).Bookmarks.Any();
-
+            e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1 &&
+                ((Book)BooksListView.SelectedItem).Bookmarks.Any();
             if (!IsVisible)
                 return;
             var bitmap = App.GetBitmap(
@@ -296,8 +292,19 @@ namespace Govorun
         {
             var book = (Book)BooksListView.SelectedItem;
             var dialog = new BookmarksDialog(book) { Owner = this };
-            if (!App.SimpleBool(dialog.ShowDialog()) || dialog.Bookmark == null)
+            var dialogResult = App.SimpleBool(dialog.ShowDialog());
+            Player.CheckBookmarksButton();
+            if (!dialogResult || dialog.Bookmark == null)
                 return;
+
+            if (book != Player.Book)
+            {
+                SaveBookPlayPosition();
+                book.PlayPosition = dialog.Bookmark.Position;
+                Player.Book = book;
+            }
+            else
+                Player.PlayPosition = dialog.Bookmark.Position;
 
         }
 

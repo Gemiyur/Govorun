@@ -39,7 +39,6 @@
 
         <!-- Список закладок книги -->
         <ListView Grid.Row="2" x:Name="BookmarksListView"
-                  SelectionMode="Single"
                   Margin="0,16,0,0"
                   SelectionChanged="BookmarksListView_SelectionChanged"
                   SizeChanged="BookmarksListView_SizeChanged">
@@ -95,6 +94,11 @@
                         Margin="10,0,0,0"
                         Style="{StaticResource ButtonStyle}"
                         Click="EditButton_Click" />
+                <Button x:Name="DeleteButton" Content="Удалить"
+                        IsEnabled="False"
+                        Margin="10,0,0,0"
+                        Style="{StaticResource ButtonStyle}"
+                        Click="DeleteButton_Click" />
             </StackPanel>
             <Button Grid.Column="1" x:Name="CloseButton" Content="Закрыть"
                     HorizontalAlignment="Right"

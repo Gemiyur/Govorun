@@ -8,7 +8,6 @@ namespace Govorun.Controls
 {
     #region Задачи (TODO).
 
-    // TODO: Реализовать работу с закладками.
     // TODO: Сделать шрифт названия и времени жирным. Или не надо?
 
     #endregion
@@ -164,6 +163,15 @@ namespace Govorun.Controls
             playTimer.Tick += PlayTimer_Tick;
             Player.Volume = (double)Properties.Settings.Default.PlayerVolume / 100;
             VolumeSlider.Value = Player.Volume;
+        }
+
+        /// <summary>
+        /// Проверяет и устанавливает доступность кнопки окна списка закладок.
+        /// </summary>
+        public void CheckBookmarksButton()
+        {
+            if (book != null)
+                SetBookmarksButtonEnabled(book.Bookmarks.Any());
         }
 
         /// <summary>
@@ -413,12 +421,25 @@ namespace Govorun.Controls
 
         private void BookmarksButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (book == null)
+                return;
+            var dialog = new BookmarksDialog(book) { Owner = Window.GetWindow(this) };
+            if (App.SimpleBool(dialog.ShowDialog()) && dialog.Bookmark != null)
+                PlayPosition = dialog.Bookmark.Position;
+            CheckBookmarksButton();
         }
 
         private void AddBookmarkButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (book == null)
+                return;
+            var position = PlayPosition;
+            var editor = new BookmarkEditor(string.Empty);
+            if (!App.SimpleBool(editor.ShowDialog()))
+                return;
+            var bookmark = new Bookmark() { Position = position, Title = editor.BookmarkTitle };
+            book.Bookmarks.Add(bookmark);
+            CheckBookmarksButton();
         }
 
         #endregion

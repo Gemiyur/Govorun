@@ -27,7 +27,7 @@ namespace Govorun.Dialogs
         private readonly ObservableCollectionEx<Bookmark> bookmarks = [];
 
         /// <summary>
-        /// Были ли изменения в названиях закладок книги.
+        /// Были ли изменения в закладках книги.
         /// </summary>
         private bool hasChanges = false;
 
@@ -38,20 +38,24 @@ namespace Govorun.Dialogs
             TitleTextBlock.FontSize = FontSize + 2;
             AuthorsTextBlock.Text = book.AuthorsNameSurnameText;
             TitleTextBlock.Text = book.Title;
-            bookmarks.AddRange(book.Bookmarks);
-            //BookmarksListView.ItemsSource = bookmarks;
+            bookmarks.AddRange(book.Bookmarks.OrderBy(x => x.Title));
+            BookmarksListView.ItemsSource = bookmarks;
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            if (hasChanges)
-                Db.UpdateBook(book);
+            if (!hasChanges)
+                return;
+            book.Bookmarks.Clear();
+            book.Bookmarks.AddRange(bookmarks);
+            Db.UpdateBook(book);
         }
 
         private void BookmarksListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PlayButton.IsEnabled = BookmarksListView.SelectedItems.Count == 1;
             EditButton.IsEnabled = BookmarksListView.SelectedItems.Count == 1;
+            DeleteButton.IsEnabled = BookmarksListView.SelectedItems.Count > 0;
         }
 
         private void BookmarksListView_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -81,6 +85,12 @@ namespace Govorun.Dialogs
             if (!App.SimpleBool(editor.ShowDialog()))
                 return;
             bookmark.Title = editor.BookmarkTitle;
+            hasChanges = true;
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            bookmarks.RemoveRange(BookmarksListView.SelectedItems.Cast<Bookmark>());
             hasChanges = true;
         }
 
