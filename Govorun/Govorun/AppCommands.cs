@@ -64,11 +64,6 @@ namespace Govorun
         public static RoutedUICommand Authors { get; private set; }
 
         /// <summary>
-        /// Команда редактирования чтецов.
-        /// </summary>
-        public static RoutedUICommand Lectors { get; private set; }
-
-        /// <summary>
         /// Команда проверки библиотеки на наличие файлов книг.
         /// </summary>
         public static RoutedUICommand CheckLibrary { get; private set; }
@@ -112,7 +107,6 @@ namespace Govorun
             AddBook = new RoutedUICommand("Добавить книгу...", "AddBook", typeof(AppCommands));
             FindBooks = new RoutedUICommand("Найти книги в папке...", "FindBooks", typeof(AppCommands));
             Authors = new RoutedUICommand("Авторы...", "Authors", typeof(AppCommands));
-            Lectors = new RoutedUICommand("Чтецы...", "Lectors", typeof(AppCommands));
             CheckLibrary = new RoutedUICommand("Проверить библиотеку...", "CheckLibrary", typeof(AppCommands));
             Shrink = new RoutedUICommand("Сжать библиотеку...", "Shrink", typeof(AppCommands));
             Settings = new RoutedUICommand("Настройки...", "Settings", typeof(AppCommands));
