@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Microsoft.Win32;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -41,6 +42,33 @@ namespace Govorun
         /// <param name="value">Логическое значение, допускающее неопределённое значение.</param>
         /// <returns>Логическое значение.</returns>
         public static bool SimpleBool(bool? value) => value ?? false;
+
+        #region Диалоги выбора файла и папки книг.
+
+        /// <summary>
+        /// Возвращает диалог выбора файла книги.
+        /// </summary>
+        public static OpenFileDialog PickBookFileDialog => new()
+        {
+            AddToRecent = false,
+            CheckFileExists = true,
+            CheckPathExists = true,
+            ValidateNames = true,
+            Title = "Выбрать файл книги",
+            Filter = "Файлы книг|*.m4b;*.m4a;*.mp3"
+        };
+
+        /// <summary>
+        /// Возвращает диалог выбора папки с файлами книг.
+        /// </summary>
+        public static OpenFolderDialog PickBooksFolderDialog => new()
+        {
+            Multiselect = true,
+            Title = "Выбрать папку с файлами книг",
+            ValidateNames = true
+        };
+
+        #endregion
 
         #region Получение строковых представлений значений.
 

@@ -41,28 +41,6 @@ namespace Govorun
         private readonly ObservableCollectionEx<Author> Authors = [];
 
         /// <summary>
-        /// Диалог выбора файла книги.
-        /// </summary>
-        private readonly OpenFileDialog AddBookDialog = new()
-        {
-            AddToRecent = false,
-            CheckFileExists = true,
-            CheckPathExists = true,
-            ValidateNames = true,
-            Title = "Выбрать файл книги",
-            Filter = "Файлы книг|*.m4b;*.m4a;*.mp3"
-        };
-
-        /// <summary>
-        /// Диалог выбора папки с файлами книг.
-        /// </summary>
-        private readonly OpenFolderDialog FindBooksDialog = new()
-        {
-            Title = "Выбрать папку с файлами книг",
-            ValidateNames = true
-        };
-
-        /// <summary>
         /// Инициализирует новый экземпляр класса.
         /// </summary>
         public MainWindow()
@@ -400,10 +378,10 @@ namespace Govorun
 
         private void AddBook_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            AddBookDialog.FileName = string.Empty;
-            if (!App.SimpleBool(AddBookDialog.ShowDialog()))
+            var fileDialog = App.PickBookFileDialog;
+            if (!App.SimpleBool(fileDialog.ShowDialog()))
                 return;
-            var filename = AddBookDialog.FileName;
+            var filename = fileDialog.FileName;
             if (Books.BookWithFileExists(filename))
             {
                 MessageBox.Show("Книга с этим файлом уже есть в библиотеке.", "Добавление книги");
@@ -444,8 +422,8 @@ namespace Govorun
 
         private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            FindBooksDialog.FolderName = string.Empty;
-            if (!App.SimpleBool(FindBooksDialog.ShowDialog()))
+            var folderDialog = App.PickBooksFolderDialog;
+            if (!App.SimpleBool(folderDialog.ShowDialog()))
                 return;
 
         }
