@@ -387,20 +387,7 @@ namespace Govorun
                 MessageBox.Show("Книга с этим файлом уже есть в библиотеке.", "Добавление книги");
                 return;
             }
-            var book = new Book();
-            var tag = new TrackData(filename);
-            book.Title = tag.Title;
-            book.FileName = filename;
-            book.Duration = tag.Duration;
-            foreach (var chapter in tag.Chapters)
-            {
-                book.Chapters.Add(new Chapter()
-                {
-                    Title = chapter.Title,
-                    StartTime = chapter.StartTime,
-                    EndTime = chapter.EndTime
-                });
-            }
+            var book = App.GetBookFromFile(filename, out TrackData tag);
             var editor = new BookEditor(book, tag) { Owner = this };
             if (!App.SimpleBool(editor.ShowDialog()))
                 return;
@@ -425,7 +412,30 @@ namespace Govorun
             var folderDialog = App.PickBooksFolderDialog;
             if (!App.SimpleBool(folderDialog.ShowDialog()))
                 return;
-
+            var files = new List<string>(); // Новые файлы книг.
+            var folders = folderDialog.FolderNames;
+            foreach (var folder in folders)
+            {
+                foreach (var mask in App.BookFileMasks)
+                {
+                    var folderFiles = Directory.GetFiles(folder, mask, SearchOption.AllDirectories);
+                    foreach (var file in folderFiles)
+                    {
+                        if (!Books.BookWithFileExists(file))
+                            files.Add(file);
+                    }
+                }
+            }
+            files.Sort(StringComparer.CurrentCultureIgnoreCase);
+            var dialog = new AddBooksDialog(files) { Owner = this };
+            dialog.ShowDialog();
+            if (!dialog.AddedBooks.Any())
+                return;
+            Books.AllBooks.AddRange(dialog.AddedBooks);
+            if (dialog.HasNewAuthors)
+                UpdateAuthors();
+            UpdateShownBooks();
+            SortShownBooks();
         }
 
         private void Authors_Executed(object sender, ExecutedRoutedEventArgs e)

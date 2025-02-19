@@ -4,6 +4,8 @@ using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Govorun.Media;
+using Govorun.Models;
 
 namespace Govorun
 {
@@ -24,6 +26,11 @@ namespace Govorun
         public static string? DbName { get; set; }
 
         /// <summary>
+        /// Маски имён файлов книг.
+        /// </summary>
+        public static string[] BookFileMasks = ["*.m4b", "*.m4a", "*.mp3"];
+
+        /// <summary>
         /// Аналог System.Windows.Forms.Application.DoEvents.
         /// </summary>
         public static void DoEvents() =>
@@ -35,6 +42,32 @@ namespace Govorun
         /// <param name="path">Путь к файлу.</param>
         /// <returns></returns>
         public static BitmapImage GetBitmap(string path) => new BitmapImage(new Uri(path, UriKind.Relative));
+
+        /// <summary>
+        /// Возвращает книгу из указанного файла.
+        /// В выходной параметр tag возвращает данные из тега.
+        /// </summary>
+        /// <param name="filename">Имя файла книги с полным путём.</param>
+        /// <param name="tag">Данные тега из файла книги.</param>
+        /// <returns>Книга.</returns>
+        public static Book GetBookFromFile(string filename, out TrackData tag)
+        {
+            var book = new Book();
+            tag = new TrackData(filename);
+            book.Title = tag.Title;
+            book.FileName = filename;
+            book.Duration = tag.Duration;
+            foreach (var chapter in tag.Chapters)
+            {
+                book.Chapters.Add(new Chapter()
+                {
+                    Title = chapter.Title,
+                    StartTime = chapter.StartTime,
+                    EndTime = chapter.EndTime
+                });
+            }
+            return book;
+        }
 
         /// <summary>
         /// Возвращает логическое значение из логического значения, допускающего неопределённое значение.
@@ -55,7 +88,7 @@ namespace Govorun
             CheckPathExists = true,
             ValidateNames = true,
             Title = "Выбрать файл книги",
-            Filter = "Файлы книг|*.m4b;*.m4a;*.mp3"
+            Filter = $"Файлы книг|{ListToString(BookFileMasks, ";")}"
         };
 
         /// <summary>
