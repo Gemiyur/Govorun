@@ -299,7 +299,7 @@ namespace Govorun
         {
             var book = (Book)BooksListView.SelectedItem;
             var editor = new BookEditor(book, null) { Owner = this };
-            if (!editor.ShowDialog() != true)
+            if (editor.ShowDialog() != true)
                 return;
             if (editor.HasNewAuthors)
                 UpdateAuthors();
@@ -317,6 +317,8 @@ namespace Govorun
                 SortShownBooks();
                 BooksListView.SelectedItem = book;
                 BooksListView.ScrollIntoView(BooksListView.SelectedItem);
+                if (Player.Book == book)
+                    Player.TitleTextBlock.Text = book.Title;
             }
             book.OnPropertyChanged("AuthorsSurnameNameText");
             book.OnPropertyChanged("AuthorsNameSurnameText");
