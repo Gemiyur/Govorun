@@ -82,7 +82,7 @@ namespace Govorun.Dialogs
             var bookmark = (Bookmark)BookmarksListView.SelectedItem;
             var title = bookmark.Title;
             var editor = new BookmarkEditor(title) { Owner = this };
-            if (!App.SimpleBool(editor.ShowDialog()))
+            if (editor.ShowDialog() != true)
                 return;
             bookmark.Title = editor.BookmarkTitle;
             hasChanges = true;

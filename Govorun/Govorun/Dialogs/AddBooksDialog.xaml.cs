@@ -50,7 +50,7 @@ namespace Govorun.Dialogs
             {
                 var book = App.GetBookFromFile(file, out TrackData tag);
                 var editor = new BookEditor(book, tag) { Owner = this };
-                if (!App.SimpleBool(editor.ShowDialog()))
+                if (editor.ShowDialog() != true)
                 {
                     if (addedFilesCount == 1)
                         return;

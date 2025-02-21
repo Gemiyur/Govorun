@@ -415,7 +415,7 @@ namespace Govorun.Controls
             if (book == null)
                 return;
             var dialog = new ChaptersDialog(book) { Owner = Window.GetWindow(this) };
-            if (App.SimpleBool(dialog.ShowDialog()) && dialog.Chapter != null)
+            if (dialog.ShowDialog() == true && dialog.Chapter != null)
                 PlayPosition = dialog.Chapter.StartTime;
         }
 
@@ -424,7 +424,7 @@ namespace Govorun.Controls
             if (book == null)
                 return;
             var dialog = new BookmarksDialog(book) { Owner = Window.GetWindow(this) };
-            if (App.SimpleBool(dialog.ShowDialog()) && dialog.Bookmark != null)
+            if (dialog.ShowDialog() == true && dialog.Bookmark != null)
                 PlayPosition = dialog.Bookmark.Position;
             CheckBookmarksButton();
         }
@@ -435,7 +435,7 @@ namespace Govorun.Controls
                 return;
             var position = PlayPosition;
             var editor = new BookmarkEditor(string.Empty);
-            if (!App.SimpleBool(editor.ShowDialog()))
+            if (editor.ShowDialog() != true)
                 return;
             var bookmark = new Bookmark() { Position = position, Title = editor.BookmarkTitle };
             book.Bookmarks.Add(bookmark);

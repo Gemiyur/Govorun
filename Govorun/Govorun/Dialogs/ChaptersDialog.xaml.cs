@@ -82,7 +82,7 @@ namespace Govorun.Dialogs
             var chapter = (Chapter)ChaptersListView.SelectedItem;
             var title = chapter.Title;
             var editor = new ChapterEditor(title) { Owner = this };
-            if (!App.SimpleBool(editor.ShowDialog()))
+            if (editor.ShowDialog() != true)
                 return;
             chapter.Title = editor.ChapterTitle;
             hasChanges = true;

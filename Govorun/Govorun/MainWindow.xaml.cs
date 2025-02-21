@@ -21,7 +21,7 @@ namespace Govorun
 {
     #region Задачи (TODO).
 
-    // TODO: Сделать сохранение и загрузку при запуске программы книги в проигрывателе. 
+    // TODO: Сделать сохранение и загрузку книги в проигрывателе при закрытии и запуске программы.
 
     #endregion
 
@@ -71,7 +71,7 @@ namespace Govorun
         private void RunBookInfoDialog(Book book)
         {
             var dialog = new BookInfoDialog(book) { Owner = this };
-            if (!App.SimpleBool(dialog.ShowDialog()) || book == Player.Book)
+            if (dialog.ShowDialog() != true || book == Player.Book)
                 return;
             SaveBookPlayPosition();
             Player.Book = book;
@@ -242,7 +242,7 @@ namespace Govorun
         {
             var book = (Book)BooksListView.SelectedItem;
             var dialog = new ChaptersDialog(book) { Owner = this };
-            if (!App.SimpleBool(dialog.ShowDialog()) || dialog.Chapter == null)
+            if (dialog.ShowDialog() != true || dialog.Chapter == null)
                 return;
             if (book != Player.Book)
             {
@@ -270,11 +270,10 @@ namespace Govorun
         {
             var book = (Book)BooksListView.SelectedItem;
             var dialog = new BookmarksDialog(book) { Owner = this };
-            var dialogResult = App.SimpleBool(dialog.ShowDialog());
+            var dialogResult = dialog.ShowDialog() == true;
             Player.CheckBookmarksButton();
             if (!dialogResult || dialog.Bookmark == null)
                 return;
-
             if (book != Player.Book)
             {
                 SaveBookPlayPosition();
@@ -283,7 +282,6 @@ namespace Govorun
             }
             else
                 Player.PlayPosition = dialog.Bookmark.Position;
-
         }
 
         private void Edit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -303,8 +301,6 @@ namespace Govorun
             var editor = new BookEditor(book, null) { Owner = this };
             if (!editor.ShowDialog() != true)
                 return;
-            //if (!App.SimpleBool(editor.ShowDialog()))
-            //    return;
             if (editor.HasNewAuthors)
                 UpdateAuthors();
             if (AuthorsListBox.SelectedIndex >= 0 && editor.AuthorsChanged)
@@ -372,7 +368,7 @@ namespace Govorun
         private void Listening_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var dialog = new ListeningDialog() { Owner = this };
-            if (!App.SimpleBool(dialog.ShowDialog()) || dialog.BookForPlay == Player.Book)
+            if (dialog.ShowDialog() != true || dialog.BookForPlay == Player.Book)
                 return;
             SaveBookPlayPosition();
             Player.Book = dialog.BookForPlay;
@@ -381,7 +377,7 @@ namespace Govorun
         private void AddBook_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var fileDialog = App.PickBookFileDialog;
-            if (!App.SimpleBool(fileDialog.ShowDialog()))
+            if (fileDialog.ShowDialog() != true)
                 return;
             var filename = fileDialog.FileName;
             if (Books.BookWithFileExists(filename))
@@ -391,7 +387,7 @@ namespace Govorun
             }
             var book = App.GetBookFromFile(filename, out TrackData tag);
             var editor = new BookEditor(book, tag) { Owner = this };
-            if (!App.SimpleBool(editor.ShowDialog()))
+            if (editor.ShowDialog() != true)
                 return;
             Books.AllBooks.Add(book);
             if (editor.HasNewAuthors)
@@ -412,7 +408,7 @@ namespace Govorun
         private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var folderDialog = App.PickBooksFolderDialog;
-            if (!App.SimpleBool(folderDialog.ShowDialog()))
+            if (folderDialog.ShowDialog() != true)
                 return;
             var files = new List<string>(); // Новые файлы книг.
             var folders = folderDialog.FolderNames;

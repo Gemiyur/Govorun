@@ -38,7 +38,6 @@
     <None Remove="Images\Buttons\Disabled\Edit.png" />
     <None Remove="Images\Buttons\Disabled\Info.png" />
     <None Remove="Images\Buttons\Disabled\Play.png" />
-    <None Remove="Images\Buttons\Disabled\Reset.png" />
     <None Remove="Images\Buttons\Disabled\Skip.png" />
     <None Remove="Images\Buttons\Enabled\About.png" />
     <None Remove="Images\Buttons\Enabled\AddBook.png" />
@@ -58,7 +57,6 @@
     <None Remove="Images\Buttons\Enabled\Pause.png" />
     <None Remove="Images\Buttons\Enabled\Play.png" />
     <None Remove="Images\Buttons\Enabled\Replay.png" />
-    <None Remove="Images\Buttons\Enabled\Reset.png" />
     <None Remove="Images\Buttons\Enabled\Resize.png" />
     <None Remove="Images\Buttons\Enabled\Settings.png" />
     <None Remove="Images\Buttons\Enabled\Shrink.png" />
@@ -105,7 +103,6 @@
     <Resource Include="Images\Buttons\Disabled\Info.png" />
     <Resource Include="Images\Buttons\Disabled\Play.png" />
     <Resource Include="Controls\PlayerImages\Disabled\Skip.png" />
-    <Resource Include="Images\Buttons\Disabled\Reset.png" />
     <Resource Include="Images\Buttons\Enabled\About.png" />
     <Resource Include="Images\Buttons\Enabled\AddBook.png" />
     <Resource Include="Controls\PlayerImages\Enabled\AddBookmark.png" />
@@ -124,7 +121,6 @@
     <Resource Include="Images\Buttons\Enabled\Listening.png" />
     <Resource Include="Images\Buttons\Enabled\Play.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Replay.png" />
-    <Resource Include="Images\Buttons\Enabled\Reset.png" />
     <Resource Include="Images\Buttons\Enabled\Resize.png" />
     <Resource Include="Images\Buttons\Enabled\Settings.png" />
     <Resource Include="Images\Buttons\Enabled\Shrink.png" />

@@ -233,7 +233,7 @@ namespace Govorun.Dialogs
         private void PickAuthorsButton_Click(object sender, RoutedEventArgs e)
         {
             var picker = new AuthorsPicker() { Owner = this };
-            if (!App.SimpleBool(picker.ShowDialog()))
+            if (picker.ShowDialog() != true)
                 return;
             authors.AddRange(picker.PickedAuthors.Where(x => !authors.Exists(a => a.AuthorId == x.AuthorId)));
             SortAuthors();
@@ -287,7 +287,7 @@ namespace Govorun.Dialogs
         private void PickLectorButton_Click(object sender, RoutedEventArgs e)
         {
             var picker = new LectorPicker() { Owner = this };
-            if (!App.SimpleBool(picker.ShowDialog()))
+            if (picker.ShowDialog() != true)
                 return;
             LectorTextBox.Text = picker.PickedLector;
         }
