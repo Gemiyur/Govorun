@@ -1,0 +1,72 @@
+﻿<Window x:Class="Govorun.Dialogs.BookFileDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Govorun.Dialogs"
+        mc:Ignorable="d"
+        Title="Файл книги"
+        Width="700" Height="200" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="Width" Value="75" />
+                <Setter Property="Height" Value="25" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Margin="10,10,10,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!-- Авторы и название -->
+        <TextBlock Grid.Row="0" x:Name="AuthorsTextBlock" Text="Авторы" HorizontalAlignment="Center" />
+        <TextBlock Grid.Row="1" x:Name="TitleTextBlock" Text="Название"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   Margin="0,5,0,0" />
+
+        <!-- Статус файла -->
+        <TextBlock Grid.Row="2" x:Name="StatusTextBlock" Text="Файл не найден"
+                   FontWeight="Bold"
+                   Foreground="Red"
+                   Margin="0,10,0,0" />
+
+        <!-- Имя файла -->
+        <TextBox Grid.Row="3" x:Name="FileTextBox" IsReadOnly="True" Margin="0,10,0,0" />
+
+        <!-- Кнопки -->
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" x:Name="PickButton" Content="Выбрать"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Style="{StaticResource ButtonStyle}"
+                    Click="PickButton_Click" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom">
+                <Button Grid.Column="1" x:Name="SaveButton" Content="Сохранить"
+                        IsEnabled="False"
+                        Style="{StaticResource ButtonStyle}"
+                        Click="SaveButton_Click" Margin="0,0,10,0" />
+                <Button Grid.Column="1" x:Name="CancelButton" Content="Отмена"
+                        IsCancel="True"
+                        Style="{StaticResource ButtonStyle}"
+                        Click="CancelButton_Click" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

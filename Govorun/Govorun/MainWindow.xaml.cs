@@ -301,8 +301,10 @@ namespace Govorun
         {
             var book = (Book)BooksListView.SelectedItem;
             var editor = new BookEditor(book, null) { Owner = this };
-            if (!App.SimpleBool(editor.ShowDialog()))
+            if (!editor.ShowDialog() != true)
                 return;
+            //if (!App.SimpleBool(editor.ShowDialog()))
+            //    return;
             if (editor.HasNewAuthors)
                 UpdateAuthors();
             if (AuthorsListBox.SelectedIndex >= 0 && editor.AuthorsChanged)

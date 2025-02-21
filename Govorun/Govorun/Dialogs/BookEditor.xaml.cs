@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using Gemiyur.Comparers;
 using Govorun.Media;
@@ -37,6 +38,11 @@ namespace Govorun.Dialogs
         private readonly Book book;
 
         /// <summary>
+        /// Имя файла книги.
+        /// </summary>
+        private string filename;
+
+        /// <summary>
         /// Данные книги из тега файла книги.
         /// </summary>
         private TrackData? tag;
@@ -68,8 +74,10 @@ namespace Govorun.Dialogs
             }
             this.book = book;
             this.tag = tag;
+            filename = book.FileName;
             FileNotFoundTextBlock.Visibility = book.FileExists ? Visibility.Collapsed : Visibility.Visible;
             LoadTagButton.IsEnabled = book.FileExists && tag == null;
+            FileButton.IsEnabled = !book.FileExists;
             LoadBook();
             LoadTag();
         }
@@ -164,6 +172,12 @@ namespace Govorun.Dialogs
             if (book.Comment != CommentTextBox.Text)
             {
                 book.Comment = CommentTextBox.Text;
+                changed = true;
+            }
+            // Имя файла.
+            if (book.FileName != filename)
+            {
+                book.FileName = filename;
                 changed = true;
             }
             // Возврат результата: были ли внесены изменения в книгу.
@@ -281,19 +295,28 @@ namespace Govorun.Dialogs
         private void LoadTagButton_Click(object sender, RoutedEventArgs e)
         {
             // Так сделано на случай если после загрузки книги в редактор файл книги был удалён или переименован.
-            if (book.FileExists)
+            if (File.Exists(filename))
             {
-                tag = new TrackData(book.FileName);
+                tag = new TrackData(filename);
                 LoadTag();
             }
             else
+            {
                 FileNotFoundTextBlock.Visibility = Visibility.Visible;
+                FileButton.IsEnabled = true;
+            }
             LoadTagButton.IsEnabled = false;
         }
 
         private void FileButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Исправление имени файла книги если файл не найден.
+            var dialog = new BookFileDialog(book) { Owner = this };
+            if (dialog.ShowDialog() != true)
+                return;
+            filename = dialog.FileName;
+            FileNotFoundTextBlock.Visibility = Visibility.Collapsed;
+            LoadTagButton.IsEnabled = true;
+            FileButton.IsEnabled = false;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
