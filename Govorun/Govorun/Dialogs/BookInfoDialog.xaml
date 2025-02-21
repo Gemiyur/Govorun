@@ -59,13 +59,17 @@
             <TextBox x:Name="CommentTextBox"
                      TextWrapping="Wrap"
                      IsReadOnly="True"
-                     VerticalScrollBarVisibility="Auto" Margin="0,3,0,0" />
+                     IsReadOnlyCaretVisible="True"
+                     VerticalScrollBarVisibility="Auto"
+                     Margin="0,3,0,0" />
         </GroupBox>
 
         <!-- Файл -->
         <GroupBox Grid.Row="4" Header="Файл" Margin="0,10,0,0">
             <TextBox x:Name="FileTextBox"
-                     IsReadOnly="True" Margin="0,4,0,0" />
+                     IsReadOnly="True"
+                     IsReadOnlyCaretVisible="True"
+                     Margin="0,4,0,0" />
         </GroupBox>
 
         <!-- Кнопки -->

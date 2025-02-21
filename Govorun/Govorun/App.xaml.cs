@@ -11,8 +11,6 @@ namespace Govorun
 {
     #region Задачи (TODO).
 
-    // TODOH: Сделать рефакторинг по SimpleBool. Для диалогов использовать вместо него сравнение с true и false.
-
     #endregion
 
     /// <summary>
