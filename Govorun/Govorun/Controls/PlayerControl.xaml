@@ -40,11 +40,11 @@
 
         <TextBlock x:Name="TitleTextBlock" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                    Style="{StaticResource TitleTextBlockStyle}"
-                   Margin="8,4" />
+                   Margin="8,2,8,4" />
 
         <Slider x:Name="TimeSlider" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                 Template="{StaticResource HorizontalSlider}"
-                Margin="8,4"
+                Margin="8,4,8,2"
                 IsMoveToPointEnabled="True"
                 Maximum="100"
                 LargeChange="10"
@@ -70,7 +70,7 @@
                    HorizontalAlignment="Right"
                    ToolTip="Продолжительность" />
 
-        <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" Margin="0,8,0,0">
             <Image  Grid.Row="3" Grid.Column="0"
                     x:Name="VolumeImage"
                     Style="{StaticResource IconStyle}"

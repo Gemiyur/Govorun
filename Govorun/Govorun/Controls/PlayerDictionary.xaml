@@ -37,15 +37,15 @@
 
     <!-- Стили шрифтов -->
     <Style x:Key="TimeTextBlockStyle" TargetType="TextBlock">
-        <!--<Setter Property="FontWeight" Value="Medium" />-->
+        <Setter Property="FontWeight" Value="Medium" />
     </Style>
 
     <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock">
-        <!--<Setter Property="FontWeight" Value="MinusBoxOutline" />-->
+        <Setter Property="FontWeight" Value="Medium" />
     </Style>
 
     <Style x:Key="VolumeTextBlockStyle" TargetType="TextBlock">
-        <!--<Setter Property="FontWeight" Value="Medium" />-->
+        <Setter Property="FontWeight" Value="Medium" />
     </Style>
 
     <!-- Шаблон кнопки -->

@@ -8,8 +8,6 @@ namespace Govorun.Controls
 {
     #region Задачи (TODO).
 
-    // TODO: Сделать шрифт названия, времени и громкости жирным. Или не надо?
-
     #endregion
 
     /// <summary>
