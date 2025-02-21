@@ -303,7 +303,7 @@
         </Grid>
 
         <!-- Проигрыватель -->
-        <Controls:PlayerControl Grid.Row="3" Height="100" x:Name="Player" />
+        <Controls:PlayerControl Grid.Row="3" Height="100" x:Name="Player" Margin="0,10,0,0" />
 
         <StatusBar Grid.Row="4">
             <StatusBarItem>

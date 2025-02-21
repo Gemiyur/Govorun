@@ -8,7 +8,7 @@ namespace Govorun.Controls
 {
     #region Задачи (TODO).
 
-    // TODO: Сделать шрифт названия и времени жирным. Или не надо?
+    // TODO: Сделать шрифт названия, времени и громкости жирным. Или не надо?
 
     #endregion
 
@@ -58,7 +58,6 @@ namespace Govorun.Controls
                     return;
                 }
                 Player.Source = new Uri(book.FileName);
-                // TODO: Отображать не только название книги, но и авторов. Или не надо?
                 TitleTextBlock.Text = book.Title;
                 SetPlayingControlsEnabled(true);
                 SetInfoButtonEnabled(true);

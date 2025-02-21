@@ -12,7 +12,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="PlayerDictionary.xaml" />
-                <!--<ResourceDictionary Source="SliderDictionary.xaml"/>-->
+                <ResourceDictionary Source="SliderDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -43,6 +43,7 @@
                    Margin="8,4" />
 
         <Slider x:Name="TimeSlider" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                Template="{StaticResource HorizontalSlider}"
                 Margin="8,4"
                 IsMoveToPointEnabled="True"
                 Maximum="100"
@@ -84,6 +85,7 @@
                 <Image Source="PlayerImages\Enabled\Decrease.png" Style="{StaticResource VolumeIconStyle}" />
             </RepeatButton>
             <Slider x:Name="VolumeSlider"
+                    Template="{StaticResource HorizontalSlider}"
                     Width="100"
                     Margin="0,4,0,4"
                     IsMoveToPointEnabled="True"
