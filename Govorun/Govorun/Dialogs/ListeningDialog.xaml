@@ -98,6 +98,7 @@
                         Click="ResetButton_Click" />
             </StackPanel>
             <Button Grid.Column="1" x:Name="CloseButton" Content="Закрыть"
+                    IsCancel="True"
                     Style="{StaticResource ButtonStyle}"
                     HorizontalAlignment="Right" Click="CloseButton_Click" />
         </Grid>

@@ -1,16 +1,7 @@
-﻿using Microsoft.Win32;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 using Gemiyur.Collections;
 using Govorun.Dialogs;
 using Govorun.Models;
@@ -454,7 +445,8 @@ namespace Govorun
 
         private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            // TODO: Сделать проверку библиотеки.
+            MessageBox.Show("Проверка библиотеки в данной версии не реализована.", Title);
         }
 
         private void Shrink_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -473,7 +465,8 @@ namespace Govorun
 
         private void Settings_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            // TODO: Сделать настройки программы.
+            MessageBox.Show("Настройки программы в данной версии не реализованы.", Title);
         }
 
         #endregion
