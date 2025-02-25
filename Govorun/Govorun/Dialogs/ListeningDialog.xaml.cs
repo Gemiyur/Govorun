@@ -22,6 +22,18 @@ namespace Govorun.Dialogs
         /// </summary>
         private readonly ObservableCollectionEx<Book> books = [];
 
+        /// <summary>
+        /// Возвращает книгу в проигрывателе.
+        /// </summary>
+        private Book? PlayingBook
+        {
+            get
+            {
+                var owner = Owner != null && Owner is MainWindow ? (MainWindow)Owner : null;
+                return owner?.Player.Book;
+            }
+        }
+
         public ListeningDialog()
         {
             InitializeComponent();
@@ -41,7 +53,10 @@ namespace Govorun.Dialogs
         private void BooksListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListenButton.IsEnabled = BooksListView.SelectedItems.Count == 1;
-            ResetButton.IsEnabled = BooksListView.SelectedItems.Count > 0;
+            ResetButton.IsEnabled =
+                BooksListView.SelectedItems.Count == 1 && (Book)BooksListView.SelectedItem == PlayingBook
+                    ? false
+                    : BooksListView.SelectedItems.Count > 0;
         }
 
         private void BooksListView_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -66,6 +81,8 @@ namespace Govorun.Dialogs
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedBooks = BooksListView.SelectedItems.Cast<Book>().ToList();
+            if (PlayingBook != null)
+                selectedBooks.Remove(PlayingBook);
             using var db = Db.GetDatabase();
             foreach (var book in selectedBooks)
             {

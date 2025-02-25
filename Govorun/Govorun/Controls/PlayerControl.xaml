@@ -38,9 +38,18 @@
                       MediaEnded="Player_MediaEnded"
                       MediaFailed="Player_MediaFailed" />
 
-        <TextBlock x:Name="TitleTextBlock" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                   Style="{StaticResource TitleTextBlockStyle}"
-                   Margin="8,2,8,4" />
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="8,2,8,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="TitleTextBlock" Grid.Column="0"
+                       Style="{StaticResource TitleTextBlockStyle}" />
+            <TextBlock x:Name="FailedTextBlock" Grid.Column="1"
+                       Text="Не найден файл книги"
+                       Style="{StaticResource TitleTextBlockStyle}"
+                       Foreground="Red" />
+        </Grid>
 
         <Slider x:Name="TimeSlider" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                 Template="{StaticResource HorizontalSlider}"

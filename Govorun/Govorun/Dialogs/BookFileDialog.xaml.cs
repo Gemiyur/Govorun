@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Media;
 using Govorun.Media;
 using Govorun.Models;
@@ -32,9 +33,10 @@ namespace Govorun.Dialogs
             if (dialog.ShowDialog() != true)
                 return;
             var tag = new TrackData(dialog.FileName);
-            if (tag.Duration != book.Duration)
+            var size = new FileInfo(dialog.FileName).Length;
+            if (tag.Duration != book.Duration || size != book.FileSize)
             {
-                MessageBox.Show("Файл не подходит по продолжительности.", Title);
+                MessageBox.Show("Файл не подходит по размеру и продолжительности.", Title);
                 return;
             }
             FileTextBox.Text = dialog.FileName;

@@ -40,6 +40,7 @@ namespace Govorun.Controls
             {
                 book = value;
                 IsEnabled = book != null;
+                FailedTextBlock.Visibility = Visibility.Collapsed;
                 if (book == null)
                 {
                     Player.Source = null;
@@ -75,6 +76,11 @@ namespace Govorun.Controls
             get => Player.Position;
             set => TimeSlider.Value = value.TotalSeconds;
         }
+
+        /// <summary>
+        /// Была ли ошибка загрузки файла книги в проигрыватель.
+        /// </summary>
+        public bool MediaFailed => FailedTextBlock.IsVisible;
 
         /// <summary>
         /// Таймер воспроизведения.
@@ -157,6 +163,7 @@ namespace Govorun.Controls
         public PlayerControl()
         {
             InitializeComponent();
+            FailedTextBlock.Visibility = Visibility.Collapsed;
             playTimer.Tick += PlayTimer_Tick;
             Player.Volume = (double)Properties.Settings.Default.PlayerVolume / 100;
             VolumeSlider.Value = Player.Volume;
@@ -345,12 +352,16 @@ namespace Govorun.Controls
         {
             var message = "Не удалось воспроизвести книгу:\n";
             if (e is ExceptionRoutedEventArgs ex)
+            {
                 message += ex.ErrorException.Message;
+                FailedTextBlock.Text = ex.ErrorException.Message;
+            }
             else
                 message += "Неизвестная ошибка.";
-            MessageBox.Show(message, "Ошибка");
-            SetPlayingControlsEnabled(false);
+            MessageBox.Show(message, Window.GetWindow(this).Title);
             Playing = false;
+            FailedTextBlock.Visibility = Visibility.Visible;
+            IsEnabled = false;
         }
 
         private void TimeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

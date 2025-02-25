@@ -74,7 +74,7 @@ namespace Govorun
         private void SaveBookPlayPosition()
         {
             var book = Player.Book;
-            if (book == null)
+            if (book == null || Player.MediaFailed)
                 return;
             var position = Player.Player.Position < Player.Player.NaturalDuration.TimeSpan
                 ? Player.Player.Position
@@ -311,6 +311,8 @@ namespace Govorun
                 if (Player.Book == book)
                     Player.TitleTextBlock.Text = book.Title;
             }
+            if (editor.FileChanged && Player.Book == book)
+                Player.Book = book;
             book.OnPropertyChanged("AuthorsSurnameNameText");
             book.OnPropertyChanged("AuthorsNameSurnameText");
         }
@@ -331,11 +333,13 @@ namespace Govorun
             if (BooksListView.SelectedItems.Count == 1)
             {
                 var book = (Book)BooksListView.SelectedItem;
-                if (MessageBox.Show($"Удалить книгу \"{book.Title}\"?", Title,
+                if (MessageBox.Show($"Удалить книгу \"{book.Title}\"?\nФайл книги удалён не будет.", Title,
                                     MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 {
                     return;
                 }
+                if (Player.Book == book)
+                    Player.Book = null;
                 Db.DeleteBook(book);
                 Books.AllBooks.Remove(book);
                 ShownBooks.Remove(book);
@@ -343,11 +347,13 @@ namespace Govorun
                 return;
             }
             var books = BooksListView.SelectedItems.Cast<Book>().ToList();
-            if (MessageBox.Show("Удалить выбранные книги?", Title,
+            if (MessageBox.Show("Удалить выбранные книги?\nФайлы книг удалены не будут.", Title,
                                 MessageBoxButton.YesNo) != MessageBoxResult.Yes)
             {
                 return;
             }
+            if (Player.Book != null && books.Contains(Player.Book))
+                Player.Book = null;
             Db.DeleteBooks(books);
             Books.AllBooks.RemoveAll(books.Contains);
             ShownBooks.RemoveRange(books);
@@ -445,8 +451,26 @@ namespace Govorun
 
         private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // TODO: Сделать проверку библиотеки.
-            MessageBox.Show("Проверка библиотеки в данной версии не реализована.", Title);
+            var dialog = new CheckLibraryDialog() { Owner = this };
+            dialog.ShowDialog();
+            if (dialog.DeletedBooks.Any())
+            {
+                if (Player.Book != null && dialog.DeletedBooks.Contains(Player.Book))
+                    Player.Book = null;
+                Db.DeleteBooks(dialog.DeletedBooks);
+                Books.AllBooks.RemoveAll(x => dialog.DeletedBooks.Contains(x));
+                ShownBooks.RemoveRange(dialog.DeletedBooks);
+                UpdateStatusBarBooksCount();
+            }
+            if (dialog.ChangedBooks.Any())
+            {
+                Db.UpdateBooks(dialog.ChangedBooks);
+                if (Player.Book == null)
+                    return;
+                var book = dialog.ChangedBooks.Find(x => x == Player.Book);
+                if (book != null)
+                    Player.Book = book;
+            }
         }
 
         private void Shrink_Executed(object sender, ExecutedRoutedEventArgs e)

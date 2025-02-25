@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -54,6 +55,7 @@ namespace Govorun
             book.Title = tag.Title;
             book.FileName = filename;
             book.Duration = tag.Duration;
+            book.FileSize = new FileInfo(filename).Length;
             foreach (var chapter in tag.Chapters)
             {
                 book.Chapters.Add(new Chapter()

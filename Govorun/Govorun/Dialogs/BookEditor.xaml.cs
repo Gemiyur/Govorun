@@ -23,6 +23,11 @@ namespace Govorun.Dialogs
         public bool AuthorsChanged;
 
         /// <summary>
+        /// Было ли изменено имя файла книги.
+        /// </summary>
+        public bool FileChanged;
+
+        /// <summary>
         /// Были ли добавлены новые авторы книг в библиотеку.
         /// </summary>
         public bool HasNewAuthors;
@@ -179,6 +184,7 @@ namespace Govorun.Dialogs
             {
                 book.FileName = filename;
                 changed = true;
+                FileChanged = true;
             }
             // Возврат результата: были ли внесены изменения в книгу.
             return changed;

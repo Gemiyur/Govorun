@@ -102,6 +102,11 @@ namespace Govorun.Models
         }
 
         /// <summary>
+        /// Размер файла книги в байтах.
+        /// </summary>
+        public long FileSize { get; set; }
+
+        /// <summary>
         /// Существует ли файл книги.
         /// </summary>
         [BsonIgnore]

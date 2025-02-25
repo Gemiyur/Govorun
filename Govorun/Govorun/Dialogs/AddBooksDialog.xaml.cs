@@ -56,6 +56,8 @@ namespace Govorun.Dialogs
                         return;
                     if (MessageBox.Show("Продолжить добавление книг?", Title, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                         return;
+                    addedFilesCount--;
+                    continue;
                 }
                 if (!HasNewAuthors && editor.HasNewAuthors)
                     HasNewAuthors = true;
