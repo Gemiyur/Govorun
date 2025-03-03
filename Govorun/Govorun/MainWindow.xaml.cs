@@ -12,7 +12,7 @@ namespace Govorun
 {
     #region Задачи (TODO).
 
-    // TODO: Сделать сохранение и загрузку книги в проигрывателе при закрытии и запуске программы.
+    // TODO: Сделать сохранение и загрузку книги в проигрывателе при закрытии и запуске приложения.
 
     #endregion
 
@@ -489,7 +489,7 @@ namespace Govorun
 
         private void Settings_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // TODO: Сделать настройки программы.
+            // TODO: Сделать настройки приложения.
             MessageBox.Show("Настройки программы в данной версии не реализованы.", Title);
         }
 
