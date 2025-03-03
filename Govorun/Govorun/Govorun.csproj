@@ -47,7 +47,6 @@
     <None Remove="Images\Buttons\Enabled\Bookmarks.png" />
     <None Remove="Images\Buttons\Enabled\Chapters.png" />
     <None Remove="Images\Buttons\Enabled\CheckLibrary.png" />
-    <None Remove="Images\Buttons\Enabled\CreateM4B.png" />
     <None Remove="Images\Buttons\Enabled\Decrease.png" />
     <None Remove="Images\Buttons\Enabled\Delete.png" />
     <None Remove="Images\Buttons\Enabled\Edit.png" />
@@ -70,8 +69,7 @@
 
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="5.0.21" />
-    <PackageReference Include="NAudio" Version="2.2.1" />
-    <PackageReference Include="z440.atl.core" Version="6.18.0" />
+    <PackageReference Include="z440.atl.core" Version="6.11.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -114,7 +112,6 @@
     <Resource Include="Images\Buttons\Enabled\Chapters.png" />
     <Resource Include="Images\Buttons\Enabled\CheckLibrary.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Decrease.png" />
-    <Resource Include="Images\Buttons\Enabled\CreateM4B.png" />
     <Resource Include="Images\Buttons\Enabled\Delete.png" />
     <Resource Include="Images\Buttons\Enabled\Edit.png" />
     <Resource Include="Images\Buttons\Enabled\FindBooks.png" />

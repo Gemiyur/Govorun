@@ -85,11 +85,6 @@
                     <iconPacks:PackIconMaterial Kind="Cog" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
             </ToolBar>
-            <ToolBar x:Name="ToolsToolBar">
-                <Button Style="{StaticResource ToolBarButtonStyle}">
-                    <iconPacks:PackIconVaadinIcons Kind="Records" Style="{StaticResource ToolBarIconStyle}" />
-                </Button>
-            </ToolBar>
             <ToolBar x:Name="HelpToolBar">
                 <Button Style="{StaticResource ToolBarButtonStyle}" ToolTip="О программе">
                     <iconPacks:PackIconIonicons Kind="HelpiOS" Style="{StaticResource ToolBarIconStyle}" />

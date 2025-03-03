@@ -7,7 +7,6 @@ using Govorun.Dialogs;
 using Govorun.Models;
 using Govorun.Tools;
 using Govorun.Media;
-using Microsoft.Win32;
 
 namespace Govorun
 {
@@ -407,12 +406,7 @@ namespace Govorun
 
         private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var folderDialog = new OpenFolderDialog()
-            {
-                AddToRecent = false,
-                Multiselect = true,
-                Title = "Выбор папки с файлами книг",
-            };
+            var folderDialog = App.PickBooksFolderDialog;
             if (folderDialog.ShowDialog() != true)
                 return;
             var files = new List<string>(); // Новые файлы книг.
@@ -497,15 +491,6 @@ namespace Govorun
         {
             // TODO: Сделать настройки программы.
             MessageBox.Show("Настройки программы в данной версии не реализованы.", Title);
-        }
-
-        #endregion
-
-        #region Обработчики команд группы "Инструменты".
-
-        private void CreateM4B_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            new CreateM4BDialog() { Owner = this }.ShowDialog();
         }
 
         #endregion
