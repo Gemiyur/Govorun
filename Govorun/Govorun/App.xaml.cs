@@ -11,6 +11,10 @@ namespace Govorun
 {
     #region Задачи (TODO).
 
+    // TODO: Убрать поддержку M4A.
+    // TODO: Сделать проверку наличия создаваемого M4A в библиотеке.
+    // TODO: Сделать проверку на совпадение файла книги по размеру и длительности.
+
     #endregion
 
     /// <summary>
@@ -27,6 +31,17 @@ namespace Govorun
         /// Маски имён файлов книг.
         /// </summary>
         public static string[] BookFileMasks = ["*.m4b", "*.m4a", "*.mp3"];
+
+        /// <summary>
+        /// Возвращает диалог выбора файла книги.
+        /// </summary>
+        public static OpenFileDialog PickBookFileDialog => new()
+        {
+            AddToRecent = false,
+            CheckFileExists = true,
+            Title = "Выбрать файл книги",
+            Filter = $"Файлы книг|{ListToString(BookFileMasks, ";")}"
+        };
 
         /// <summary>
         /// Аналог System.Windows.Forms.Application.DoEvents.
@@ -74,33 +89,6 @@ namespace Govorun
         /// <param name="value">Логическое значение, допускающее неопределённое значение.</param>
         /// <returns>Логическое значение.</returns>
         public static bool SimpleBool(bool? value) => value ?? false;
-
-        #region Диалоги выбора файла и папки книг.
-
-        /// <summary>
-        /// Возвращает диалог выбора файла книги.
-        /// </summary>
-        public static OpenFileDialog PickBookFileDialog => new()
-        {
-            AddToRecent = false,
-            CheckFileExists = true,
-            CheckPathExists = true,
-            ValidateNames = true,
-            Title = "Выбрать файл книги",
-            Filter = $"Файлы книг|{ListToString(BookFileMasks, ";")}"
-        };
-
-        /// <summary>
-        /// Возвращает диалог выбора папки с файлами книг.
-        /// </summary>
-        public static OpenFolderDialog PickBooksFolderDialog => new()
-        {
-            Multiselect = true,
-            Title = "Выбрать папку с файлами книг",
-            ValidateNames = true
-        };
-
-        #endregion
 
         #region Получение строковых представлений значений.
 

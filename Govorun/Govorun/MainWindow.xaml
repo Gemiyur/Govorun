@@ -55,6 +55,9 @@
                         Executed="Shrink_Executed" />
         <CommandBinding Command="local:AppCommands.Settings"
                         Executed="Settings_Executed" />
+        <!-- Команды группы "Инструменты" -->
+        <CommandBinding Command="local:AppCommands.CreateM4B"
+                        Executed="CreateM4B_Executed" />
         <!-- Команды группы "Справка" -->
         <CommandBinding Command="local:AppCommands.About"
                         Executed="About_Executed" />
@@ -148,6 +151,13 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
+            <MenuItem Header="Инструменты">
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.CreateM4B">
+                    <MenuItem.Icon>
+                        <Image Source="Images\Buttons\Enabled\CreateM4B.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.About">
                     <MenuItem.Icon>
@@ -206,6 +216,11 @@
                 <Separator />
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Settings">
                     <Image Source="Images\Buttons\Enabled\Settings.png" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+            </ToolBar>
+            <ToolBar x:Name="ToolsToolBar">
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.CreateM4B">
+                    <Image Source="Images\Buttons\Enabled\CreateM4B.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
             </ToolBar>
             <ToolBar x:Name="HelpToolBar">
