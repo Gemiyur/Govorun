@@ -15,7 +15,17 @@ namespace Govorun.Media
         /// <summary>
         /// Автор книги.
         /// </summary>
-        public string Artist;
+        public string Author;
+
+        /// <summary>
+        /// Название альбома.
+        /// </summary>
+        public string AlbumTitle;
+
+        /// <summary>
+        /// Автор альбома.
+        /// </summary>
+        public string AlbumAuthor;
 
         /// <summary>
         /// Комментарий к книге.
@@ -50,7 +60,9 @@ namespace Govorun.Media
         {
             var track = new Track(filename);
             Title = track.Title;
-            Artist = track.Artist;
+            Author = track.Artist;
+            AlbumTitle = track.Album;
+            AlbumAuthor = track.AlbumArtist;
             Comment = track.Comment;
             Description = track.Description;
             Lyrics = track.Lyrics.UnsynchronizedLyrics;

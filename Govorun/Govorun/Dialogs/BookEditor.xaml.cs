@@ -127,7 +127,9 @@ namespace Govorun.Dialogs
             if (tag == null)
                 return;
             TagTitleTextBox.Text = tag.Title;
-            TagAuthorTextBox.Text = tag.Artist;
+            TagAuthorTextBox.Text = tag.Author;
+            TagAlbumTitleTextBox.Text = tag.AlbumTitle;
+            TagAlbumAuthorTextBox.Text = tag.AlbumAuthor;
             var comments = tag.Comment;
             if (!comments.Any())
                 comments = tag.Description;

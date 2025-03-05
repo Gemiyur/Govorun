@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Книга"
-        Width="700" Height="500" ResizeMode="NoResize"
+        Width="750" Height="550" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -34,7 +34,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
 
         <!-- Редактор -->
@@ -152,6 +152,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <!-- Файл книги не найден -->
@@ -189,8 +191,24 @@
                          Margin="0,4,0,0"
                          Style="{StaticResource ReadOnlyTextBoxStyle}" />
             </GroupBox>
+            <!-- Название альбома (Album) -->
+            <GroupBox Grid.Row="4" Header="Название альбома" Margin="0,10,0,0">
+                <TextBox x:Name="TagAlbumTitleTextBox" TextWrapping="Wrap"
+                         IsReadOnly="True"
+                         IsReadOnlyCaretVisible="True"
+                         Margin="0,4,0,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}" />
+            </GroupBox>
+            <!-- Автор альбома (AlbumArtist) -->
+            <GroupBox Grid.Row="5" Header="Автор альбома" Margin="0,10,0,0">
+                <TextBox x:Name="TagAlbumAuthorTextBox" TextWrapping="Wrap"
+                         IsReadOnly="True"
+                         IsReadOnlyCaretVisible="True"
+                         Margin="0,4,0,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}" />
+            </GroupBox>
             <!-- Комментарии (Comment, Description, Lyrics) -->
-            <GroupBox Grid.Row="4" Header="Комментарии" Margin="0,10,0,0">
+            <GroupBox Grid.Row="6" Header="Комментарии" Margin="0,10,0,0">
                 <TextBox x:Name="TagCommentsTextBox" TextWrapping="Wrap"
                          IsReadOnly="True"
                          IsReadOnlyCaretVisible="True"
