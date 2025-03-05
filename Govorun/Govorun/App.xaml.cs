@@ -18,8 +18,6 @@ namespace Govorun
 
     // TODO: Сделать проверку на совпадение файла книги по размеру и длительности.
 
-    // TODO: Убрать поддержку M4A.
-
     #endregion
 
     /// <summary>
@@ -35,7 +33,7 @@ namespace Govorun
         /// <summary>
         /// Маски имён файлов книг.
         /// </summary>
-        public static string[] BookFileMasks = ["*.m4b", "*.m4a", "*.mp3"];
+        public static string[] BookFileMasks = ["*.m4b", "*.mp3"];
 
         /// <summary>
         /// Аналог System.Windows.Forms.Application.DoEvents.
@@ -92,9 +90,6 @@ namespace Govorun
         public static OpenFileDialog PickBookFileDialog => new()
         {
             AddToRecent = false,
-            CheckFileExists = true,
-            CheckPathExists = true,
-            ValidateNames = true,
             Title = "Выбрать файл книги",
             Filter = $"Файлы книг|{ListToString(BookFileMasks, ";")}"
         };
@@ -104,9 +99,9 @@ namespace Govorun
         /// </summary>
         public static OpenFolderDialog PickBooksFolderDialog => new()
         {
+            AddToRecent = false,
             Multiselect = true,
             Title = "Выбрать папку с файлами книг",
-            ValidateNames = true
         };
 
         #endregion
