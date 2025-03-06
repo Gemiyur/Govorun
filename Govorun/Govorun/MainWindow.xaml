@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun"
         mc:Ignorable="d"
         Title="Говорун"
-        Width="800" Height="600"
+        Width="800" Height="600" ResizeMode="CanResizeWithGrip"
         MinWidth="800" MinHeight="350"
         d:Width="800" d:Height="350"
         WindowStartupLocation="CenterScreen"
@@ -306,7 +306,7 @@
         <Controls:PlayerControl Grid.Row="3" Height="100" x:Name="Player" Margin="0,10,0,0" />
 
         <StatusBar Grid.Row="4">
-            <StatusBarItem>
+            <StatusBarItem Margin="4,0,0,0">
                 <TextBlock>Всего книг:</TextBlock>
             </StatusBarItem>
             <StatusBarItem>
@@ -317,9 +317,6 @@
             </StatusBarItem>
             <StatusBarItem>
                 <TextBlock x:Name="StatusBarSelectedCount">0</TextBlock>
-            </StatusBarItem>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Source="Images\Buttons\Enabled\Resize.png" Style="{StaticResource StatusBarIconStyle}" />
             </StatusBarItem>
         </StatusBar>
     </Grid>

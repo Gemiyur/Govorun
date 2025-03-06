@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="О книге"
-        Width="600" Height="500"
+        Width="600" Height="500" ResizeMode="CanResizeWithGrip"
         MinWidth="500" MinHeight="350"
         d:Width="600" d:Height="350"
         WindowStartupLocation="CenterOwner"
