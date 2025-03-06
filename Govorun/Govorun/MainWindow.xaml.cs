@@ -12,8 +12,6 @@ namespace Govorun
 {
     #region Задачи (TODO).
 
-    // TODO: Сделать сохранение и загрузку книги в проигрывателе при закрытии и запуске приложения.
-
     #endregion
 
     /// <summary>
@@ -53,6 +51,26 @@ namespace Govorun
             BooksListView.ItemsSource = ShownBooks;
             UpdateStatusBarBooksCount();
             Player.IsEnabled = false;
+            LoadLastBook();
+        }
+
+        /// <summary>
+        /// Загружает в проигрыватель книгу, которая воспроизводилась при закрытии приложения.
+        /// Книга только загружается, но не воспроизводится.
+        /// </summary>
+        /// <remarks>Используется при запуске приложения.</remarks>
+        private void LoadLastBook()
+        {
+            if (!Properties.Settings.Default.LoadLastBook)
+                return;
+            var lastBookFileName = Properties.Settings.Default.LastBook;
+            if (string.IsNullOrWhiteSpace(lastBookFileName))
+                return;
+            var lastBook = Books.GetBookWithFile(lastBookFileName);
+            if (lastBook == null)
+                return;
+            Player.PlayOnLoad = false;
+            Player.Book = lastBook;
         }
 
         /// <summary>
@@ -82,6 +100,17 @@ namespace Govorun
             book.PlayPosition = position;
             Db.UpdateBook(book);
             book.OnPropertyChanged("PlayPosition");
+        }
+
+        /// <summary>
+        /// Сохраняет имя файла воспроизводимой книги в настройках приложения.
+        /// </summary>
+        /// <remarks>Используется при закрытии приложения.</remarks>
+        private void SaveLastBook()
+        {
+            var book = Player.Book;
+            var filename = book != null && !Player.MediaFailed ? book.FileName : "";
+            Properties.Settings.Default.LastBook = filename;
         }
 
         /// <summary>
@@ -131,6 +160,7 @@ namespace Govorun
         private void Window_Closed(object sender, EventArgs e)
         {
             SaveBookPlayPosition();
+            SaveLastBook();
             SavePlayerVolume();
         }
 

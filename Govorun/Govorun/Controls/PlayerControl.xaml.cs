@@ -26,6 +26,13 @@ namespace Govorun.Controls
         const string DisabledPath = @"PlayerImages\Disabled\";
 
         /// <summary>
+        /// Возвращает или задаёт воспроизводить ли книгу после загрузки в проигрыватель.
+        /// По умолчанию - true.
+        /// </summary>
+        /// <remarks>Используется при запуске приложения для загрузки книги без воспроизведения.</remarks>
+        public bool PlayOnLoad { get; set; } = true;
+
+        /// <summary>
         /// Воспроизводимая книга.
         /// </summary>
         private Book? book;
@@ -339,7 +346,13 @@ namespace Govorun.Controls
             TimeSlider.Value = position.TotalSeconds;
             SetPlayingControlsEnabled(true);
             Player.Position = position;
-            playTimer.Start();
+            if (PlayOnLoad)
+                playTimer.Start();
+            else
+            {
+                Playing = false;
+                PlayOnLoad = true;
+            }
         }
 
         private void Player_MediaEnded(object sender, RoutedEventArgs e)

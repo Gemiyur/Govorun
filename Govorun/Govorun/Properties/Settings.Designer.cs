@@ -55,5 +55,29 @@ namespace Govorun.Properties {
                 this["PlayerVolume"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastBook {
+            get {
+                return ((string)(this["LastBook"]));
+            }
+            set {
+                this["LastBook"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LoadLastBook {
+            get {
+                return ((bool)(this["LoadLastBook"]));
+            }
+            set {
+                this["LoadLastBook"] = value;
+            }
+        }
     }
 }
