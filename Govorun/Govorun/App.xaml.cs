@@ -11,8 +11,6 @@ namespace Govorun
 {
     #region Задачи (TODO).
 
-    // TODO: Сделать проверку на совпадение файла книги по размеру и длительности.
-
     #endregion
 
     /// <summary>
@@ -35,6 +33,20 @@ namespace Govorun
         /// </summary>
         public static void DoEvents() =>
             Current?.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate { }));
+
+        /// <summary>
+        /// Возвращает указанное имя файла, гарантируя расширение .db.
+        /// </summary>
+        /// <param name="filename">Имя файла.</param>
+        /// <returns>Имя файла с расширением .db.</returns>
+        /// <remarks>
+        /// Если имя файла имеет расширение .db, то возвращает имя файла без изменений.<br/>
+        /// Если имя файла имеет другое расширение, то к имени файла добавляет расширение .db.
+        /// </remarks>
+        public static string EnsureDbExtension(string filename) =>
+            Path.GetExtension(filename).Equals(".db", StringComparison.CurrentCultureIgnoreCase)
+                ? filename
+                : filename + ".db";
 
         /// <summary>
         /// Возвращает BitmapImage из указанного файла изображения.
@@ -70,13 +82,6 @@ namespace Govorun
             return book;
         }
 
-        /// <summary>
-        /// Возвращает логическое значение из логического значения, допускающего неопределённое значение.
-        /// </summary>
-        /// <param name="value">Логическое значение, допускающее неопределённое значение.</param>
-        /// <returns>Логическое значение.</returns>
-        public static bool SimpleBool(bool? value) => value ?? false;
-
         #region Диалоги выбора файла и папки книг.
 
         /// <summary>
@@ -97,6 +102,18 @@ namespace Govorun
             AddToRecent = false,
             Multiselect = true,
             Title = "Выбрать папку с файлами книг",
+        };
+
+        /// <summary>
+        /// Возвращает диалог выбора файла базы данных.
+        /// </summary>
+        public static SaveFileDialog PickDatabaseDialog => new()
+        {
+            AddToRecent = false,
+            CheckFileExists = false,
+            OverwritePrompt = false,
+            Title = "Файл базы данных",
+            Filter = $"Файлы базы данных|*.db"
         };
 
         #endregion

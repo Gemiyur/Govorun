@@ -18,6 +18,12 @@
                 <Setter Property="Width" Value="75" />
                 <Setter Property="Height" Value="25" />
             </Style>
+            <Style x:Key="TextBoxStyle" TargetType="TextBox">
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="IsReadOnlyCaretVisible" Value="True" />
+                <Setter Property="Margin" Value="0,4,0,0" />
+                <!--<Setter Property="Background" Value="AliceBlue" />-->
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -58,18 +64,14 @@
         <GroupBox Grid.Row="3" Header="Комментарий" Margin="0,10,0,0">
             <TextBox x:Name="CommentTextBox"
                      TextWrapping="Wrap"
-                     IsReadOnly="True"
-                     IsReadOnlyCaretVisible="True"
                      VerticalScrollBarVisibility="Auto"
-                     Margin="0,3,0,0" />
+                     Style="{StaticResource TextBoxStyle}" />
         </GroupBox>
 
         <!-- Файл -->
         <GroupBox Grid.Row="4" Header="Файл" Margin="0,10,0,0">
             <TextBox x:Name="FileTextBox"
-                     IsReadOnly="True"
-                     IsReadOnlyCaretVisible="True"
-                     Margin="0,4,0,0" />
+                     Style="{StaticResource TextBoxStyle}" />
         </GroupBox>
 
         <!-- Кнопки -->

@@ -23,12 +23,15 @@ namespace Govorun.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\Databases\\LiteDB\\Говорун\\GovorunDebug.db")]
         public string DebugDbName {
             get {
                 return ((string)(this["DebugDbName"]));
+            }
+            set {
+                this["DebugDbName"] = value;
             }
         }
         

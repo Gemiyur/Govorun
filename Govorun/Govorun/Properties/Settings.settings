@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Govorun.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DebugDbName" Type="System.String" Scope="Application">
+    <Setting Name="DebugDbName" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Databases\LiteDB\Говорун\GovorunDebug.db</Value>
     </Setting>
     <Setting Name="DbName" Type="System.String" Scope="User">

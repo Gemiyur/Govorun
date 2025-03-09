@@ -40,11 +40,23 @@ namespace Govorun
 #else
             App.DbName = Properties.Settings.Default.DbName;
 #endif
-            //if (!File.Exists(App.DbName))
-            //{
-            //    Db.GenerateTestDb();
-            //}
-
+            if (!File.Exists(App.DbName))
+            {
+                MessageBox.Show("Файл базы данных не найден.\nУкажите имя существующего или нового файла.", Title);
+                var dialog = App.PickDatabaseDialog;
+                dialog.FileName = Path.GetFileName(App.DbName);
+                if (dialog.ShowDialog() != true)
+                {
+                    MessageBox.Show("Файл базы данных не выбран.\nПриложение закроется.", Title);
+                    Close();
+                }
+                App.DbName = App.EnsureDbExtension(dialog.FileName);
+#if DEBUG
+                Properties.Settings.Default.DebugDbName = App.DbName;
+#else
+                Properties.Settings.Default.DbName = App.DbName;
+#endif
+            }
             Authors.AddRange(Db.GetAuthors());
             AuthorsListBox.ItemsSource = Authors;
             ShownBooks.AddRange(Books.AllBooks);
@@ -119,7 +131,6 @@ namespace Govorun
         private void SavePlayerVolume()
         {
             Properties.Settings.Default.PlayerVolume = (int)(Player.Player.Volume * 100);
-            Properties.Settings.Default.Save();
         }
 
         /// <summary>
@@ -162,6 +173,7 @@ namespace Govorun
             SaveBookPlayPosition();
             SaveLastBook();
             SavePlayerVolume();
+            Properties.Settings.Default.Save();
         }
 
         #region Обработчики событий элементов управления.
@@ -519,8 +531,11 @@ namespace Govorun
 
         private void Settings_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // TODO: Сделать настройки приложения.
-            MessageBox.Show("Настройки программы в данной версии не реализованы.", Title);
+            new SettingsDialog() { Owner = this }.ShowDialog();
+
+            //var dialog = new SettingsDialog() { Owner = this };
+            //if (dialog.ShowDialog() != true)
+            //    return;
         }
 
         #endregion
