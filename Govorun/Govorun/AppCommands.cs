@@ -80,6 +80,15 @@ namespace Govorun
 
         #endregion
 
+        #region Команды группы "Инструменты".
+
+        /// <summary>
+        /// Команда создания файла M4B из файлов MP3.
+        /// </summary>
+        public static RoutedUICommand CreateM4B { get; private set; }
+
+        #endregion
+
         #region Команды группы "Справка".
 
         /// <summary>
@@ -110,6 +119,9 @@ namespace Govorun
             CheckLibrary = new RoutedUICommand("Проверить библиотеку...", "CheckLibrary", typeof(AppCommands));
             Shrink = new RoutedUICommand("Сжать библиотеку...", "Shrink", typeof(AppCommands));
             Settings = new RoutedUICommand("Настройки...", "Settings", typeof(AppCommands));
+
+            // Команды группы "Инструменты".
+            CreateM4B = new RoutedUICommand("Создать файл M4B из файлов MP3", "CreateM4B", typeof(AppCommands));
 
             // Команды группы "Справка"
             About = new RoutedUICommand("О программе...", "About", typeof(AppCommands));

@@ -540,6 +540,27 @@ namespace Govorun
 
         #endregion
 
+        #region Обработчики команд группы "Инструменты".
+
+        private void CreateM4B_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = false;
+            //e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count > 0;
+            if (!IsVisible)
+                return;
+            var bitmap = App.GetBitmap(
+                e.CanExecute ? @"Images\Buttons\Enabled\CreateM4B.png" : @"Images\Buttons\Disabled\CreateM4B.png");
+            ((Image)CreateM4BButton.Content).Source = bitmap;
+            ((Image)CreateM4BMenuItem.Icon).Source = bitmap;
+        }
+
+        private void CreateM4B_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        #endregion
+
         #region Обработчики команд группы "Справка".
 
         private void About_Executed(object sender, ExecutedRoutedEventArgs e)
