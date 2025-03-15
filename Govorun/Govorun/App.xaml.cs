@@ -24,11 +24,6 @@ namespace Govorun
         public static string? DbName { get; set; }
 
         /// <summary>
-        /// Маски имён файлов книг.
-        /// </summary>
-        public static string[] BookFileMasks = ["*.m4b", "*.mp3"];
-
-        /// <summary>
         /// Аналог System.Windows.Forms.Application.DoEvents.
         /// </summary>
         public static void DoEvents() =>
@@ -53,7 +48,7 @@ namespace Govorun
         /// </summary>
         /// <param name="path">Путь к файлу.</param>
         /// <returns></returns>
-        public static BitmapImage GetBitmap(string path) => new BitmapImage(new Uri(path, UriKind.Relative));
+        public static BitmapImage GetBitmap(string path) => new(new Uri(path, UriKind.Relative));
 
         /// <summary>
         /// Возвращает книгу из указанного файла.
@@ -91,7 +86,7 @@ namespace Govorun
         {
             AddToRecent = false,
             Title = "Выбрать файл книги",
-            Filter = $"Файлы книг|{ListToString(BookFileMasks, ";")}"
+            Filter = $"Файлы книг|*.m4b"
         };
 
         /// <summary>

@@ -473,14 +473,11 @@ namespace Govorun
             var folders = folderDialog.FolderNames;
             foreach (var folder in folders)
             {
-                foreach (var mask in App.BookFileMasks)
+                var folderFiles = Directory.GetFiles(folder, "*.m4b", SearchOption.AllDirectories);
+                foreach (var file in folderFiles)
                 {
-                    var folderFiles = Directory.GetFiles(folder, mask, SearchOption.AllDirectories);
-                    foreach (var file in folderFiles)
-                    {
-                        if (!Books.BookWithFileExists(file))
-                            files.Add(file);
-                    }
+                    if (!Books.BookWithFileExists(file))
+                        files.Add(file);
                 }
             }
             files.Sort(StringComparer.CurrentCultureIgnoreCase);
