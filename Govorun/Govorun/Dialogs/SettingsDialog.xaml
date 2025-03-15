@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Настройки"
-        Width="500" Height="250" ResizeMode="NoResize"
+        Width="500" Height="300" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -19,6 +19,11 @@
             <Style x:Key="DbChangedStackPanelStyle" TargetType="StackPanel">
                 <Setter Property="Margin" Value="0,4,0,0" />
             </Style>
+            <Style x:Key="ReadOnlyTextBoxStyle" TargetType="TextBox">
+                <Setter Property="Background" Value="AliceBlue" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="IsReadOnlyCaretVisible" Value="True" />
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -26,16 +31,33 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" Header="Приложение">
+        <GroupBox Grid.Row="0" Header="Параметры">
             <CheckBox x:Name="LoadLastBookCheckBox"
                       Content="При запуске загружать в проигрыватель последнюю книгу"
                       Margin="0,4,0,0" />
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Header="База данных" Margin="0,10,0,0">
+        <GroupBox Grid.Row="1" Header="Приложение создания файла M4B" Margin="0,10,0,0">
+            <Grid Margin="0,4,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" x:Name="CreatorM4BTextBox"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}" />
+                <Button Grid.Column="1" x:Name="CreatorM4BButton" Content="Изменить"
+                            Width="70"
+                            Margin="8,0,0,0"
+                            Click="CreatorM4BButton_Click" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Header="База данных" Margin="0,10,0,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -50,9 +72,7 @@
                     </Grid.ColumnDefinitions>
                     
                     <TextBox Grid.Column="0" x:Name="DbNameTextBox"
-                             IsReadOnly="True"
-                             IsReadOnlyCaretVisible="True"
-                             Background="AliceBlue" />
+                             Style="{StaticResource ReadOnlyTextBoxStyle}" />
                     <Button Grid.Column="1" x:Name="DbNameButton" Content="Изменить"
                             Width="70"
                             Margin="8,0,0,0"
@@ -74,7 +94,7 @@
             </Grid>
         </GroupBox>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button x:Name="SaveButton" Content="Сохранить"
                     Style="{StaticResource ButtonStyle}" Click="SaveButton_Click" />
             <Button x:Name="CancelButton" Content="Отмена"

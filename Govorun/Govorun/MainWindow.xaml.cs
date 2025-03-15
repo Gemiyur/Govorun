@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -7,7 +8,6 @@ using Govorun.Dialogs;
 using Govorun.Models;
 using Govorun.Tools;
 using Govorun.Media;
-using System.Diagnostics;
 
 namespace Govorun
 {
@@ -65,7 +65,24 @@ namespace Govorun
             UpdateStatusBarBooksCount();
             Player.IsEnabled = false;
             LoadLastBook();
+            CheckCreatorM4BExists();
         }
+
+        /// <summary>
+        /// Проверяет существование приложения создания файла M4B.<br/>
+        /// Если приложение не найдено, то присваивает приложению в настройках пустую строку.
+        /// </summary>
+        private static void CheckCreatorM4BExists()
+        {
+            if (!CreatorM4BExists)
+                Properties.Settings.Default.CreatorM4B = string.Empty;
+        }
+
+        /// <summary>
+        /// Возвращает существует ли приложение создания файла M4B.
+        /// </summary>
+        /// <returns></returns>
+        private static bool CreatorM4BExists => File.Exists(Properties.Settings.Default.CreatorM4B);
 
         /// <summary>
         /// Загружает в проигрыватель книгу, которая воспроизводилась при закрытии приложения.
@@ -533,10 +550,6 @@ namespace Govorun
         private void Settings_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             new SettingsDialog() { Owner = this }.ShowDialog();
-
-            //var dialog = new SettingsDialog() { Owner = this };
-            //if (dialog.ShowDialog() != true)
-            //    return;
         }
 
         #endregion
@@ -545,8 +558,7 @@ namespace Govorun
 
         private void CreateM4B_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
-            //e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count > 0;
+            e.CanExecute = CreatorM4BExists;
             if (!IsVisible)
                 return;
             var bitmap = App.GetBitmap(

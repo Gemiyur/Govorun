@@ -105,6 +105,16 @@ namespace Govorun
         };
 
         /// <summary>
+        /// Возвращает диалог выбора приложения создания файла M4B.
+        /// </summary>
+        public static OpenFileDialog PickCreatorM4BDialog => new()
+        {
+            AddToRecent = false,
+            Title = "Выбрать приложение создания файла M4B",
+            Filter = $"Исполняемые файлы|*.exe"
+        };
+
+        /// <summary>
         /// Возвращает диалог выбора файла базы данных.
         /// </summary>
         public static SaveFileDialog PickDatabaseDialog => new()
