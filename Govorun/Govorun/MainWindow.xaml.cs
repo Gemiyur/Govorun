@@ -7,6 +7,7 @@ using Govorun.Dialogs;
 using Govorun.Models;
 using Govorun.Tools;
 using Govorun.Media;
+using System.Diagnostics;
 
 namespace Govorun
 {
@@ -544,7 +545,7 @@ namespace Govorun
 
         private void CreateM4B_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = false;
+            e.CanExecute = true;
             //e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count > 0;
             if (!IsVisible)
                 return;
@@ -556,7 +557,15 @@ namespace Govorun
 
         private void CreateM4B_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            var path = "C:\\Gemiyur\\CreatorM4B\\CreatorM4B.exe";
+            try
+            {
+                Process.Start(path);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не удалось запустить приложение создания M4B файла.{ex.Message}", Title);
+            }
         }
 
         #endregion
