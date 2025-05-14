@@ -71,18 +71,18 @@ namespace Govorun.Models
             }
         }
 
-        private string comment = string.Empty;
+        private string annotation = string.Empty;
 
         /// <summary>
         /// Комментарий к книге.
         /// </summary>
-        public string Comment
+        public string Annotation
         {
-            get => comment;
+            get => annotation;
             set
             {
-                comment = value ?? string.Empty;
-                OnPropertyChanged("Comment");
+                annotation = value ?? string.Empty;
+                OnPropertyChanged("Annotation");
             }
         }
 

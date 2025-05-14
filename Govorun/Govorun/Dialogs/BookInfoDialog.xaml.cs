@@ -1,33 +1,32 @@
 ﻿using System.Windows;
 using Govorun.Models;
 
-namespace Govorun.Dialogs
+namespace Govorun.Dialogs;
+
+/// <summary>
+/// Класс окна информации о книге.
+/// </summary>
+public partial class BookInfoDialog : Window
 {
-    /// <summary>
-    /// Класс окна информации о книге.
-    /// </summary>
-    public partial class BookInfoDialog : Window
+    public BookInfoDialog(Book book)
     {
-        public BookInfoDialog(Book book)
-        {
-            InitializeComponent();
-            TitleTextBlock.FontSize = FontSize + 2;
-            AuthorsTextBlock.Text = book.AuthorsNameSurnameText;
-            TitleTextBlock.Text = book.Title;
-            LectorTextBlock.Text = book.Lector;
-            DurationTextBlock.Text = book.DurationText;
-            CommentTextBox.Text = book.Comment;
-            FileTextBox.Text = book.FileName;
-        }
+        InitializeComponent();
+        TitleTextBlock.FontSize = FontSize + 2;
+        AuthorsTextBlock.Text = book.AuthorsNameSurnameText;
+        TitleTextBlock.Text = book.Title;
+        LectorTextBlock.Text = book.Lector;
+        DurationTextBlock.Text = book.DurationText;
+        CommentTextBox.Text = book.Annotation;
+        FileTextBox.Text = book.FileName;
+    }
 
-        private void ListenButton_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-        }
+    private void ListenButton_Click(object sender, RoutedEventArgs e)
+    {
+        DialogResult = true;
+    }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
     }
 }
