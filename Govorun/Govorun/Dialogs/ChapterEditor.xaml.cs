@@ -1,43 +1,42 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Govorun.Dialogs
+namespace Govorun.Dialogs;
+
+/// <summary>
+/// Класс окна редактора главы книги.
+/// </summary>
+public partial class ChapterEditor : Window
 {
     /// <summary>
-    /// Класс окна редактора главы книги.
+    /// Название главы книги.
     /// </summary>
-    public partial class ChapterEditor : Window
+    public string ChapterTitle;
+
+    /// <summary>
+    /// Инициализирует новый экземпляр класса.
+    /// </summary>
+    /// <param name="title">Название главы книги.</param>
+    public ChapterEditor(string title)
     {
-        /// <summary>
-        /// Название главы книги.
-        /// </summary>
-        public string ChapterTitle;
+        InitializeComponent();
+        ChapterTitle = title;
+        TitleTextBox.Text = title;
+    }
 
-        /// <summary>
-        /// Инициализирует новый экземпляр класса.
-        /// </summary>
-        /// <param name="title">Название главы книги.</param>
-        public ChapterEditor(string title)
-        {
-            InitializeComponent();
-            ChapterTitle = title;
-            TitleTextBox.Text = title;
-        }
+    private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        SaveButton.IsEnabled = TitleTextBox.Text.Any() && TitleTextBox.Text != ChapterTitle;
+    }
 
-        private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            SaveButton.IsEnabled = TitleTextBox.Text.Any() && TitleTextBox.Text != ChapterTitle;
-        }
+    private void SaveButton_Click(object sender, RoutedEventArgs e)
+    {
+        ChapterTitle = TitleTextBox.Text;
+        DialogResult = true;
+    }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            ChapterTitle = TitleTextBox.Text;
-            DialogResult = true;
-        }
-
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
     }
 }

@@ -4,161 +4,160 @@ using Gemiyur.Collections;
 using Govorun.Models;
 using Govorun.Tools;
 
-namespace Govorun.Dialogs
+namespace Govorun.Dialogs;
+
+/// <summary>
+/// Класс окна редактора авторов.
+/// </summary>
+public partial class AuthorsEditor : Window
 {
     /// <summary>
-    /// Класс окна редактора авторов.
+    /// Были ли изменения в коллекции авторов.
     /// </summary>
-    public partial class AuthorsEditor : Window
+    public bool HasChanges;
+
+    /// <summary>
+    /// Коллекция авторов.
+    /// </summary>
+    private readonly ObservableCollectionEx<Author> Authors = [];
+
+    /// <summary>
+    /// Автор, загруженный в редактор автора.
+    /// </summary>
+    private Author? EditedAuthor;
+
+    /// <summary>
+    /// Инициализирует новый экземпляр класса.
+    /// </summary>
+    public AuthorsEditor()
     {
-        /// <summary>
-        /// Были ли изменения в коллекции авторов.
-        /// </summary>
-        public bool HasChanges;
+        InitializeComponent();
+        Authors.AddRange(Db.GetAuthors());
+        AuthorsListBox.ItemsSource = Authors;
+    }
 
-        /// <summary>
-        /// Коллекция авторов.
-        /// </summary>
-        private readonly ObservableCollectionEx<Author> Authors = [];
-
-        /// <summary>
-        /// Автор, загруженный в редактор автора.
-        /// </summary>
-        private Author? EditedAuthor;
-
-        /// <summary>
-        /// Инициализирует новый экземпляр класса.
-        /// </summary>
-        public AuthorsEditor()
+    /// <summary>
+    /// Устанавливает доступность кнопок редактора автора.
+    /// </summary>
+    private void CheckEditorButtons()
+    {
+        if (!SurnameTextBox.Text.Any() && !NameTextBox.Text.Any())
         {
-            InitializeComponent();
-            Authors.AddRange(Db.GetAuthors());
-            AuthorsListBox.ItemsSource = Authors;
+            SaveButton.IsEnabled = false;
+            if (EditedAuthor == null)
+                ClearButton.IsEnabled = false;
+            return;
         }
+        SaveButton.IsEnabled =
+            SurnameTextBox.Text != SurnameTextBlock.Text || NameTextBox.Text != NameTextBlock.Text;
+        ClearButton.IsEnabled = true;
+    }
 
-        /// <summary>
-        /// Устанавливает доступность кнопок редактора автора.
-        /// </summary>
-        private void CheckEditorButtons()
+    /// <summary>
+    /// Очищает данные редактора автора.
+    /// </summary>
+    private void ClearEditor()
+    {
+        EditedAuthor = null;
+        SurnameTextBlock.Text = string.Empty;
+        NameTextBlock.Text = string.Empty;
+        SurnameTextBox.Text = string.Empty;
+        NameTextBox.Text = string.Empty;
+    }
+
+    /// <summary>
+    /// Загружает данные текущего автора в редактор автора.
+    /// </summary>
+    private void EditAuthor()
+    {
+        EditedAuthor = (Author)AuthorsListBox.SelectedItem;
+        SurnameTextBlock.Text = EditedAuthor.Surname;
+        NameTextBlock.Text = EditedAuthor.Name;
+        SurnameTextBox.Text = EditedAuthor.Surname;
+        NameTextBox.Text = EditedAuthor.Name;
+    }
+
+    private void AuthorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        if (e.OriginalSource is TextBlock && AuthorsListBox.SelectedItem != null)
+            EditAuthor();
+    }
+
+    private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        EditButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
+        DeleteButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
+    }
+
+    private void EditButton_Click(object sender, RoutedEventArgs e) => EditAuthor();
+
+    private void DeleteButton_Click(object sender, RoutedEventArgs e)
+    {
+        const string caption = "Подтверждение удаления";
+        const string message = "Автор будет так же удалён из всех книг.\nУдалить автора?";
+        var author = (Author)AuthorsListBox.SelectedItem;
+        var books = Books.GetAuthorBooks(author.AuthorId);
+        if (books.Any() && MessageBox.Show(message, caption, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
         {
-            if (!SurnameTextBox.Text.Any() && !NameTextBox.Text.Any())
+            return;
+        }
+        if (!Db.DeleteAuthor(author.AuthorId))
+        {
+            MessageBox.Show("Не удалось удалить автора.", "Ошибка");
+            return;
+        }
+        if (EditedAuthor == author)
+            ClearEditor();
+        foreach (var book in books)
+        {
+            book.Authors.RemoveAll(x => x.AuthorId == author.AuthorId);
+        }
+        Authors.Remove(author);
+        HasChanges = true;
+    }
+
+    private void SurnameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
+
+    private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
+
+    private void ClearButton_Click(object sender, RoutedEventArgs e) => ClearEditor();
+
+    private void SaveButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (EditedAuthor == null)
+        {
+            var author = new Author() { Name = NameTextBox.Text, Surname = SurnameTextBox.Text };
+            author.AuthorId = Db.InsertAuthor(author);
+            if (author.AuthorId < 1)
             {
-                SaveButton.IsEnabled = false;
-                if (EditedAuthor == null)
-                    ClearButton.IsEnabled = false;
+                MessageBox.Show("Не удалось добавить автора.", "Ошибка");
                 return;
             }
-            SaveButton.IsEnabled =
-                SurnameTextBox.Text != SurnameTextBlock.Text || NameTextBox.Text != NameTextBlock.Text;
-            ClearButton.IsEnabled = true;
+            Authors.Add(author);
         }
-
-        /// <summary>
-        /// Очищает данные редактора автора.
-        /// </summary>
-        private void ClearEditor()
+        else
         {
-            EditedAuthor = null;
-            SurnameTextBlock.Text = string.Empty;
-            NameTextBlock.Text = string.Empty;
-            SurnameTextBox.Text = string.Empty;
-            NameTextBox.Text = string.Empty;
-        }
-
-        /// <summary>
-        /// Загружает данные текущего автора в редактор автора.
-        /// </summary>
-        private void EditAuthor()
-        {
-            EditedAuthor = (Author)AuthorsListBox.SelectedItem;
-            SurnameTextBlock.Text = EditedAuthor.Surname;
-            NameTextBlock.Text = EditedAuthor.Name;
-            SurnameTextBox.Text = EditedAuthor.Surname;
-            NameTextBox.Text = EditedAuthor.Name;
-        }
-
-        private void AuthorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (e.OriginalSource is TextBlock && AuthorsListBox.SelectedItem != null)
-                EditAuthor();
-        }
-
-        private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            EditButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
-            DeleteButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
-        }
-
-        private void EditButton_Click(object sender, RoutedEventArgs e) => EditAuthor();
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            const string caption = "Подтверждение удаления";
-            const string message = "Автор будет так же удалён из всех книг.\nУдалить автора?";
-            var author = (Author)AuthorsListBox.SelectedItem;
-            var books = Books.GetAuthorBooks(author.AuthorId);
-            if (books.Any() && MessageBox.Show(message, caption, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            EditedAuthor.Name = NameTextBox.Text;
+            EditedAuthor.Surname = SurnameTextBox.Text;
+            if (!Db.UpdateAuthor(EditedAuthor))
             {
+                MessageBox.Show("Не удалось изменить данные автора.", "Ошибка");
                 return;
             }
-            if (!Db.DeleteAuthor(author.AuthorId))
-            {
-                MessageBox.Show("Не удалось удалить автора.", "Ошибка");
-                return;
-            }
-            if (EditedAuthor == author)
-                ClearEditor();
+            var books = Books.GetAuthorBooks(EditedAuthor.AuthorId);
             foreach (var book in books)
             {
-                book.Authors.RemoveAll(x => x.AuthorId == author.AuthorId);
+                var author = book.Authors.Find(x => x.AuthorId == EditedAuthor.AuthorId);
+                if (author == null)
+                    continue;
+                author.Name = EditedAuthor.Name;
+                author.Surname = EditedAuthor.Surname;
             }
-            Authors.Remove(author);
-            HasChanges = true;
         }
-
-        private void SurnameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
-
-        private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
-
-        private void ClearButton_Click(object sender, RoutedEventArgs e) => ClearEditor();
-
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (EditedAuthor == null)
-            {
-                var author = new Author() { Name = NameTextBox.Text, Surname = SurnameTextBox.Text };
-                author.AuthorId = Db.InsertAuthor(author);
-                if (author.AuthorId < 1)
-                {
-                    MessageBox.Show("Не удалось добавить автора.", "Ошибка");
-                    return;
-                }
-                Authors.Add(author);
-            }
-            else
-            {
-                EditedAuthor.Name = NameTextBox.Text;
-                EditedAuthor.Surname = SurnameTextBox.Text;
-                if (!Db.UpdateAuthor(EditedAuthor))
-                {
-                    MessageBox.Show("Не удалось изменить данные автора.", "Ошибка");
-                    return;
-                }
-                var books = Books.GetAuthorBooks(EditedAuthor.AuthorId);
-                foreach (var book in books)
-                {
-                    var author = book.Authors.Find(x => x.AuthorId == EditedAuthor.AuthorId);
-                    if (author == null)
-                        continue;
-                    author.Name = EditedAuthor.Name;
-                    author.Surname = EditedAuthor.Surname;
-                }
-            }
-            Authors.Sort(x => x.SurnameName, StringComparer.CurrentCultureIgnoreCase);
-            ClearEditor();
-            HasChanges = true;
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
+        Authors.Sort(x => x.SurnameName, StringComparer.CurrentCultureIgnoreCase);
+        ClearEditor();
+        HasChanges = true;
     }
+
+    private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
 }

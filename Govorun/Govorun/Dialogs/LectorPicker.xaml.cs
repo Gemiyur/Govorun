@@ -2,47 +2,46 @@
 using System.Windows.Controls;
 using Govorun.Tools;
 
-namespace Govorun.Dialogs
+namespace Govorun.Dialogs;
+
+/// <summary>
+/// Класс окна выбора чтеца.
+/// </summary>
+public partial class LectorPicker : Window
 {
     /// <summary>
-    /// Класс окна выбора чтеца.
+    /// Выбранный чтец.
     /// </summary>
-    public partial class LectorPicker : Window
+    public string PickedLector = string.Empty;
+
+    public LectorPicker()
     {
-        /// <summary>
-        /// Выбранный чтец.
-        /// </summary>
-        public string PickedLector = string.Empty;
+        InitializeComponent();
+        LectorsListBox.ItemsSource = Books.Lectors;
+    }
 
-        public LectorPicker()
-        {
-            InitializeComponent();
-            LectorsListBox.ItemsSource = Books.Lectors;
-        }
-
-        private void LectorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (e.OriginalSource is TextBlock && LectorsListBox.SelectedItem != null)
-            {
-                PickedLector = (string)LectorsListBox.SelectedItem;
-                DialogResult = true;
-            }
-        }
-
-        private void LectorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            PickButton.IsEnabled = LectorsListBox.SelectedIndex > -1;
-        }
-
-        private void PickButton_Click(object sender, RoutedEventArgs e)
+    private void LectorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        if (e.OriginalSource is TextBlock && LectorsListBox.SelectedItem != null)
         {
             PickedLector = (string)LectorsListBox.SelectedItem;
             DialogResult = true;
         }
+    }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-        }
+    private void LectorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        PickButton.IsEnabled = LectorsListBox.SelectedIndex > -1;
+    }
+
+    private void PickButton_Click(object sender, RoutedEventArgs e)
+    {
+        PickedLector = (string)LectorsListBox.SelectedItem;
+        DialogResult = true;
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        DialogResult = false;
     }
 }

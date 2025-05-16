@@ -3,47 +3,46 @@ using System.Windows.Controls;
 using Govorun.Models;
 using Govorun.Tools;
 
-namespace Govorun.Dialogs
+namespace Govorun.Dialogs;
+
+/// <summary>
+/// Класс окна выбора авторов.
+/// </summary>
+public partial class AuthorsPicker : Window
 {
     /// <summary>
-    /// Класс окна выбора авторов.
+    /// Список выбранных авторов.
     /// </summary>
-    public partial class AuthorsPicker : Window
+    public List<Author> PickedAuthors = [];
+
+    public AuthorsPicker()
     {
-        /// <summary>
-        /// Список выбранных авторов.
-        /// </summary>
-        public List<Author> PickedAuthors = [];
+        InitializeComponent();
+        AuthorsListBox.ItemsSource = Db.GetAuthors();
+    }
 
-        public AuthorsPicker()
+    private void AuthorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        if (e.OriginalSource is TextBlock && AuthorsListBox.SelectedItem != null)
         {
-            InitializeComponent();
-            AuthorsListBox.ItemsSource = Db.GetAuthors();
-        }
-
-        private void AuthorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (e.OriginalSource is TextBlock && AuthorsListBox.SelectedItem != null)
-            {
-                PickedAuthors.Add((Author)AuthorsListBox.SelectedItem);
-                DialogResult = true;
-            }
-        }
-
-        private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            PickButton.IsEnabled = AuthorsListBox.SelectedIndex > -1;
-        }
-
-        private void PickButton_Click(object sender, RoutedEventArgs e)
-        {
-            PickedAuthors.AddRange(AuthorsListBox.SelectedItems.Cast<Author>());
+            PickedAuthors.Add((Author)AuthorsListBox.SelectedItem);
             DialogResult = true;
         }
+    }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-        }
+    private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        PickButton.IsEnabled = AuthorsListBox.SelectedIndex > -1;
+    }
+
+    private void PickButton_Click(object sender, RoutedEventArgs e)
+    {
+        PickedAuthors.AddRange(AuthorsListBox.SelectedItems.Cast<Author>());
+        DialogResult = true;
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        DialogResult = false;
     }
 }
