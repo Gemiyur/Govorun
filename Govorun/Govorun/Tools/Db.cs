@@ -85,54 +85,13 @@ public static class Db
 
     #region Получение коллекций.
 
-    public static ILiteCollection<Author> GetAuthorsCollection(LiteDatabase db) => db.GetCollection<Author>("Authors");
-
     public static ILiteCollection<Book> GetBooksCollection(LiteDatabase db) => db.GetCollection<Book>("Books");
 
-    #endregion
+    public static ILiteCollection<Author> GetAuthorsCollection(LiteDatabase db) => db.GetCollection<Author>("Authors");
 
-    #region Авторы.
+    public static ILiteCollection<Cycle> GetCyclesCollection(LiteDatabase db) => db.GetCollection<Cycle>("Cycles");
 
-    public static Author GetAuthor(int authorId)
-    {
-        using var db = GetDatabase();
-        return GetAuthor(authorId, db);
-    }
-
-    public static Author GetAuthor(int authorId, LiteDatabase db) => GetAuthorsCollection(db).FindById(authorId);
-
-    public static List<Author> GetAuthors()
-    {
-        using var db = GetDatabase();
-        return GetAuthors(db);
-    }
-
-    public static List<Author> GetAuthors(LiteDatabase db) =>
-        GetAuthorsCollection(db).FindAll().OrderBy(x => x.NameLastFirst, StringComparer.CurrentCultureIgnoreCase).ToList();
-
-    public static int InsertAuthor(Author author)
-    {
-        using var db = GetDatabase();
-        return InsertAuthor(author, db);
-    }
-
-    public static int InsertAuthor(Author author, LiteDatabase db) => GetAuthorsCollection(db).Insert(author);
-
-    public static bool DeleteAuthor(int authorId)
-    {
-        using var db = GetDatabase();
-        return DeleteAuthor(authorId, db);
-    }
-
-    public static bool DeleteAuthor(int authorId, LiteDatabase db) => GetAuthorsCollection(db).Delete(authorId);
-
-    public static bool UpdateAuthor(Author author)
-    {
-        using var db = GetDatabase();
-        return UpdateAuthor(author, db);
-    }
-
-    public static bool UpdateAuthor(Author author, LiteDatabase db) => GetAuthorsCollection(db).Update(author);
+    public static ILiteCollection<Tag> GetTagsCollection(LiteDatabase db) => db.GetCollection<Tag>("Tags");
 
     #endregion
 
@@ -203,6 +162,151 @@ public static class Db
         foreach (var book in books)
             collection.Update(book);
     }
+
+    #endregion
+
+    #region Авторы.
+
+    public static Author GetAuthor(int authorId)
+    {
+        using var db = GetDatabase();
+        return GetAuthor(authorId, db);
+    }
+
+    public static Author GetAuthor(int authorId, LiteDatabase db) => GetAuthorsCollection(db).FindById(authorId);
+
+    public static List<Author> GetAuthors()
+    {
+        using var db = GetDatabase();
+        return GetAuthors(db);
+    }
+
+    public static List<Author> GetAuthors(LiteDatabase db) =>
+        GetAuthorsCollection(db).FindAll().OrderBy(x => x.NameLastFirst, StringComparer.CurrentCultureIgnoreCase).ToList();
+
+    public static int InsertAuthor(Author author)
+    {
+        using var db = GetDatabase();
+        return InsertAuthor(author, db);
+    }
+
+    public static int InsertAuthor(Author author, LiteDatabase db) => GetAuthorsCollection(db).Insert(author);
+
+    public static bool DeleteAuthor(int authorId)
+    {
+        using var db = GetDatabase();
+        return DeleteAuthor(authorId, db);
+    }
+
+    public static bool DeleteAuthor(int authorId, LiteDatabase db) => GetAuthorsCollection(db).Delete(authorId);
+
+    public static bool UpdateAuthor(Author author)
+    {
+        using var db = GetDatabase();
+        return UpdateAuthor(author, db);
+    }
+
+    public static bool UpdateAuthor(Author author, LiteDatabase db) => GetAuthorsCollection(db).Update(author);
+
+    #endregion
+
+    #region Циклы.
+
+    public static Cycle GetCycle(int cycleId)
+    {
+        using var db = GetDatabase();
+        return GetCycle(cycleId, db);
+    }
+
+    public static Cycle GetCycle(int cycleId, LiteDatabase db) => GetCyclesCollection(db).FindById(cycleId);
+
+    public static List<Cycle> GetCycles()
+    {
+        using var db = GetDatabase();
+        return GetCycles(db);
+    }
+
+    public static List<Cycle> GetCycles(LiteDatabase db) => GetCyclesCollection(db).FindAll().ToList();
+
+    public static int InsertCycle(Cycle cycle)
+    {
+        using var db = GetDatabase();
+        return InsertCycle(cycle, db);
+    }
+
+    public static int InsertCycle(Cycle cycle, LiteDatabase db) => GetCyclesCollection(db).Insert(cycle);
+
+    public static bool DeleteCycle(int cycleId)
+    {
+        using var db = GetDatabase();
+        return DeleteCycle(cycleId, db);
+    }
+
+    public static bool DeleteCycle(int cycleId, LiteDatabase db)
+    {
+        var booksCollection = GetBooksCollection(db);
+        //if (booksCollection.Exists(x => x.CycleParts.Exists(p => p.Cycle != null && p.Cycle.CycleId == cycleId)))
+        //    return false;
+        return GetCyclesCollection(db).Delete(cycleId);
+    }
+
+    public static bool UpdateCycle(Cycle cycle)
+    {
+        using var db = GetDatabase();
+        return UpdateCycle(cycle, db);
+    }
+
+    public static bool UpdateCycle(Cycle cycle, LiteDatabase db) => GetCyclesCollection(db).Update(cycle);
+
+    #endregion
+
+    #region Теги.
+
+    public static Tag GetTag(int tagId)
+    {
+        using var db = GetDatabase();
+        return GetTag(tagId, db);
+    }
+
+    public static Tag GetTag(int tagId, LiteDatabase db) => GetTagsCollection(db).FindById(tagId);
+
+    public static List<Tag> GetTags()
+    {
+        using var db = GetDatabase();
+        return GetTags(db);
+    }
+
+    public static List<Tag> GetTags(LiteDatabase db) => GetTagsCollection(db).FindAll().ToList();
+
+    public static int InsertTag(Tag tag)
+    {
+        using var db = GetDatabase();
+        return InsertTag(tag, db);
+    }
+
+    public static int InsertTag(Tag tag, LiteDatabase db) => GetTagsCollection(db).Insert(tag);
+
+    public static bool DeleteTag(int tagId)
+    {
+        using var db = GetDatabase();
+        return DeleteTag(tagId, db);
+    }
+
+    public static bool DeleteTag(int tagId, LiteDatabase db)
+    {
+        var booksCollection = GetBooksCollection(db);
+        //if (booksCollection.Exists(x => x.Tags.Exists(t => t.tagId == tagId)))
+        //    return false;
+        return GetTagsCollection(db).Delete(tagId);
+    }
+
+    public static bool UpdateTag(Tag tag)
+    {
+        using var db = GetDatabase();
+        return UpdateTag(tag, db);
+    }
+
+    public static bool UpdateTag(Tag tag, LiteDatabase db) => GetTagsCollection(db).Update(tag);
 
     #endregion
 }
