@@ -74,7 +74,7 @@ public class Book : BaseModel
     private string annotation = string.Empty;
 
     /// <summary>
-    /// Комментарий к книге.
+    /// Аннотация к книге.
     /// </summary>
     public string Annotation
     {
