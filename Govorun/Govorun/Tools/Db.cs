@@ -108,7 +108,7 @@ public static class Db
     }
 
     public static List<Author> GetAuthors(LiteDatabase db) =>
-        GetAuthorsCollection(db).FindAll().OrderBy(x => x.SurnameName, StringComparer.CurrentCultureIgnoreCase).ToList();
+        GetAuthorsCollection(db).FindAll().OrderBy(x => x.NameLastFirst, StringComparer.CurrentCultureIgnoreCase).ToList();
 
     public static int InsertAuthor(Author author)
     {

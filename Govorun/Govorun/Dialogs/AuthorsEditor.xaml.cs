@@ -41,7 +41,7 @@ public partial class AuthorsEditor : Window
     /// </summary>
     private void CheckEditorButtons()
     {
-        if (!SurnameTextBox.Text.Any() && !NameTextBox.Text.Any())
+        if (!LastNameTextBox.Text.Any() && !FirstNameTextBox.Text.Any())
         {
             SaveButton.IsEnabled = false;
             if (EditedAuthor == null)
@@ -49,7 +49,7 @@ public partial class AuthorsEditor : Window
             return;
         }
         SaveButton.IsEnabled =
-            SurnameTextBox.Text != SurnameTextBlock.Text || NameTextBox.Text != NameTextBlock.Text;
+            LastNameTextBox.Text != LastNameTextBlock.Text || FirstNameTextBox.Text != FirstNameTextBlock.Text;
         ClearButton.IsEnabled = true;
     }
 
@@ -59,10 +59,10 @@ public partial class AuthorsEditor : Window
     private void ClearEditor()
     {
         EditedAuthor = null;
-        SurnameTextBlock.Text = string.Empty;
-        NameTextBlock.Text = string.Empty;
-        SurnameTextBox.Text = string.Empty;
-        NameTextBox.Text = string.Empty;
+        LastNameTextBlock.Text = string.Empty;
+        FirstNameTextBlock.Text = string.Empty;
+        LastNameTextBox.Text = string.Empty;
+        FirstNameTextBox.Text = string.Empty;
     }
 
     /// <summary>
@@ -71,10 +71,10 @@ public partial class AuthorsEditor : Window
     private void EditAuthor()
     {
         EditedAuthor = (Author)AuthorsListBox.SelectedItem;
-        SurnameTextBlock.Text = EditedAuthor.Surname;
-        NameTextBlock.Text = EditedAuthor.Name;
-        SurnameTextBox.Text = EditedAuthor.Surname;
-        NameTextBox.Text = EditedAuthor.Name;
+        LastNameTextBlock.Text = EditedAuthor.LastName;
+        FirstNameTextBlock.Text = EditedAuthor.FirstName;
+        LastNameTextBox.Text = EditedAuthor.LastName;
+        FirstNameTextBox.Text = EditedAuthor.FirstName;
     }
 
     private void AuthorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -116,9 +116,9 @@ public partial class AuthorsEditor : Window
         HasChanges = true;
     }
 
-    private void SurnameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
+    private void LastNameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
 
-    private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
+    private void FirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
 
     private void ClearButton_Click(object sender, RoutedEventArgs e) => ClearEditor();
 
@@ -126,7 +126,7 @@ public partial class AuthorsEditor : Window
     {
         if (EditedAuthor == null)
         {
-            var author = new Author() { Name = NameTextBox.Text, Surname = SurnameTextBox.Text };
+            var author = new Author() { FirstName = FirstNameTextBox.Text, LastName = LastNameTextBox.Text };
             author.AuthorId = Db.InsertAuthor(author);
             if (author.AuthorId < 1)
             {
@@ -137,8 +137,8 @@ public partial class AuthorsEditor : Window
         }
         else
         {
-            EditedAuthor.Name = NameTextBox.Text;
-            EditedAuthor.Surname = SurnameTextBox.Text;
+            EditedAuthor.FirstName = FirstNameTextBox.Text;
+            EditedAuthor.LastName = LastNameTextBox.Text;
             if (!Db.UpdateAuthor(EditedAuthor))
             {
                 MessageBox.Show("Не удалось изменить данные автора.", "Ошибка");
@@ -150,11 +150,11 @@ public partial class AuthorsEditor : Window
                 var author = book.Authors.Find(x => x.AuthorId == EditedAuthor.AuthorId);
                 if (author == null)
                     continue;
-                author.Name = EditedAuthor.Name;
-                author.Surname = EditedAuthor.Surname;
+                author.FirstName = EditedAuthor.FirstName;
+                author.LastName = EditedAuthor.LastName;
             }
         }
-        Authors.Sort(x => x.SurnameName, StringComparer.CurrentCultureIgnoreCase);
+        Authors.Sort(x => x.LastName, StringComparer.CurrentCultureIgnoreCase);
         ClearEditor();
         HasChanges = true;
     }

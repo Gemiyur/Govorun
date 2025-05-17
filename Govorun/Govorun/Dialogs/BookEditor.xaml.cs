@@ -93,8 +93,8 @@ public partial class BookEditor : Window
     private void CheckAddNewAuthorButton()
     {
         AddNewAuthorButton.IsEnabled =
-            !string.IsNullOrWhiteSpace(NewAuthorNameTextBox.Text) ||
-            !string.IsNullOrWhiteSpace(NewAuthorSurnameTextBox.Text);
+            !string.IsNullOrWhiteSpace(NewAuthorFirstNameTextBox.Text) ||
+            !string.IsNullOrWhiteSpace(NewAuthorLastNameTextBox.Text);
     }
 
     /// <summary>
@@ -102,8 +102,8 @@ public partial class BookEditor : Window
     /// </summary>
     private void ClearNewAuthor()
     {
-        NewAuthorNameTextBox.Text = string.Empty;
-        NewAuthorSurnameTextBox.Text = string.Empty;
+        NewAuthorFirstNameTextBox.Text = string.Empty;
+        NewAuthorLastNameTextBox.Text = string.Empty;
     }
 
     /// <summary>
@@ -215,7 +215,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Сортирует список авторов книги по фамилии и имени.
     /// </summary>
-    private void SortAuthors() => authors.Sort(new StringKeyComparer(x => ((Author)x).SurnameName));
+    private void SortAuthors() => authors.Sort(new StringKeyComparer(x => ((Author)x).NameLastFirst));
 
     /// <summary>
     /// Обновляет источник элементов списка авторов книги.
@@ -254,26 +254,26 @@ public partial class BookEditor : Window
         UpdateAuthorsSource();
     }
 
-    private void NewAuthorSurnameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    private void NewAuthorLastNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
         CheckAddNewAuthorButton();
     }
 
-    private void NewAuthorNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    private void NewAuthorFirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
         CheckAddNewAuthorButton();
     }
 
     private void AddNewAuthorButton_Click(object sender, RoutedEventArgs e)
     {
-        var name = NewAuthorNameTextBox.Text.Trim();
-        var surname = NewAuthorSurnameTextBox.Text.Trim();
-        var author = allAuthors.Find(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) &&
-                                          x.Surname.Equals(surname, StringComparison.CurrentCultureIgnoreCase));
+        var firstName = NewAuthorFirstNameTextBox.Text.Trim();
+        var lastName = NewAuthorLastNameTextBox.Text.Trim();
+        var author = allAuthors.Find(x => x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
+                                          x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase));
         if (author != null)
         {
-            if (authors.Exists(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) &&
-                                    x.Surname.Equals(surname, StringComparison.CurrentCultureIgnoreCase)))
+            if (authors.Exists(x => x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
+                                    x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase)))
             {
                 ClearNewAuthor();
                 return;
@@ -285,7 +285,7 @@ public partial class BookEditor : Window
         }
         else
         {
-            authors.Add(new Author() { Name = name, Surname = surname });
+            authors.Add(new Author() { FirstName = firstName, LastName = lastName });
         }
         SortAuthors();
         UpdateAuthorsSource();

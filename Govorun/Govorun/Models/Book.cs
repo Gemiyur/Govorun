@@ -40,7 +40,7 @@ public class Book : BaseModel
     /// </summary>
     [BsonIgnore]
     public string AuthorsSurnameNameText =>
-        App.ListToString(Authors, ", ", x => ((Author)x).SurnameName, StringComparer.CurrentCultureIgnoreCase);
+        App.ListToString(Authors, ", ", x => ((Author)x).NameLastFirst, StringComparer.CurrentCultureIgnoreCase);
 
     /// <summary>
     /// Возвращает список авторов книги в виде строки Имя-Фамилия.
@@ -51,8 +51,8 @@ public class Book : BaseModel
     {
         get
         {
-            var authorsList = Authors.OrderBy(x => x.SurnameName).ToList();
-            return App.ListToString(Authors, ", ", x => ((Author)x).NameSurname);
+            var authorsList = Authors.OrderBy(x => x.NameLastFirst).ToList();
+            return App.ListToString(Authors, ", ", x => ((Author)x).NameFirstLast);
         }
     }
 
