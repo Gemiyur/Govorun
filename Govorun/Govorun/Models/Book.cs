@@ -1,5 +1,6 @@
 ﻿using LiteDB;
 using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace Govorun.Models;
 
@@ -39,15 +40,23 @@ public class Book : BaseModel
     /// Список отсортирован по Фамилия-Имя.
     /// </summary>
     [BsonIgnore]
-    public string AuthorsSurnameNameText =>
+    public string AuthorNamesLastFirst =>
         App.ListToString(Authors, ", ", x => ((Author)x).NameLastFirst, StringComparer.CurrentCultureIgnoreCase);
+
+    /// <summary>
+    /// Возвращает список авторов книги в виде строки Фамилия-Имя-Отчество.
+    /// Список отсортирован по Фамилия-Имя-Отчество.
+    /// </summary>
+    [BsonIgnore]
+    public string AuthorNamesLastFirstMiddle =>
+        App.ListToString(Authors, ", ", x => ((Author)x).NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase);
 
     /// <summary>
     /// Возвращает список авторов книги в виде строки Имя-Фамилия.
     /// Список отсортирован по Фамилия-Имя.
     /// </summary>
     [BsonIgnore]
-    public string AuthorsNameSurnameText
+    public string AuthorNamesFirstLast
     {
         get
         {
@@ -56,18 +65,17 @@ public class Book : BaseModel
         }
     }
 
-    private string lector = string.Empty;
-
     /// <summary>
-    /// Чтец книги.
+    /// Возвращает список авторов книги в виде строки Имя-Отчество-Фамилия.
+    /// Список отсортирован по Фамилия-Имя-Отчество.
     /// </summary>
-    public string Lector
+    [BsonIgnore]
+    public string AuthorNamesFirstMiddleLast
     {
-        get => lector;
-        set
+        get
         {
-            lector = value ?? string.Empty;
-            OnPropertyChanged("Lector");
+            var authorsList = Authors.OrderBy(x => x.NameLastFirstMiddle).ToList();
+            return App.ListToString(Authors, ", ", x => ((Author)x).NameFirstMiddleLast);
         }
     }
 
@@ -85,6 +93,57 @@ public class Book : BaseModel
             OnPropertyChanged("Annotation");
         }
     }
+
+    /// <summary>
+    /// Массив байт изображения обложки книги.
+    /// </summary>
+    public byte[]? CoverData { get; set; }
+
+    /// <summary>
+    /// Изображение обложки книги.
+    /// </summary>
+    [BsonIgnore]
+    public BitmapFrame? Cover => CoverData != null ? App.GetBitmap(CoverData) : null;
+
+    /// <summary>
+    /// Список частей (номеров) книги в циклах книг.
+    /// </summary>
+    public List<CyclePart> CycleParts { get; set; } = [];
+
+    private string lector = string.Empty;
+
+    /// <summary>
+    /// Чтец книги.
+    /// </summary>
+    public string Lector
+    {
+        get => lector;
+        set
+        {
+            lector = value ?? string.Empty;
+            OnPropertyChanged("Lector");
+        }
+    }
+
+    private string translator = string.Empty;
+
+    /// <summary>
+    /// Переводчик книги.
+    /// </summary>
+    public string Translator
+    {
+        get => translator;
+        set
+        {
+            translator = value ?? string.Empty;
+            OnPropertyChanged("Translator");
+        }
+    }
+
+    /// <summary>
+    /// Теги книги.
+    /// </summary>
+    public List<Tag> Tags { get; set; } = [];
 
     private string filename = string.Empty;
 

@@ -22,7 +22,7 @@ public partial class BookFileDialog : Window
     {
         InitializeComponent();
         this.book = book;
-        AuthorsTextBlock.Text = book.AuthorsNameSurnameText;
+        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
         TitleTextBlock.Text = book.Title;
         FileTextBox.Text = book.FileName;
     }

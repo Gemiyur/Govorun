@@ -51,6 +51,14 @@ public partial class App : Application
     public static BitmapImage GetBitmap(string path) => new(new Uri(path, UriKind.Relative));
 
     /// <summary>
+    /// Возвращает изображение из указанного массива байт.
+    /// </summary>
+    /// <param name="data">Массив байт.</param>
+    /// <returns>Изображение.</returns>
+    public static BitmapFrame GetBitmap(byte[] data) =>
+        BitmapDecoder.Create(new MemoryStream(data), BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames[0];
+
+    /// <summary>
     /// Возвращает книгу из указанного файла.
     /// В выходной параметр tag возвращает данные из тега.
     /// </summary>

@@ -373,8 +373,8 @@ public partial class MainWindow : Window
         }
         if (editor.FileChanged && Player.Book == book)
             Player.Book = book;
-        book.OnPropertyChanged("AuthorsSurnameNameText");
-        book.OnPropertyChanged("AuthorsNameSurnameText");
+        book.OnPropertyChanged("AuthorNamesLastFirst");
+        book.OnPropertyChanged("AuthorNamesFirstLast");
     }
 
     private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -460,8 +460,8 @@ public partial class MainWindow : Window
         SortShownBooks();
         BooksListView.SelectedItem = book;
         BooksListView.ScrollIntoView(AuthorsListBox.SelectedItem);
-        book.OnPropertyChanged("AuthorsSurnameNameText");
-        book.OnPropertyChanged("AuthorsNameSurnameText");
+        book.OnPropertyChanged("AuthorNamesLastFirst");
+        book.OnPropertyChanged("AuthorNamesFirstLast");
     }
 
     private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -501,8 +501,8 @@ public partial class MainWindow : Window
         UpdateAuthors();
         foreach (var book in ShownBooks)
         {
-            book.OnPropertyChanged("AuthorsSurnameNameText");
-            book.OnPropertyChanged("AuthorsNameSurnameText");
+            book.OnPropertyChanged("AuthorNamesLastFirst");
+            book.OnPropertyChanged("AuthorNamesFirstLast");
         }
     }
 

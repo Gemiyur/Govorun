@@ -36,7 +36,7 @@ public partial class BookmarksDialog : Window
         InitializeComponent();
         this.book = book;
         TitleTextBlock.FontSize = FontSize + 2;
-        AuthorsTextBlock.Text = book.AuthorsNameSurnameText;
+        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
         TitleTextBlock.Text = book.Title;
         bookmarks.AddRange(book.Bookmarks.OrderBy(x => x.Title));
         BookmarksListView.ItemsSource = bookmarks;

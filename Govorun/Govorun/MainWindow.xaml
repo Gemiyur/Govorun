@@ -262,7 +262,7 @@
                      SelectionChanged="AuthorsListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding SurnameName}" ToolTip="{Binding SurnameName}" />
+                        <TextBlock Text="{Binding NameLastFirst}" ToolTip="{Binding NameLastFirst}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -302,7 +302,7 @@
                         <GridViewColumn Header="Автор" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding AuthorsSurnameNameText}" />
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding AuthorNamesLastFirst}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

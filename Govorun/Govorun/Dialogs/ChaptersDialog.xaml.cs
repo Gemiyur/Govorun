@@ -40,7 +40,7 @@ public partial class ChaptersDialog : Window
         InitializeComponent();
         this.book = book;
         TitleTextBlock.FontSize = FontSize + 2;
-        AuthorsTextBlock.Text = book.AuthorsNameSurnameText;
+        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
         TitleTextBlock.Text = book.Title;
         chapters.AddRange(book.Chapters);
         ChaptersListView.ItemsSource = chapters;

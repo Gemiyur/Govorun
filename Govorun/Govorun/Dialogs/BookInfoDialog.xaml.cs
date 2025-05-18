@@ -12,7 +12,7 @@ public partial class BookInfoDialog : Window
     {
         InitializeComponent();
         TitleTextBlock.FontSize = FontSize + 2;
-        AuthorsTextBlock.Text = book.AuthorsNameSurnameText;
+        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
         TitleTextBlock.Text = book.Title;
         LectorTextBlock.Text = book.Lector;
         DurationTextBlock.Text = book.DurationText;

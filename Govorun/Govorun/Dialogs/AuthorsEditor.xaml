@@ -43,7 +43,7 @@
                      SelectionChanged="AuthorsListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding SurnameName}" ToolTip="{Binding SurnameName}" />
+                        <TextBlock Text="{Binding NameLastFirst}" ToolTip="{Binding NameLastFirst}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
