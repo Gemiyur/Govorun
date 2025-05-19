@@ -444,8 +444,8 @@ public partial class MainWindow : Window
             MessageBox.Show("Книга с этим файлом уже есть в библиотеке.", "Добавление книги");
             return;
         }
-        var book = App.GetBookFromFile(filename, out TrackData tag);
-        var editor = new BookEditor(book, tag) { Owner = this };
+        var book = App.GetBookFromFile(filename, out TrackData trackData);
+        var editor = new BookEditor(book, trackData) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
         Books.AllBooks.Add(book);

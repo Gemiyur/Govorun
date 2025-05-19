@@ -48,8 +48,8 @@ public partial class AddBooksDialog : Window
         var addedFilesCount = addedFiles.Count;
         foreach (var file in addedFiles)
         {
-            var book = App.GetBookFromFile(file, out TrackData tag);
-            var editor = new BookEditor(book, tag) { Owner = this };
+            var book = App.GetBookFromFile(file, out TrackData trackData);
+            var editor = new BookEditor(book, trackData) { Owner = this };
             if (editor.ShowDialog() != true)
             {
                 if (addedFilesCount == 1)

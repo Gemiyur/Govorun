@@ -50,7 +50,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Данные книги из тега файла книги.
     /// </summary>
-    private TrackData? tag;
+    private TrackData? trackData;
 
     /// <summary>
     /// Список авторов книги.
@@ -66,9 +66,9 @@ public partial class BookEditor : Window
     /// Инициализирует новый экземпляр класса.
     /// </summary>
     /// <param name="book">Книга.</param>
-    /// <param name="tag">Данные книги из тега файла книги.</param>
+    /// <param name="trackData">Данные книги из тега файла книги.</param>
     /// <exception cref="ArgumentException"></exception>
-    public BookEditor(Book book, TrackData? tag)
+    public BookEditor(Book book, TrackData? trackData)
     {
         InitializeComponent();
         if (book == null)
@@ -78,10 +78,10 @@ public partial class BookEditor : Window
             throw new ArgumentException("Не указана книга: book == null.", nameof(book));
         }
         this.book = book;
-        this.tag = tag;
+        this.trackData = trackData;
         filename = book.FileName;
         FileNotFoundTextBlock.Visibility = book.FileExists ? Visibility.Collapsed : Visibility.Visible;
-        LoadTagButton.IsEnabled = book.FileExists && tag == null;
+        LoadTagButton.IsEnabled = book.FileExists && trackData == null;
         FileButton.IsEnabled = !book.FileExists;
         LoadBook();
         LoadTag();
@@ -124,21 +124,21 @@ public partial class BookEditor : Window
     /// </summary>
     private void LoadTag()
     {
-        if (tag == null)
+        if (trackData == null)
             return;
-        TagTitleTextBox.Text = tag.Title;
-        TagAuthorTextBox.Text = tag.Author;
-        TagAlbumTitleTextBox.Text = tag.AlbumTitle;
-        TagAlbumAuthorTextBox.Text = tag.AlbumAuthor;
-        var comments = tag.Comment;
+        TagTitleTextBox.Text = trackData.Title;
+        TagAuthorTextBox.Text = trackData.Author;
+        TagAlbumTitleTextBox.Text = trackData.AlbumTitle;
+        TagAlbumAuthorTextBox.Text = trackData.AlbumAuthor;
+        var comments = trackData.Comment;
         if (!comments.Any())
-            comments = tag.Description;
-        else if (tag.Description.Any())
-            comments = comments + "\r\n" + tag.Description;
+            comments = trackData.Description;
+        else if (trackData.Description.Any())
+            comments = comments + "\r\n" + trackData.Description;
         if (!comments.Any())
-            comments = tag.Lyrics;
-        else if (tag.Lyrics.Any())
-            comments = comments + "\r\n" + tag.Lyrics;
+            comments = trackData.Lyrics;
+        else if (trackData.Lyrics.Any())
+            comments = comments + "\r\n" + trackData.Lyrics;
         TagCommentsTextBox.Text = comments;
     }
 
@@ -305,7 +305,7 @@ public partial class BookEditor : Window
         // Так сделано на случай если после загрузки книги в редактор файл книги был удалён или переименован.
         if (File.Exists(filename))
         {
-            tag = new TrackData(filename);
+            trackData = new TrackData(filename);
             LoadTag();
         }
         else

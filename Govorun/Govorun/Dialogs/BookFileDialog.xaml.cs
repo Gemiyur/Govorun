@@ -32,9 +32,9 @@ public partial class BookFileDialog : Window
         var dialog = App.PickBookFileDialog;
         if (dialog.ShowDialog() != true)
             return;
-        var tag = new TrackData(dialog.FileName);
+        var trackData = new TrackData(dialog.FileName);
         var size = new FileInfo(dialog.FileName).Length;
-        if (tag.Duration != book.Duration || size != book.FileSize)
+        if (trackData.Duration != book.Duration || size != book.FileSize)
         {
             MessageBox.Show("Файл не подходит по размеру и продолжительности.", Title);
             return;

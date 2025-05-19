@@ -60,20 +60,20 @@ public partial class App : Application
 
     /// <summary>
     /// Возвращает книгу из указанного файла.
-    /// В выходной параметр tag возвращает данные из тега.
+    /// В выходной параметр trackData возвращает данные из тега.
     /// </summary>
     /// <param name="filename">Имя файла книги с полным путём.</param>
-    /// <param name="tag">Данные тега из файла книги.</param>
+    /// <param name="trackData">Данные тега из файла книги.</param>
     /// <returns>Книга.</returns>
-    public static Book GetBookFromFile(string filename, out TrackData tag)
+    public static Book GetBookFromFile(string filename, out TrackData trackData)
     {
         var book = new Book();
-        tag = new TrackData(filename);
-        book.Title = tag.Title;
+        trackData = new TrackData(filename);
+        book.Title = trackData.Title;
         book.FileName = filename;
-        book.Duration = tag.Duration;
+        book.Duration = trackData.Duration;
         book.FileSize = new FileInfo(filename).Length;
-        foreach (var chapter in tag.Chapters)
+        foreach (var chapter in trackData.Chapters)
         {
             book.Chapters.Add(new Chapter()
             {
