@@ -48,14 +48,14 @@ public partial class App : Application
     /// </summary>
     /// <param name="path">Путь к файлу.</param>
     /// <returns></returns>
-    public static BitmapImage GetBitmap(string path) => new(new Uri(path, UriKind.Relative));
+    public static BitmapImage GetBitmapImage(string path) => new(new Uri(path, UriKind.Relative));
 
     /// <summary>
     /// Возвращает изображение из указанного массива байт.
     /// </summary>
     /// <param name="data">Массив байт.</param>
     /// <returns>Изображение.</returns>
-    public static BitmapFrame GetBitmap(byte[] data) =>
+    public static BitmapFrame GetBitmapFrame(byte[] data) =>
         BitmapDecoder.Create(new MemoryStream(data), BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames[0];
 
     /// <summary>

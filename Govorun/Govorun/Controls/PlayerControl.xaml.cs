@@ -147,19 +147,19 @@ public partial class PlayerControl : UserControl
             {
                 TimeSlider.IsEnabled = false;
                 BackButton.IsEnabled = false;
-                ((Image)BackButton.Content).Source = App.GetBitmap($"{DisabledPath}Back.png");
+                ((Image)BackButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Back.png");
                 SkipButton.IsEnabled = false;
-                ((Image)SkipButton.Content).Source = App.GetBitmap($"{DisabledPath}Skip.png");
-                ((Image)PlayButton.Content).Source = App.GetBitmap($"{EnabledPath}Replay.png");
+                ((Image)SkipButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Skip.png");
+                ((Image)PlayButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Replay.png");
                 PlayButton.ToolTip = "Повторить";
             }
             else
             {
                 TimeSlider.IsEnabled = true;
                 BackButton.IsEnabled = true;
-                ((Image)BackButton.Content).Source = App.GetBitmap($"{EnabledPath}Back.png");
+                ((Image)BackButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Back.png");
                 SkipButton.IsEnabled = true;
-                ((Image)SkipButton.Content).Source = App.GetBitmap($"{EnabledPath}Skip.png");
+                ((Image)SkipButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Skip.png");
             }
         }
     }
@@ -193,8 +193,8 @@ public partial class PlayerControl : UserControl
     {
         AddBookmarkButton.IsEnabled = enabled;
         ((Image)AddBookmarkButton.Content).Source = enabled
-            ? App.GetBitmap($"{EnabledPath}AddBookmark.png")
-            : App.GetBitmap($"{DisabledPath}AddBookmark.png");
+            ? App.GetBitmapImage($"{EnabledPath}AddBookmark.png")
+            : App.GetBitmapImage($"{DisabledPath}AddBookmark.png");
     }
 
     /// <summary>
@@ -205,8 +205,8 @@ public partial class PlayerControl : UserControl
     {
         BookmarksButton.IsEnabled = enabled;
         ((Image)BookmarksButton.Content).Source = enabled
-            ? App.GetBitmap($"{EnabledPath}Bookmarks.png")
-            : App.GetBitmap($"{DisabledPath}Bookmarks.png");
+            ? App.GetBitmapImage($"{EnabledPath}Bookmarks.png")
+            : App.GetBitmapImage($"{DisabledPath}Bookmarks.png");
     }
 
     /// <summary>
@@ -217,8 +217,8 @@ public partial class PlayerControl : UserControl
     {
         ChaptersButton.IsEnabled = enabled;
         ((Image)ChaptersButton.Content).Source = enabled
-            ? App.GetBitmap($"{EnabledPath}Chapters.png")
-            : App.GetBitmap($"{DisabledPath}Chapters.png");
+            ? App.GetBitmapImage($"{EnabledPath}Chapters.png")
+            : App.GetBitmapImage($"{DisabledPath}Chapters.png");
     }
 
     /// <summary>
@@ -229,8 +229,8 @@ public partial class PlayerControl : UserControl
     {
         InfoButton.IsEnabled = enabled;
         ((Image)InfoButton.Content).Source = enabled
-            ? App.GetBitmap($"{EnabledPath}Info.png")
-            : App.GetBitmap($"{DisabledPath}Info.png");
+            ? App.GetBitmapImage($"{EnabledPath}Info.png")
+            : App.GetBitmapImage($"{DisabledPath}Info.png");
     }
 
     /// <summary>
@@ -239,8 +239,8 @@ public partial class PlayerControl : UserControl
     private void SetPlayButtonPauseIcon()
     {
         ((Image)PlayButton.Content).Source = PlayButton.IsEnabled
-            ? App.GetBitmap($"{EnabledPath}Pause.png")
-            : App.GetBitmap($"{DisabledPath}Pause.png");
+            ? App.GetBitmapImage($"{EnabledPath}Pause.png")
+            : App.GetBitmapImage($"{DisabledPath}Pause.png");
     }
 
     /// <summary>
@@ -249,8 +249,8 @@ public partial class PlayerControl : UserControl
     private void SetPlayButtonPlayIcon()
     {
         ((Image)PlayButton.Content).Source = PlayButton.IsEnabled
-            ? App.GetBitmap($"{EnabledPath}Play.png")
-            : App.GetBitmap($"{DisabledPath}Play.png");
+            ? App.GetBitmapImage($"{EnabledPath}Play.png")
+            : App.GetBitmapImage($"{DisabledPath}Play.png");
     }
 
     /// <summary>
@@ -264,12 +264,12 @@ public partial class PlayerControl : UserControl
         SetPlayButtonPauseIcon();
         BackButton.IsEnabled = enabled;
         ((Image)BackButton.Content).Source = enabled
-            ? App.GetBitmap($"{EnabledPath}Back.png")
-            : App.GetBitmap($"{DisabledPath}Back.png");
+            ? App.GetBitmapImage($"{EnabledPath}Back.png")
+            : App.GetBitmapImage($"{DisabledPath}Back.png");
         SkipButton.IsEnabled = enabled;
         ((Image)SkipButton.Content).Source = enabled
-            ? App.GetBitmap($"{EnabledPath}Skip.png")
-            : App.GetBitmap($"{DisabledPath}Skip.png");
+            ? App.GetBitmapImage($"{EnabledPath}Skip.png")
+            : App.GetBitmapImage($"{DisabledPath}Skip.png");
     }
 
     /// <summary>
@@ -284,14 +284,14 @@ public partial class PlayerControl : UserControl
         if (DecreaseButton.IsEnabled != decreaseWasEnabled)
         {
             ((Image)DecreaseButton.Content).Source = DecreaseButton.IsEnabled
-                ? App.GetBitmap($"{EnabledPath}Decrease.png")
-                : App.GetBitmap($"{DisabledPath}Decrease.png");
+                ? App.GetBitmapImage($"{EnabledPath}Decrease.png")
+                : App.GetBitmapImage($"{DisabledPath}Decrease.png");
         }
         if (IncreaseButton.IsEnabled != increaseWasEnabled)
         {
             ((Image)IncreaseButton.Content).Source = IncreaseButton.IsEnabled
-                ? App.GetBitmap($"{EnabledPath}Increase.png")
-                : App.GetBitmap($"{DisabledPath}Increase.png");
+                ? App.GetBitmapImage($"{EnabledPath}Increase.png")
+                : App.GetBitmapImage($"{DisabledPath}Increase.png");
         }
     }
 
@@ -301,29 +301,29 @@ public partial class PlayerControl : UserControl
     {
         if (IsEnabled)
         {
-            VolumeImage.Source = App.GetBitmap($"{EnabledPath}Volume.png");
-            ((Image)DecreaseButton.Content).Source = App.GetBitmap($"{EnabledPath}Decrease.png");
-            ((Image)IncreaseButton.Content).Source = App.GetBitmap($"{EnabledPath}Increase.png");
-            ((Image)BackButton.Content).Source = App.GetBitmap($"{EnabledPath}Back.png");
-            ((Image)PlayButton.Content).Source = App.GetBitmap($"{EnabledPath}Play.png");
-            ((Image)SkipButton.Content).Source = App.GetBitmap($"{EnabledPath}Skip.png");
-            ((Image)InfoButton.Content).Source = App.GetBitmap($"{EnabledPath}Info.png");
-            ((Image)ChaptersButton.Content).Source = App.GetBitmap($"{EnabledPath}Chapters.png");
-            ((Image)BookmarksButton.Content).Source = App.GetBitmap($"{EnabledPath}Bookmarks.png");
-            ((Image)AddBookmarkButton.Content).Source = App.GetBitmap($"{EnabledPath}AddBookmark.png");
+            VolumeImage.Source = App.GetBitmapImage($"{EnabledPath}Volume.png");
+            ((Image)DecreaseButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Decrease.png");
+            ((Image)IncreaseButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Increase.png");
+            ((Image)BackButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Back.png");
+            ((Image)PlayButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Play.png");
+            ((Image)SkipButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Skip.png");
+            ((Image)InfoButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Info.png");
+            ((Image)ChaptersButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Chapters.png");
+            ((Image)BookmarksButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Bookmarks.png");
+            ((Image)AddBookmarkButton.Content).Source = App.GetBitmapImage($"{EnabledPath}AddBookmark.png");
         }
         else
         {
-            VolumeImage.Source = App.GetBitmap($"{DisabledPath}Volume.png");
-            ((Image)DecreaseButton.Content).Source = App.GetBitmap($"{DisabledPath}Decrease.png");
-            ((Image)IncreaseButton.Content).Source = App.GetBitmap($"{DisabledPath}Increase.png");
-            ((Image)BackButton.Content).Source = App.GetBitmap($"{DisabledPath}Back.png");
-            ((Image)PlayButton.Content).Source = App.GetBitmap($"{DisabledPath}Play.png");
-            ((Image)SkipButton.Content).Source = App.GetBitmap($"{DisabledPath}Skip.png");
-            ((Image)InfoButton.Content).Source = App.GetBitmap($"{DisabledPath}Info.png");
-            ((Image)ChaptersButton.Content).Source = App.GetBitmap($"{DisabledPath}Chapters.png");
-            ((Image)BookmarksButton.Content).Source = App.GetBitmap($"{DisabledPath}Bookmarks.png");
-            ((Image)AddBookmarkButton.Content).Source = App.GetBitmap($"{DisabledPath}AddBookmark.png");
+            VolumeImage.Source = App.GetBitmapImage($"{DisabledPath}Volume.png");
+            ((Image)DecreaseButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Decrease.png");
+            ((Image)IncreaseButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Increase.png");
+            ((Image)BackButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Back.png");
+            ((Image)PlayButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Play.png");
+            ((Image)SkipButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Skip.png");
+            ((Image)InfoButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Info.png");
+            ((Image)ChaptersButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Chapters.png");
+            ((Image)BookmarksButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Bookmarks.png");
+            ((Image)AddBookmarkButton.Content).Source = App.GetBitmapImage($"{DisabledPath}AddBookmark.png");
         }
     }
 

@@ -111,7 +111,7 @@ public class Book : BaseModel
         get
         {
             var bytes = TrackData.GetPictureData(FileName, CoverIndex);
-            return bytes != null ? App.GetBitmap(bytes) : null;
+            return bytes != null ? App.GetBitmapFrame(bytes) : null;
         }
     }
 
@@ -129,7 +129,7 @@ public class Book : BaseModel
             var list = TrackData.GetPicturesData(FileName);
             foreach (var item in list)
             {
-                result.Add(App.GetBitmap(item));
+                result.Add(App.GetBitmapFrame(item));
             }
             return result;
         }

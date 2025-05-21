@@ -246,7 +246,7 @@ public partial class MainWindow : Window
         e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
         if (!IsVisible)
             return;
-        var bitmap = App.GetBitmap(
+        var bitmap = App.GetBitmapImage(
             e.CanExecute ? @"Images\Buttons\Enabled\Play.png" : @"Images\Buttons\Disabled\Play.png");
         ((Image)PlayButton.Content).Source = bitmap;
         ((Image)PlayMenuItem.Icon).Source = bitmap;
@@ -266,7 +266,7 @@ public partial class MainWindow : Window
         e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
         if (!IsVisible)
             return;
-        var bitmap = App.GetBitmap(
+        var bitmap = App.GetBitmapImage(
             e.CanExecute ? @"Images\Buttons\Enabled\Info.png" : @"Images\Buttons\Disabled\Info.png");
         ((Image)InfoButton.Content).Source = bitmap;
         ((Image)InfoMenuItem.Icon).Source = bitmap;
@@ -283,7 +283,7 @@ public partial class MainWindow : Window
             ((Book)BooksListView.SelectedItem).Chapters.Any();
         if (!IsVisible)
             return;
-        var bitmap = App.GetBitmap(
+        var bitmap = App.GetBitmapImage(
             e.CanExecute ? @"Images\Buttons\Enabled\Chapters.png" : @"Images\Buttons\Disabled\Chapters.png");
         ((Image)ChaptersButton.Content).Source = bitmap;
         ((Image)ChaptersMenuItem.Icon).Source = bitmap;
@@ -311,7 +311,7 @@ public partial class MainWindow : Window
             ((Book)BooksListView.SelectedItem).Bookmarks.Any();
         if (!IsVisible)
             return;
-        var bitmap = App.GetBitmap(
+        var bitmap = App.GetBitmapImage(
             e.CanExecute ? @"Images\Buttons\Enabled\Bookmarks.png" : @"Images\Buttons\Disabled\Bookmarks.png");
         ((Image)BookmarksButton.Content).Source = bitmap;
         ((Image)BookmarksMenuItem.Icon).Source = bitmap;
@@ -340,7 +340,7 @@ public partial class MainWindow : Window
         e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
         if (!IsVisible)
             return;
-        var bitmap = App.GetBitmap(
+        var bitmap = App.GetBitmapImage(
             e.CanExecute ? @"Images\Buttons\Enabled\Edit.png" : @"Images\Buttons\Disabled\Edit.png");
         ((Image)EditButton.Content).Source = bitmap;
         ((Image)EditMenuItem.Icon).Source = bitmap;
@@ -382,7 +382,7 @@ public partial class MainWindow : Window
         e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count > 0;
         if (!IsVisible)
             return;
-        var bitmap = App.GetBitmap(
+        var bitmap = App.GetBitmapImage(
             e.CanExecute ? @"Images\Buttons\Enabled\Delete.png" : @"Images\Buttons\Disabled\Delete.png");
         ((Image)DeleteButton.Content).Source = bitmap;
         ((Image)DeleteMenuItem.Icon).Source = bitmap;
@@ -558,7 +558,7 @@ public partial class MainWindow : Window
         e.CanExecute = CreatorM4BExists;
         if (!IsVisible)
             return;
-        var bitmap = App.GetBitmap(
+        var bitmap = App.GetBitmapImage(
             e.CanExecute ? @"Images\Buttons\Enabled\CreateM4B.png" : @"Images\Buttons\Disabled\CreateM4B.png");
         ((Image)CreateM4BButton.Content).Source = bitmap;
         ((Image)CreateM4BMenuItem.Icon).Source = bitmap;
