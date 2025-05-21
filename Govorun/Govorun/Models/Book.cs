@@ -95,15 +95,23 @@ public class Book : BaseModel
     }
 
     /// <summary>
-    /// Массив байт изображения обложки книги.
+    /// Индекс изображения обложки книги в теге файла книги.
     /// </summary>
-    public byte[]? CoverData { get; set; }
+    public int CoverIndex { get; set; } = -1;
 
-    /// <summary>
-    /// Изображение обложки книги.
-    /// </summary>
-    [BsonIgnore]
-    public BitmapFrame? Cover => CoverData != null ? App.GetBitmap(CoverData) : null;
+    // TODO: Пока непонятно где должны находится методы получения изображения обложки.
+
+    ///// <summary>
+    ///// Массив байт изображения обложки книги.
+    ///// </summary>
+    //[BsonIgnore]
+    //public byte[]? CoverData { get; set; }
+
+    ///// <summary>
+    ///// Изображение обложки книги.
+    ///// </summary>
+    //[BsonIgnore]
+    //public BitmapFrame? Cover => CoverData != null ? App.GetBitmap(CoverData) : null;
 
     /// <summary>
     /// Список частей (номеров) книги в циклах книг.
