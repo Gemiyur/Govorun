@@ -98,7 +98,7 @@ public class Book : BaseModel
     /// <summary>
     /// Индекс изображения обложки книги в теге файла книги.
     /// </summary>
-    public int CoverIndex { get; set; } = -1;
+    public int CoverIndex { get; set; }
 
     // TODO: Cover должно быть свойством или сделать его методом?.
 
