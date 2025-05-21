@@ -70,8 +70,6 @@ public partial class App : Application
         var book = new Book();
         trackData = new TrackData(filename);
         book.Title = trackData.Title;
-        // TODO: Получение массива байт обложки сделать статическим методом в TrackData.
-        //book.CoverData = trackData.PicturesData.Any() ? trackData.PicturesData[0] : null;
         book.CoverIndex = trackData.PicturesData.Any() ? 0 : -1;
         book.FileName = filename;
         book.Duration = trackData.Duration;

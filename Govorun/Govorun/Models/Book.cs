@@ -1,4 +1,5 @@
-﻿using LiteDB;
+﻿using Govorun.Media;
+using LiteDB;
 using System.IO;
 using System.Windows.Media.Imaging;
 
@@ -99,19 +100,40 @@ public class Book : BaseModel
     /// </summary>
     public int CoverIndex { get; set; } = -1;
 
-    // TODO: Пока непонятно где должны находится методы получения изображения обложки.
+    // TODO: Cover должно быть свойством или сделать его методом?.
 
-    ///// <summary>
-    ///// Массив байт изображения обложки книги.
-    ///// </summary>
-    //[BsonIgnore]
-    //public byte[]? CoverData { get; set; }
+    /// <summary>
+    /// Возвращает изображение обложки книги.
+    /// </summary>
+    [BsonIgnore]
+    public BitmapFrame? Cover
+    {
+        get
+        {
+            var bytes = TrackData.GetPictureData(FileName, CoverIndex);
+            return bytes != null ? App.GetBitmap(bytes) : null;
+        }
+    }
 
-    ///// <summary>
-    ///// Изображение обложки книги.
-    ///// </summary>
-    //[BsonIgnore]
-    //public BitmapFrame? Cover => CoverData != null ? App.GetBitmap(CoverData) : null;
+    // TODO: Pictures должно быть свойством или сделать его методом?.
+
+    /// <summary>
+    /// Возвращает список изображений книги.
+    /// </summary>
+    [BsonIgnore]
+    public List<BitmapFrame> Pictures
+    {
+        get
+        {
+            List<BitmapFrame> result = [];
+            var list = TrackData.GetPicturesData(FileName);
+            foreach (var item in list)
+            {
+                result.Add(App.GetBitmap(item));
+            }
+            return result;
+        }
+    }
 
     /// <summary>
     /// Список частей (номеров) книги в циклах книг.
