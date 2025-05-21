@@ -37,12 +37,28 @@ public class Book : BaseModel
     public List<Author> Authors { get; set; } = [];
 
     /// <summary>
+    /// Возвращает список авторов книги в виде строки Имя-Фамилия.
+    /// Список отсортирован по Фамилия-Имя.
+    /// </summary>
+    [BsonIgnore]
+    public string AuthorNamesFirstLast =>
+        App.ListToString(Authors.OrderBy(x => x.NameLastFirst), ", ", x => ((Author)x).NameFirstLast);
+
+    /// <summary>
+    /// Возвращает список авторов книги в виде строки Имя-Отчество-Фамилия.
+    /// Список отсортирован по Фамилия-Имя-Отчество.
+    /// </summary>
+    [BsonIgnore]
+    public string AuthorNamesFirstMiddleLast =>
+        App.ListToString(Authors.OrderBy(x => x.NameLastFirstMiddle), ", ", x => ((Author)x).NameFirstMiddleLast);
+
+    /// <summary>
     /// Возвращает список авторов книги в виде строки Фамилия-Имя.
     /// Список отсортирован по Фамилия-Имя.
     /// </summary>
     [BsonIgnore]
     public string AuthorNamesLastFirst =>
-        App.ListToString(Authors, ", ", x => ((Author)x).NameLastFirst, StringComparer.CurrentCultureIgnoreCase);
+        App.ListToString(Authors.OrderBy(x => x.NameLastFirst), ", ", x => ((Author)x).NameLastFirst);
 
     /// <summary>
     /// Возвращает список авторов книги в виде строки Фамилия-Имя-Отчество.
@@ -50,35 +66,7 @@ public class Book : BaseModel
     /// </summary>
     [BsonIgnore]
     public string AuthorNamesLastFirstMiddle =>
-        App.ListToString(Authors, ", ", x => ((Author)x).NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase);
-
-    /// <summary>
-    /// Возвращает список авторов книги в виде строки Имя-Фамилия.
-    /// Список отсортирован по Фамилия-Имя.
-    /// </summary>
-    [BsonIgnore]
-    public string AuthorNamesFirstLast
-    {
-        get
-        {
-            var authorsList = Authors.OrderBy(x => x.NameLastFirst).ToList();
-            return App.ListToString(Authors, ", ", x => ((Author)x).NameFirstLast);
-        }
-    }
-
-    /// <summary>
-    /// Возвращает список авторов книги в виде строки Имя-Отчество-Фамилия.
-    /// Список отсортирован по Фамилия-Имя-Отчество.
-    /// </summary>
-    [BsonIgnore]
-    public string AuthorNamesFirstMiddleLast
-    {
-        get
-        {
-            var authorsList = Authors.OrderBy(x => x.NameLastFirstMiddle).ToList();
-            return App.ListToString(Authors, ", ", x => ((Author)x).NameFirstMiddleLast);
-        }
-    }
+        App.ListToString(Authors.OrderBy(x => x.NameLastFirstMiddle), ", ", x => ((Author) x).NameLastFirstMiddle);
 
     private string annotation = string.Empty;
 
