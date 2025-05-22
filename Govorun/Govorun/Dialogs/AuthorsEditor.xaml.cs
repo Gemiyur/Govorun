@@ -41,7 +41,7 @@ public partial class AuthorsEditor : Window
     /// </summary>
     private void CheckEditorButtons()
     {
-        if (!LastNameTextBox.Text.Any() && !FirstNameTextBox.Text.Any())
+        if (!LastNameTextBox.Text.Any() && !FirstNameTextBox.Text.Any() && !MiddleNameTextBox.Text.Any())
         {
             SaveButton.IsEnabled = false;
             if (EditedAuthor == null)
@@ -49,7 +49,9 @@ public partial class AuthorsEditor : Window
             return;
         }
         SaveButton.IsEnabled =
-            LastNameTextBox.Text != LastNameTextBlock.Text || FirstNameTextBox.Text != FirstNameTextBlock.Text;
+            LastNameTextBox.Text != LastNameTextBlock.Text ||
+            FirstNameTextBox.Text != FirstNameTextBlock.Text ||
+            MiddleNameTextBox.Text != MiddleNameTextBlock.Text;
         ClearButton.IsEnabled = true;
     }
 
@@ -63,6 +65,7 @@ public partial class AuthorsEditor : Window
         FirstNameTextBlock.Text = string.Empty;
         LastNameTextBox.Text = string.Empty;
         FirstNameTextBox.Text = string.Empty;
+        MiddleNameTextBox.Text = string.Empty;
     }
 
     /// <summary>
@@ -73,8 +76,10 @@ public partial class AuthorsEditor : Window
         EditedAuthor = (Author)AuthorsListBox.SelectedItem;
         LastNameTextBlock.Text = EditedAuthor.LastName;
         FirstNameTextBlock.Text = EditedAuthor.FirstName;
+        MiddleNameTextBlock.Text = EditedAuthor.MiddleName;
         LastNameTextBox.Text = EditedAuthor.LastName;
         FirstNameTextBox.Text = EditedAuthor.FirstName;
+        MiddleNameTextBox.Text = EditedAuthor.MiddleName;
     }
 
     private void AuthorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -120,13 +125,20 @@ public partial class AuthorsEditor : Window
 
     private void FirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
 
+    private void MiddleNameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
+
     private void ClearButton_Click(object sender, RoutedEventArgs e) => ClearEditor();
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         if (EditedAuthor == null)
         {
-            var author = new Author() { FirstName = FirstNameTextBox.Text, LastName = LastNameTextBox.Text };
+            var author = new Author()
+            {
+                FirstName = FirstNameTextBox.Text,
+                LastName = LastNameTextBox.Text,
+                MiddleName = MiddleNameTextBox.Text
+            };
             author.AuthorId = Db.InsertAuthor(author);
             if (author.AuthorId < 1)
             {
@@ -139,6 +151,7 @@ public partial class AuthorsEditor : Window
         {
             EditedAuthor.FirstName = FirstNameTextBox.Text;
             EditedAuthor.LastName = LastNameTextBox.Text;
+            EditedAuthor.MiddleName = MiddleNameTextBox.Text;
             if (!Db.UpdateAuthor(EditedAuthor))
             {
                 MessageBox.Show("Не удалось изменить данные автора.", "Ошибка");
@@ -152,9 +165,10 @@ public partial class AuthorsEditor : Window
                     continue;
                 author.FirstName = EditedAuthor.FirstName;
                 author.LastName = EditedAuthor.LastName;
+                author.MiddleName = EditedAuthor.MiddleName;
             }
         }
-        Authors.Sort(x => x.LastName, StringComparer.CurrentCultureIgnoreCase);
+        Authors.Sort(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase);
         ClearEditor();
         HasChanges = true;
     }

@@ -43,7 +43,7 @@
                      SelectionChanged="AuthorsListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding NameLastFirst}" ToolTip="{Binding NameLastFirst}" />
+                        <TextBlock Text="{Binding NameLastFirstMiddle}" ToolTip="{Binding NameLastFirstMiddle}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -72,6 +72,7 @@
                         <StackPanel Background="AliceBlue" Margin="0,4,0,0">
                             <TextBlock x:Name="LastNameTextBlock" />
                             <TextBlock x:Name="FirstNameTextBlock" />
+                            <TextBlock x:Name="MiddleNameTextBlock" />
                         </StackPanel>
                     </GroupBox>
                     <TextBlock Text="Фамилия" Margin="0,10,0,0" />
@@ -80,6 +81,9 @@
                     <TextBlock Text="Имя" Margin="0,4,0,0" />
                     <TextBox x:Name="FirstNameTextBox" Margin="0,4,0,0"
                              TextChanged="FirstNameTextBox_TextChanged" />
+                    <TextBlock Text="Отчество" Margin="0,4,0,0" />
+                    <TextBox x:Name="MiddleNameTextBox" Margin="0,4,0,0"
+                             TextChanged="MiddleNameTextBox_TextChanged" />
                     <Grid Margin="0,20,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
