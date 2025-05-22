@@ -63,9 +63,11 @@ public partial class AuthorsEditor : Window
         EditedAuthor = null;
         LastNameTextBlock.Text = string.Empty;
         FirstNameTextBlock.Text = string.Empty;
+        MiddleNameTextBlock.Text = string.Empty;
         LastNameTextBox.Text = string.Empty;
         FirstNameTextBox.Text = string.Empty;
         MiddleNameTextBox.Text = string.Empty;
+        AboutTextBox.Text = string.Empty;
     }
 
     /// <summary>
@@ -80,6 +82,7 @@ public partial class AuthorsEditor : Window
         LastNameTextBox.Text = EditedAuthor.LastName;
         FirstNameTextBox.Text = EditedAuthor.FirstName;
         MiddleNameTextBox.Text = EditedAuthor.MiddleName;
+        AboutTextBox.Text = EditedAuthor.About;
     }
 
     private void AuthorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -126,6 +129,11 @@ public partial class AuthorsEditor : Window
     private void FirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
 
     private void MiddleNameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
+
+    private void AboutTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
 
     private void ClearButton_Click(object sender, RoutedEventArgs e) => ClearEditor();
 

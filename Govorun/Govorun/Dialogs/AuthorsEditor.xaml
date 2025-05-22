@@ -62,12 +62,66 @@
 
         <!-- Редактор автора -->
         <Grid Grid.Row="0" Grid.Column="2">
-            <Grid.RowDefinitions>
+            <!--<Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
-            </Grid.RowDefinitions>
+            </Grid.RowDefinitions>-->
             <GroupBox Grid.Row="0" Header="Редактор автора">
-                <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <GroupBox Header="Редактируется" Margin="0,4,0,0">
+                            <StackPanel Background="AliceBlue" Margin="0,4,0,0">
+                                <TextBlock x:Name="LastNameTextBlock" />
+                                <TextBlock x:Name="FirstNameTextBlock" />
+                                <TextBlock x:Name="MiddleNameTextBlock" />
+                            </StackPanel>
+                        </GroupBox>
+                        <TextBlock Text="Фамилия" Margin="0,10,0,0" />
+                        <TextBox x:Name="LastNameTextBox" Margin="0,4,0,0"
+                             TextChanged="LastNameTextBox_TextChanged" />
+                        <TextBlock Text="Имя" Margin="0,4,0,0" />
+                        <TextBox x:Name="FirstNameTextBox" Margin="0,4,0,0"
+                             TextChanged="FirstNameTextBox_TextChanged" />
+                        <TextBlock Text="Отчество" Margin="0,4,0,0" />
+                        <TextBox x:Name="MiddleNameTextBox" Margin="0,4,0,0"
+                             TextChanged="MiddleNameTextBox_TextChanged" />
+                    </StackPanel>
+                    <Grid Grid.Row="1" Margin="0,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                            <!--<RowDefinition Height="Auto" />-->
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Об авторе" Margin="0,4,0,0" />
+                        <TextBox Grid.Row="1" x:Name="AboutTextBox" Margin="0,4,0,0"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Auto"
+                                 TextChanged="AboutTextBox_TextChanged" />
+                    </Grid>
+                    <Grid Grid.Row="2" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" x:Name="ClearButton" Content="Очистить"
+                                Style="{StaticResource ButtonStyle}"
+                                IsEnabled="False"
+                                HorizontalAlignment="Left"
+                                Click="ClearButton_Click" />
+                        <Button Grid.Column="1" x:Name="SaveButton" Content="Сохранить"
+                                Style="{StaticResource ButtonStyle}"
+                                IsEnabled="False"
+                                HorizontalAlignment="Right"
+                                Click="SaveButton_Click" />
+                    </Grid>
+                </Grid>
+                <!--<StackPanel>
                     <GroupBox Header="Редактируется" Margin="0,4,0,0">
                         <StackPanel Background="AliceBlue" Margin="0,4,0,0">
                             <TextBlock x:Name="LastNameTextBlock" />
@@ -100,7 +154,7 @@
                                 HorizontalAlignment="Right"
                                 Click="SaveButton_Click" />
                     </Grid>
-                </StackPanel>
+                </StackPanel>-->
             </GroupBox>
         </Grid>
 
