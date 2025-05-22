@@ -154,7 +154,8 @@ public partial class AuthorsEditor : Window
             {
                 FirstName = FirstNameTextBox.Text,
                 LastName = LastNameTextBox.Text,
-                MiddleName = MiddleNameTextBox.Text
+                MiddleName = MiddleNameTextBox.Text,
+                About = AboutTextBox.Text
             };
             author.AuthorId = Db.InsertAuthor(author);
             if (author.AuthorId < 1)
@@ -169,6 +170,7 @@ public partial class AuthorsEditor : Window
             EditedAuthor.FirstName = FirstNameTextBox.Text;
             EditedAuthor.LastName = LastNameTextBox.Text;
             EditedAuthor.MiddleName = MiddleNameTextBox.Text;
+            EditedAuthor.About = AboutTextBox.Text;
             if (!Db.UpdateAuthor(EditedAuthor))
             {
                 MessageBox.Show("Не удалось изменить данные автора.", "Ошибка");
@@ -183,6 +185,7 @@ public partial class AuthorsEditor : Window
                 author.FirstName = EditedAuthor.FirstName;
                 author.LastName = EditedAuthor.LastName;
                 author.MiddleName = EditedAuthor.MiddleName;
+                author.About = EditedAuthor.About;
             }
         }
         Authors.Sort(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase);
