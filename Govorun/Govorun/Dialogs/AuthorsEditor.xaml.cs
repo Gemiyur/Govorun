@@ -79,6 +79,7 @@ public partial class AuthorsEditor : Window
         FirstNameTextBox.Text = string.Empty;
         MiddleNameTextBox.Text = string.Empty;
         AboutTextBox.Text = string.Empty;
+        ClearButton.Content = "Очистить";
     }
 
     /// <summary>
@@ -94,6 +95,7 @@ public partial class AuthorsEditor : Window
         FirstNameTextBox.Text = EditedAuthor.FirstName;
         MiddleNameTextBox.Text = EditedAuthor.MiddleName;
         AboutTextBox.Text = EditedAuthor.About;
+        ClearButton.Content = "Отмена";
     }
 
     private void AuthorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
