@@ -45,7 +45,6 @@ public partial class AuthorsEditor : Window
             string.IsNullOrWhiteSpace(LastNameTextBox.Text) &&
             string.IsNullOrWhiteSpace(FirstNameTextBox.Text) &&
             string.IsNullOrWhiteSpace(MiddleNameTextBox.Text);
-
         if (EditedAuthor != null)
         {
             ClearButton.IsEnabled = true;
@@ -55,10 +54,10 @@ public partial class AuthorsEditor : Window
                 return;
             }
             SaveButton.IsEnabled =
-                LastNameTextBox.Text != EditedAuthor.LastName || 
-                FirstNameTextBox.Text != EditedAuthor.FirstName ||
-                MiddleNameTextBox.Text != EditedAuthor.MiddleName ||
-                AboutTextBox.Text != EditedAuthor.About;
+                LastNameTextBox.Text.Trim() != EditedAuthor.LastName || 
+                FirstNameTextBox.Text.Trim() != EditedAuthor.FirstName ||
+                MiddleNameTextBox.Text.Trim() != EditedAuthor.MiddleName ||
+                AboutTextBox.Text.Trim() != EditedAuthor.About;
         }
         else
         {
@@ -152,10 +151,10 @@ public partial class AuthorsEditor : Window
         {
             var author = new Author()
             {
-                FirstName = FirstNameTextBox.Text,
-                LastName = LastNameTextBox.Text,
-                MiddleName = MiddleNameTextBox.Text,
-                About = AboutTextBox.Text
+                FirstName = FirstNameTextBox.Text.Trim(),
+                LastName = LastNameTextBox.Text.Trim(),
+                MiddleName = MiddleNameTextBox.Text.Trim(),
+                About = AboutTextBox.Text.Trim()
             };
             author.AuthorId = Db.InsertAuthor(author);
             if (author.AuthorId < 1)
@@ -167,10 +166,10 @@ public partial class AuthorsEditor : Window
         }
         else
         {
-            EditedAuthor.FirstName = FirstNameTextBox.Text;
-            EditedAuthor.LastName = LastNameTextBox.Text;
-            EditedAuthor.MiddleName = MiddleNameTextBox.Text;
-            EditedAuthor.About = AboutTextBox.Text;
+            EditedAuthor.FirstName = FirstNameTextBox.Text.Trim();
+            EditedAuthor.LastName = LastNameTextBox.Text.Trim();
+            EditedAuthor.MiddleName = MiddleNameTextBox.Text.Trim();
+            EditedAuthor.About = AboutTextBox.Text.Trim();
             if (!Db.UpdateAuthor(EditedAuthor))
             {
                 MessageBox.Show("Не удалось изменить данные автора.", "Ошибка");
