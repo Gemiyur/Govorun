@@ -41,18 +41,30 @@ public partial class AuthorsEditor : Window
     /// </summary>
     private void CheckEditorButtons()
     {
-        if (!LastNameTextBox.Text.Any() && !FirstNameTextBox.Text.Any() && !MiddleNameTextBox.Text.Any())
+        var authorNameEmpty =
+            string.IsNullOrWhiteSpace(LastNameTextBox.Text) &&
+            string.IsNullOrWhiteSpace(FirstNameTextBox.Text) &&
+            string.IsNullOrWhiteSpace(MiddleNameTextBox.Text);
+
+        if (EditedAuthor != null)
         {
-            SaveButton.IsEnabled = false;
-            if (EditedAuthor == null)
-                ClearButton.IsEnabled = false;
-            return;
+            ClearButton.IsEnabled = true;
+            if (authorNameEmpty)
+            {
+                SaveButton.IsEnabled = false;
+                return;
+            }
+            SaveButton.IsEnabled =
+                LastNameTextBox.Text != EditedAuthor.LastName || 
+                FirstNameTextBox.Text != EditedAuthor.FirstName ||
+                MiddleNameTextBox.Text != EditedAuthor.MiddleName ||
+                AboutTextBox.Text != EditedAuthor.About;
         }
-        SaveButton.IsEnabled =
-            LastNameTextBox.Text != LastNameTextBlock.Text ||
-            FirstNameTextBox.Text != FirstNameTextBlock.Text ||
-            MiddleNameTextBox.Text != MiddleNameTextBlock.Text;
-        ClearButton.IsEnabled = true;
+        else
+        {
+            SaveButton.IsEnabled = !authorNameEmpty;
+            ClearButton.IsEnabled = !authorNameEmpty || !string.IsNullOrWhiteSpace(AboutTextBox.Text);
+        }
     }
 
     /// <summary>
@@ -130,10 +142,7 @@ public partial class AuthorsEditor : Window
 
     private void MiddleNameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
 
-    private void AboutTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-
-    }
+    private void AboutTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
 
     private void ClearButton_Click(object sender, RoutedEventArgs e) => ClearEditor();
 

@@ -62,10 +62,6 @@
 
         <!-- Редактор автора -->
         <Grid Grid.Row="0" Grid.Column="2">
-            <!--<Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>-->
             <GroupBox Grid.Row="0" Header="Редактор автора">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -95,7 +91,6 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition />
-                            <!--<RowDefinition Height="Auto" />-->
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Text="Об авторе" Margin="0,4,0,0" />
                         <TextBox Grid.Row="1" x:Name="AboutTextBox" Margin="0,4,0,0"
