@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Выбор авторов"
-        Width="300" Height="500" ResizeMode="NoResize"
+        Width="350" Height="500" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -31,7 +31,7 @@
                  SelectionChanged="AuthorsListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding NameLastFirst}" ToolTip="{Binding NameLastFirstMiddle}" />
+                    <TextBlock Text="{Binding NameLastFirstMiddle}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
@@ -40,12 +40,10 @@
             <Button x:Name="PickButton" Content="Выбрать"
                     IsEnabled="False"
                     Style="{StaticResource ButtonStyle}"
-                    IsDefault="True"
                     Margin="0,0,10,0"
                     Click="PickButton_Click" />
             <Button x:Name="CancelButton" Content="Отмена"
                     Style="{StaticResource ButtonStyle}"
-                    IsCancel="True"
                     Click="CancelButton_Click" />
         </StackPanel>
     </Grid>
