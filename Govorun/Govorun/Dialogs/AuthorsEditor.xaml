@@ -51,7 +51,7 @@
                      SelectionChanged="AuthorsListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding NameLastFirstMiddle}" ToolTip="{Binding NameLastFirstMiddle}" />
+                        <TextBlock Text="{Binding NameLastFirstMiddle}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -148,7 +148,6 @@
         <Button Grid.Row="2" Grid.Column="2"
                 x:Name="CloseButton" Content="Закрыть"
                 Style="{StaticResource ButtonStyle}"
-                IsCancel="True"
                 HorizontalAlignment="Right"
                 Click="CloseButton_Click" />
     </Grid>
