@@ -82,6 +82,10 @@ public partial class AuthorsEditor : Window
         ClearButton.Content = "Очистить";
     }
 
+    /// <summary>
+    /// Возвращает результат запроса на сохранение данных автора.
+    /// </summary>
+    /// <returns>Сохранять ли данные автора.</returns>
     private bool ConfirmSaveAuthor()
     {
         const string message = "Автор в редакторе был изменён.\nСохранить изменения?";
@@ -113,6 +117,10 @@ public partial class AuthorsEditor : Window
         ClearButton.Content = "Отмена";
     }
 
+    /// <summary>
+    /// Сохраняет данные автора и возвращает удалось ли сохранить данные. 
+    /// </summary>
+    /// <returns>Удалось ли сохранить данные автора.</returns>
     private bool SaveAuthor()
     {
         if (EditedAuthor == null)
