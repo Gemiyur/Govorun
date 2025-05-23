@@ -43,7 +43,6 @@
             <Button x:Name="CloseButton" Content="Закрыть"
                     HorizontalAlignment="Right"
                     Style="{StaticResource ButtonStyle}"
-                    IsCancel="True"
                     Click="CloseButton_Click" />
         </Grid>
     </Grid>
