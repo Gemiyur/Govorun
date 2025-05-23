@@ -114,17 +114,16 @@ public partial class AuthorsEditor : Window
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        const string caption = "Подтверждение удаления";
         const string message = "Автор будет так же удалён из всех книг.\nУдалить автора?";
         var author = (Author)AuthorsListBox.SelectedItem;
         var books = Books.GetAuthorBooks(author.AuthorId);
-        if (books.Any() && MessageBox.Show(message, caption, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+        if (books.Any() && MessageBox.Show(message, Title, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
         {
             return;
         }
         if (!Db.DeleteAuthor(author.AuthorId))
         {
-            MessageBox.Show("Не удалось удалить автора.", "Ошибка");
+            MessageBox.Show("Не удалось удалить автора.", Title);
             return;
         }
         if (EditedAuthor == author)
@@ -161,7 +160,7 @@ public partial class AuthorsEditor : Window
             author.AuthorId = Db.InsertAuthor(author);
             if (author.AuthorId < 1)
             {
-                MessageBox.Show("Не удалось добавить автора.", "Ошибка");
+                MessageBox.Show("Не удалось добавить автора.", Title);
                 return;
             }
             Authors.Add(author);
@@ -174,7 +173,7 @@ public partial class AuthorsEditor : Window
             EditedAuthor.About = AboutTextBox.Text.Trim();
             if (!Db.UpdateAuthor(EditedAuthor))
             {
-                MessageBox.Show("Не удалось изменить данные автора.", "Ошибка");
+                MessageBox.Show("Не удалось изменить данные автора.", Title);
                 return;
             }
             var books = Books.GetAuthorBooks(EditedAuthor.AuthorId);
