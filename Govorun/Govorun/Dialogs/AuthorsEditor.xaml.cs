@@ -82,11 +82,26 @@ public partial class AuthorsEditor : Window
         ClearButton.Content = "Очистить";
     }
 
+    private bool ConfirmSaveAuthor()
+    {
+        const string message = "Автор в редакторе был изменён.\nСохранить изменения?";
+        return MessageBox.Show(message, Title, MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+    }
+
     /// <summary>
     /// Загружает данные текущего автора в редактор автора.
     /// </summary>
     private void EditAuthor()
     {
+        if (SaveButton.IsEnabled && ConfirmSaveAuthor())
+        {
+            var selectedItem = AuthorsListBox.SelectedItem;
+            if (SaveAuthor())
+            {
+                Authors.Sort(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase);
+                AuthorsListBox.SelectedItem = selectedItem;
+            }
+        }
         EditedAuthor = (Author)AuthorsListBox.SelectedItem;
         LastNameTextBlock.Text = EditedAuthor.LastName;
         FirstNameTextBlock.Text = EditedAuthor.FirstName;
@@ -96,6 +111,52 @@ public partial class AuthorsEditor : Window
         MiddleNameTextBox.Text = EditedAuthor.MiddleName;
         AboutTextBox.Text = EditedAuthor.About;
         ClearButton.Content = "Отмена";
+    }
+
+    private bool SaveAuthor()
+    {
+        if (EditedAuthor == null)
+        {
+            var author = new Author()
+            {
+                FirstName = FirstNameTextBox.Text.Trim(),
+                LastName = LastNameTextBox.Text.Trim(),
+                MiddleName = MiddleNameTextBox.Text.Trim(),
+                About = AboutTextBox.Text.Trim()
+            };
+            author.AuthorId = Db.InsertAuthor(author);
+            if (author.AuthorId < 1)
+            {
+                MessageBox.Show("Не удалось добавить автора.", Title);
+                return false;
+            }
+            Authors.Add(author);
+        }
+        else
+        {
+            EditedAuthor.FirstName = FirstNameTextBox.Text.Trim();
+            EditedAuthor.LastName = LastNameTextBox.Text.Trim();
+            EditedAuthor.MiddleName = MiddleNameTextBox.Text.Trim();
+            EditedAuthor.About = AboutTextBox.Text.Trim();
+            if (!Db.UpdateAuthor(EditedAuthor))
+            {
+                MessageBox.Show("Не удалось изменить данные автора.", Title);
+                return false;
+            }
+            var books = Books.GetAuthorBooks(EditedAuthor.AuthorId);
+            foreach (var book in books)
+            {
+                var author = book.Authors.Find(x => x.AuthorId == EditedAuthor.AuthorId);
+                if (author == null)
+                    continue;
+                author.FirstName = EditedAuthor.FirstName;
+                author.LastName = EditedAuthor.LastName;
+                author.MiddleName = EditedAuthor.MiddleName;
+                author.About = EditedAuthor.About;
+            }
+        }
+        HasChanges = true;
+        return true;
     }
 
     private void AuthorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -148,50 +209,14 @@ public partial class AuthorsEditor : Window
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        if (EditedAuthor == null)
-        {
-            var author = new Author()
-            {
-                FirstName = FirstNameTextBox.Text.Trim(),
-                LastName = LastNameTextBox.Text.Trim(),
-                MiddleName = MiddleNameTextBox.Text.Trim(),
-                About = AboutTextBox.Text.Trim()
-            };
-            author.AuthorId = Db.InsertAuthor(author);
-            if (author.AuthorId < 1)
-            {
-                MessageBox.Show("Не удалось добавить автора.", Title);
-                return;
-            }
-            Authors.Add(author);
-        }
-        else
-        {
-            EditedAuthor.FirstName = FirstNameTextBox.Text.Trim();
-            EditedAuthor.LastName = LastNameTextBox.Text.Trim();
-            EditedAuthor.MiddleName = MiddleNameTextBox.Text.Trim();
-            EditedAuthor.About = AboutTextBox.Text.Trim();
-            if (!Db.UpdateAuthor(EditedAuthor))
-            {
-                MessageBox.Show("Не удалось изменить данные автора.", Title);
-                return;
-            }
-            var books = Books.GetAuthorBooks(EditedAuthor.AuthorId);
-            foreach (var book in books)
-            {
-                var author = book.Authors.Find(x => x.AuthorId == EditedAuthor.AuthorId);
-                if (author == null)
-                    continue;
-                author.FirstName = EditedAuthor.FirstName;
-                author.LastName = EditedAuthor.LastName;
-                author.MiddleName = EditedAuthor.MiddleName;
-                author.About = EditedAuthor.About;
-            }
-        }
-        Authors.Sort(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase);
+        SaveAuthor();
         ClearEditor();
-        HasChanges = true;
     }
 
-    private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (SaveButton.IsEnabled && ConfirmSaveAuthor())
+            SaveAuthor();
+        Close();
+    }
 }
