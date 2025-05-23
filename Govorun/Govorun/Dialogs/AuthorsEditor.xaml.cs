@@ -167,6 +167,12 @@ public partial class AuthorsEditor : Window
         return true;
     }
 
+    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        if (SaveButton.IsEnabled && ConfirmSaveAuthor())
+            SaveAuthor();
+    }
+
     private void AuthorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         if (e.OriginalSource is TextBlock && AuthorsListBox.SelectedItem != null)
@@ -221,10 +227,5 @@ public partial class AuthorsEditor : Window
         ClearEditor();
     }
 
-    private void CloseButton_Click(object sender, RoutedEventArgs e)
-    {
-        if (SaveButton.IsEnabled && ConfirmSaveAuthor())
-            SaveAuthor();
-        Close();
-    }
+    private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
 }
