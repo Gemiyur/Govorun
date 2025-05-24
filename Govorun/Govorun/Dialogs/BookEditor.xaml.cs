@@ -119,7 +119,7 @@ public partial class BookEditor : Window
         SortAuthors();
         UpdateAuthorsSource();
         LectorTextBox.Text = book.Lector;
-        CommentTextBox.Text = book.Annotation;
+        AnnotationTextBox.Text = book.Annotation;
     }
 
     /// <summary>
@@ -178,10 +178,10 @@ public partial class BookEditor : Window
             book.Lector = LectorTextBox.Text;
             changed = true;
         }
-        // Комментарий.
-        if (book.Annotation != CommentTextBox.Text)
+        // Аннотация.
+        if (book.Annotation != AnnotationTextBox.Text)
         {
-            book.Annotation = CommentTextBox.Text;
+            book.Annotation = AnnotationTextBox.Text;
             changed = true;
         }
         // Имя файла.

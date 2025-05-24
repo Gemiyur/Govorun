@@ -157,9 +157,9 @@
                             Margin="10,0,0,0" Click="PickLectorButton_Click" />
                 </Grid>
             </GroupBox>
-            <!-- Комментарий -->
-            <GroupBox Grid.Row="4" Header="Комментарий" Margin="0,10,0,0">
-                <TextBox x:Name="CommentTextBox"
+            <!-- Аннотация -->
+            <GroupBox Grid.Row="4" Header="Аннотация" Margin="0,10,0,0">
+                <TextBox x:Name="AnnotationTextBox"
                          AcceptsReturn="True"
                          TextWrapping="Wrap"
                          VerticalScrollBarVisibility="Auto"
