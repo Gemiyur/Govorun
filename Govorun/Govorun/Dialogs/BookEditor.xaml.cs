@@ -90,12 +90,13 @@ public partial class BookEditor : Window
     /// <summary>
     /// Устанавливает доступность кнопки добавления нового автора.
     /// </summary>
-    private void CheckAddNewAuthorButton()
+    private void CheckNewAuthorButtons()
     {
         AddNewAuthorButton.IsEnabled =
             !string.IsNullOrWhiteSpace(NewAuthorLastNameTextBox.Text) ||
             !string.IsNullOrWhiteSpace(NewAuthorFirstNameTextBox.Text) ||
             !string.IsNullOrWhiteSpace(NewAuthorMiddleNameTextBox.Text);
+        ClearNewAuthorButton.IsEnabled = AddNewAuthorButton.IsEnabled;
     }
 
     /// <summary>
@@ -258,17 +259,17 @@ public partial class BookEditor : Window
 
     private void NewAuthorLastNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
-        CheckAddNewAuthorButton();
+        CheckNewAuthorButtons();
     }
 
     private void NewAuthorFirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
-        CheckAddNewAuthorButton();
+        CheckNewAuthorButtons();
     }
 
     private void NewAuthorMiddleNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
-        CheckAddNewAuthorButton();
+        CheckNewAuthorButtons();
     }
 
     private void AddNewAuthorButton_Click(object sender, RoutedEventArgs e)
@@ -310,6 +311,11 @@ public partial class BookEditor : Window
         }
         SortAuthors();
         UpdateAuthorsSource();
+        ClearNewAuthor();
+    }
+
+    private void ClearNewAuthorButton_Click(object sender, RoutedEventArgs e)
+    {
         ClearNewAuthor();
     }
 
