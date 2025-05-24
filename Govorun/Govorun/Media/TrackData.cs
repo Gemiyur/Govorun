@@ -3,7 +3,7 @@
 namespace Govorun.Media;
 
 /// <summary>
-/// Класс данных книги из тега файла книги.
+/// Класс данных трека файла книги.
 /// </summary>
 public class TrackData
 {

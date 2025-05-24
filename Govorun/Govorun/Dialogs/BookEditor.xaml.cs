@@ -66,7 +66,7 @@ public partial class BookEditor : Window
     /// Инициализирует новый экземпляр класса.
     /// </summary>
     /// <param name="book">Книга.</param>
-    /// <param name="trackData">Данные книги из тега файла книги.</param>
+    /// <param name="trackData">Данные трека файла книги.</param>
     /// <exception cref="ArgumentException"></exception>
     public BookEditor(Book book, TrackData? trackData)
     {
@@ -81,10 +81,10 @@ public partial class BookEditor : Window
         this.trackData = trackData;
         filename = book.FileName;
         FileNotFoundTextBlock.Visibility = book.FileExists ? Visibility.Collapsed : Visibility.Visible;
-        LoadTagButton.IsEnabled = book.FileExists && trackData == null;
+        LoadTrackButton.IsEnabled = book.FileExists && trackData == null;
         FileButton.IsEnabled = !book.FileExists;
         LoadBook();
-        LoadTag();
+        LoadTrack();
     }
 
     /// <summary>
@@ -123,16 +123,16 @@ public partial class BookEditor : Window
     }
 
     /// <summary>
-    /// Загружает данные из тега файла книги в редактор.
+    /// Загружает данные трека файла книги в редактор.
     /// </summary>
-    private void LoadTag()
+    private void LoadTrack()
     {
         if (trackData == null)
             return;
-        TagTitleTextBox.Text = trackData.Title;
-        TagAuthorTextBox.Text = trackData.Author;
-        TagAlbumTitleTextBox.Text = trackData.AlbumTitle;
-        TagAlbumAuthorTextBox.Text = trackData.AlbumAuthor;
+        TrackTitleTextBox.Text = trackData.Title;
+        TrackAuthorTextBox.Text = trackData.Author;
+        TrackAlbumTitleTextBox.Text = trackData.AlbumTitle;
+        TrackAlbumAuthorTextBox.Text = trackData.AlbumAuthor;
         var comments = trackData.Comment;
         if (!comments.Any())
             comments = trackData.Description;
@@ -142,7 +142,7 @@ public partial class BookEditor : Window
             comments = trackData.Lyrics;
         else if (trackData.Lyrics.Any())
             comments = comments + "\r\n" + trackData.Lyrics;
-        TagCommentsTextBox.Text = comments;
+        TrackCommentsTextBox.Text = comments;
     }
 
     /// <summary>
@@ -327,20 +327,20 @@ public partial class BookEditor : Window
         LectorTextBox.Text = picker.PickedLector;
     }
 
-    private void LoadTagButton_Click(object sender, RoutedEventArgs e)
+    private void LoadTrackButton_Click(object sender, RoutedEventArgs e)
     {
         // Так сделано на случай если после загрузки книги в редактор файл книги был удалён или переименован.
         if (File.Exists(filename))
         {
             trackData = new TrackData(filename);
-            LoadTag();
+            LoadTrack();
         }
         else
         {
             FileNotFoundTextBlock.Visibility = Visibility.Visible;
             FileButton.IsEnabled = true;
         }
-        LoadTagButton.IsEnabled = false;
+        LoadTrackButton.IsEnabled = false;
     }
 
     private void FileButton_Click(object sender, RoutedEventArgs e)
@@ -350,7 +350,7 @@ public partial class BookEditor : Window
             return;
         filename = dialog.FileName;
         FileNotFoundTextBlock.Visibility = Visibility.Collapsed;
-        LoadTagButton.IsEnabled = true;
+        LoadTrackButton.IsEnabled = true;
         FileButton.IsEnabled = false;
     }
 
