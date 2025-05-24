@@ -133,15 +133,24 @@ public partial class BookEditor : Window
         TrackAuthorTextBox.Text = trackData.Author;
         TrackCycleTitleTextBox.Text = trackData.CycleTitle;
         TrackCyclePartNumberTextBox.Text = trackData.CyclePartNumber.ToString();
+
         var comments = trackData.Comment;
+
         if (!comments.Any())
             comments = trackData.Description;
         else if (trackData.Description.Any())
             comments = comments + "\r\n" + trackData.Description;
+
+        if (!comments.Any())
+            comments = trackData.LongDescription;
+        else if (trackData.LongDescription.Any())
+            comments = comments + "\r\n" + trackData.LongDescription;
+
         if (!comments.Any())
             comments = trackData.Lyrics;
         else if (trackData.Lyrics.Any())
             comments = comments + "\r\n" + trackData.Lyrics;
+
         TrackCommentsTextBox.Text = comments;
     }
 
