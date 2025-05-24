@@ -131,8 +131,8 @@ public partial class BookEditor : Window
             return;
         TrackTitleTextBox.Text = trackData.Title;
         TrackAuthorTextBox.Text = trackData.Author;
-        TrackAlbumTitleTextBox.Text = trackData.AlbumTitle;
-        TrackAlbumAuthorTextBox.Text = trackData.AlbumAuthor;
+        TrackCycleTitleTextBox.Text = trackData.CycleTitle;
+        TrackCyclePartNumberTextBox.Text = trackData.CyclePartNumber.ToString();
         var comments = trackData.Comment;
         if (!comments.Any())
             comments = trackData.Description;

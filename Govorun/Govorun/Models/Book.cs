@@ -124,7 +124,7 @@ public class Book : BaseModel
     }
 
     /// <summary>
-    /// Список частей (номеров) книги в циклах книг.
+    /// Список номеров книги в сериях книг.
     /// </summary>
     public List<CyclePart> CycleParts { get; set; } = [];
 

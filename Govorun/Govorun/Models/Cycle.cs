@@ -1,19 +1,19 @@
 ﻿namespace Govorun.Models;
 
 /// <summary>
-/// Класс цикла (серии) книг.
+/// Класс серии книг.
 /// </summary>
 public class Cycle : BaseModel
 {
     /// <summary>
-    /// Идентификатор цикла книг.
+    /// Идентификатор серии книг.
     /// </summary>
     public int CycleId { get; set; }
 
     private string title = string.Empty;
 
     /// <summary>
-    /// Название цикла книг.
+    /// Название серии книг.
     /// </summary>
     public string Title
     {
@@ -28,7 +28,7 @@ public class Cycle : BaseModel
     private string annotation = string.Empty;
 
     /// <summary>
-    /// Аннотация к циклу книг.
+    /// Аннотация к серии книг.
     /// </summary>
     public string Annotation
     {

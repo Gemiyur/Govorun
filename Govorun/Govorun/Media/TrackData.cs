@@ -18,16 +18,6 @@ public class TrackData
     public string Author;
 
     /// <summary>
-    /// Название альбома.
-    /// </summary>
-    public string AlbumTitle;
-
-    /// <summary>
-    /// Автор альбома.
-    /// </summary>
-    public string AlbumAuthor;
-
-    /// <summary>
     /// Комментарий к книге.
     /// </summary>
     public string Comment;
@@ -49,15 +39,13 @@ public class TrackData
     public string Lyrics;
 
     /// <summary>
-    /// Название цикла книг.
+    /// Название серии книг.
     /// </summary>
-    /// <remarks>Пока не используется и будет ли использоваться - вопрос.</remarks>
     public string CycleTitle;
 
     /// <summary>
-    /// Номер книги в цикле книг.
+    /// Номер книги в серии книг.
     /// </summary>
-    /// <remarks>Пока не используется и будет ли использоваться - вопрос.</remarks>
     public int CyclePartNumber;
 
     /// <summary>
@@ -84,8 +72,6 @@ public class TrackData
         var track = new Track(filename);
         Title = track.Title;
         Author = track.Artist;
-        AlbumTitle = track.Album;
-        AlbumAuthor = track.AlbumArtist;
         Comment = track.Comment;
         Description = track.Description;
         LongDescription = track.LongDescription;

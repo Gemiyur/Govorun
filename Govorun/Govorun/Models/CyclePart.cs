@@ -3,14 +3,14 @@
 namespace Govorun.Models;
 
 /// <summary>
-/// Класс части (номера книги) в цикле (серии) с книг.
+/// Класс номера книги в серии книг.
 /// </summary>
 public class CyclePart : BaseModel
 {
     private Cycle? cycle;
 
     /// <summary>
-    /// Цикл книг.
+    /// Серия книг.
     /// </summary>
     [BsonRef("Cycles")]
     public Cycle? Cycle
@@ -26,7 +26,7 @@ public class CyclePart : BaseModel
     private int number;
 
     /// <summary>
-    /// Номер книги в цикле книг.
+    /// Номер книги в серии книг.
     /// </summary>
     public int Number
     {
