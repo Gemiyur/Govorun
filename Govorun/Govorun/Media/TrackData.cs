@@ -46,7 +46,7 @@ public class TrackData
     /// <summary>
     /// Номер книги в серии книг.
     /// </summary>
-    public int CyclePartNumber;
+    public string CyclePart;
 
     /// <summary>
     /// Продолжительность воспроизведения книги.
@@ -77,7 +77,7 @@ public class TrackData
         LongDescription = track.LongDescription;
         Lyrics = track.Lyrics.UnsynchronizedLyrics;
         CycleTitle = track.SeriesTitle;
-        CyclePartNumber = int.TryParse(track.SeriesPart, out int cyclePartNumber) ? cyclePartNumber : 0;
+        CyclePart = track.SeriesPart;
         Duration = TimeSpan.FromSeconds(track.Duration);
         foreach (var chapter in track.Chapters)
         {

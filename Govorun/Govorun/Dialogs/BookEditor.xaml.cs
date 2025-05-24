@@ -132,7 +132,7 @@ public partial class BookEditor : Window
         TrackTitleTextBox.Text = trackData.Title;
         TrackAuthorTextBox.Text = trackData.Author;
         TrackCycleTitleTextBox.Text = trackData.CycleTitle;
-        TrackCyclePartNumberTextBox.Text = trackData.CyclePartNumber.ToString();
+        TrackCyclePartTextBox.Text = trackData.CyclePart;
 
         var comments = trackData.Comment;
 
