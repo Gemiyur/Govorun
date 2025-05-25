@@ -188,8 +188,8 @@ public static class Db
     public static bool DeleteCycle(int cycleId, LiteDatabase db)
     {
         var booksCollection = GetBooksCollection(db);
-        if (booksCollection.Exists(x => x.CycleParts.Exists(p => p.Cycle != null && p.Cycle.CycleId == cycleId)))
-            return false;
+        //if (booksCollection.Exists(x => x.CycleParts.Exists(p => p.Cycle != null && p.Cycle.CycleId == cycleId)))
+        //    return false;
         return GetCyclesCollection(db).Delete(cycleId);
     }
 

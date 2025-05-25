@@ -123,10 +123,44 @@ public class Book : BaseModel
         }
     }
 
+    private Cycle? cycle;
+
     /// <summary>
-    /// Список номеров книги в сериях книг.
+    /// Серия книг.
     /// </summary>
-    public List<CyclePart> CycleParts { get; set; } = [];
+    [BsonRef("Cycles")]
+    public Cycle? Cycle
+    {
+        get => cycle;
+        set
+        {
+            cycle = value;
+            OnPropertyChanged("Cycle");
+        }
+    }
+
+    private int cycleNumber;
+
+    /// <summary>
+    /// Номер книги в серии книг.
+    /// </summary>
+    public int CycleNumber
+    {
+        get => cycleNumber;
+        set
+        {
+            cycleNumber = value;
+            OnPropertyChanged("CycleNumber");
+            OnPropertyChanged("CyclePart");
+        }
+    }
+
+    /// <summary>
+    /// Возвращает номер книги в серии книг в виде строки.
+    /// </summary>
+    /// <remarks>Для нуля возвращает пустую строку.</remarks>
+    [BsonIgnore]
+    public string CyclePart => CycleNumber != 0 ? CycleNumber.ToString() : "";
 
     private string lector = string.Empty;
 
@@ -161,6 +195,7 @@ public class Book : BaseModel
     /// <summary>
     /// Теги книги.
     /// </summary>
+    [BsonRef("Tags")]
     public List<Tag> Tags { get; set; } = [];
 
     private string filename = string.Empty;
