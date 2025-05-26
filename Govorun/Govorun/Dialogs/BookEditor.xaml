@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Книга"
-        Width="750" Height="600" ResizeMode="NoResize"
+        Width="750" Height="650" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -176,6 +176,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <!-- Файл книги не найден -->
@@ -197,28 +198,33 @@
                         HorizontalAlignment="Right" VerticalAlignment="Center"
                         Click="LoadTrackButton_Click" />
             </Grid>
+            <!-- Файл -->
+            <GroupBox Grid.Row="2" Header="Файл" Margin="0,10,0,0">
+                <TextBox x:Name="TrackFileTextBox"
+                         Style="{StaticResource TrackTextBoxStyle}" />
+            </GroupBox>
             <!-- Название (Title) -->
-            <GroupBox Grid.Row="2" Header="Название" Margin="0,10,0,0">
+            <GroupBox Grid.Row="3" Header="Название" Margin="0,10,0,0">
                 <TextBox x:Name="TrackTitleTextBox"
                          Style="{StaticResource TrackTextBoxStyle}" />
             </GroupBox>
             <!-- Автор (Artist) -->
-            <GroupBox Grid.Row="3" Header="Автор" Margin="0,10,0,0">
+            <GroupBox Grid.Row="4" Header="Автор" Margin="0,10,0,0">
                 <TextBox x:Name="TrackAuthorTextBox"
                          Style="{StaticResource TrackTextBoxStyle}" />
             </GroupBox>
             <!-- Название серии книг (SeriesTitle) -->
-            <GroupBox Grid.Row="4" Header="Название серии" Margin="0,10,0,0">
+            <GroupBox Grid.Row="5" Header="Название серии" Margin="0,10,0,0">
                 <TextBox x:Name="TrackCycleTitleTextBox"
                          Style="{StaticResource TrackTextBoxStyle}" />
             </GroupBox>
-            <!-- Номер книги в серии книг. (SeriesPart) -->
-            <GroupBox Grid.Row="5" Header="Номер книги в серии" Margin="0,10,0,0">
+            <!-- Номер книги в серии книг (SeriesPart) -->
+            <GroupBox Grid.Row="6" Header="Номер книги в серии" Margin="0,10,0,0">
                 <TextBox x:Name="TrackCyclePartTextBox"
                          Style="{StaticResource TrackTextBoxStyle}" />
             </GroupBox>
             <!-- Комментарии (Comment, Description, Lyrics) -->
-            <GroupBox Grid.Row="6" Header="Комментарии" Margin="0,10,0,0">
+            <GroupBox Grid.Row="7" Header="Комментарии" Margin="0,10,0,0">
                 <TextBox x:Name="TrackCommentsTextBox"
                          VerticalScrollBarVisibility="Auto"
                          Style="{StaticResource TrackTextBoxStyle}" />

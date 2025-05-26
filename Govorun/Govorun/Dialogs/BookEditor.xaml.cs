@@ -129,6 +129,7 @@ public partial class BookEditor : Window
     {
         if (trackData == null)
             return;
+        TrackFileTextBox.Text = trackData.FileName;
         TrackTitleTextBox.Text = trackData.Title;
         TrackAuthorTextBox.Text = trackData.Author;
         TrackCycleTitleTextBox.Text = trackData.CycleTitle;

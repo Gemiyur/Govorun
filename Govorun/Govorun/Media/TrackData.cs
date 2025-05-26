@@ -8,6 +8,11 @@ namespace Govorun.Media;
 public class TrackData
 {
     /// <summary>
+    /// Имя файла с полным путём.
+    /// </summary>
+    public string FileName;
+
+    /// <summary>
     /// Название книги.
     /// </summary>
     public string Title;
@@ -70,6 +75,7 @@ public class TrackData
     public TrackData(string filename)
     {
         var track = new Track(filename);
+        FileName = filename;
         Title = track.Title;
         Author = track.Artist;
         Comment = track.Comment;
