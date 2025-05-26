@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun"
         mc:Ignorable="d"
         Title="О программе"
-        Height="250" Width="450" ResizeMode="NoResize"
+        Height="230" Width="450" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
