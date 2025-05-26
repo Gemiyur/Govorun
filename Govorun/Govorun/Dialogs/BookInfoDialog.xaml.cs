@@ -16,7 +16,7 @@ public partial class BookInfoDialog : Window
         TitleTextBlock.Text = book.Title;
         LectorTextBlock.Text = book.Lector;
         DurationTextBlock.Text = book.DurationText;
-        CommentTextBox.Text = book.Annotation;
+        AnnotationTextBox.Text = book.Annotation;
         FileTextBox.Text = book.FileName;
     }
 

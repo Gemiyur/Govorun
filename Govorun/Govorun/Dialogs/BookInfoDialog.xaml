@@ -60,9 +60,9 @@
             </StackPanel>
         </Grid>
 
-        <!-- Комментарий -->
-        <GroupBox Grid.Row="3" Header="Комментарий" Margin="0,10,0,0">
-            <TextBox x:Name="CommentTextBox"
+        <!-- Аннотация -->
+        <GroupBox Grid.Row="3" Header="Аннотация" Margin="0,10,0,0">
+            <TextBox x:Name="AnnotationTextBox"
                      TextWrapping="Wrap"
                      VerticalScrollBarVisibility="Auto"
                      Style="{StaticResource TextBoxStyle}" />
