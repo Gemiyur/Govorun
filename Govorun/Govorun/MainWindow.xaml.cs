@@ -13,6 +13,8 @@ namespace Govorun;
 
 #region Задачи (TODO).
 
+// TODO: Нужна ли возможность удаления нескольких выбранных книг?
+
 #endregion
 
 /// <summary>

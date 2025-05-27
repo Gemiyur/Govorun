@@ -5,9 +5,7 @@ namespace Govorun.Tools;
 
 #region Задачи (TODO).
 
-// TODO: Нужно ли сортировать книги, авторов, циклы и теги при получении их из базы данных?
 // TODO: Сделать каскадное удаление (параметр) авторов, циклов и тегов или достаточно вернуть false?
-// TODO: Сделать для методов удаления (если без каскада) авторов, циклов и жанров выходной параметр сообщения?
 
 #endregion
 
@@ -45,7 +43,11 @@ public static class Db
     }
 
     public static Book GetBook(int bookId, LiteDatabase db) =>
-        GetBooksCollection(db).Include(x => x.Authors).FindById(bookId);
+        GetBooksCollection(db)
+            .Include(x => x.Authors)
+            .Include(x => x.Cycle)
+            .Include(x => x.Tags)
+            .FindById(bookId);
 
     public static List<Book> GetBooks()
     {
@@ -56,6 +58,8 @@ public static class Db
     public static List<Book> GetBooks(LiteDatabase db) =>
         GetBooksCollection(db)
             .Include(x => x.Authors)
+            .Include(x => x.Cycle)
+            .Include(x => x.Tags)
             .FindAll()
             .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
             .ToList();
@@ -79,6 +83,8 @@ public static class Db
         using var db = GetDatabase();
         return GetBooksCollection(db).Delete(book.BookId);
     }
+
+    // TODO: Нужен ли метод удаления списка книг? Зависит от возможности удалять несколько книг в приложении.
 
     public static void DeleteBooks(IEnumerable<Book> books)
     {
@@ -125,7 +131,8 @@ public static class Db
     public static List<Author> GetAuthors(LiteDatabase db) =>
         GetAuthorsCollection(db)
             .FindAll()
-            .OrderBy(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase).ToList();
+            .OrderBy(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase)
+            .ToList();
 
     public static int InsertAuthor(Author author)
     {
@@ -141,7 +148,13 @@ public static class Db
         return DeleteAuthor(authorId, db);
     }
 
-    public static bool DeleteAuthor(int authorId, LiteDatabase db) => GetAuthorsCollection(db).Delete(authorId);
+    public static bool DeleteAuthor(int authorId, LiteDatabase db)
+    {
+        var booksCollection = GetBooksCollection(db);
+        if (booksCollection.Exists(x => x.Authors.Exists(a => a.AuthorId == authorId)))
+            return false;
+        return GetAuthorsCollection(db).Delete(authorId);
+    }
 
     public static bool UpdateAuthor(Author author)
     {
@@ -169,7 +182,11 @@ public static class Db
         return GetCycles(db);
     }
 
-    public static List<Cycle> GetCycles(LiteDatabase db) => GetCyclesCollection(db).FindAll().ToList();
+    public static List<Cycle> GetCycles(LiteDatabase db) =>
+        GetCyclesCollection(db)
+            .FindAll()
+            .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
+            .ToList();
 
     public static int InsertCycle(Cycle cycle)
     {
@@ -188,8 +205,8 @@ public static class Db
     public static bool DeleteCycle(int cycleId, LiteDatabase db)
     {
         var booksCollection = GetBooksCollection(db);
-        //if (booksCollection.Exists(x => x.CycleParts.Exists(p => p.Cycle != null && p.Cycle.CycleId == cycleId)))
-        //    return false;
+        if (booksCollection.Exists(x => x.Cycle != null && x.Cycle.CycleId == cycleId))
+            return false;
         return GetCyclesCollection(db).Delete(cycleId);
     }
 
@@ -219,7 +236,11 @@ public static class Db
         return GetTags(db);
     }
 
-    public static List<Tag> GetTags(LiteDatabase db) => GetTagsCollection(db).FindAll().ToList();
+    public static List<Tag> GetTags(LiteDatabase db) =>
+        GetTagsCollection(db)
+            .FindAll()
+            .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
+            .ToList();
 
     public static int InsertTag(Tag tag)
     {
