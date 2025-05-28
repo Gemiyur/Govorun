@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:Govorun"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="TextBoxReadOnlyBackgroundBrush" Color="AliceBlue" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

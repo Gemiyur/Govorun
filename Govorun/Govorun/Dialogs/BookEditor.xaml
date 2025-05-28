@@ -41,7 +41,7 @@
                 <Setter Property="IsReadOnly" Value="True" />
                 <Setter Property="IsReadOnlyCaretVisible" Value="True" />
                 <Setter Property="Margin" Value="0,4,0,0" />
-                <Setter Property="Background" Value="AliceBlue" />
+                <Setter Property="Background" Value="{StaticResource TextBoxReadOnlyBackgroundBrush}" />
             </Style>
         </ResourceDictionary>
     </Window.Resources>
@@ -216,7 +216,7 @@
                                 <TextBox Grid.Row="0" Grid.Column="0" x:Name="CycleTextBox"
                                          IsReadOnly="True"
                                          IsReadOnlyCaretVisible="True"
-                                         Background="AliceBlue" />
+                                         Background="{StaticResource TextBoxReadOnlyBackgroundBrush}" />
                                 <Button Grid.Row="0" Grid.Column="1" x:Name="PickCycleButton" Content="Выбрать"
                                         Style="{StaticResource EditorButtonStyle}"
                                         Margin="10,0,0,0"
