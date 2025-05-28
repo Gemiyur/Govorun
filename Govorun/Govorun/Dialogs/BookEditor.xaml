@@ -176,7 +176,7 @@
                         </Grid.RowDefinitions>
                         <!-- Читает -->
                         <GroupBox Grid.Row="0" Header="Читает" Style="{StaticResource EditorGroupBoxStyle}">
-                            <Grid Grid.Row="0" Margin="0,4,0,0">
+                            <Grid Margin="0,4,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
@@ -190,7 +190,7 @@
                         </GroupBox>
                         <!-- Перевод -->
                         <GroupBox Grid.Row="1" Header="Перевод" Style="{StaticResource EditorGroupBoxStyle}">
-                            <Grid Grid.Row="0" Margin="0,4,0,0">
+                            <Grid Margin="0,4,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
@@ -200,6 +200,31 @@
                                         Style="{StaticResource EditorButtonStyle}"
                                         Margin="10,0,0,0"
                                         Click="PickTranslatorButton_Click" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Row="2" Header="Серия" Style="{StaticResource EditorGroupBoxStyle}">
+                            <Grid Margin="0,4,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition Height="10" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Row="0" Grid.Column="0" x:Name="CycleTextBox" />
+                                <Button Grid.Row="0" Grid.Column="1" x:Name="PickCycleButton" Content="Выбрать"
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        Margin="10,0,0,0"
+                                        Click="PickCycleButton_Click" />
+                                <StackPanel  Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+                                    <TextBlock Text="Номер в серии" />
+                                    <TextBox Width="50" Margin="8,0,0,0" />
+                                </StackPanel>
+                                <Button Grid.Row="2" Grid.Column="2" x:Name="RemoveCycleButton" Content="Удалить"
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        Margin="10,0,0,0" Click="RemoveCycleButton_Click" />
                             </Grid>
                         </GroupBox>
                     </Grid>
