@@ -402,4 +402,9 @@ public partial class BookEditor : Window
     }
 
     #endregion
+
+    private void PickTranslatorButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
 }

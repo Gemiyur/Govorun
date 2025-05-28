@@ -20,6 +20,9 @@
                 <Setter Property="Width" Value="75" />
                 <Setter Property="Height" Value="20" />
             </Style>
+            <Style x:Key="EditorGroupBoxStyle" TargetType="GroupBox">
+                <Setter Property="Margin" Value="0,10,0,0" />
+            </Style>
             <Style x:Key="NewAuthorButtonStyle" BasedOn="{StaticResource EditorButtonStyle}" TargetType="Button">
                 <Setter Property="Margin" Value="10,10,0,0" />
             </Style>
@@ -29,6 +32,9 @@
             </Style>
             <Style x:Key="NewAuthorNameTextBoxStyle" TargetType="TextBox">
                 <Setter Property="Margin" Value="0,10,0,0" />
+            </Style>
+            <Style x:Key="TrackGroupBoxStyle" TargetType="GroupBox">
+                <Setter Property="Margin" Value="0,4,0,0" />
             </Style>
             <Style x:Key="TrackTextBoxStyle" TargetType="TextBox">
                 <Setter Property="TextWrapping" Value="Wrap" />
@@ -68,15 +74,14 @@
             <!-- Вкладки редактора -->
             <TabControl Grid.Row="1">
                 <TabItem Header="Основное">
-                    <Grid Grid.Row="0" Grid.Column="0">
+                    <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <!-- Авторы -->
-                        <GroupBox Grid.Row="0" Header="Авторы" Margin="0,10,0,0">
+                        <GroupBox Grid.Row="0" Header="Авторы" Style="{StaticResource EditorGroupBoxStyle}">
                             <Grid Margin="0,4,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
@@ -113,7 +118,7 @@
                             </Grid>
                         </GroupBox>
                         <!-- Новый автор -->
-                        <GroupBox Grid.Row="1" Header="Новый автор" Margin="0,10,0,0">
+                        <GroupBox Grid.Row="1" Header="Новый автор" Style="{StaticResource EditorGroupBoxStyle}">
                             <Grid Margin="0,4,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
@@ -150,9 +155,28 @@
                                         Click="ClearNewAuthorButton_Click" />
                             </Grid>
                         </GroupBox>
+                        <!-- Аннотация -->
+                        <GroupBox Grid.Row="2" Header="Аннотация" Style="{StaticResource EditorGroupBoxStyle}">
+                            <TextBox x:Name="AnnotationTextBox"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     Margin="0,4,0,0" />
+                        </GroupBox>
+                    </Grid>
+                </TabItem>
+                
+                <TabItem Header="Дополнительно">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
                         <!-- Читает -->
-                        <GroupBox Grid.Row="2" Header="Читает" Margin="0,10,0,0">
-                            <Grid Grid.Row="3" Margin="0,4,0,0">
+                        <GroupBox Grid.Row="0" Header="Читает" Style="{StaticResource EditorGroupBoxStyle}">
+                            <Grid Grid.Row="0" Margin="0,4,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
@@ -164,17 +188,28 @@
                                         Click="PickLectorButton_Click" />
                             </Grid>
                         </GroupBox>
-                        <!-- Аннотация -->
-                        <GroupBox Grid.Row="3" Header="Аннотация" Margin="0,10,0,0">
-                            <TextBox x:Name="AnnotationTextBox"
-                                     AcceptsReturn="True"
-                                     TextWrapping="Wrap"
-                                     VerticalScrollBarVisibility="Auto"
-                                     Margin="0,4,0,0" />
+                        <!-- Перевод -->
+                        <GroupBox Grid.Row="1" Header="Перевод" Style="{StaticResource EditorGroupBoxStyle}">
+                            <Grid Grid.Row="0" Margin="0,4,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" x:Name="TranslatorTextBox" />
+                                <Button Grid.Column="1" x:Name="PickTranslatorButton" Content="Выбрать"
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        Margin="10,0,0,0"
+                                        Click="PickTranslatorButton_Click" />
+                            </Grid>
                         </GroupBox>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Дополнительно">
+                
+                <TabItem Header="Обложка">
+
+                </TabItem>
+                
+                <TabItem Header="Теги">
 
                 </TabItem>
             </TabControl>
@@ -212,32 +247,32 @@
                         Click="LoadTrackButton_Click" />
             </Grid>
             <!-- Файл -->
-            <GroupBox Grid.Row="2" Header="Файл" Margin="0,10,0,0">
+            <GroupBox Grid.Row="2" Header="Файл" Style="{StaticResource TrackGroupBoxStyle}">
                 <TextBox x:Name="TrackFileTextBox"
                          Style="{StaticResource TrackTextBoxStyle}" />
             </GroupBox>
             <!-- Название (Title) -->
-            <GroupBox Grid.Row="3" Header="Название" Margin="0,10,0,0">
+            <GroupBox Grid.Row="3" Header="Название" Style="{StaticResource TrackGroupBoxStyle}">
                 <TextBox x:Name="TrackTitleTextBox"
                          Style="{StaticResource TrackTextBoxStyle}" />
             </GroupBox>
             <!-- Автор (Artist) -->
-            <GroupBox Grid.Row="4" Header="Автор" Margin="0,10,0,0">
+            <GroupBox Grid.Row="4" Header="Автор" Style="{StaticResource TrackGroupBoxStyle}">
                 <TextBox x:Name="TrackAuthorTextBox"
                          Style="{StaticResource TrackTextBoxStyle}" />
             </GroupBox>
             <!-- Название серии книг (SeriesTitle) -->
-            <GroupBox Grid.Row="5" Header="Название серии" Margin="0,10,0,0">
+            <GroupBox Grid.Row="5" Header="Название серии" Style="{StaticResource TrackGroupBoxStyle}">
                 <TextBox x:Name="TrackCycleTitleTextBox"
                          Style="{StaticResource TrackTextBoxStyle}" />
             </GroupBox>
             <!-- Номер книги в серии книг (SeriesPart) -->
-            <GroupBox Grid.Row="6" Header="Номер книги в серии" Margin="0,10,0,0">
+            <GroupBox Grid.Row="6" Header="Номер книги в серии" Style="{StaticResource TrackGroupBoxStyle}">
                 <TextBox x:Name="TrackCyclePartTextBox"
                          Style="{StaticResource TrackTextBoxStyle}" />
             </GroupBox>
             <!-- Комментарии (Comment, Description, Lyrics) -->
-            <GroupBox Grid.Row="7" Header="Комментарии" Margin="0,10,0,0">
+            <GroupBox Grid.Row="7" Header="Комментарии" Style="{StaticResource TrackGroupBoxStyle}">
                 <TextBox x:Name="TrackCommentsTextBox"
                          VerticalScrollBarVisibility="Auto"
                          Style="{StaticResource TrackTextBoxStyle}" />
