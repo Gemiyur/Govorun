@@ -155,14 +155,6 @@
                                         Click="ClearNewAuthorButton_Click" />
                             </Grid>
                         </GroupBox>
-                        <!-- Аннотация -->
-                        <GroupBox Grid.Row="2" Header="Аннотация" Style="{StaticResource EditorGroupBoxStyle}">
-                            <TextBox x:Name="AnnotationTextBox"
-                                     AcceptsReturn="True"
-                                     TextWrapping="Wrap"
-                                     VerticalScrollBarVisibility="Auto"
-                                     Margin="0,4,0,0" />
-                        </GroupBox>
                     </Grid>
                 </TabItem>
                 
@@ -265,7 +257,18 @@
                         </GroupBox>
                     </Grid>
                 </TabItem>
-                
+
+                <TabItem Header="Аннотация">
+                    <GroupBox Grid.Row="2" Header="Аннотация" Style="{StaticResource EditorGroupBoxStyle}">
+                        <TextBox x:Name="AnnotationTextBox"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     Margin="0,4,0,0" />
+                    </GroupBox>
+
+                </TabItem>
+
                 <TabItem Header="Обложка">
 
                 </TabItem>
