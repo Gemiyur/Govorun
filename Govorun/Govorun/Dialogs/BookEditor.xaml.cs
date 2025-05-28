@@ -10,6 +10,8 @@ namespace Govorun.Dialogs;
 
 #region Задачи (TODO).
 
+// TODO: Подумать над названием вкладки "Дополнительно". Может "Другое" или ещё как.
+
 #endregion
 
 /// <summary>
