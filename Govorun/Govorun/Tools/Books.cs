@@ -23,6 +23,16 @@ public static class Books
                 .ToList();
 
     /// <summary>
+    /// Возвращает список всех переводчиков.
+    /// </summary>
+    public static List<string> Translators =>
+        AllBooks.Select(x => x.Translator)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Distinct()
+                .Order(StringComparer.CurrentCultureIgnoreCase)
+                .ToList();
+
+    /// <summary>
     /// Статический конструктор.
     /// </summary>
     static Books()

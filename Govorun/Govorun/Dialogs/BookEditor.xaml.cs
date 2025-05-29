@@ -123,8 +123,9 @@ public partial class BookEditor : Window
         authors.AddRange(book.Authors);
         SortAuthors();
         UpdateAuthorsSource();
-        LectorTextBox.Text = book.Lector;
         AnnotationTextBox.Text = book.Annotation;
+        LectorTextBox.Text = book.Lector;
+        TranslatorTextBox.Text = book.Translator;
     }
 
     /// <summary>
@@ -187,18 +188,26 @@ public partial class BookEditor : Window
             changed = true;
             AuthorsChanged = true;
         }
-        // Чтец.
-        if (book.Lector != LectorTextBox.Text)
-        {
-            book.Lector = LectorTextBox.Text;
-            changed = true;
-        }
         // Аннотация.
         if (book.Annotation != AnnotationTextBox.Text)
         {
             book.Annotation = AnnotationTextBox.Text;
             changed = true;
         }
+        // Чтец.
+        if (book.Lector != LectorTextBox.Text)
+        {
+            book.Lector = LectorTextBox.Text;
+            changed = true;
+        }
+
+        // Переводчик.
+        if (book.Translator != TranslatorTextBox.Text)
+        {
+            book.Translator = TranslatorTextBox.Text;
+            changed = true;
+        }
+
         // Имя файла.
         if (book.FileName != filename)
         {
@@ -353,6 +362,14 @@ public partial class BookEditor : Window
         LectorTextBox.Text = picker.PickedLector;
     }
 
+    private void PickTranslatorButton_Click(object sender, RoutedEventArgs e)
+    {
+        var picker = new TranslatorPicker() { Owner = this };
+        if (picker.ShowDialog() != true)
+            return;
+        TranslatorTextBox.Text = picker.PickedTranslator;
+    }
+
     private void LoadTrackButton_Click(object sender, RoutedEventArgs e)
     {
         // Так сделано на случай если после загрузки книги в редактор файл книги был удалён или переименован.
@@ -418,11 +435,6 @@ public partial class BookEditor : Window
     }
 
     #endregion
-
-    private void PickTranslatorButton_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
 
     private void PickCycleButton_Click(object sender, RoutedEventArgs e)
     {
