@@ -24,19 +24,4 @@ public class Cycle : BaseModel
             OnPropertyChanged("Title");
         }
     }
-
-    private string annotation = string.Empty;
-
-    /// <summary>
-    /// Аннотация к серии книг.
-    /// </summary>
-    public string Annotation
-    {
-        get => annotation;
-        set
-        {
-            annotation = value ?? string.Empty;
-            OnPropertyChanged("Annotation");
-        }
-    }
 }
