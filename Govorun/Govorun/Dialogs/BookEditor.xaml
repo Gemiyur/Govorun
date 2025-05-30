@@ -172,7 +172,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
-                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <!-- Читает -->
                         <GroupBox Grid.Row="0" Header="Читает" Style="{StaticResource EditorGroupBoxStyle}">
@@ -237,7 +237,6 @@
                                     <RowDefinition Height="10" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
@@ -255,12 +254,6 @@
                                 <Button Grid.Row="2" Grid.Column="2" x:Name="ClearNewCycleButton" Content="Очистить"
                                         Style="{StaticResource EditorButtonStyle}"
                                         Margin="10,0,0,0" Click="ClearNewCycleButton_Click" />
-                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Аннотация к серии" Margin="0,10,0,0" />
-                                <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="CycleAnnotationTextBox"
-                                         AcceptsReturn="True"
-                                         TextWrapping="Wrap"
-                                         VerticalScrollBarVisibility="Auto"
-                                         Margin="0,4,0,0" />
                             </Grid>
                         </GroupBox>
                     </Grid>
