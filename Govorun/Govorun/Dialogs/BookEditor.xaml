@@ -158,7 +158,7 @@
                                          AcceptsReturn="True"
                                          TextWrapping="Wrap"
                                          VerticalScrollBarVisibility="Auto"
-                                         Margin="0,4,0,0" TextChanged="NewAuthorAboutTextBox_TextChanged" />
+                                         Margin="0,4,0,0" />
                             </Grid>
                         </GroupBox>
                     </Grid>

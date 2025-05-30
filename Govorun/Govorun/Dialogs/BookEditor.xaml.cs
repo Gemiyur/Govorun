@@ -98,9 +98,7 @@ public partial class BookEditor : Window
             !string.IsNullOrWhiteSpace(NewAuthorLastNameTextBox.Text) ||
             !string.IsNullOrWhiteSpace(NewAuthorFirstNameTextBox.Text) ||
             !string.IsNullOrWhiteSpace(NewAuthorMiddleNameTextBox.Text);
-        ClearNewAuthorButton.IsEnabled =
-            AddNewAuthorButton.IsEnabled ||
-            !string.IsNullOrWhiteSpace(NewAuthorAboutTextBox.Text); 
+        ClearNewAuthorButton.IsEnabled = AddNewAuthorButton.IsEnabled;
     }
 
     /// <summary>
@@ -111,7 +109,6 @@ public partial class BookEditor : Window
         NewAuthorLastNameTextBox.Text = string.Empty;
         NewAuthorFirstNameTextBox.Text = string.Empty;
         NewAuthorMiddleNameTextBox.Text = string.Empty;
-        NewAuthorAboutTextBox.Text = string.Empty;
     }
 
     /// <summary>
@@ -296,11 +293,6 @@ public partial class BookEditor : Window
         CheckNewAuthorButtons();
     }
 
-    private void NewAuthorAboutTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        CheckNewAuthorButtons();
-    }
-
     private void AddNewAuthorButton_Click(object sender, RoutedEventArgs e)
     {
         var lastName = NewAuthorLastNameTextBox.Text.Trim();
@@ -335,13 +327,7 @@ public partial class BookEditor : Window
             }
             else
             {
-                authors.Add(new Author()
-                {
-                    LastName = lastName,
-                    FirstName = firstName,
-                    MiddleName = middleName,
-                    About = NewAuthorAboutTextBox.Text
-                });
+                authors.Add(new Author() { LastName = lastName, FirstName = firstName, MiddleName = middleName});
             }
         }
         SortAuthors();
