@@ -120,6 +120,7 @@ public partial class BookEditor : Window
         authors.AddRange(book.Authors);
         SortAuthors();
         UpdateAuthorsSource();
+        FileNameTextBox.Text = book.FileName;
         AnnotationTextBox.Text = book.Annotation;
         LectorTextBox.Text = book.Lector;
         TranslatorTextBox.Text = book.Translator;
@@ -132,7 +133,6 @@ public partial class BookEditor : Window
     {
         if (trackData == null)
             return;
-        TrackFileTextBox.Text = trackData.FileName;
         TrackTitleTextBox.Text = trackData.Title;
         TrackAuthorTextBox.Text = trackData.Author;
         TrackCycleTitleTextBox.Text = trackData.CycleTitle;
