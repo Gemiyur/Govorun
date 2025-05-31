@@ -37,20 +37,15 @@ public static class Books
     /// </summary>
     public static List<string> Tags
     {
-        // TODO: Надо подумать как лучше собирать все теги.
         get
         {
             var allTags = new List<string>();
             foreach (var book in AllBooks)
             {
-                allTags.AddRange(book.Tags.FindAll(x => !string.IsNullOrWhiteSpace(x) && !allTags.Contains(x)).Distinct());
+                allTags.AddRange(book.Tags.FindAll(x => !string.IsNullOrWhiteSpace(x) && !allTags.Contains(x)));
             }
 
-            return allTags.Select(x => x)
-                //.Where(x => !string.IsNullOrWhiteSpace(t))
-                .Distinct()
-                .Order(StringComparer.CurrentCultureIgnoreCase)
-                .ToList();
+            return allTags.Distinct().Order(StringComparer.CurrentCultureIgnoreCase).ToList();
         }
     }
 

@@ -65,6 +65,11 @@ public partial class BookEditor : Window
     private readonly List<Author> allAuthors = Db.GetAuthors();
 
     /// <summary>
+    /// Список тегов книги.
+    /// </summary>
+    private readonly List<string> tags = new List<string>();
+
+    /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
     /// <param name="book">Книга.</param>
@@ -124,6 +129,9 @@ public partial class BookEditor : Window
         AnnotationTextBox.Text = book.Annotation;
         LectorTextBox.Text = book.Lector;
         TranslatorTextBox.Text = book.Translator;
+        tags.AddRange(book.Tags);
+        SortTags();
+        UpdateTagsSource();
     }
 
     /// <summary>
@@ -205,6 +213,16 @@ public partial class BookEditor : Window
             changed = true;
         }
 
+        // Теги.
+        if (tags.Count != book.Tags.Count ||
+            tags.Any(x => book.Tags.Exists(t => t != x)) ||
+            book.Tags.Any(x => tags.Exists(t => t != x)))
+        {
+            book.Tags.Clear();
+            book.Tags.AddRange(tags);
+            changed = true;
+        }
+
         // Имя файла.
         if (book.FileName != filename)
         {
@@ -242,12 +260,26 @@ public partial class BookEditor : Window
     private void SortAuthors() => authors.Sort(new StringKeyComparer(x => ((Author)x).NameLastFirstMiddle));
 
     /// <summary>
+    /// Сортирует список тегов книги в алфавитном порядке.
+    /// </summary>
+    private void SortTags() => tags.Sort(StringComparer.CurrentCultureIgnoreCase);
+
+    /// <summary>
     /// Обновляет источник элементов списка авторов книги.
     /// </summary>
     private void UpdateAuthorsSource()
     {
         AuthorsListBox.ItemsSource = null;
         AuthorsListBox.ItemsSource = authors;
+    }
+
+    /// <summary>
+    /// Обновляет источник элементов списка тегов книги.
+    /// </summary>
+    private void UpdateTagsSource()
+    {
+        TagsListBox.ItemsSource = null;
+        TagsListBox.ItemsSource = tags;
     }
 
     #region Обработчики событий элементов управления.
@@ -356,6 +388,46 @@ public partial class BookEditor : Window
         TranslatorTextBox.Text = picker.PickedTranslator;
     }
 
+    private void TagsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        RemoveTagsButton.IsEnabled = TagsListBox.SelectedItems.Count > 0;
+    }
+
+    private void PickTagsButton_Click(object sender, RoutedEventArgs e)
+    {
+        var picker = new TagsPicker() { Owner = this };
+        if (picker.ShowDialog() != true)
+            return;
+        tags.AddRange(picker.PickedTags.Where(x => !tags.Exists(t => t == x)));
+        SortTags();
+        UpdateTagsSource();
+    }
+
+    private void RemoveTagsButton_Click(object sender, RoutedEventArgs e)
+    {
+        tags.RemoveAll(TagsListBox.SelectedItems.Contains);
+        UpdateTagsSource();
+    }
+
+    private void NewTagTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        AddNewTagButton.IsEnabled = !string.IsNullOrWhiteSpace(NewTagTextBox.Text);
+    }
+
+    private void AddNewTagButton_Click(object sender, RoutedEventArgs e)
+    {
+        var tag = NewTagTextBox.Text.Trim();
+        if (tags.Contains(tag))
+        {
+            NewTagTextBox.Text = string.Empty;
+            return;
+        }
+        tags.Add(tag);
+        SortTags();
+        UpdateTagsSource();
+        NewTagTextBox.Text = string.Empty;
+    }
+
     private void LoadTrackButton_Click(object sender, RoutedEventArgs e)
     {
         // Так сделано на случай если после загрузки книги в редактор файл книги был удалён или переименован.
@@ -438,33 +510,6 @@ public partial class BookEditor : Window
     }
 
     private void ClearNewCycleButton_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
-    private void TagsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-    }
-
-    private void PickTagsButton_Click(object sender, RoutedEventArgs e)
-    {
-        var picker = new TagsPicker() { Owner = this };
-        if (picker.ShowDialog() != true)
-            return;
-    }
-
-    private void RemoveTagsButton_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
-    private void NewTagTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-
-    }
-
-    private void AddNewTagButton_Click(object sender, RoutedEventArgs e)
     {
 
     }

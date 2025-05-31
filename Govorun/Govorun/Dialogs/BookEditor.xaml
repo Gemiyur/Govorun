@@ -317,6 +317,7 @@
                                              TextChanged="NewTagTextBox_TextChanged" />
                                     <Button Grid.Column="1" x:Name="AddNewTagButton" Content="Добавить"
                                             Style="{StaticResource EditorButtonStyle}"
+                                            IsEnabled="False"
                                             Click="AddNewTagButton_Click" />
                                 </Grid>
                             </Grid>
