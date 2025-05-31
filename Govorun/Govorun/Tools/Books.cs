@@ -33,6 +33,28 @@ public static class Books
                 .ToList();
 
     /// <summary>
+    /// Возвращает список всех тегов.
+    /// </summary>
+    public static List<string> Tags
+    {
+        // TODO: Надо подумать как лучше собирать все теги.
+        get
+        {
+            var allTags = new List<string>();
+            foreach (var book in AllBooks)
+            {
+                allTags.AddRange(book.Tags.FindAll(x => !string.IsNullOrWhiteSpace(x) && !allTags.Contains(x)).Distinct());
+            }
+
+            return allTags.Select(x => x)
+                //.Where(x => !string.IsNullOrWhiteSpace(t))
+                .Distinct()
+                .Order(StringComparer.CurrentCultureIgnoreCase)
+                .ToList();
+        }
+    }
+
+    /// <summary>
     /// Статический конструктор.
     /// </summary>
     static Books()

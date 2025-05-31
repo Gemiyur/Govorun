@@ -449,7 +449,9 @@ public partial class BookEditor : Window
 
     private void PickTagsButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var picker = new TagsPicker() { Owner = this };
+        if (picker.ShowDialog() != true)
+            return;
     }
 
     private void RemoveTagsButton_Click(object sender, RoutedEventArgs e)
