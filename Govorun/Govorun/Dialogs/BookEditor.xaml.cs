@@ -441,4 +441,29 @@ public partial class BookEditor : Window
     {
 
     }
+
+    private void TagsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
+
+    private void PickTagsButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void RemoveTagsButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void NewTagTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private void AddNewTagButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
 }
