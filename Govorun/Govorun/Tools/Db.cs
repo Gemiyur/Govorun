@@ -5,7 +5,7 @@ namespace Govorun.Tools;
 
 #region Задачи (TODO).
 
-// TODO: Сделать каскадное удаление (параметр) авторов, циклов и тегов или достаточно вернуть false?
+// TODO: Сделать каскадное удаление (параметр) авторов и циклов или достаточно вернуть false?
 
 #endregion
 
@@ -30,8 +30,6 @@ public static class Db
 
     public static ILiteCollection<Cycle> GetCyclesCollection(LiteDatabase db) => db.GetCollection<Cycle>("Cycles");
 
-    public static ILiteCollection<Tag> GetTagsCollection(LiteDatabase db) => db.GetCollection<Tag>("Tags");
-
     #endregion
 
     #region Книги.
@@ -46,7 +44,6 @@ public static class Db
         GetBooksCollection(db)
             .Include(x => x.Authors)
             .Include(x => x.Cycle)
-            .Include(x => x.Tags)
             .FindById(bookId);
 
     public static List<Book> GetBooks()
@@ -59,7 +56,6 @@ public static class Db
         GetBooksCollection(db)
             .Include(x => x.Authors)
             .Include(x => x.Cycle)
-            .Include(x => x.Tags)
             .FindAll()
             .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
             .ToList();
@@ -217,60 +213,6 @@ public static class Db
     }
 
     public static bool UpdateCycle(Cycle cycle, LiteDatabase db) => GetCyclesCollection(db).Update(cycle);
-
-    #endregion
-
-    #region Теги.
-
-    public static Tag GetTag(int tagId)
-    {
-        using var db = GetDatabase();
-        return GetTag(tagId, db);
-    }
-
-    public static Tag GetTag(int tagId, LiteDatabase db) => GetTagsCollection(db).FindById(tagId);
-
-    public static List<Tag> GetTags()
-    {
-        using var db = GetDatabase();
-        return GetTags(db);
-    }
-
-    public static List<Tag> GetTags(LiteDatabase db) =>
-        GetTagsCollection(db)
-            .FindAll()
-            .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
-            .ToList();
-
-    public static int InsertTag(Tag tag)
-    {
-        using var db = GetDatabase();
-        return InsertTag(tag, db);
-    }
-
-    public static int InsertTag(Tag tag, LiteDatabase db) => GetTagsCollection(db).Insert(tag);
-
-    public static bool DeleteTag(int tagId)
-    {
-        using var db = GetDatabase();
-        return DeleteTag(tagId, db);
-    }
-
-    public static bool DeleteTag(int tagId, LiteDatabase db)
-    {
-        var booksCollection = GetBooksCollection(db);
-        if (booksCollection.Exists(x => x.Tags.Exists(t => t.TagId == tagId)))
-            return false;
-        return GetTagsCollection(db).Delete(tagId);
-    }
-
-    public static bool UpdateTag(Tag tag)
-    {
-        using var db = GetDatabase();
-        return UpdateTag(tag, db);
-    }
-
-    public static bool UpdateTag(Tag tag, LiteDatabase db) => GetTagsCollection(db).Update(tag);
 
     #endregion
 }
