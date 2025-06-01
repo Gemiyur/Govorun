@@ -246,28 +246,15 @@
                         </GroupBox>
                         <GroupBox Grid.Row="1" Header="Новая серия" Style="{StaticResource EditorGroupBoxStyle}">
                             <Grid Margin="0,4,0,0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="10" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Row="0" Grid.Column="0" x:Name="NewCycleTextBox" />
-                                <Button Grid.Row="0" Grid.Column="1" x:Name="AddNewCycleButton" Content="Добавить"
+                                <TextBox Grid.Column="0" x:Name="NewCycleTextBox" />
+                                <Button Grid.Column="1" x:Name="AddNewCycleButton" Content="Добавить"
                                         Style="{StaticResource EditorButtonStyle}"
                                         Margin="10,0,0,0"
                                         Click="AddNewCycleButton_Click" />
-                                <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
-                                    <TextBlock Text="Номер в серии" VerticalAlignment="Center" />
-                                    <TextBox Width="50" Margin="8,0,0,0" VerticalAlignment="Center" TextAlignment="Center" />
-                                </StackPanel>
-                                <Button Grid.Row="2" Grid.Column="2" x:Name="ClearNewCycleButton" Content="Очистить"
-                                        Style="{StaticResource EditorButtonStyle}"
-                                        Margin="10,0,0,0" Click="ClearNewCycleButton_Click" />
                             </Grid>
                         </GroupBox>
                         <GroupBox Grid.Row="2" Header="Теги" Style="{StaticResource EditorGroupBoxStyle}">
