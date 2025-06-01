@@ -388,6 +388,9 @@ public partial class BookEditor : Window
 
     private void PickCycleButton_Click(object sender, RoutedEventArgs e)
     {
+        var picker = new CyclePicker() { Owner = this };
+        if (picker.ShowDialog() != true)
+            return;
 
     }
 
