@@ -119,8 +119,7 @@
                                          SelectionChanged="AuthorsListBox_SelectionChanged">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding NameLastFirstMiddle}"
-                                                       ToolTip="{Binding NameLastFirstMiddle}" />
+                                            <TextBlock Text="{Binding NameLastFirstMiddle}" />
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>

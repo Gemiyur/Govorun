@@ -10,8 +10,6 @@ namespace Govorun.Dialogs;
 
 #region Задачи (TODO).
 
-// TODO: Убрать всплывающую подсказку в списке авторов.
-
 #endregion
 
 /// <summary>
