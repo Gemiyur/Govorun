@@ -97,7 +97,7 @@
             </GroupBox>
             <!-- Вкладки редактора -->
             <TabControl Grid.Row="1" Margin="0,10,0,0">
-                <TabItem Header="Авторы">
+                <TabItem Header="Книга">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -210,17 +210,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Аннотация">
-                    <GroupBox Header="Аннотация" Style="{StaticResource EditorGroupBoxStyle}">
-                        <TextBox x:Name="AnnotationTextBox"
-                                     AcceptsReturn="True"
-                                     TextWrapping="Wrap"
-                                     VerticalScrollBarVisibility="Auto"
-                                     Margin="0,4,0,0" />
-                    </GroupBox>
-                </TabItem>
-
-                <TabItem Header="Дополнительно">
+                <TabItem Header="Серия и теги">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -323,6 +313,16 @@
                             </Grid>
                         </GroupBox>
                     </Grid>
+                </TabItem>
+
+                <TabItem Header="Аннотация">
+                    <GroupBox Header="Аннотация" Style="{StaticResource EditorGroupBoxStyle}">
+                        <TextBox x:Name="AnnotationTextBox"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     Margin="0,4,0,0" />
+                    </GroupBox>
                 </TabItem>
 
                 <TabItem Header="Обложка">

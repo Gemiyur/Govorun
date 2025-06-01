@@ -10,7 +10,7 @@ namespace Govorun.Dialogs;
 
 #region Задачи (TODO).
 
-// TODO: Подумать над названием вкладки "Дополнительно". Может "Другое" или ещё как.
+// TODO: Убрать всплывающую подсказку в списке авторов.
 
 #endregion
 
@@ -388,6 +388,26 @@ public partial class BookEditor : Window
         TranslatorTextBox.Text = picker.PickedTranslator;
     }
 
+    private void PickCycleButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void RemoveCycleButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void AddNewCycleButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void ClearNewCycleButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
     private void TagsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         RemoveTagsButton.IsEnabled = TagsListBox.SelectedItems.Count > 0;
@@ -493,24 +513,4 @@ public partial class BookEditor : Window
     }
 
     #endregion
-
-    private void PickCycleButton_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
-    private void RemoveCycleButton_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
-    private void AddNewCycleButton_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
-    private void ClearNewCycleButton_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
 }
