@@ -270,6 +270,7 @@
                                     </Grid.ColumnDefinitions>
                                     <ListBox Grid.Column="0" x:Name="TagsListBox"
                                              Margin="0,0,10,0"
+                                             SelectionMode="Extended"
                                              SelectionChanged="TagsListBox_SelectionChanged" />
                                     <StackPanel Grid.Column="1" Orientation="Vertical">
                                         <Button x:Name="PickTagsButton" Content="Выбрать"
@@ -280,6 +281,7 @@
                                                 Style="{StaticResource EditorButtonStyle}"
                                                 VerticalAlignment="Top"
                                                 Margin="0,10,0,0"
+                                                IsEnabled="False"
                                                 Click="RemoveTagsButton_Click" />
                                     </StackPanel>
                                 </Grid>
