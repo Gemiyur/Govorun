@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Globalization;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using Gemiyur.Comparers;
@@ -61,6 +63,13 @@ public partial class BookEditor : Window
     /// Список всех авторов в библиотеке.
     /// </summary>
     private readonly List<Author> allAuthors = Db.GetAuthors();
+
+    private Cycle? cycle;
+
+    /// <summary>
+    /// Список всех серий в библиотеке.
+    /// </summary>
+    private readonly List<Cycle> allCycles = Db.GetCycles();
 
     /// <summary>
     /// Список тегов книги.
@@ -396,17 +405,47 @@ public partial class BookEditor : Window
 
     private void RemoveCycleButton_Click(object sender, RoutedEventArgs e)
     {
+        cycle = null;
+        CycleTextBox.Text = string.Empty;
+        CyclePartTextBox.Text = string.Empty;
+    }
 
+    private string oldCyclePartText = string.Empty;
+
+    private void CyclePartTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (oldCyclePartText == CyclePartTextBox.Text)
+            return;
+        var text = CyclePartTextBox.Text;
+        if (text == string.Empty)
+        {
+            oldCyclePartText = string.Empty;
+            CyclePartTextBox.Text = oldCyclePartText;
+            return;
+        }
+        var pos = CyclePartTextBox.SelectionStart;
+        if (!int.TryParse(text, NumberStyles.None, null, out var value))
+        {
+            CyclePartTextBox.Text = oldCyclePartText;
+            CyclePartTextBox.SelectionStart = pos - 1;
+        }
+        else
+        {
+            oldCyclePartText = CyclePartTextBox.Text;
+        }
     }
 
     private void NewCycleTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
-
+        
     }
 
     private void AddNewCycleButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var title = NewCycleTextBox.Text.Trim();
+        if (allCycles.Find(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)) != null)
+            return;
+        cycle = new Cycle() { Title = title };
     }
 
     private void TagsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

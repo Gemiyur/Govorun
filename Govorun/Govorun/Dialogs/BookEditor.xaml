@@ -237,7 +237,12 @@
                                         Click="PickCycleButton_Click" />
                                 <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
                                     <TextBlock Text="Номер в серии" VerticalAlignment="Center" />
-                                    <TextBox Width="50" Margin="8,0,0,0" VerticalAlignment="Center" TextAlignment="Center" />
+                                    <TextBox x:Name="CyclePartTextBox"
+                                             Width="50"
+                                             Margin="8,0,0,0"
+                                             VerticalAlignment="Center"
+                                             TextAlignment="Center"
+                                             TextChanged="CyclePartTextBox_TextChanged" />
                                 </StackPanel>
                                 <Button Grid.Row="2" Grid.Column="2" x:Name="RemoveCycleButton" Content="Удалить"
                                         Style="{StaticResource EditorButtonStyle}"
