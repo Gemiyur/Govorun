@@ -396,12 +396,12 @@ public partial class BookEditor : Window
 
     }
 
-    private void AddNewCycleButton_Click(object sender, RoutedEventArgs e)
+    private void NewCycleTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
 
     }
 
-    private void ClearNewCycleButton_Click(object sender, RoutedEventArgs e)
+    private void AddNewCycleButton_Click(object sender, RoutedEventArgs e)
     {
 
     }

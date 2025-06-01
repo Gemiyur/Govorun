@@ -241,7 +241,9 @@
                                 </StackPanel>
                                 <Button Grid.Row="2" Grid.Column="2" x:Name="RemoveCycleButton" Content="Удалить"
                                         Style="{StaticResource EditorButtonStyle}"
-                                        Margin="10,0,0,0" Click="RemoveCycleButton_Click" />
+                                        Margin="10,0,0,0"
+                                        IsEnabled="False"
+                                        Click="RemoveCycleButton_Click" />
                             </Grid>
                         </GroupBox>
                         <GroupBox Grid.Row="1" Header="Новая серия" Style="{StaticResource EditorGroupBoxStyle}">
@@ -250,10 +252,12 @@
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" x:Name="NewCycleTextBox" />
+                                <TextBox Grid.Column="0" x:Name="NewCycleTextBox"
+                                         TextChanged="NewCycleTextBox_TextChanged" />
                                 <Button Grid.Column="1" x:Name="AddNewCycleButton" Content="Добавить"
                                         Style="{StaticResource EditorButtonStyle}"
                                         Margin="10,0,0,0"
+                                        IsEnabled="False"
                                         Click="AddNewCycleButton_Click" />
                             </Grid>
                         </GroupBox>
