@@ -455,7 +455,7 @@ public partial class PlayerControl : UserControl
         if (book == null)
             return;
         var position = PlayPosition;
-        var editor = new BookmarkEditor(string.Empty);
+        var editor = new BookmarkEditor(string.Empty) { Owner = Window.GetWindow(this) };
         if (editor.ShowDialog() != true)
             return;
         var bookmark = new Bookmark() { Position = position, Title = editor.BookmarkTitle };
