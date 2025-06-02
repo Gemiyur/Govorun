@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using Gemiyur.Comparers;
@@ -33,6 +32,11 @@ public partial class BookEditor : Window
     /// Были ли добавлены новые авторы книг в библиотеку.
     /// </summary>
     public bool HasNewAuthors;
+
+    /// <summary>
+    /// Была ли добавлена новая серия.
+    /// </summary>
+    public bool HasNewCycle;
 
     /// <summary>
     /// Было ли изменено название книги.
@@ -134,6 +138,8 @@ public partial class BookEditor : Window
         UpdateAuthorsSource();
         FileNameTextBox.Text = book.FileName;
         AnnotationTextBox.Text = book.Annotation;
+        CycleTextBox.Text = book.Cycle != null ? book.Cycle.Title : string.Empty;
+        CyclePartTextBox.Text = book.CyclePart;
         LectorTextBox.Text = book.Lector;
         TranslatorTextBox.Text = book.Translator;
         tags.AddRange(book.Tags);
@@ -181,8 +187,10 @@ public partial class BookEditor : Window
     {
         // В книге есть изменения?
         var changed = false;
+
         // Новая книга.
         changed = book.BookId < 1;
+
         // Название.
         if (book.Title != TitleTextBox.Text)
         {
@@ -190,6 +198,7 @@ public partial class BookEditor : Window
             changed = true;
             TitleChanged = true;
         }
+
         // Авторы.
         if (authors.Count != book.Authors.Count ||
             authors.Any(x => book.Authors.Exists(a => a.AuthorId != x.AuthorId)) ||
@@ -200,12 +209,39 @@ public partial class BookEditor : Window
             changed = true;
             AuthorsChanged = true;
         }
+
         // Аннотация.
         if (book.Annotation != AnnotationTextBox.Text)
         {
             book.Annotation = AnnotationTextBox.Text;
             changed = true;
         }
+
+        // Серия.
+        if ((cycle == null && book.Cycle != null) ||
+            (cycle != null && book.Cycle == null))
+        {
+            book.Cycle = cycle;
+            changed = true;
+        }
+        else
+        {
+            if (cycle != null && book.Cycle != null &&
+                cycle.CycleId != book.Cycle.CycleId)
+            {
+                book.Cycle = cycle;
+                changed = true;
+            }
+        }
+
+        // Номер в серии.
+        int.TryParse(CyclePartTextBox.Text, NumberStyles.None, null, out var cycleNumber);
+        if (book.CycleNumber != cycleNumber)
+        {
+            book.CycleNumber = cycleNumber;
+            changed = true;
+        }
+
         // Чтец.
         if (book.Lector != LectorTextBox.Text)
         {
@@ -237,6 +273,7 @@ public partial class BookEditor : Window
             changed = true;
             FileChanged = true;
         }
+
         // Возврат результата: были ли внесены изменения в книгу.
         return changed;
     }
@@ -244,7 +281,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Сохраняет новых авторов и присваивает им идентификаторы.
     /// </summary>
-    /// <returns>Были ли авторы сохранены успешно.</returns>
+    /// <returns>Были ли новые авторы сохранены успешно.</returns>
     private bool SaveNewAuthors()
     {
         var newAuthors = authors.FindAll(x => x.AuthorId == 0);
@@ -259,6 +296,19 @@ public partial class BookEditor : Window
                 return false;
         }
         return true;
+    }
+
+    /// <summary>
+    /// Сохраняет новую серию и присваивает ей идентификатор.
+    /// </summary>
+    /// <returns>Была ли новая серия сохранена успешно.</returns>
+    private bool SaveNewCycle()
+    {
+        if (cycle == null || cycle.CycleId > 0)
+            return true;
+        HasNewCycle = true;
+        cycle.CycleId = Db.InsertCycle(cycle);
+        return cycle.CycleId > 0;
     }
 
     /// <summary>
@@ -395,12 +445,21 @@ public partial class BookEditor : Window
         TranslatorTextBox.Text = picker.PickedTranslator;
     }
 
+    private void CycleTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        RemoveCycleButton.IsEnabled = !string.IsNullOrWhiteSpace(CycleTextBox.Text);
+    }
+
     private void PickCycleButton_Click(object sender, RoutedEventArgs e)
     {
         var picker = new CyclePicker() { Owner = this };
-        if (picker.ShowDialog() != true)
+        if (picker.ShowDialog() != true || picker.PickedCycle == null)
             return;
-
+        if (cycle != null && picker.PickedCycle.CycleId == cycle.CycleId)
+            return;
+        cycle = picker.PickedCycle;
+        CycleTextBox.Text = cycle.Title;
+        CyclePartTextBox.Text = string.Empty;
     }
 
     private void RemoveCycleButton_Click(object sender, RoutedEventArgs e)
@@ -437,15 +496,19 @@ public partial class BookEditor : Window
 
     private void NewCycleTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
-        
+        AddNewCycleButton.IsEnabled = !string.IsNullOrWhiteSpace(NewCycleTextBox.Text);
     }
 
     private void AddNewCycleButton_Click(object sender, RoutedEventArgs e)
     {
         var title = NewCycleTextBox.Text.Trim();
-        if (allCycles.Find(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)) != null)
+        var dbCycle = allCycles.Find(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase));
+        if (dbCycle != null && cycle != null && cycle.CycleId == dbCycle.CycleId)
             return;
-        cycle = new Cycle() { Title = title };
+        cycle = dbCycle ?? new Cycle() { Title = title };
+        CycleTextBox.Text = cycle.Title;
+        CyclePartTextBox.Text = string.Empty;
+        NewCycleTextBox.Text = string.Empty;
     }
 
     private void TagsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -520,6 +583,11 @@ public partial class BookEditor : Window
         if (!SaveNewAuthors())
         {
             MessageBox.Show("Не удалось сохранить новых авторов.", Title);
+            return;
+        }
+        if (!SaveNewCycle())
+        {
+            MessageBox.Show("Не удалось сохранить новую серию.", Title);
             return;
         }
         if (!SaveBook())

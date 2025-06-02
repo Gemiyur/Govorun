@@ -230,7 +230,7 @@
                                 <TextBox Grid.Row="0" Grid.Column="0" x:Name="CycleTextBox"
                                          IsReadOnly="True"
                                          IsReadOnlyCaretVisible="True"
-                                         Background="{StaticResource TextBoxReadOnlyBackgroundBrush}" />
+                                         Background="{StaticResource TextBoxReadOnlyBackgroundBrush}" TextChanged="CycleTextBox_TextChanged" />
                                 <Button Grid.Row="0" Grid.Column="1" x:Name="PickCycleButton" Content="Выбрать"
                                         Style="{StaticResource EditorButtonStyle}"
                                         Margin="10,0,0,0"

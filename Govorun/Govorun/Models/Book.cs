@@ -160,7 +160,7 @@ public class Book : BaseModel
     /// </summary>
     /// <remarks>Для нуля возвращает пустую строку.</remarks>
     [BsonIgnore]
-    public string CyclePart => CycleNumber != 0 ? CycleNumber.ToString() : "";
+    public string CyclePart => CycleNumber > 0 ? CycleNumber.ToString() : "";
 
     private string lector = string.Empty;
 
