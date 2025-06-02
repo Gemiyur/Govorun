@@ -1,26 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Govorun.Dialogs;
 
 /// <summary>
-/// Логика взаимодействия для CycleEditor.xaml
+/// Класс редактора серии книг.
 /// </summary>
 public partial class CycleEditor : Window
 {
-    public CycleEditor()
+    /// <summary>
+    /// Название серии книг.
+    /// </summary>
+    public string CycleTitle;
+
+    /// <summary>
+    /// Инициализирует новый экземпляр класса.
+    /// </summary>
+    /// <param name="title">Название серии книг.</param>
+    public CycleEditor(string title)
     {
         InitializeComponent();
+        CycleTitle = title;
+        TitleTextBox.Text = title;
+    }
+
+    private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        SaveButton.IsEnabled = TitleTextBox.Text.Any() && TitleTextBox.Text != CycleTitle;
+    }
+
+    private void SaveButton_Click(object sender, RoutedEventArgs e)
+    {
+        CycleTitle = TitleTextBox.Text;
+        DialogResult = true;
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
     }
 }
