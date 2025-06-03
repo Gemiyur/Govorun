@@ -136,6 +136,11 @@
                         <Image Source="Images\Buttons\Enabled\Authors.png" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Cycles">
+                    <MenuItem.Icon>
+                        <Image Source="Images\Buttons\Enabled\Cycles.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
                 <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.CheckLibrary">
                     <MenuItem.Icon>
@@ -208,6 +213,9 @@
                 <Separator />
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Authors">
                     <Image Source="Images\Buttons\Enabled\Authors.png" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Cycles">
+                    <Image Source="Images\Buttons\Enabled\Cycles.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
                 <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.CheckLibrary">
