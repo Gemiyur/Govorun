@@ -512,7 +512,8 @@ public partial class MainWindow : Window
 
     private void Cycles_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-
+        var editor = new CyclesEditor() { Owner = this };
+        editor.ShowDialog();
     }
 
     private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)
