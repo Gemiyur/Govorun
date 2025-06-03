@@ -211,8 +211,6 @@ public partial class AuthorsEditor : Window
 
     private void MiddleNameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
 
-    private void AboutTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckEditorButtons();
-
     private void ClearButton_Click(object sender, RoutedEventArgs e) => ClearEditor();
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
