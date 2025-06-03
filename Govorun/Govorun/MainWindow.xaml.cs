@@ -503,8 +503,10 @@ public partial class MainWindow : Window
         UpdateAuthors();
         foreach (var book in ShownBooks)
         {
-            book.OnPropertyChanged("AuthorNamesLastFirst");
             book.OnPropertyChanged("AuthorNamesFirstLast");
+            book.OnPropertyChanged("AuthorNamesFirstMiddleLast");
+            book.OnPropertyChanged("AuthorNamesLastFirst");
+            book.OnPropertyChanged("AuthorNamesLastFirstMiddle");
         }
     }
 
