@@ -64,6 +64,11 @@ public static class AppCommands
     public static RoutedUICommand Authors { get; private set; }
 
     /// <summary>
+    /// Команда редактирования серий.
+    /// </summary>
+    public static RoutedUICommand Cycles { get; private set; }
+
+    /// <summary>
     /// Команда проверки библиотеки на наличие файлов книг.
     /// </summary>
     public static RoutedUICommand CheckLibrary { get; private set; }
@@ -116,6 +121,7 @@ public static class AppCommands
         AddBook = new RoutedUICommand("Добавить книгу...", "AddBook", typeof(AppCommands));
         FindBooks = new RoutedUICommand("Найти книги в папке...", "FindBooks", typeof(AppCommands));
         Authors = new RoutedUICommand("Авторы...", "Authors", typeof(AppCommands));
+        Cycles = new RoutedUICommand("Серии...", "Cycles", typeof(AppCommands));
         CheckLibrary = new RoutedUICommand("Проверить библиотеку...", "CheckLibrary", typeof(AppCommands));
         Shrink = new RoutedUICommand("Сжать библиотеку...", "Shrink", typeof(AppCommands));
         Settings = new RoutedUICommand("Настройки...", "Settings", typeof(AppCommands));

@@ -508,6 +508,11 @@ public partial class MainWindow : Window
         }
     }
 
+    private void Cycles_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+
+    }
+
     private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         var dialog = new CheckLibraryDialog() { Owner = this };

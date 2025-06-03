@@ -49,6 +49,8 @@
                         Executed="FindBooks_Executed" />
         <CommandBinding Command="local:AppCommands.Authors"
                         Executed="Authors_Executed" />
+        <CommandBinding Command="local:AppCommands.Cycles"
+                        Executed="Cycles_Executed" />
         <CommandBinding Command="local:AppCommands.CheckLibrary"
                         Executed="CheckLibrary_Executed" />
         <CommandBinding Command="local:AppCommands.Shrink"
