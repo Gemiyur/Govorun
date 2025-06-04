@@ -162,7 +162,7 @@ public static class Db
 
     #endregion
 
-    #region Циклы.
+    #region Серии.
 
     public static Cycle GetCycle(int cycleId)
     {

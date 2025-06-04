@@ -136,8 +136,15 @@ public class Book : BaseModel
         {
             cycle = value;
             OnPropertyChanged("Cycle");
+            OnPropertyChanged("CycleTitle");
         }
     }
+
+    /// <summary>
+    /// Возвращает название серии книг.
+    /// </summary>
+    [BsonIgnore]
+    public string CycleTitle => Cycle != null ? Cycle.Title : string.Empty;
 
     private int cycleNumber;
 

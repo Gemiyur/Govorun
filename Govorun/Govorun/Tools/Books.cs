@@ -66,6 +66,14 @@ public static class Books
     public static bool BookHasAuthor(Book book, int authorId) => book.Authors.Exists(x => x.AuthorId == authorId);
 
     /// <summary>
+    /// Возвращает входит ли указанная книга в указанную серию.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    /// <param name="cycleId">Идентификатор серии.</param>
+    /// <returns>Входит ли указанная книга в указанную серию.</returns>
+    public static bool BookInCycle(Book book, int cycleId) => book.Cycle != null && book.Cycle.CycleId == cycleId;
+
+    /// <summary>
     /// Возвращает есть ли книга с указанным именем файла.
     /// </summary>
     /// <param name="filename">Имя файла.</param>
@@ -79,6 +87,13 @@ public static class Books
     /// <param name="authorId">Идентификатор автора.</param>
     /// <returns>Список книг указанного автора.</returns>
     public static List<Book> GetAuthorBooks(int authorId) => AllBooks.FindAll(x => BookHasAuthor(x, authorId));
+
+    /// <summary>
+    /// Возвращает список книг указанной серии.
+    /// </summary>
+    /// <param name="cycleId">Идентификатор серии.</param>
+    /// <returns>Список книг указанной серии.</returns>
+    public static List<Book> GetCycleBooks(int cycleId) => AllBooks.FindAll(x => BookInCycle(x, cycleId));
 
     /// <summary>
     /// Возвращает книгу с указанным именем файла.

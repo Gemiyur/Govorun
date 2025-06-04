@@ -23,6 +23,11 @@ namespace Govorun.Dialogs;
 public partial class CyclesEditor : Window
 {
     /// <summary>
+    /// Были ли изменения в коллекции серий.
+    /// </summary>
+    public bool HasChanges;
+
+    /// <summary>
     /// Коллекция серий.
     /// </summary>
     private readonly ObservableCollectionEx<Cycle> Cycles = [];
@@ -33,6 +38,8 @@ public partial class CyclesEditor : Window
         Cycles.AddRange(Db.GetCycles());
         CyclesListBox.ItemsSource = Cycles;
     }
+
+    private void SortCycles() => Cycles.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
 
     private void CyclesListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
@@ -51,12 +58,27 @@ public partial class CyclesEditor : Window
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var editor = new CycleEditor(string.Empty) { Owner = this };
+        if (editor.ShowDialog() != true)
+            return;
+        var cycle = new Cycle() { Title = editor.TitleTextBox.Text.Trim() };
+        cycle.CycleId = Db.InsertCycle(cycle);
+        if (cycle.CycleId < 1)
+        {
+            MessageBox.Show("Не удалось добавить серию.", Title);
+            return;
+        }
+        Cycles.Add(cycle);
+        SortCycles();
+        HasChanges = true;
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var cycle = (Cycle)CyclesListBox.SelectedItem;
+        var editor = new CycleEditor(cycle.Title) { Owner = this };
+        if (editor.ShowDialog() != true)
+            return;
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -64,8 +86,5 @@ public partial class CyclesEditor : Window
 
     }
 
-    private void CloseButton_Click(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
+    private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
 }

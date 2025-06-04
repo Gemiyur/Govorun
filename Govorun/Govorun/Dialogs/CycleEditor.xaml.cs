@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Govorun.Models;
+using Govorun.Tools;
 
 namespace Govorun.Dialogs;
 
@@ -13,6 +15,8 @@ public partial class CycleEditor : Window
     /// </summary>
     public string CycleTitle;
 
+    private List<Cycle> cycles = Db.GetCycles();
+
     /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
@@ -24,19 +28,20 @@ public partial class CycleEditor : Window
         TitleTextBox.Text = title;
     }
 
-    private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        SaveButton.IsEnabled = TitleTextBox.Text.Any() && TitleTextBox.Text != CycleTitle;
-    }
+    private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e) =>
+        SaveButton.IsEnabled = string.IsNullOrWhiteSpace(TitleTextBox.Text) && TitleTextBox.Text.Trim() != CycleTitle;
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        CycleTitle = TitleTextBox.Text;
+        var title = TitleTextBox.Text.Trim();
+        if (cycles.Exists(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)))
+        {
+            MessageBox.Show("Серия с таким названием уже существует.", Title);
+            return;
+        }
+        CycleTitle = title;
         DialogResult = true;
     }
 
-    private void CancelButton_Click(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
+    private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();
 }
