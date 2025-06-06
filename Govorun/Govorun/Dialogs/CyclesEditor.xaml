@@ -27,7 +27,6 @@
         </Grid.ColumnDefinitions>
 
         <ListBox Grid.Column="0" x:Name="CyclesListBox"
-                 MouseDoubleClick="CyclesListBox_MouseDoubleClick"
                  SelectionChanged="CyclesListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>

@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Gemiyur.Collections;
 using Govorun.Models;
 using Govorun.Tools;
@@ -30,25 +19,16 @@ public partial class CyclesEditor : Window
     /// <summary>
     /// Коллекция серий.
     /// </summary>
-    private readonly ObservableCollectionEx<Cycle> Cycles = [];
+    private readonly ObservableCollectionEx<Cycle> cycles = [];
 
     public CyclesEditor()
     {
         InitializeComponent();
-        Cycles.AddRange(Db.GetCycles());
-        CyclesListBox.ItemsSource = Cycles;
+        cycles.AddRange(Db.GetCycles());
+        CyclesListBox.ItemsSource = cycles;
     }
 
-    private void SortCycles() => Cycles.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
-
-    private void CyclesListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        // TODO: Нужно ли редактировать серию по двойному щелчку?
-        if (e.OriginalSource is TextBlock && CyclesListBox.SelectedItem != null)
-        {
-            //EditCycle();
-        }
-    }
+    private void SortCycles() => cycles.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
 
     private void CyclesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -58,7 +38,7 @@ public partial class CyclesEditor : Window
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        var editor = new CycleEditor(null, Cycles) { Owner = this };
+        var editor = new CycleEditor(null, cycles) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
         var cycle = editor.Cycle;
@@ -68,7 +48,7 @@ public partial class CyclesEditor : Window
             MessageBox.Show("Не удалось добавить серию.", Title);
             return;
         }
-        Cycles.Add(cycle);
+        cycles.Add(cycle);
         SortCycles();
         HasChanges = true;
     }
@@ -76,7 +56,7 @@ public partial class CyclesEditor : Window
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
         var cycle = (Cycle)CyclesListBox.SelectedItem;
-        var editor = new CycleEditor(cycle, Cycles) { Owner = this };
+        var editor = new CycleEditor(cycle, cycles) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
         if (!Db.UpdateCycle(cycle))
@@ -96,7 +76,7 @@ public partial class CyclesEditor : Window
             MessageBox.Show("Не удалось удалить серию.", Title);
             return;
         }
-        Cycles.Remove(cycle);
+        cycles.Remove(cycle);
         HasChanges = true;
     }
 
