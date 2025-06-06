@@ -58,10 +58,10 @@ public partial class CyclesEditor : Window
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        var editor = new CycleEditor(string.Empty) { Owner = this };
+        var editor = new CycleEditor(null, Cycles) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        var cycle = new Cycle() { Title = editor.TitleTextBox.Text.Trim() };
+        var cycle = editor.Cycle;
         cycle.CycleId = Db.InsertCycle(cycle);
         if (cycle.CycleId < 1)
         {
@@ -76,14 +76,28 @@ public partial class CyclesEditor : Window
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
         var cycle = (Cycle)CyclesListBox.SelectedItem;
-        var editor = new CycleEditor(cycle.Title) { Owner = this };
+        var editor = new CycleEditor(cycle, Cycles) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
+        if (!Db.UpdateCycle(cycle))
+        {
+            MessageBox.Show("Не удалось сохранить серию.", Title);
+            return;
+        }
+        SortCycles();
+        HasChanges = true;
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var cycle = (Cycle)CyclesListBox.SelectedItem;
+        if (!Db.DeleteCycle(cycle.CycleId))
+        {
+            MessageBox.Show("Не удалось удалить серию.", Title);
+            return;
+        }
+        Cycles.Remove(cycle);
+        HasChanges = true;
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();

@@ -11,25 +11,26 @@ namespace Govorun.Dialogs;
 public partial class CycleEditor : Window
 {
     /// <summary>
-    /// Название серии книг.
+    /// Редактируемая серия.
     /// </summary>
-    public string CycleTitle;
+    public Cycle Cycle;
 
-    private List<Cycle> cycles = Db.GetCycles();
+    private readonly List<Cycle> cycles = [];
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
     /// <param name="title">Название серии книг.</param>
-    public CycleEditor(string title)
+    public CycleEditor(Cycle? cycle, IEnumerable<Cycle>? cycles)
     {
         InitializeComponent();
-        CycleTitle = title;
-        TitleTextBox.Text = title;
+        Cycle = cycle ?? new Cycle();
+        TitleTextBox.Text = Cycle.Title;
+        this.cycles.AddRange(cycles != null ? cycles : Db.GetCycles());
     }
 
     private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e) =>
-        SaveButton.IsEnabled = string.IsNullOrWhiteSpace(TitleTextBox.Text) && TitleTextBox.Text.Trim() != CycleTitle;
+        SaveButton.IsEnabled = !string.IsNullOrWhiteSpace(TitleTextBox.Text) && TitleTextBox.Text.Trim() != Cycle.Title;
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
@@ -39,7 +40,7 @@ public partial class CycleEditor : Window
             MessageBox.Show("Серия с таким названием уже существует.", Title);
             return;
         }
-        CycleTitle = title;
+        Cycle.Title = title;
         DialogResult = true;
     }
 
