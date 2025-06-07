@@ -62,7 +62,7 @@ public partial class MainWindow : Window
         }
         Authors.AddRange(Db.GetAuthors());
         AuthorsListBox.ItemsSource = Authors;
-        ShownBooks.AddRange(Library.AllBooks);
+        ShownBooks.AddRange(Library.Books);
         BooksListView.ItemsSource = ShownBooks;
         UpdateStatusBarBooksCount();
         Player.IsEnabled = false;
@@ -179,7 +179,7 @@ public partial class MainWindow : Window
     private void UpdateShownBooks()
     {
         var author = (Author)AuthorsListBox.SelectedItem;
-        var books = author == null ? Library.AllBooks : Library.GetAuthorBooks(author.AuthorId);
+        var books = author == null ? Library.Books : Library.GetAuthorBooks(author.AuthorId);
         ShownBooks.ReplaceRange(books);
     }
 
@@ -403,7 +403,7 @@ public partial class MainWindow : Window
             if (Player.Book == book)
                 Player.Book = null;
             Db.DeleteBook(book);
-            Library.AllBooks.Remove(book);
+            Library.Books.Remove(book);
             ShownBooks.Remove(book);
             UpdateStatusBarBooksCount();
             return;
@@ -417,7 +417,7 @@ public partial class MainWindow : Window
         if (Player.Book != null && books.Contains(Player.Book))
             Player.Book = null;
         Db.DeleteBooks(books);
-        Library.AllBooks.RemoveAll(books.Contains);
+        Library.Books.RemoveAll(books.Contains);
         ShownBooks.RemoveRange(books);
         UpdateStatusBarBooksCount();
     }
@@ -450,7 +450,7 @@ public partial class MainWindow : Window
         var editor = new BookEditor(book, trackData) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        Library.AllBooks.Add(book);
+        Library.Books.Add(book);
         if (editor.HasNewAuthors)
             UpdateAuthors();
         if (AuthorsListBox.SelectedItem != null &&
@@ -487,7 +487,7 @@ public partial class MainWindow : Window
         dialog.ShowDialog();
         if (!dialog.AddedBooks.Any())
             return;
-        Library.AllBooks.AddRange(dialog.AddedBooks);
+        Library.Books.AddRange(dialog.AddedBooks);
         if (dialog.HasNewAuthors)
             UpdateAuthors();
         UpdateShownBooks();
@@ -525,7 +525,7 @@ public partial class MainWindow : Window
             if (Player.Book != null && dialog.DeletedBooks.Contains(Player.Book))
                 Player.Book = null;
             Db.DeleteBooks(dialog.DeletedBooks);
-            Library.AllBooks.RemoveAll(x => dialog.DeletedBooks.Contains(x));
+            Library.Books.RemoveAll(x => dialog.DeletedBooks.Contains(x));
             ShownBooks.RemoveRange(dialog.DeletedBooks);
             UpdateStatusBarBooksCount();
         }

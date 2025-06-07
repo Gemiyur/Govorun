@@ -10,13 +10,13 @@ public static class Library
     /// <summary>
     /// Список всех книг.
     /// </summary>
-    public static readonly List<Book> AllBooks;
+    public static readonly List<Book> Books;
 
     /// <summary>
     /// Возвращает список всех чтецов.
     /// </summary>
     public static List<string> Lectors =>
-        AllBooks.Select(x => x.Lector)
+        Books.Select(x => x.Lector)
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Distinct()
                 .Order(StringComparer.CurrentCultureIgnoreCase)
@@ -26,7 +26,7 @@ public static class Library
     /// Возвращает список всех переводчиков.
     /// </summary>
     public static List<string> Translators =>
-        AllBooks.Select(x => x.Translator)
+        Books.Select(x => x.Translator)
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Distinct()
                 .Order(StringComparer.CurrentCultureIgnoreCase)
@@ -40,7 +40,7 @@ public static class Library
         get
         {
             var allTags = new List<string>();
-            foreach (var book in AllBooks)
+            foreach (var book in Books)
             {
                 allTags.AddRange(book.Tags.FindAll(x => !string.IsNullOrWhiteSpace(x) && !allTags.Contains(x)));
             }
@@ -54,7 +54,7 @@ public static class Library
     /// </summary>
     static Library()
     {
-        AllBooks = Db.GetBooks();
+        Books = Db.GetBooks();
     }
 
     /// <summary>
@@ -79,21 +79,21 @@ public static class Library
     /// <param name="filename">Имя файла.</param>
     /// <returns>Есть ли книга с указанным именем файла.</returns>
     public static bool BookWithFileExists(string filename) =>
-        AllBooks.Exists(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
+        Books.Exists(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
 
     /// <summary>
     /// Возвращает список книг указанного автора.
     /// </summary>
     /// <param name="authorId">Идентификатор автора.</param>
     /// <returns>Список книг указанного автора.</returns>
-    public static List<Book> GetAuthorBooks(int authorId) => AllBooks.FindAll(x => BookHasAuthor(x, authorId));
+    public static List<Book> GetAuthorBooks(int authorId) => Books.FindAll(x => BookHasAuthor(x, authorId));
 
     /// <summary>
     /// Возвращает список книг указанной серии.
     /// </summary>
     /// <param name="cycleId">Идентификатор серии.</param>
     /// <returns>Список книг указанной серии.</returns>
-    public static List<Book> GetCycleBooks(int cycleId) => AllBooks.FindAll(x => BookInCycle(x, cycleId));
+    public static List<Book> GetCycleBooks(int cycleId) => Books.FindAll(x => BookInCycle(x, cycleId));
 
     /// <summary>
     /// Возвращает книгу с указанным именем файла.
@@ -101,14 +101,14 @@ public static class Library
     /// <param name="filename">Имя файла.</param>
     /// <returns>Книга с указанным именем файла.</returns>
     public static Book? GetBookWithFile(string filename) =>
-        AllBooks.Find(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
+        Books.Find(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
 
     /// <summary>
     /// Возвращает список слушаемых книг отсортированных по названию.
     /// </summary>
     /// <returns>Список слушаемых книг отсортированных по названию.</returns>
     public static List<Book> GetListeningBooks() =>
-        AllBooks.FindAll(x => x.PlayPosition > TimeSpan.Zero)
+        Books.FindAll(x => x.PlayPosition > TimeSpan.Zero)
                 .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
                 .ToList();
 }

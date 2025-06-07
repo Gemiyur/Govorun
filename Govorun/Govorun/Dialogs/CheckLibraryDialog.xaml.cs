@@ -29,7 +29,7 @@ public partial class CheckLibraryDialog : Window
     public CheckLibraryDialog()
     {
         InitializeComponent();
-        books.AddRange(Library.AllBooks.FindAll(
+        books.AddRange(Library.Books.FindAll(
             x => !x.FileExists).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase));
         BooksListView.ItemsSource = books;
     }
