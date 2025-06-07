@@ -3,14 +3,27 @@
 namespace Govorun.Tools;
 
 /// <summary>
-/// Статический класс работы со списком книг.
+/// Статический класс работы с библиотекой.
 /// </summary>
+/// <remarks>
+/// Книги, авторы, серии, чтецы, переводчики.
+/// </remarks>
 public static class Library
 {
     /// <summary>
     /// Список всех книг.
     /// </summary>
     public static readonly List<Book> Books;
+
+    /// <summary>
+    /// Список всех авторов.
+    /// </summary>
+    public static readonly List<Author> Authors;
+
+    /// <summary>
+    /// Список всех серий.
+    /// </summary>
+    public static readonly List<Cycle> Cycles;
 
     /// <summary>
     /// Возвращает список всех чтецов.
@@ -55,6 +68,8 @@ public static class Library
     static Library()
     {
         Books = Db.GetBooks();
+        Authors = Db.GetAuthors();
+        Cycles = Db.GetCycles();
     }
 
     /// <summary>
