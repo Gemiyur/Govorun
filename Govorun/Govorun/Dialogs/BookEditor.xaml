@@ -322,9 +322,9 @@
                     </GroupBox>
                 </TabItem>
 
-                <!--<TabItem Header="Обложка">
+                <TabItem Header="Обложка">
 
-                </TabItem>-->
+                </TabItem>
             </TabControl>
         </Grid>
 
