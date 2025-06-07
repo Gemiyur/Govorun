@@ -147,7 +147,7 @@ public static class Db
     public static bool DeleteAuthor(int authorId, LiteDatabase db)
     {
         var booksCollection = GetBooksCollection(db);
-        if (booksCollection.Exists(x => x.Authors.Exists(a => a.AuthorId == authorId)))
+        if (booksCollection.Exists(x => x.Authors.Select(a => a.AuthorId).Any(id => id == authorId)))
             return false;
         return GetAuthorsCollection(db).Delete(authorId);
     }
