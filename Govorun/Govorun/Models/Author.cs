@@ -101,7 +101,7 @@ public class Author : BaseModel
     /// <param name="name2">Второе имя.</param>
     /// <param name="name3">Третье имя.</param>
     /// <returns>Полное имя.</returns>
-    private static string ConcatNames(string name1, string name2, string name3)
+    public static string ConcatNames(string name1, string name2, string name3)
     {
         var sb = new StringBuilder(name1);
         if (sb.Length > 0 && name2.Length > 0)

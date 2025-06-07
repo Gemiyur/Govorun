@@ -15,18 +15,22 @@ public partial class CycleEditor : Window
     /// </summary>
     public Cycle Cycle;
 
+    /// <summary>
+    /// Список существующих серий.
+    /// </summary>
     private readonly List<Cycle> cycles = [];
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
-    /// <param name="title">Название серии книг.</param>
+    /// <param name="cycle">Редактируемая серия.</param>
+    /// <param name="cycles">Список существующих серий.</param>
     public CycleEditor(Cycle? cycle, IEnumerable<Cycle>? cycles)
     {
         InitializeComponent();
         Cycle = cycle ?? new Cycle();
         TitleTextBox.Text = Cycle.Title;
-        this.cycles.AddRange(cycles != null ? cycles : Db.GetCycles());
+        this.cycles.AddRange(cycles ?? Db.GetCycles());
     }
 
     private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e) =>

@@ -7,7 +7,7 @@ using Govorun.Tools;
 namespace Govorun.Dialogs;
 
 /// <summary>
-/// Класс окна редактора авторов.
+/// Класс редактора авторов.
 /// </summary>
 public partial class AuthorsEditor : Window
 {
