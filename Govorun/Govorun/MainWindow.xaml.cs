@@ -62,7 +62,7 @@ public partial class MainWindow : Window
         }
         Authors.AddRange(Db.GetAuthors());
         AuthorsListBox.ItemsSource = Authors;
-        ShownBooks.AddRange(Books.AllBooks);
+        ShownBooks.AddRange(Library.AllBooks);
         BooksListView.ItemsSource = ShownBooks;
         UpdateStatusBarBooksCount();
         Player.IsEnabled = false;
@@ -98,7 +98,7 @@ public partial class MainWindow : Window
         var lastBookFileName = Properties.Settings.Default.LastBook;
         if (string.IsNullOrWhiteSpace(lastBookFileName))
             return;
-        var lastBook = Books.GetBookWithFile(lastBookFileName);
+        var lastBook = Library.GetBookWithFile(lastBookFileName);
         if (lastBook == null)
             return;
         Player.PlayOnLoad = false;
@@ -179,7 +179,7 @@ public partial class MainWindow : Window
     private void UpdateShownBooks()
     {
         var author = (Author)AuthorsListBox.SelectedItem;
-        var books = author == null ? Books.AllBooks : Books.GetAuthorBooks(author.AuthorId);
+        var books = author == null ? Library.AllBooks : Library.GetAuthorBooks(author.AuthorId);
         ShownBooks.ReplaceRange(books);
     }
 
@@ -403,7 +403,7 @@ public partial class MainWindow : Window
             if (Player.Book == book)
                 Player.Book = null;
             Db.DeleteBook(book);
-            Books.AllBooks.Remove(book);
+            Library.AllBooks.Remove(book);
             ShownBooks.Remove(book);
             UpdateStatusBarBooksCount();
             return;
@@ -417,7 +417,7 @@ public partial class MainWindow : Window
         if (Player.Book != null && books.Contains(Player.Book))
             Player.Book = null;
         Db.DeleteBooks(books);
-        Books.AllBooks.RemoveAll(books.Contains);
+        Library.AllBooks.RemoveAll(books.Contains);
         ShownBooks.RemoveRange(books);
         UpdateStatusBarBooksCount();
     }
@@ -441,7 +441,7 @@ public partial class MainWindow : Window
         if (fileDialog.ShowDialog() != true)
             return;
         var filename = fileDialog.FileName;
-        if (Books.BookWithFileExists(filename))
+        if (Library.BookWithFileExists(filename))
         {
             MessageBox.Show("Книга с этим файлом уже есть в библиотеке.", "Добавление книги");
             return;
@@ -450,11 +450,11 @@ public partial class MainWindow : Window
         var editor = new BookEditor(book, trackData) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        Books.AllBooks.Add(book);
+        Library.AllBooks.Add(book);
         if (editor.HasNewAuthors)
             UpdateAuthors();
         if (AuthorsListBox.SelectedItem != null &&
-            !Books.BookHasAuthor(book, ((Author)AuthorsListBox.SelectedItem).AuthorId))
+            !Library.BookHasAuthor(book, ((Author)AuthorsListBox.SelectedItem).AuthorId))
         {
             AuthorsListBox.SelectedItem = null;
         }
@@ -478,7 +478,7 @@ public partial class MainWindow : Window
             var folderFiles = Directory.GetFiles(folder, "*.m4b", SearchOption.AllDirectories);
             foreach (var file in folderFiles)
             {
-                if (!Books.BookWithFileExists(file))
+                if (!Library.BookWithFileExists(file))
                     files.Add(file);
             }
         }
@@ -487,7 +487,7 @@ public partial class MainWindow : Window
         dialog.ShowDialog();
         if (!dialog.AddedBooks.Any())
             return;
-        Books.AllBooks.AddRange(dialog.AddedBooks);
+        Library.AllBooks.AddRange(dialog.AddedBooks);
         if (dialog.HasNewAuthors)
             UpdateAuthors();
         UpdateShownBooks();
@@ -525,7 +525,7 @@ public partial class MainWindow : Window
             if (Player.Book != null && dialog.DeletedBooks.Contains(Player.Book))
                 Player.Book = null;
             Db.DeleteBooks(dialog.DeletedBooks);
-            Books.AllBooks.RemoveAll(x => dialog.DeletedBooks.Contains(x));
+            Library.AllBooks.RemoveAll(x => dialog.DeletedBooks.Contains(x));
             ShownBooks.RemoveRange(dialog.DeletedBooks);
             UpdateStatusBarBooksCount();
         }

@@ -17,7 +17,7 @@ public partial class TranslatorPicker : Window
     public TranslatorPicker()
     {
         InitializeComponent();
-        TranslatorsListBox.ItemsSource = Books.Translators;
+        TranslatorsListBox.ItemsSource = Library.Translators;
     }
 
     private void TranslatorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

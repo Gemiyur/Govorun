@@ -18,7 +18,7 @@ public partial class TagsPicker : Window
     public TagsPicker()
     {
         InitializeComponent();
-        TagsListBox.ItemsSource = Books.Tags;
+        TagsListBox.ItemsSource = Library.Tags;
     }
 
     private void TagsListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)

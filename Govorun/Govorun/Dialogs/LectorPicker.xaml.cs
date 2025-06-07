@@ -17,7 +17,7 @@ public partial class LectorPicker : Window
     public LectorPicker()
     {
         InitializeComponent();
-        LectorsListBox.ItemsSource = Books.Lectors;
+        LectorsListBox.ItemsSource = Library.Lectors;
     }
 
     private void LectorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

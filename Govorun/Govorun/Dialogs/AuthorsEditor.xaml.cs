@@ -146,7 +146,7 @@ public partial class AuthorsEditor : Window
                 MessageBox.Show("Не удалось изменить данные автора.", Title);
                 return false;
             }
-            var books = Books.GetAuthorBooks(EditedAuthor.AuthorId);
+            var books = Library.GetAuthorBooks(EditedAuthor.AuthorId);
             foreach (var book in books)
             {
                 var author = book.Authors.Find(x => x.AuthorId == EditedAuthor.AuthorId);
@@ -185,7 +185,7 @@ public partial class AuthorsEditor : Window
     {
         const string message = "Автор будет так же удалён из всех книг.\nУдалить автора?";
         var author = (Author)AuthorsListBox.SelectedItem;
-        var books = Books.GetAuthorBooks(author.AuthorId);
+        var books = Library.GetAuthorBooks(author.AuthorId);
         if (books.Any() && MessageBox.Show(message, Title, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
         {
             return;

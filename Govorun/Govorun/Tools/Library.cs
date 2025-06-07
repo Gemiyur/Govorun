@@ -5,7 +5,7 @@ namespace Govorun.Tools;
 /// <summary>
 /// Статический класс работы со списком книг.
 /// </summary>
-public static class Books
+public static class Library
 {
     /// <summary>
     /// Список всех книг.
@@ -52,7 +52,7 @@ public static class Books
     /// <summary>
     /// Статический конструктор.
     /// </summary>
-    static Books()
+    static Library()
     {
         AllBooks = Db.GetBooks();
     }
