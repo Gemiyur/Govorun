@@ -4,7 +4,7 @@ using System.Windows.Controls;
 namespace Govorun.Dialogs;
 
 /// <summary>
-/// Класс окна редактора закладки книги.
+/// Класс редактора закладки книги.
 /// </summary>
 public partial class BookmarkEditor : Window
 {
