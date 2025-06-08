@@ -4,7 +4,7 @@ using System.Windows.Controls;
 namespace Govorun.Dialogs;
 
 /// <summary>
-/// Класс окна редактора главы книги.
+/// Класс редактора главы книги.
 /// </summary>
 public partial class ChapterEditor : Window
 {
