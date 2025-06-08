@@ -5,13 +5,16 @@ namespace Govorun.Tools;
 
 #region Задачи (TODO).
 
-// TODO: Сделать каскадное удаление (параметр) авторов и циклов или достаточно вернуть false?
-
 #endregion
 
 /// <summary>
 /// Статический класс методов работы с базой данных.
 /// </summary>
+/// <remarks>
+/// Содержит основные (базовые) методы: вставка, удаление и обновление.<br/>
+/// Методы удаления обеспечивают целостность данных,<br/>
+/// не позволяя удалять авторов и серии, если на них есть ссылки у книг.
+/// </remarks>
 public static class Db
 {
     public static LiteDatabase GetDatabase() => new(App.DbName);
@@ -74,13 +77,9 @@ public static class Db
         return GetBooksCollection(db).Delete(bookId);
     }
 
-    public static bool DeleteBook(Book book)
-    {
-        using var db = GetDatabase();
-        return GetBooksCollection(db).Delete(book.BookId);
-    }
+    public static bool DeleteBook(int bookId, LiteDatabase db) => GetBooksCollection(db).Delete(bookId);
 
-    // TODO: Нужен ли метод удаления списка книг? Зависит от возможности удалять несколько книг в приложении.
+    // TODO: Метод удаления списка книг здесь не нужен. Удаление списка книг должно быть в другом месте приложения.
 
     public static void DeleteBooks(IEnumerable<Book> books)
     {

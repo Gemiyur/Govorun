@@ -402,7 +402,7 @@ public partial class MainWindow : Window
             }
             if (Player.Book == book)
                 Player.Book = null;
-            Db.DeleteBook(book);
+            Db.DeleteBook(book.BookId);
             Library.Books.Remove(book);
             ShownBooks.Remove(book);
             UpdateStatusBarBooksCount();
