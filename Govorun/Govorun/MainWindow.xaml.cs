@@ -395,15 +395,18 @@ public partial class MainWindow : Window
         if (BooksListView.SelectedItems.Count == 1)
         {
             var book = (Book)BooksListView.SelectedItem;
-            if (MessageBox.Show($"Удалить книгу \"{book.Title}\"?\nФайл книги удалён не будет.", Title,
+            if (MessageBox.Show($"Удалить книгу \"{book.Title}\" из библиотеки?", Title,
                                 MessageBoxButton.YesNo) != MessageBoxResult.Yes)
             {
                 return;
             }
             if (Player.Book == book)
                 Player.Book = null;
-            Db.DeleteBook(book.BookId);
-            Library.Books.Remove(book);
+            if (!Library.DeleteBook(book))
+            {
+                MessageBox.Show($"Не удалось удалить книгу \"{book.Title}\" из библиотеки?", Title);
+                return;
+            }
             ShownBooks.Remove(book);
             UpdateStatusBarBooksCount();
             return;

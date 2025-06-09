@@ -126,4 +126,16 @@ public static class Library
         Books.FindAll(x => x.PlayPosition > TimeSpan.Zero)
                 .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
                 .ToList();
+
+    #region Методы добавления, удаления и обновления книг, авторов и серий.
+
+    public static bool DeleteBook(Book book)
+    {
+        if (!Db.DeleteBook(book.BookId))
+            return false;
+        Books.Remove(book);
+        return true;
+    }
+
+    #endregion
 }
