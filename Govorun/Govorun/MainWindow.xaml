@@ -281,7 +281,6 @@
                           HorizontalAlignment="Center" VerticalAlignment="Stretch" />
             <!-- Список книг -->
             <ListView Grid.Row="1" Grid.Column="2" x:Name="BooksListView" MinWidth="400"
-                      SelectionMode="Single"
                       MouseDoubleClick="BooksListView_MouseDoubleClick"
                       SelectionChanged="BooksListView_SelectionChanged"
                       SizeChanged="BooksListView_SizeChanged">
