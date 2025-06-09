@@ -1,4 +1,5 @@
 ﻿using Govorun.Models;
+using System.Collections.Generic;
 
 namespace Govorun.Tools;
 
@@ -129,12 +130,37 @@ public static class Library
 
     #region Методы добавления, удаления и обновления книг, авторов и серий.
 
+    /// <summary>
+    /// Удаляет книгу из библиотеки и возвращает удалось ли удалить книгу.
+    /// </summary>
+    /// <param name="book">Книга для удаления.</param>
+    /// <returns>Удалось ли удалить книгу.</returns>
     public static bool DeleteBook(Book book)
     {
         if (!Db.DeleteBook(book.BookId))
             return false;
         Books.Remove(book);
         return true;
+    }
+
+    /// <summary>
+    /// Удаляет список книг из библиотеки и возвращает список удалённых книг.
+    /// </summary>
+    /// <param name="books">Список книг для удаления.</param>
+    /// <returns>Список удалённых книг.</returns>
+    public static List<Book> DeleteBooks(IEnumerable<Book> books)
+    {
+        List<Book> result = [];
+        using var db = Db.GetDatabase();
+        var collection = Db.GetBooksCollection(db);
+        foreach (var book in books)
+        {
+            if (!collection.Delete(book.BookId))
+                continue;
+            result.Add(book);
+            Books.Remove(book);
+        }
+        return result;
     }
 
     #endregion

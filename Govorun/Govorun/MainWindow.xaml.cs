@@ -8,6 +8,7 @@ using Govorun.Dialogs;
 using Govorun.Media;
 using Govorun.Models;
 using Govorun.Tools;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Govorun;
 
@@ -412,17 +413,20 @@ public partial class MainWindow : Window
             return;
         }
         var books = BooksListView.SelectedItems.Cast<Book>().ToList();
-        if (MessageBox.Show("Удалить выбранные книги?\nФайлы книг удалены не будут.", Title,
+        if (MessageBox.Show("Удалить выбранные книги из библиотеки?", Title,
                             MessageBoxButton.YesNo) != MessageBoxResult.Yes)
         {
             return;
         }
         if (Player.Book != null && books.Contains(Player.Book))
             Player.Book = null;
-        Db.DeleteBooks(books);
-        Library.Books.RemoveAll(books.Contains);
-        ShownBooks.RemoveRange(books);
+        var deletedBooks = Library.DeleteBooks(books);
+        ShownBooks.RemoveRange(deletedBooks);
         UpdateStatusBarBooksCount();
+        //if (deletedBooks.Count != books.Count)
+        //{
+        //    MessageBox.Show("Не удалось удалить некоторые книги из библиотеки?", Title);
+        //}
     }
 
     #endregion
@@ -527,9 +531,8 @@ public partial class MainWindow : Window
         {
             if (Player.Book != null && dialog.DeletedBooks.Contains(Player.Book))
                 Player.Book = null;
-            Db.DeleteBooks(dialog.DeletedBooks);
-            Library.Books.RemoveAll(x => dialog.DeletedBooks.Contains(x));
-            ShownBooks.RemoveRange(dialog.DeletedBooks);
+            var deletedBooks = Library.DeleteBooks(dialog.DeletedBooks);
+            ShownBooks.RemoveRange(deletedBooks);
             UpdateStatusBarBooksCount();
         }
         if (dialog.ChangedBooks.Any())

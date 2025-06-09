@@ -79,16 +79,6 @@ public static class Db
 
     public static bool DeleteBook(int bookId, LiteDatabase db) => GetBooksCollection(db).Delete(bookId);
 
-    // TODO: Метод удаления списка книг здесь не нужен. Удаление списка книг должно быть в другом месте приложения.
-
-    public static void DeleteBooks(IEnumerable<Book> books)
-    {
-        using var db = GetDatabase();
-        var collection = GetBooksCollection(db);
-        foreach (var book in books)
-            collection.Delete(book.BookId);
-    }
-
     public static bool UpdateBook(Book book)
     {
         using var db = GetDatabase();
