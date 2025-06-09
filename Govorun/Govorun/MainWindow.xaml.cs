@@ -381,7 +381,7 @@ public partial class MainWindow : Window
 
     private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count > 0;
+        e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
