@@ -61,7 +61,7 @@ public partial class MainWindow : Window
         Authors.AddRange(Db.GetAuthors());
         AuthorsListBox.ItemsSource = Authors;
         ShownBooks.AddRange(Library.Books);
-        BooksListView.ItemsSource = ShownBooks;
+        BooksListBox.ItemsSource = ShownBooks;
         UpdateStatusBarBooksCount();
         Player.IsEnabled = false;
         LoadLastBook();
@@ -184,7 +184,7 @@ public partial class MainWindow : Window
     /// <summary>
     /// Обновляет количество отображаемых книг в строке статуса.
     /// </summary>
-    private void UpdateStatusBarBooksCount() => StatusBarBooksCount.Text = BooksListView.Items.Count.ToString();
+    private void UpdateStatusBarBooksCount() => StatusBarBooksCount.Text = BooksListBox.Items.Count.ToString();
 
     private void Window_Closed(object sender, EventArgs e)
     {
@@ -213,28 +213,15 @@ public partial class MainWindow : Window
         UpdateShownBooks();
     }
 
-    private void BooksListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    private void BooksListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        if (e.OriginalSource is TextBlock && BooksListView.SelectedItem != null)
-            RunBookInfoDialog((Book)BooksListView.SelectedItem);
+        if (BooksListBox.SelectedItem != null && (e.OriginalSource is TextBlock || e.OriginalSource is Border))
+            RunBookInfoDialog((Book)BooksListBox.SelectedItem);
     }
 
-    private void BooksListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void BooksListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        StatusBarSelectedCount.Text = BooksListView.SelectedItems.Count.ToString();
-    }
-
-    private void BooksListView_SizeChanged(object sender, SizeChangedEventArgs e)
-    {
-        var listView = (ListView)sender;
-        var gridView = (GridView)listView.View;
-        var totalWidth = listView.ActualWidth - (SystemParameters.VerticalScrollBarWidth + 10);
-        var usedWidth = 0.0;
-        for (var i = 1; i < gridView.Columns.Count; i++)
-        {
-            usedWidth += gridView.Columns[i].Width;
-        }
-        gridView.Columns[0].Width = totalWidth - usedWidth;
+        StatusBarSelectedCount.Text = BooksListBox.SelectedItems.Count.ToString();
     }
 
     #endregion
@@ -243,7 +230,7 @@ public partial class MainWindow : Window
 
     private void Play_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItems.Count == 1;
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -254,7 +241,7 @@ public partial class MainWindow : Window
 
     private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        var book = (Book)BooksListView.SelectedItem;
+        var book = (Book)BooksListBox.SelectedItem;
         if (book == Player.Book)
             return;
         SaveBookPlayPosition();
@@ -263,7 +250,7 @@ public partial class MainWindow : Window
 
     private void Info_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItems.Count == 1;
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -274,13 +261,13 @@ public partial class MainWindow : Window
 
     private void Info_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        RunBookInfoDialog((Book)BooksListView.SelectedItem);
+        RunBookInfoDialog((Book)BooksListBox.SelectedItem);
     }
 
     private void Chapters_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1 &&
-            ((Book)BooksListView.SelectedItem).Chapters.Any();
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItems.Count == 1 &&
+            ((Book)BooksListBox.SelectedItem).Chapters.Any();
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -291,7 +278,7 @@ public partial class MainWindow : Window
 
     private void Chapters_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        var book = (Book)BooksListView.SelectedItem;
+        var book = (Book)BooksListBox.SelectedItem;
         var dialog = new ChaptersDialog(book) { Owner = this };
         if (dialog.ShowDialog() != true || dialog.Chapter == null)
             return;
@@ -307,8 +294,8 @@ public partial class MainWindow : Window
 
     private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1 &&
-            ((Book)BooksListView.SelectedItem).Bookmarks.Any();
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItems.Count == 1 &&
+            ((Book)BooksListBox.SelectedItem).Bookmarks.Any();
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -319,7 +306,7 @@ public partial class MainWindow : Window
 
     private void Bookmarks_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        var book = (Book)BooksListView.SelectedItem;
+        var book = (Book)BooksListBox.SelectedItem;
         var dialog = new BookmarksDialog(book) { Owner = this };
         var dialogResult = dialog.ShowDialog() == true;
         Player.CheckBookmarksButton();
@@ -337,7 +324,7 @@ public partial class MainWindow : Window
 
     private void Edit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItems.Count == 1;
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -348,7 +335,7 @@ public partial class MainWindow : Window
 
     private void Edit_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        var book = (Book)BooksListView.SelectedItem;
+        var book = (Book)BooksListBox.SelectedItem;
         var editor = new BookEditor(book, null) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
@@ -366,8 +353,8 @@ public partial class MainWindow : Window
         if (editor.TitleChanged)
         {
             SortShownBooks();
-            BooksListView.SelectedItem = book;
-            BooksListView.ScrollIntoView(BooksListView.SelectedItem);
+            BooksListBox.SelectedItem = book;
+            BooksListBox.ScrollIntoView(BooksListBox.SelectedItem);
             if (Player.Book == book)
                 Player.TitleTextBlock.Text = book.Title;
         }
@@ -380,7 +367,7 @@ public partial class MainWindow : Window
     private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
         // TODO: Нужна ли возможность удаления нескольких книг? Сейчас можно.
-        e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count > 0;
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItems.Count > 0;
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -391,9 +378,9 @@ public partial class MainWindow : Window
 
     private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        if (BooksListView.SelectedItems.Count == 1)
+        if (BooksListBox.SelectedItems.Count == 1)
         {
-            var book = (Book)BooksListView.SelectedItem;
+            var book = (Book)BooksListBox.SelectedItem;
             if (MessageBox.Show($"Удалить книгу \"{book.Title}\" из библиотеки?", Title,
                                 MessageBoxButton.YesNo) != MessageBoxResult.Yes)
             {
@@ -410,7 +397,7 @@ public partial class MainWindow : Window
             UpdateStatusBarBooksCount();
             return;
         }
-        var books = BooksListView.SelectedItems.Cast<Book>().ToList();
+        var books = BooksListBox.SelectedItems.Cast<Book>().ToList();
         if (MessageBox.Show("Удалить выбранные книги из библиотеки?", Title,
                             MessageBoxButton.YesNo) != MessageBoxResult.Yes)
         {
@@ -466,8 +453,8 @@ public partial class MainWindow : Window
         }
         ShownBooks.Add(book);
         SortShownBooks();
-        BooksListView.SelectedItem = book;
-        BooksListView.ScrollIntoView(AuthorsListBox.SelectedItem);
+        BooksListBox.SelectedItem = book;
+        BooksListBox.ScrollIntoView(AuthorsListBox.SelectedItem);
         book.OnPropertyChanged("AuthorNamesLastFirst");
         book.OnPropertyChanged("AuthorNamesFirstLast");
     }
