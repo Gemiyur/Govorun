@@ -14,8 +14,6 @@ namespace Govorun;
 
 #region Задачи (TODO).
 
-// TODO: Нужна ли возможность удаления нескольких выбранных книг?
-
 #endregion
 
 /// <summary>
@@ -382,7 +380,8 @@ public partial class MainWindow : Window
 
     private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count == 1;
+        // TODO: Нужна ли возможность удаления нескольких книг? Сейчас можно.
+        e.CanExecute = BooksListView != null && BooksListView.SelectedItems.Count > 0;
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -423,6 +422,7 @@ public partial class MainWindow : Window
         var deletedBooks = Library.DeleteBooks(books);
         ShownBooks.RemoveRange(deletedBooks);
         UpdateStatusBarBooksCount();
+        // TODO: Надо ли выдавать сообщение, что не все книги были удалены? Пока закомментировано.
         //if (deletedBooks.Count != books.Count)
         //{
         //    MessageBox.Show("Не удалось удалить некоторые книги из библиотеки?", Title);
@@ -534,6 +534,11 @@ public partial class MainWindow : Window
             var deletedBooks = Library.DeleteBooks(dialog.DeletedBooks);
             ShownBooks.RemoveRange(deletedBooks);
             UpdateStatusBarBooksCount();
+            // TODO: Надо ли выдавать сообщение, что не все книги были удалены? Пока закомментировано.
+            //if (deletedBooks.Count != dialog.DeletedBooks.Count)
+            //{
+            //    MessageBox.Show("Не удалось удалить некоторые книги из библиотеки?", Title);
+            //}
         }
         if (dialog.ChangedBooks.Any())
         {
