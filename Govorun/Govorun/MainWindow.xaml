@@ -20,12 +20,10 @@
             <Style x:Key="NavToggleButtonStyle" TargetType="ToggleButton">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="BorderThickness" Value="0" />
-                <!--<Setter Property="HorizontalContentAlignment" Value="Left" />-->
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ToggleButton">
                             <StackPanel Orientation="Horizontal" Background="{TemplateBinding Background}" Margin="0,5,0,5">
-                                <!--<TextBlock Text="X" Margin="0,0,10,0" />-->
                                 <Image Source="/Images/Buttons/Enabled/Info.png" Height="20" Margin="0,0,4,0" />
                                 <ContentPresenter VerticalAlignment="Center" />
                             </StackPanel>
@@ -301,15 +299,18 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <ToggleButton Grid.Row="0" Content="Все книги"
+                        <ToggleButton Grid.Row="0" x:Name="AllBooksToggleButton" Content="Все книги"
                                       Style="{StaticResource NavToggleButtonStyle}" />
-                        <Expander Grid.Row="1" x:Name="AuthorsExpander" Header="Авторы"
+                        <ToggleButton Grid.Row="1" x:Name="ListeningBooksToggleButton" Content="Слушаю"
+                                      Style="{StaticResource NavToggleButtonStyle}" />
+                        <Expander Grid.Row="2" x:Name="AuthorsExpander" Header="Авторы"
                                   Collapsed="AuthorsExpander_Collapsed"
                                   Expanded="AuthorsExpander_Expanded">
                         </Expander>
-                        <ListBox Grid.Row="2" x:Name="AuthorsListBox"
+                        <ListBox Grid.Row="3" x:Name="AuthorsListBox"
                                  BorderThickness="0"
                                  Visibility="Collapsed"
                                  SelectionChanged="AuthorsListBox_SelectionChanged">
@@ -319,11 +320,11 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <Expander Grid.Row="3" x:Name="CyclesExpander" Header="Серии"
+                        <Expander Grid.Row="4" x:Name="CyclesExpander" Header="Серии"
                                   Collapsed="CyclesExpander_Collapsed"
                                   Expanded="CyclesExpander_Expanded">
                         </Expander>
-                        <ListBox Grid.Row="4" x:Name="CyclesListBox"
+                        <ListBox Grid.Row="5" x:Name="CyclesListBox"
                                  BorderThickness="0"
                                  Visibility="Collapsed"
                                  SelectionChanged="CyclesListBox_SelectionChanged">
