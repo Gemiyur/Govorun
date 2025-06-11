@@ -30,6 +30,8 @@ public partial class MainWindow : Window
     /// </summary>
     private readonly ObservableCollectionEx<Author> Authors = [];
 
+    private readonly ObservableCollectionEx<Cycle> Cycles = [];
+
     /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
@@ -60,6 +62,8 @@ public partial class MainWindow : Window
         }
         Authors.AddRange(Db.GetAuthors());
         AuthorsListBox.ItemsSource = Authors;
+        Cycles.AddRange(Db.GetCycles());
+        CyclesListBox.ItemsSource = Cycles;
         ShownBooks.AddRange(Library.Books);
         BooksListBox.ItemsSource = ShownBooks;
         UpdateStatusBarBooksCount();
@@ -204,6 +208,7 @@ public partial class MainWindow : Window
     private void AllAuthorsButton_Click(object sender, RoutedEventArgs e)
     {
         AuthorsListBox.SelectedIndex = -1;
+        CyclesListBox.SelectedIndex = -1;
         SortShownBooks();
     }
 
@@ -221,6 +226,21 @@ public partial class MainWindow : Window
     {
         AllAuthorsButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
         UpdateShownBooks();
+    }
+
+    private void CyclesExpander_Collapsed(object sender, RoutedEventArgs e)
+    {
+        CyclesListBox.Visibility = Visibility.Collapsed;
+    }
+
+    private void CyclesExpander_Expanded(object sender, RoutedEventArgs e)
+    {
+        CyclesListBox.Visibility = Visibility.Visible;
+    }
+
+    private void CyclesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
     }
 
     private void BooksListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)

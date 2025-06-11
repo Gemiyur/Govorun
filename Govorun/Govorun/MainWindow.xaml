@@ -292,6 +292,20 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
+                        <Expander Grid.Row="2" x:Name="CyclesExpander" Header="Серии"
+                                  Collapsed="CyclesExpander_Collapsed"
+                                  Expanded="CyclesExpander_Expanded">
+                        </Expander>
+                        <ListBox Grid.Row="3" x:Name="CyclesListBox"
+                                 BorderThickness="0"
+                                 Visibility="Collapsed"
+                                 SelectionChanged="CyclesListBox_SelectionChanged">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Title}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </Grid>
                 </ScrollViewer>
             </Border>
