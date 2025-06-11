@@ -17,34 +17,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="MainDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="NavToggleButtonStyle" TargetType="ToggleButton">
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Margin" Value="0,5,0,0" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ToggleButton">
-                            <StackPanel Orientation="Horizontal" Background="{TemplateBinding Background}">
-                                <Image Source="{Binding}" Height="20" Margin="0,0,4,0" />
-                                <ContentPresenter VerticalAlignment="Center" />
-                            </StackPanel>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsChecked" Value="True">
-                        <Setter Property="Background" Value="Yellow" />
-                        <Setter Property="Foreground" Value="Navy" />
-                        <Setter Property="FontWeight" Value="Bold" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-
-            <Style x:Key="NavExpanderStyle" TargetType="Expander">
-                <Setter Property="Margin" Value="0,5,0,0" />
-            </Style>
- 
         </ResourceDictionary>
     </Window.Resources>
 
