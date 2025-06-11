@@ -207,6 +207,16 @@ public partial class MainWindow : Window
         SortShownBooks();
     }
 
+    private void AuthorsExpander_Collapsed(object sender, RoutedEventArgs e)
+    {
+        AuthorsListBox.Visibility = Visibility.Collapsed;
+    }
+
+    private void AuthorsExpander_Expanded(object sender, RoutedEventArgs e)
+    {
+        AuthorsListBox.Visibility = Visibility.Visible;
+    }
+
     private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         AllAuthorsButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
