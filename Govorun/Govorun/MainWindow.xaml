@@ -20,6 +20,7 @@
             <Style x:Key="NavToggleButtonStyle" TargetType="ToggleButton">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Margin" Value="0,5,0,0" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ToggleButton">
@@ -32,7 +33,7 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsChecked" Value="True">
-                        <Setter Property="Control.Background" Value="Yellow" />
+                        <Setter Property="Background" Value="Yellow" />
                         <Setter Property="Foreground" Value="Navy" />
                         <Setter Property="FontWeight" Value="Bold" />
                     </Trigger>
@@ -304,12 +305,10 @@
 
                         <ToggleButton Grid.Row="0" x:Name="AllBooksToggleButton" Content="Все книги"
                                       Style="{StaticResource NavToggleButtonStyle}"
-                                      DataContext="/Images/Buttons/Enabled/Info.png"
-                                      Margin="0,5,0,0" />
+                                      DataContext="/Images/Buttons/Enabled/Info.png" />
                         <ToggleButton Grid.Row="1" x:Name="ListeningBooksToggleButton" Content="Слушаю"
                                       Style="{StaticResource NavToggleButtonStyle}"
-                                      DataContext="/Images/Buttons/Enabled/Listening.png"
-                                      Margin="0,5,0,0" />
+                                      DataContext="/Images/Buttons/Enabled/Listening.png" />
                         <Expander Grid.Row="2" x:Name="AuthorsExpander" Header="Авторы"
                                   Collapsed="AuthorsExpander_Collapsed"
                                   Expanded="AuthorsExpander_Expanded">
