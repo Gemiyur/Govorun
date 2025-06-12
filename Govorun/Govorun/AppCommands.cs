@@ -44,11 +44,6 @@ public static class AppCommands
     #region Команды группы "Библиотека".
 
     /// <summary>
-    /// Команда окна слушаемых книг.
-    /// </summary>
-    public static RoutedUICommand Listening { get; private set; }
-
-    /// <summary>
     /// Команда добавления книги в библиотеку.
     /// </summary>
     public static RoutedUICommand AddBook { get; private set; }
@@ -117,7 +112,6 @@ public static class AppCommands
         Delete = new RoutedUICommand("Удалить...", "Delete", typeof(AppCommands));
 
         // Команды группы "Библиотека".
-        Listening = new RoutedUICommand("Слушаемые книги...", "Listening", typeof(AppCommands));
         AddBook = new RoutedUICommand("Добавить книгу...", "AddBook", typeof(AppCommands));
         FindBooks = new RoutedUICommand("Найти книги в папке...", "FindBooks", typeof(AppCommands));
         Authors = new RoutedUICommand("Авторы...", "Authors", typeof(AppCommands));

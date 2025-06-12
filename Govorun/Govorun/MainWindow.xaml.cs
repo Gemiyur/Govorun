@@ -519,15 +519,6 @@ public partial class MainWindow : Window
 
     #region Обработчики команд группы "Библиотека".
 
-    private void Listening_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var dialog = new ListeningDialog() { Owner = this };
-        if (dialog.ShowDialog() != true || dialog.BookForPlay == Player.Book)
-            return;
-        SaveBookPlayPosition();
-        Player.Book = dialog.BookForPlay;
-    }
-
     private void AddBook_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         var fileDialog = App.PickBookFileDialog;
