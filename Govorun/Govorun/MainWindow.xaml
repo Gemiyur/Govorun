@@ -241,34 +241,15 @@
             </ToolBar>
         </ToolBarTray>
 
-        <!-- Авторы и книги -->
+        <!-- Панель навигации и список книг -->
         <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" MinWidth="100" MaxWidth="300" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <!-- Заголовки списков -->
-            <Grid Grid.Row="0" Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Авторы" Margin="8,4,0,4" />
-                <Button Grid.Column="1" x:Name="AllAuthorsButton"
-                        Content="x" FontWeight="Bold" ToolTip="Снять выбор автора"
-                        Width="20" Height="20" HorizontalAlignment="Right"
-                        Margin="0,0,2,0"
-                        IsEnabled="False"
-                        Click="AllAuthorsButton_Click" />
-            </Grid>
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="Книги" Margin="8,4,0,4" />
-            <!-- Список авторов -->
-            <Border Grid.Row="1" Grid.Column="0" BorderBrush="MidnightBlue" BorderThickness="0.5">
+            <!-- Панель навигации -->
+            <Border Grid.Column="0" BorderBrush="MidnightBlue" BorderThickness="0.5">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="10,0,0,0">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -322,16 +303,6 @@
                     </Grid>
                 </ScrollViewer>
             </Border>
-            
-            <!--<ListBox Grid.Row="1" Grid.Column="0" x:Name="AuthorsListBox"
-                     SelectionChanged="AuthorsListBox_SelectionChanged">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding NameLastFirst}" ToolTip="{Binding NameLastFirstMiddle}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>-->
-
             <!-- Сплиттер -->
             <GridSplitter Grid.Row="1" Grid.Column="1" Width="5"
                           HorizontalAlignment="Center" VerticalAlignment="Stretch" />

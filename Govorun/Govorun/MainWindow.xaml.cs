@@ -243,13 +243,6 @@ public partial class MainWindow : Window
 
     #region Обработчики событий элементов панели навигации.
 
-    private void AllAuthorsButton_Click(object sender, RoutedEventArgs e)
-    {
-        //AuthorsListBox.SelectedIndex = -1;
-        //CyclesListBox.SelectedIndex = -1;
-        //SortShownBooks();
-    }
-
     /// <summary>
     /// Блокируются ли обработчики событий элементов панели навигации.
     /// </summary>
