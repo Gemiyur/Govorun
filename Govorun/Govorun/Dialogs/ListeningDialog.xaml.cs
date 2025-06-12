@@ -37,7 +37,7 @@ public partial class ListeningDialog : Window
     public ListeningDialog()
     {
         InitializeComponent();
-        books.AddRange(Library.GetListeningBooks());
+        books.AddRange(Library.ListeningBooks);
         BooksListView.ItemsSource = books;
     }
 

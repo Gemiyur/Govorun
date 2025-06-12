@@ -26,6 +26,14 @@ public static class Library
     public static readonly List<Cycle> Cycles;
 
     /// <summary>
+    /// Список слушаемых книг.
+    /// </summary>
+    public static List<Book> ListeningBooks =>
+        Books.FindAll(x => x.PlayPosition > TimeSpan.Zero)
+                 .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
+                 .ToList();
+
+    /// <summary>
     /// Возвращает список всех чтецов.
     /// </summary>
     public static List<string> Lectors =>
@@ -57,7 +65,6 @@ public static class Library
             {
                 allTags.AddRange(book.Tags.FindAll(x => !string.IsNullOrWhiteSpace(x) && !allTags.Contains(x)));
             }
-
             return allTags.Distinct().Order(StringComparer.CurrentCultureIgnoreCase).ToList();
         }
     }
@@ -117,16 +124,6 @@ public static class Library
     /// <returns>Книга с указанным именем файла.</returns>
     public static Book? GetBookWithFile(string filename) =>
         Books.Find(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
-
-    // TODO: Сделать свойством ListeningBooks.
-        /// <summary>
-    /// Возвращает список слушаемых книг отсортированных по названию.
-    /// </summary>
-    /// <returns>Список слушаемых книг отсортированных по названию.</returns>
-    public static List<Book> GetListeningBooks() =>
-        Books.FindAll(x => x.PlayPosition > TimeSpan.Zero)
-                .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
-                .ToList();
 
     #region Методы добавления, удаления и обновления книг, авторов и серий.
 

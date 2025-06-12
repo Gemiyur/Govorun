@@ -187,7 +187,7 @@ public partial class MainWindow : Window
         }
         if (ListeningBooksToggleButton.IsChecked == true)
         {
-            ShownBooks.ReplaceRange(Library.GetListeningBooks());
+            ShownBooks.ReplaceRange(Library.ListeningBooks);
             return;
         }
         if (AuthorsListBox.SelectedItem != null)
