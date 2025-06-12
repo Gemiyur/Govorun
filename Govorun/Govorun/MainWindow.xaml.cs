@@ -180,9 +180,32 @@ public partial class MainWindow : Window
     /// </summary>
     private void UpdateShownBooks()
     {
-        var author = (Author)AuthorsListBox.SelectedItem;
-        var books = author == null ? Library.Books : Library.GetAuthorBooks(author.AuthorId);
-        ShownBooks.ReplaceRange(books);
+        if (AllBooksToggleButton.IsChecked == true)
+        {
+            ShownBooks.ReplaceRange(Library.Books);
+            return;
+        }
+        if (ListeningBooksToggleButton.IsChecked == true)
+        {
+            ShownBooks.ReplaceRange(Library.GetListeningBooks());
+            return;
+        }
+        if (AuthorsListBox.SelectedItem != null)
+        {
+            var author = (Author)AuthorsListBox.SelectedItem;
+            var books = Library.GetAuthorBooks(author.AuthorId);
+            ShownBooks.ReplaceRange(books);
+            return;
+        }
+        if (CyclesListBox.SelectedItem != null)
+        {
+            var cycle = (Cycle)CyclesListBox.SelectedItem;
+            var books = Library.GetCycleBooks(cycle.CycleId);
+            ShownBooks.ReplaceRange(books);
+            return;
+        }
+        // TODO: Тут будет ещё условие для тегов.
+
     }
 
     /// <summary>
@@ -198,18 +221,70 @@ public partial class MainWindow : Window
         Properties.Settings.Default.Save();
     }
 
-    #region Обработчики событий элементов управления.
-
     private void CloseMenuItem_Click(object sender, RoutedEventArgs e)
     {
         Close();
     }
 
+    #region Обработчики событий элемента списка книг.
+
+    private void BooksListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (BooksListBox.SelectedItem != null && (e.OriginalSource is TextBlock || e.OriginalSource is Border))
+            RunBookInfoDialog((Book)BooksListBox.SelectedItem);
+    }
+
+    private void BooksListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        StatusBarSelectedCount.Text = BooksListBox.SelectedItems.Count.ToString();
+    }
+
+    #endregion
+
+    #region Обработчики событий элементов панели навигации.
+
     private void AllAuthorsButton_Click(object sender, RoutedEventArgs e)
     {
+        //AuthorsListBox.SelectedIndex = -1;
+        //CyclesListBox.SelectedIndex = -1;
+        //SortShownBooks();
+    }
+
+    /// <summary>
+    /// Блокируются ли обработчики событий элементов панели навигации.
+    /// </summary>
+    private bool NavHandlersLocked;
+
+    private void AllBooksToggleButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (AllBooksToggleButton.IsChecked != true)
+        {
+            AllBooksToggleButton.IsChecked = true;
+            return;
+        }
+        ListeningBooksToggleButton.IsChecked = false;
+        NavHandlersLocked = true;
         AuthorsListBox.SelectedIndex = -1;
         CyclesListBox.SelectedIndex = -1;
-        SortShownBooks();
+        NavHandlersLocked = false;
+        UpdateShownBooks();
+        //SortShownBooks();
+    }
+
+    private void ListeningBooksToggleButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (ListeningBooksToggleButton.IsChecked != true)
+        {
+            ListeningBooksToggleButton.IsChecked = true;
+            return;
+        }
+        AllBooksToggleButton.IsChecked = false;
+        NavHandlersLocked = true;
+        AuthorsListBox.SelectedIndex = -1;
+        CyclesListBox.SelectedIndex = -1;
+        NavHandlersLocked = false;
+        UpdateShownBooks();
+        //SortShownBooks();
     }
 
     private void AuthorsExpander_Collapsed(object sender, RoutedEventArgs e)
@@ -224,7 +299,13 @@ public partial class MainWindow : Window
 
     private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        AllAuthorsButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
+        if (NavHandlersLocked)
+            return;
+        AllBooksToggleButton.IsChecked = AuthorsListBox.SelectedIndex < 0;
+        ListeningBooksToggleButton.IsChecked = false;
+        NavHandlersLocked = true;
+        CyclesListBox.SelectedIndex = -1;
+        NavHandlersLocked = false;
         UpdateShownBooks();
     }
 
@@ -240,18 +321,14 @@ public partial class MainWindow : Window
 
     private void CyclesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-
-    }
-
-    private void BooksListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        if (BooksListBox.SelectedItem != null && (e.OriginalSource is TextBlock || e.OriginalSource is Border))
-            RunBookInfoDialog((Book)BooksListBox.SelectedItem);
-    }
-
-    private void BooksListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        StatusBarSelectedCount.Text = BooksListBox.SelectedItems.Count.ToString();
+        if (NavHandlersLocked)
+            return;
+        AllBooksToggleButton.IsChecked = CyclesListBox.SelectedIndex < 0;
+        ListeningBooksToggleButton.IsChecked = false;
+        NavHandlersLocked = true;
+        AuthorsListBox.SelectedIndex = -1;
+        NavHandlersLocked = false;
+        UpdateShownBooks();
     }
 
     #endregion

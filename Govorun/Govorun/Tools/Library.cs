@@ -118,7 +118,8 @@ public static class Library
     public static Book? GetBookWithFile(string filename) =>
         Books.Find(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
 
-    /// <summary>
+    // TODO: Сделать свойством ListeningBooks.
+        /// <summary>
     /// Возвращает список слушаемых книг отсортированных по названию.
     /// </summary>
     /// <returns>Список слушаемых книг отсортированных по названию.</returns>
