@@ -43,6 +43,7 @@
     <None Remove="Images\Buttons\Enabled\About.png" />
     <None Remove="Images\Buttons\Enabled\AddBook.png" />
     <None Remove="Images\Buttons\Enabled\AddBookmark.png" />
+    <None Remove="Images\Buttons\Enabled\AllBooks.png" />
     <None Remove="Images\Buttons\Enabled\Authors.png" />
     <None Remove="Images\Buttons\Enabled\Back.png" />
     <None Remove="Images\Buttons\Enabled\Bookmarks.png" />
@@ -109,6 +110,7 @@
     <Resource Include="Images\Buttons\Enabled\About.png" />
     <Resource Include="Images\Buttons\Enabled\AddBook.png" />
     <Resource Include="Controls\PlayerImages\Enabled\AddBookmark.png" />
+    <Resource Include="Images\Buttons\Enabled\AllBooks.png" />
     <Resource Include="Images\Buttons\Enabled\Authors.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Back.png" />
     <Resource Include="Images\Buttons\Enabled\Bookmarks.png" />

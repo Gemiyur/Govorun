@@ -263,7 +263,7 @@
 
                         <ToggleButton Grid.Row="0" x:Name="AllBooksToggleButton" Content="Все книги"
                                       Style="{StaticResource NavToggleButtonStyle}"
-                                      DataContext="/Images/Buttons/Enabled/Info.png"
+                                      DataContext="/Images/Buttons/Enabled/AllBooks.png"
                                       IsChecked="True"
                                       Click="AllBooksToggleButton_Click" />
                         <ToggleButton Grid.Row="1" x:Name="ListeningBooksToggleButton" Content="Слушаю"
