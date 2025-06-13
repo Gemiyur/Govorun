@@ -183,11 +183,13 @@ public partial class MainWindow : Window
         if (AllBooksToggleButton.IsChecked == true)
         {
             ShownBooks.ReplaceRange(Library.Books);
+            BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
             return;
         }
         if (ListeningBooksToggleButton.IsChecked == true)
         {
             ShownBooks.ReplaceRange(Library.ListeningBooks);
+            BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
             return;
         }
         if (AuthorsListBox.SelectedItem != null)
@@ -195,6 +197,7 @@ public partial class MainWindow : Window
             var author = (Author)AuthorsListBox.SelectedItem;
             var books = Library.GetAuthorBooks(author.AuthorId);
             ShownBooks.ReplaceRange(books);
+            BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
             return;
         }
         if (CyclesListBox.SelectedItem != null)
@@ -202,6 +205,7 @@ public partial class MainWindow : Window
             var cycle = (Cycle)CyclesListBox.SelectedItem;
             var books = Library.GetCycleBooks(cycle.CycleId);
             ShownBooks.ReplaceRange(books);
+            BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookCycleDataTemplate");
             return;
         }
         // TODO: Тут будет ещё условие для тегов.

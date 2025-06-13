@@ -296,18 +296,10 @@
                           HorizontalAlignment="Center" VerticalAlignment="Stretch" />
             <!-- Список книг -->
             <ListBox Grid.Row="1" Grid.Column="2" x:Name="BooksListBox"
+                     ItemTemplate="{StaticResource BookDataTemplate}"
                      SelectionMode="Extended"
                      MouseDoubleClick="BooksListBox_MouseDoubleClick"
-                     SelectionChanged="BooksListBox_SelectionChanged">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Title}" FontWeight="Bold" />
-                            <TextBlock Text="{Binding AuthorNamesFirstLast}" Margin="20,0,0,0" FontStyle="Italic" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                     SelectionChanged="BooksListBox_SelectionChanged" />
         </Grid>
 
         <!-- Проигрыватель -->
