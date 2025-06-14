@@ -9,10 +9,6 @@ using Govorun.Tools;
 
 namespace Govorun.Dialogs;
 
-#region Задачи (TODO).
-
-#endregion
-
 /// <summary>
 /// Класс окна редактора книги.
 /// </summary>
@@ -22,6 +18,16 @@ public partial class BookEditor : Window
     /// Были ли изменения в авторах книги.
     /// </summary>
     public bool AuthorsChanged;
+
+    /// <summary>
+    /// Была ли изменена серия книги.
+    /// </summary>
+    public bool CycleChanged;
+
+    /// <summary>
+    /// Был ли изменён номер книги в серии.
+    /// </summary>
+    public bool CycleNumberChanged;
 
     /// <summary>
     /// Было ли изменено имя файла книги.
@@ -37,6 +43,11 @@ public partial class BookEditor : Window
     /// Была ли добавлена новая серия.
     /// </summary>
     public bool HasNewCycle;
+
+    /// <summary>
+    /// Были ли изменения в тегах книги.
+    /// </summary>
+    public bool TagsChanged;
 
     /// <summary>
     /// Было ли изменено название книги.
@@ -223,6 +234,7 @@ public partial class BookEditor : Window
         {
             book.Cycle = cycle;
             changed = true;
+            CycleChanged = true;
         }
         else
         {
@@ -231,6 +243,7 @@ public partial class BookEditor : Window
             {
                 book.Cycle = cycle;
                 changed = true;
+                CycleChanged = true;
             }
         }
 
@@ -240,6 +253,7 @@ public partial class BookEditor : Window
         {
             book.CycleNumber = cycleNumber;
             changed = true;
+            CycleNumberChanged = true;
         }
 
         // Чтец.
@@ -264,6 +278,7 @@ public partial class BookEditor : Window
             book.Tags.Clear();
             book.Tags.AddRange(tags);
             changed = true;
+            TagsChanged = true;
         }
 
         // Имя файла.
