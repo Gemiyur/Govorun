@@ -225,11 +225,6 @@ public partial class MainWindow : Window
         Properties.Settings.Default.Save();
     }
 
-    private void CloseMenuItem_Click(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
-
     #region Обработчики событий элемента списка книг.
 
     private void BooksListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -517,6 +512,11 @@ public partial class MainWindow : Window
         //{
         //    MessageBox.Show("Не удалось удалить некоторые книги из библиотеки?", Title);
         //}
+    }
+
+    private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        Close();
     }
 
     #endregion

@@ -39,6 +39,11 @@ public static class AppCommands
     /// </summary>
     public static RoutedUICommand Delete { get; private set; }
 
+    /// <summary>
+    /// Команда выхода из приложения.
+    /// </summary>
+    public static RoutedUICommand Exit { get; private set; }
+
     #endregion
 
     #region Команды группы "Библиотека".
@@ -110,6 +115,7 @@ public static class AppCommands
         Bookmarks = new RoutedUICommand("Закладки...", "Bookmarks", typeof(AppCommands));
         Edit = new RoutedUICommand("Изменить...", "Edit", typeof(AppCommands));
         Delete = new RoutedUICommand("Удалить...", "Delete", typeof(AppCommands));
+        Exit = new RoutedUICommand("Выход...", "Exit", typeof(AppCommands));
 
         // Команды группы "Библиотека".
         AddBook = new RoutedUICommand("Добавить книгу...", "AddBook", typeof(AppCommands));
