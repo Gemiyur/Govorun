@@ -182,7 +182,7 @@ public partial class MainWindow : Window
     {
         if (AllBooksToggleButton.IsChecked == true)
         {
-            ShownBooks.ReplaceRange(Library.Books);
+            ShownBooks.ReplaceRange(Library.Books.OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase));
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
             return;
         }
