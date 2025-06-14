@@ -217,6 +217,27 @@ public partial class MainWindow : Window
     /// </summary>
     private void UpdateStatusBarBooksCount() => StatusBarBooksCount.Text = BooksListBox.Items.Count.ToString();
 
+    #region Блокировка и разблокировка обработчиков событий элементов панели навигации.
+
+    /// <summary>
+    /// Блокируются ли обработчики событий элементов панели навигации.
+    /// </summary>
+    private bool NavHandlersLocked;
+
+    /// <summary>
+    /// Блокирует обработчики событий элементов панели навигации.
+    /// </summary>
+    private void LockNavHandlers() => NavHandlersLocked = true;
+
+    /// <summary>
+    /// Разблокирует обработчики событий элементов панели навигации.
+    /// </summary>
+    private void UnlockNavHandlers() => NavHandlersLocked = false;
+
+    #endregion
+
+    #region Обработчики событий окна.
+
     private void Window_Closed(object sender, EventArgs e)
     {
         SaveBookPlayPosition();
@@ -224,6 +245,8 @@ public partial class MainWindow : Window
         SavePlayerVolume();
         Properties.Settings.Default.Save();
     }
+
+    #endregion
 
     #region Обработчики событий элемента списка книг.
 
@@ -242,11 +265,6 @@ public partial class MainWindow : Window
 
     #region Обработчики событий элементов панели навигации.
 
-    /// <summary>
-    /// Блокируются ли обработчики событий элементов панели навигации.
-    /// </summary>
-    private bool NavHandlersLocked;
-
     private void AllBooksToggleButton_Click(object sender, RoutedEventArgs e)
     {
         if (AllBooksToggleButton.IsChecked != true)
@@ -255,10 +273,10 @@ public partial class MainWindow : Window
             return;
         }
         ListeningBooksToggleButton.IsChecked = false;
-        NavHandlersLocked = true;
+        LockNavHandlers();
         AuthorsListBox.SelectedIndex = -1;
         CyclesListBox.SelectedIndex = -1;
-        NavHandlersLocked = false;
+        UnlockNavHandlers();
         UpdateShownBooks();
         //SortShownBooks();
     }
@@ -271,10 +289,10 @@ public partial class MainWindow : Window
             return;
         }
         AllBooksToggleButton.IsChecked = false;
-        NavHandlersLocked = true;
+        LockNavHandlers();
         AuthorsListBox.SelectedIndex = -1;
         CyclesListBox.SelectedIndex = -1;
-        NavHandlersLocked = false;
+        UnlockNavHandlers();
         UpdateShownBooks();
         //SortShownBooks();
     }
@@ -295,9 +313,9 @@ public partial class MainWindow : Window
             return;
         AllBooksToggleButton.IsChecked = AuthorsListBox.SelectedIndex < 0;
         ListeningBooksToggleButton.IsChecked = false;
-        NavHandlersLocked = true;
+        LockNavHandlers();
         CyclesListBox.SelectedIndex = -1;
-        NavHandlersLocked = false;
+        UnlockNavHandlers();
         UpdateShownBooks();
     }
 
@@ -317,9 +335,9 @@ public partial class MainWindow : Window
             return;
         AllBooksToggleButton.IsChecked = CyclesListBox.SelectedIndex < 0;
         ListeningBooksToggleButton.IsChecked = false;
-        NavHandlersLocked = true;
+        LockNavHandlers();
         AuthorsListBox.SelectedIndex = -1;
-        NavHandlersLocked = false;
+        UnlockNavHandlers();
         UpdateShownBooks();
     }
 
