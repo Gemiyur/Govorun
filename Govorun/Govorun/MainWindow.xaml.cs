@@ -169,9 +169,26 @@ public partial class MainWindow : Window
         Authors.ReplaceRange(Db.GetAuthors());
         if (selectedAuthor != null)
         {
-            var author = Authors.First(x => x.AuthorId == selectedAuthor.AuthorId);
-            AuthorsListBox.SelectedItem = author;
-            AuthorsListBox.ScrollIntoView(AuthorsListBox.SelectedItem);
+            //var author = Authors.First(x => x.AuthorId == selectedAuthor.AuthorId);
+            AuthorsListBox.SelectedItem = Authors.First(x => x.AuthorId == selectedAuthor.AuthorId);
+            if (AuthorsListBox.SelectedItem != null)
+                AuthorsListBox.ScrollIntoView(AuthorsListBox.SelectedItem);
+        }
+    }
+
+    /// <summary>
+    /// Обновляет список серий книг.
+    /// </summary>
+    private void UpdateCycles()
+    {
+        var selectedCycle = (Cycle)CyclesListBox.SelectedItem;
+        Cycles.ReplaceRange(Db.GetCycles());
+        if (selectedCycle != null)
+        {
+            //var cycle = Cycles.First(x => x.CycleId == selectedCycle.CycleId);
+            CyclesListBox.SelectedItem = Cycles.First(x => x.CycleId == selectedCycle.CycleId);
+            if (CyclesListBox.SelectedItem != null)
+                CyclesListBox.ScrollIntoView(CyclesListBox.SelectedItem);
         }
     }
 
@@ -456,23 +473,22 @@ public partial class MainWindow : Window
         var editor = new BookEditor(book, null) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
+        LockNavHandlers();
         if (editor.HasNewAuthors)
             UpdateAuthors();
-        if (AuthorsListBox.SelectedIndex >= 0 && editor.AuthorsChanged)
+        if (editor.HasNewCycle)
+            UpdateCycles();
+        UnlockNavHandlers();
+        if (editor.TitleChanged || editor.AuthorsChanged ||
+            editor.CycleChanged || editor.CycleNumberChanged || editor.TagsChanged)
         {
-            var author = (Author)AuthorsListBox.SelectedItem;
-            if (!book.Authors.Exists(x => x.AuthorId == author.AuthorId))
+            UpdateShownBooks();
+            if (ShownBooks.Contains(book))
             {
-                ShownBooks.Remove(book);
-                return;
+                BooksListBox.SelectedItem = book;
+                BooksListBox.ScrollIntoView(BooksListBox.SelectedItem);
             }
-        }
-        if (editor.TitleChanged)
-        {
-            SortShownBooks();
-            BooksListBox.SelectedItem = book;
-            BooksListBox.ScrollIntoView(BooksListBox.SelectedItem);
-            if (Player.Book == book)
+            if (editor.TitleChanged && Player.Book == book)
                 Player.TitleTextBlock.Text = book.Title;
         }
         if (editor.FileChanged && Player.Book == book)
