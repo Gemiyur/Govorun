@@ -1,4 +1,5 @@
-﻿using Govorun.Models;
+﻿using Gemiyur.Comparers;
+using Govorun.Models;
 
 namespace Govorun.Tools;
 
@@ -15,47 +16,48 @@ public static class Library
     /// </summary>
     public static readonly List<Book> Books;
 
-    /// <summary>
-    /// Список всех авторов.
-    /// </summary>
-    public static readonly List<Author> Authors;
+    ///// <summary>
+    ///// Список всех авторов.
+    ///// </summary>
+    //public static readonly List<Author> Authors;
+
+    ///// <summary>
+    ///// Список всех серий.
+    ///// </summary>
+    //public static readonly List<Cycle> Cycles;
 
     /// <summary>
-    /// Список всех серий.
+    /// Возвращает список слушаемых книг.
     /// </summary>
-    public static readonly List<Cycle> Cycles;
-
-    /// <summary>
-    /// Список слушаемых книг.
-    /// </summary>
+    /// <remarks>Книги отсортированы по названию.</remarks>
     public static List<Book> ListeningBooks =>
-        Books.FindAll(x => x.PlayPosition > TimeSpan.Zero)
-                 .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
-                 .ToList();
+        [.. Books.FindAll(x => x.PlayPosition > TimeSpan.Zero)
+                 .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
     /// <summary>
     /// Возвращает список всех чтецов.
     /// </summary>
+    /// <remarks>Чтецы отсортированы по названию.</remarks>
     public static List<string> Lectors =>
-        Books.Select(x => x.Lector)
-                .Where(x => !string.IsNullOrWhiteSpace(x))
-                .Distinct()
-                .Order(StringComparer.CurrentCultureIgnoreCase)
-                .ToList();
+        [.. Books.Select(x => x.Lector)
+                 .Where(x => !string.IsNullOrWhiteSpace(x))
+                 .Distinct()
+                 .Order(StringComparer.CurrentCultureIgnoreCase)];
 
     /// <summary>
     /// Возвращает список всех переводчиков.
     /// </summary>
+    /// <remarks>Переводчики отсортированы по названию.</remarks>
     public static List<string> Translators =>
-        Books.Select(x => x.Translator)
-                .Where(x => !string.IsNullOrWhiteSpace(x))
-                .Distinct()
-                .Order(StringComparer.CurrentCultureIgnoreCase)
-                .ToList();
+        [.. Books.Select(x => x.Translator)
+                 .Where(x => !string.IsNullOrWhiteSpace(x))
+                 .Distinct()
+                 .Order(StringComparer.CurrentCultureIgnoreCase)];
 
     /// <summary>
     /// Возвращает список всех тегов.
     /// </summary>
+    /// <remarks>Теги отсортированы по названию.</remarks>
     public static List<string> Tags
     {
         get
@@ -75,8 +77,8 @@ public static class Library
     static Library()
     {
         Books = Db.GetBooks();
-        Authors = Db.GetAuthors();
-        Cycles = Db.GetCycles();
+        //Authors = Db.GetAuthors();
+        //Cycles = Db.GetCycles();
     }
 
     /// <summary>
@@ -108,14 +110,24 @@ public static class Library
     /// </summary>
     /// <param name="authorId">Идентификатор автора.</param>
     /// <returns>Список книг указанного автора.</returns>
-    public static List<Book> GetAuthorBooks(int authorId) => Books.FindAll(x => BookHasAuthor(x, authorId));
+    /// <remarks>Книги отсортированы по названию.</remarks>
+    public static List<Book> GetAuthorBooks(int authorId) =>
+        [.. Books.FindAll(x => BookHasAuthor(x, authorId)).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
     /// <summary>
     /// Возвращает список книг указанной серии.
     /// </summary>
     /// <param name="cycleId">Идентификатор серии.</param>
     /// <returns>Список книг указанной серии.</returns>
-    public static List<Book> GetCycleBooks(int cycleId) => Books.FindAll(x => BookInCycle(x, cycleId));
+    /// <remarks>Книги отсортированы по номеру в серии и названию при одинаковых номерах.</remarks>
+    public static List<Book> GetCycleBooks(int cycleId)
+    {
+        var comparer = new MultiKeyComparer(
+            [new IntKeyComparer(x => ((Book)x).CycleNumber), new StringKeyComparer(x => ((Book)x).Title)]);
+        var books = Books.FindAll(x => BookInCycle(x, cycleId));
+        books.Sort(comparer);
+        return books;
+    }
 
     /// <summary>
     /// Возвращает книгу с указанным именем файла.

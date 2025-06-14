@@ -3,10 +3,6 @@ using Govorun.Models;
 
 namespace Govorun.Tools;
 
-#region Задачи (TODO).
-
-#endregion
-
 /// <summary>
 /// Статический класс методов работы с базой данных.
 /// </summary>
@@ -56,12 +52,11 @@ public static class Db
     }
 
     public static List<Book> GetBooks(LiteDatabase db) =>
-        GetBooksCollection(db)
+        [.. GetBooksCollection(db)
             .Include(x => x.Authors)
             .Include(x => x.Cycle)
             .FindAll()
-            .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
-            .ToList();
+            .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
     public static int InsertBook(Book book)
     {
@@ -86,6 +81,8 @@ public static class Db
     }
 
     public static bool UpdateBook(Book book, LiteDatabase db) => GetBooksCollection(db).Update(book);
+
+    // TODO: Нужен ли тут метод UpdateBooks или перенести эту функцию в класс Library?
 
     public static void UpdateBooks(IEnumerable<Book> books)
     {
@@ -114,10 +111,9 @@ public static class Db
     }
 
     public static List<Author> GetAuthors(LiteDatabase db) =>
-        GetAuthorsCollection(db)
+        [.. GetAuthorsCollection(db)
             .FindAll()
-            .OrderBy(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase)
-            .ToList();
+            .OrderBy(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase)];
 
     public static int InsertAuthor(Author author)
     {
@@ -168,10 +164,9 @@ public static class Db
     }
 
     public static List<Cycle> GetCycles(LiteDatabase db) =>
-        GetCyclesCollection(db)
+        [.. GetCyclesCollection(db)
             .FindAll()
-            .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)
-            .ToList();
+            .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
     public static int InsertCycle(Cycle cycle)
     {
