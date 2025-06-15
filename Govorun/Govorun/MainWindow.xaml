@@ -249,6 +249,8 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <ToggleButton Grid.Row="0" x:Name="AllBooksToggleButton" Content="Все книги"
@@ -290,6 +292,15 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
+                        <Expander Grid.Row="6" x:Name="TagsExpander" Header="Теги"
+                                  Style="{StaticResource NavExpanderStyle}"
+                                  Collapsed="TagsExpander_Collapsed"
+                                  Expanded="TagsExpander_Expanded">
+                        </Expander>
+                        <ListBox Grid.Row="7" x:Name="TagsListBox"
+                                 BorderThickness="0"
+                                 Visibility="Collapsed"
+                                 SelectionChanged="TagsListBox_SelectionChanged" />
                     </Grid>
                 </ScrollViewer>
             </Border>

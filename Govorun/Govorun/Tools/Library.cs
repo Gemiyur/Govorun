@@ -67,7 +67,7 @@ public static class Library
             {
                 allTags.AddRange(book.Tags.FindAll(x => !string.IsNullOrWhiteSpace(x) && !allTags.Contains(x)));
             }
-            return allTags.Distinct().Order(StringComparer.CurrentCultureIgnoreCase).ToList();
+            return [.. allTags.Distinct().Order(StringComparer.CurrentCultureIgnoreCase)];
         }
     }
 
@@ -128,6 +128,15 @@ public static class Library
         books.Sort(comparer);
         return books;
     }
+
+    /// <summary>
+    /// Возвращает список книг с указанным тегом.
+    /// </summary>
+    /// <param name="tag">Тег.</param>
+    /// <returns>Список книг с указанным тегом.</returns>
+    /// <remarks>Книги отсортированы по названию.</remarks>
+    public static List<Book> GetTagBooks(string tag) =>
+        [.. Books.FindAll(x => x.Tags.Contains(tag)).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
     /// <summary>
     /// Возвращает книгу с указанным именем файла.

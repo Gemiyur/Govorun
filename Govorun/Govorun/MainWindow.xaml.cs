@@ -32,6 +32,8 @@ public partial class MainWindow : Window
 
     private readonly ObservableCollectionEx<Cycle> Cycles = [];
 
+    private readonly ObservableCollectionEx<string> Tags = [];
+
     /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
@@ -64,6 +66,8 @@ public partial class MainWindow : Window
         AuthorsListBox.ItemsSource = Authors;
         Cycles.AddRange(Db.GetCycles());
         CyclesListBox.ItemsSource = Cycles;
+        Tags.AddRange(Library.Tags);
+        TagsListBox.ItemsSource = Tags;
         ShownBooks.AddRange(Library.Books);
         BooksListBox.ItemsSource = ShownBooks;
         UpdateStatusBarBooksCount();
@@ -155,6 +159,8 @@ public partial class MainWindow : Window
         Properties.Settings.Default.PlayerVolume = (int)(Player.Player.Volume * 100);
     }
 
+    // TODO: Надо избавиться от метода SortShownBooks.
+
     /// <summary>
     /// Сортирует коллекцию отображаемых книг по названию.
     /// </summary>
@@ -169,8 +175,7 @@ public partial class MainWindow : Window
         Authors.ReplaceRange(Db.GetAuthors());
         if (selectedAuthor != null)
         {
-            //var author = Authors.First(x => x.AuthorId == selectedAuthor.AuthorId);
-            AuthorsListBox.SelectedItem = Authors.First(x => x.AuthorId == selectedAuthor.AuthorId);
+            AuthorsListBox.SelectedItem = Authors.FirstOrDefault(x => x.AuthorId == selectedAuthor.AuthorId);
             if (AuthorsListBox.SelectedItem != null)
                 AuthorsListBox.ScrollIntoView(AuthorsListBox.SelectedItem);
         }
@@ -185,10 +190,24 @@ public partial class MainWindow : Window
         Cycles.ReplaceRange(Db.GetCycles());
         if (selectedCycle != null)
         {
-            //var cycle = Cycles.First(x => x.CycleId == selectedCycle.CycleId);
-            CyclesListBox.SelectedItem = Cycles.First(x => x.CycleId == selectedCycle.CycleId);
+            CyclesListBox.SelectedItem = Cycles.FirstOrDefault(x => x.CycleId == selectedCycle.CycleId);
             if (CyclesListBox.SelectedItem != null)
                 CyclesListBox.ScrollIntoView(CyclesListBox.SelectedItem);
+        }
+    }
+
+    /// <summary>
+    /// Обновляет список тегов книг.
+    /// </summary>
+    private void UpdateTags()
+    {
+        var selectedTag = (string)TagsListBox.SelectedItem;
+        Tags.ReplaceRange(Library.Tags);
+        if (selectedTag != null)
+        {
+            TagsListBox.SelectedItem = Tags.FirstOrDefault(x => x.Equals(selectedTag, StringComparison.CurrentCultureIgnoreCase));
+            if (TagsListBox.SelectedItem != null)
+                TagsListBox.ScrollIntoView(TagsListBox.SelectedItem);
         }
     }
 
@@ -201,32 +220,34 @@ public partial class MainWindow : Window
         {
             ShownBooks.ReplaceRange(Library.Books.OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase));
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
-            return;
         }
-        if (ListeningBooksToggleButton.IsChecked == true)
+        else if (ListeningBooksToggleButton.IsChecked == true)
         {
             ShownBooks.ReplaceRange(Library.ListeningBooks);
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
-            return;
         }
-        if (AuthorsListBox.SelectedItem != null)
+        else if (AuthorsListBox.SelectedItem != null)
         {
             var author = (Author)AuthorsListBox.SelectedItem;
             var books = Library.GetAuthorBooks(author.AuthorId);
             ShownBooks.ReplaceRange(books);
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
-            return;
         }
-        if (CyclesListBox.SelectedItem != null)
+        else if (CyclesListBox.SelectedItem != null)
         {
             var cycle = (Cycle)CyclesListBox.SelectedItem;
             var books = Library.GetCycleBooks(cycle.CycleId);
             ShownBooks.ReplaceRange(books);
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookCycleDataTemplate");
-            return;
         }
-        // TODO: Тут будет ещё условие для тегов.
-
+        else if (TagsListBox.SelectedItem != null)
+        {
+            var tag = (string)TagsListBox.SelectedItem;
+            var books = Library.GetTagBooks(tag);
+            ShownBooks.ReplaceRange(books);
+            BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookCycleDataTemplate");
+        }
+        UpdateStatusBarBooksCount();
     }
 
     /// <summary>
@@ -293,9 +314,9 @@ public partial class MainWindow : Window
         LockNavHandlers();
         AuthorsListBox.SelectedIndex = -1;
         CyclesListBox.SelectedIndex = -1;
+        TagsListBox.SelectedIndex = -1;
         UnlockNavHandlers();
         UpdateShownBooks();
-        //SortShownBooks();
     }
 
     private void ListeningBooksToggleButton_Click(object sender, RoutedEventArgs e)
@@ -311,7 +332,6 @@ public partial class MainWindow : Window
         CyclesListBox.SelectedIndex = -1;
         UnlockNavHandlers();
         UpdateShownBooks();
-        //SortShownBooks();
     }
 
     private void AuthorsExpander_Collapsed(object sender, RoutedEventArgs e)
@@ -332,6 +352,7 @@ public partial class MainWindow : Window
         ListeningBooksToggleButton.IsChecked = false;
         LockNavHandlers();
         CyclesListBox.SelectedIndex = -1;
+        TagsListBox.SelectedIndex = -1;
         UnlockNavHandlers();
         UpdateShownBooks();
     }
@@ -354,6 +375,30 @@ public partial class MainWindow : Window
         ListeningBooksToggleButton.IsChecked = false;
         LockNavHandlers();
         AuthorsListBox.SelectedIndex = -1;
+        TagsListBox.SelectedIndex = -1;
+        UnlockNavHandlers();
+        UpdateShownBooks();
+    }
+
+    private void TagsExpander_Collapsed(object sender, RoutedEventArgs e)
+    {
+        TagsListBox.Visibility = Visibility.Collapsed;
+    }
+
+    private void TagsExpander_Expanded(object sender, RoutedEventArgs e)
+    {
+        TagsListBox.Visibility = Visibility.Visible;
+    }
+
+    private void TagsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (NavHandlersLocked)
+            return;
+        AllBooksToggleButton.IsChecked = TagsListBox.SelectedIndex < 0;
+        ListeningBooksToggleButton.IsChecked = false;
+        LockNavHandlers();
+        AuthorsListBox.SelectedIndex = -1;
+        CyclesListBox.SelectedIndex = -1;
         UnlockNavHandlers();
         UpdateShownBooks();
     }
@@ -478,6 +523,8 @@ public partial class MainWindow : Window
             UpdateAuthors();
         if (editor.HasNewCycle)
             UpdateCycles();
+        if (editor.TagsChanged)
+            UpdateTags();
         UnlockNavHandlers();
         if (editor.TitleChanged || editor.AuthorsChanged ||
             editor.CycleChanged || editor.CycleNumberChanged || editor.TagsChanged)
