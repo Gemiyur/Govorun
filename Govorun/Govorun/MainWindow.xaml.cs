@@ -11,10 +11,6 @@ using Govorun.Tools;
 
 namespace Govorun;
 
-#region Задачи (TODO).
-
-#endregion
-
 /// <summary>
 /// Класс главного окна.
 /// </summary>
@@ -30,8 +26,14 @@ public partial class MainWindow : Window
     /// </summary>
     private readonly ObservableCollectionEx<Author> Authors = [];
 
+    /// <summary>
+    /// Коллекция серий.
+    /// </summary>
     private readonly ObservableCollectionEx<Cycle> Cycles = [];
 
+    /// <summary>
+    /// Коллекция тегов.
+    /// </summary>
     private readonly ObservableCollectionEx<string> Tags = [];
 
     /// <summary>
@@ -159,56 +161,70 @@ public partial class MainWindow : Window
         Properties.Settings.Default.PlayerVolume = (int)(Player.Player.Volume * 100);
     }
 
-    // TODO: Надо избавиться от метода SortShownBooks.
-
     /// <summary>
-    /// Сортирует коллекцию отображаемых книг по названию.
+    /// Выделяет указанную книгу в списке отображаемых книг.
     /// </summary>
-    private void SortShownBooks() => ShownBooks.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
-
-    /// <summary>
-    /// Обновляет список авторов книг.
-    /// </summary>
-    private void UpdateAuthors()
+    /// <param name="book">Книга.</param>
+    /// <remarks>Если указанной книги в списке нет, то ничего не делает.</remarks>
+    private void SelectBookInShownBooks(Book book)
     {
-        var selectedAuthor = (Author)AuthorsListBox.SelectedItem;
-        Authors.ReplaceRange(Db.GetAuthors());
-        if (selectedAuthor != null)
+        if (ShownBooks.Contains(book))
         {
-            AuthorsListBox.SelectedItem = Authors.FirstOrDefault(x => x.AuthorId == selectedAuthor.AuthorId);
-            if (AuthorsListBox.SelectedItem != null)
-                AuthorsListBox.ScrollIntoView(AuthorsListBox.SelectedItem);
+            BooksListBox.SelectedItem = book;
+            BooksListBox.ScrollIntoView(BooksListBox.SelectedItem);
         }
     }
 
     /// <summary>
-    /// Обновляет список серий книг.
+    /// Обновляет списки панели навигации.
     /// </summary>
-    private void UpdateCycles()
+    /// <param name="authors">Обновить список авторов.</param>
+    /// <param name="cycles">Обновить список серий.</param>
+    /// <param name="tags">Обновить список тегов.</param>
+    private void UpdateNavPanel(bool authors, bool cycles, bool tags)
     {
-        var selectedCycle = (Cycle)CyclesListBox.SelectedItem;
-        Cycles.ReplaceRange(Db.GetCycles());
-        if (selectedCycle != null)
+        LockNavHandlers();
+        if (authors)
         {
-            CyclesListBox.SelectedItem = Cycles.FirstOrDefault(x => x.CycleId == selectedCycle.CycleId);
-            if (CyclesListBox.SelectedItem != null)
-                CyclesListBox.ScrollIntoView(CyclesListBox.SelectedItem);
+            var selectedAuthor = (Author)AuthorsListBox.SelectedItem;
+            Authors.ReplaceRange(Db.GetAuthors());
+            if (selectedAuthor != null)
+            {
+                AuthorsListBox.SelectedItem = Authors.FirstOrDefault(x => x.AuthorId == selectedAuthor.AuthorId);
+                if (AuthorsListBox.SelectedItem != null)
+                    AuthorsListBox.ScrollIntoView(AuthorsListBox.SelectedItem);
+            }
         }
-    }
-
-    /// <summary>
-    /// Обновляет список тегов книг.
-    /// </summary>
-    private void UpdateTags()
-    {
-        var selectedTag = (string)TagsListBox.SelectedItem;
-        Tags.ReplaceRange(Library.Tags);
-        if (selectedTag != null)
+        if (cycles)
         {
-            TagsListBox.SelectedItem = Tags.FirstOrDefault(x => x.Equals(selectedTag, StringComparison.CurrentCultureIgnoreCase));
-            if (TagsListBox.SelectedItem != null)
-                TagsListBox.ScrollIntoView(TagsListBox.SelectedItem);
+            var selectedCycle = (Cycle)CyclesListBox.SelectedItem;
+            Cycles.ReplaceRange(Db.GetCycles());
+            if (selectedCycle != null)
+            {
+                CyclesListBox.SelectedItem = Cycles.FirstOrDefault(x => x.CycleId == selectedCycle.CycleId);
+                if (CyclesListBox.SelectedItem != null)
+                    CyclesListBox.ScrollIntoView(CyclesListBox.SelectedItem);
+            }
         }
+        if (tags)
+        {
+            var selectedTag = (string)TagsListBox.SelectedItem;
+            Tags.ReplaceRange(Library.Tags);
+            if (selectedTag != null)
+            {
+                TagsListBox.SelectedItem = Tags.FirstOrDefault(x => x.Equals(selectedTag, StringComparison.CurrentCultureIgnoreCase));
+                if (TagsListBox.SelectedItem != null)
+                    TagsListBox.ScrollIntoView(TagsListBox.SelectedItem);
+            }
+        }
+        if (AuthorsListBox.SelectedItem == null &&
+            CyclesListBox.SelectedItem == null &&
+            TagsListBox.SelectedItem == null &&
+            ListeningBooksToggleButton.IsChecked != true)
+        {
+            AllBooksToggleButton.IsChecked = true;
+        }
+        UnlockNavHandlers();
     }
 
     /// <summary>
@@ -245,7 +261,7 @@ public partial class MainWindow : Window
             var tag = (string)TagsListBox.SelectedItem;
             var books = Library.GetTagBooks(tag);
             ShownBooks.ReplaceRange(books);
-            BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookCycleDataTemplate");
+            BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
         }
         UpdateStatusBarBooksCount();
     }
@@ -518,23 +534,12 @@ public partial class MainWindow : Window
         var editor = new BookEditor(book, null) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        LockNavHandlers();
-        if (editor.HasNewAuthors)
-            UpdateAuthors();
-        if (editor.HasNewCycle)
-            UpdateCycles();
-        if (editor.TagsChanged)
-            UpdateTags();
-        UnlockNavHandlers();
+        UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.TagsChanged);
         if (editor.TitleChanged || editor.AuthorsChanged ||
             editor.CycleChanged || editor.CycleNumberChanged || editor.TagsChanged)
         {
             UpdateShownBooks();
-            if (ShownBooks.Contains(book))
-            {
-                BooksListBox.SelectedItem = book;
-                BooksListBox.ScrollIntoView(BooksListBox.SelectedItem);
-            }
+            SelectBookInShownBooks(book);
             if (editor.TitleChanged && Player.Book == book)
                 Player.TitleTextBlock.Text = book.Title;
         }
@@ -620,19 +625,9 @@ public partial class MainWindow : Window
         if (editor.ShowDialog() != true)
             return;
         Library.Books.Add(book);
-        if (editor.HasNewAuthors)
-            UpdateAuthors();
-        if (AuthorsListBox.SelectedItem != null &&
-            !Library.BookHasAuthor(book, ((Author)AuthorsListBox.SelectedItem).AuthorId))
-        {
-            AuthorsListBox.SelectedItem = null;
-        }
-        ShownBooks.Add(book);
-        SortShownBooks();
-        BooksListBox.SelectedItem = book;
-        BooksListBox.ScrollIntoView(AuthorsListBox.SelectedItem);
-        book.OnPropertyChanged("AuthorNamesLastFirst");
-        book.OnPropertyChanged("AuthorNamesFirstLast");
+        UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.TagsChanged);
+        UpdateShownBooks();
+        SelectBookInShownBooks(book);
     }
 
     private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -657,10 +652,8 @@ public partial class MainWindow : Window
         if (!dialog.AddedBooks.Any())
             return;
         Library.Books.AddRange(dialog.AddedBooks);
-        if (dialog.HasNewAuthors)
-            UpdateAuthors();
+        UpdateNavPanel(dialog.HasNewAuthors, dialog.HasNewCycle, dialog.TagsChanged);
         UpdateShownBooks();
-        SortShownBooks();
     }
 
     private void Authors_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -669,7 +662,8 @@ public partial class MainWindow : Window
         editor.ShowDialog();
         if (!editor.HasChanges)
             return;
-        UpdateAuthors();
+        //UpdateAuthors();
+        UpdateNavPanel(true, false, false);
         foreach (var book in ShownBooks)
         {
             book.OnPropertyChanged("AuthorNamesFirstLast");

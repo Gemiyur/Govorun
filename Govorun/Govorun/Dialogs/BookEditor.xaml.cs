@@ -40,7 +40,7 @@ public partial class BookEditor : Window
     public bool HasNewAuthors;
 
     /// <summary>
-    /// Была ли добавлена новая серия.
+    /// Была ли добавлена новая серия книг.
     /// </summary>
     public bool HasNewCycle;
 

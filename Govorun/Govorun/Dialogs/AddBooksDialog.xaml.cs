@@ -22,6 +22,16 @@ public partial class AddBooksDialog : Window
     public bool HasNewAuthors;
 
     /// <summary>
+    /// Была ли добавлена новая серия книг.
+    /// </summary>
+    public bool HasNewCycle;
+
+    /// <summary>
+    /// Были ли изменения в тегах книг.
+    /// </summary>
+    public bool TagsChanged;
+
+    /// <summary>
     /// Коллекция имён файлов книг с полным путём.
     /// </summary>
     private readonly ObservableCollectionEx<string> files = [];
@@ -61,6 +71,10 @@ public partial class AddBooksDialog : Window
             }
             if (!HasNewAuthors && editor.HasNewAuthors)
                 HasNewAuthors = true;
+            if (!HasNewCycle && editor.HasNewCycle)
+                HasNewCycle = true;
+            if (!TagsChanged && editor.TagsChanged)
+                TagsChanged = true;
             AddedBooks.Add(book);
             addedFilesCount--;
             files.Remove(file);
