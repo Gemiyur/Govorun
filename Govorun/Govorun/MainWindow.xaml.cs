@@ -9,6 +9,7 @@ using Govorun.Dialogs;
 using Govorun.Media;
 using Govorun.Models;
 using Govorun.Tools;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Govorun;
 
@@ -576,13 +577,13 @@ public partial class MainWindow : Window
             {
                 return;
             }
-            if (Player.Book == book)
-                Player.Book = null;
             if (!Library.DeleteBook(book))
             {
                 MessageBox.Show($"Не удалось удалить книгу \"{book.Title}\" из библиотеки.", Title);
                 return;
             }
+            if (Player.Book == book)
+                Player.Book = null;
         }
         else
         {
@@ -592,10 +593,8 @@ public partial class MainWindow : Window
             {
                 return;
             }
-            if (Player.Book != null && books.Contains(Player.Book))
-                Player.Book = null;
             var deletedBooks = Library.DeleteBooks(books);
-            if (!deletedBooks.Any())
+            if (deletedBooks.Count == 0)
             {
                 MessageBox.Show("Не удалось удалить выбранные книги из библиотеки.", Title);
                 return;
@@ -604,6 +603,8 @@ public partial class MainWindow : Window
             {
                 MessageBox.Show("Не удалось удалить некоторые книги из библиотеки.", Title);
             }
+            if (Player.Book != null && deletedBooks.Contains(Player.Book))
+                Player.Book = null;
         }
         UpdateNavPanel(false, false, true);
         UpdateShownBooks();
@@ -692,26 +693,38 @@ public partial class MainWindow : Window
     {
         var dialog = new CheckLibraryDialog() { Owner = this };
         dialog.ShowDialog();
-        if (dialog.DeletedBooks.Any())
+        if (dialog.DeletedBooks.Count > 0)
         {
-            if (Player.Book != null && dialog.DeletedBooks.Contains(Player.Book))
-                Player.Book = null;
             var deletedBooks = Library.DeleteBooks(dialog.DeletedBooks);
-            ShownBooks.RemoveRange(deletedBooks);
-            UpdateStatusBarBooksCount();
-            // TODO: Надо ли выдавать сообщение, что не все книги были удалены? Пока закомментировано.
-            //if (deletedBooks.Count != dialog.DeletedBooks.Count)
-            //{
-            //    MessageBox.Show("Не удалось удалить некоторые книги из библиотеки?", Title);
-            //}
+            if (deletedBooks.Count == 0)
+            {
+                MessageBox.Show("Не удалось удалить выбранные книги из библиотеки.", Title);
+                return;
+            }
+            if (deletedBooks.Count != dialog.DeletedBooks.Count)
+            {
+                MessageBox.Show("Не удалось удалить некоторые книги из библиотеки.", Title);
+            }
+            if (Player.Book != null && deletedBooks.Contains(Player.Book))
+                Player.Book = null;
+            UpdateNavPanel(false, false, true);
+            UpdateShownBooks();
         }
-        if (dialog.ChangedBooks.Any())
+        if (dialog.ChangedBooks.Count > 0)
         {
             var updatedBooks = Library.UpdateBooks(dialog.ChangedBooks);
-            //Db.UpdateBooks(dialog.ChangedBooks);
+            if (updatedBooks.Count == 0)
+            {
+                MessageBox.Show("Не удалось обновить файлы у выбранных книг.", Title);
+                return;
+            }
+            if (updatedBooks.Count != dialog.ChangedBooks.Count)
+            {
+                MessageBox.Show("Не удалось обновить файлы у некоторых книг.", Title);
+            }
             if (Player.Book == null)
                 return;
-            var book = dialog.ChangedBooks.Find(x => x == Player.Book);
+            var book = updatedBooks.Find(x => x == Player.Book);
             if (book != null)
             {
                 Player.PlayOnLoad = false;
