@@ -81,6 +81,8 @@ public static class Library
         //Cycles = Db.GetCycles();
     }
 
+    public static bool AuthorHasBooks(int authorId) => Books.Any(x => BookHasAuthor(x, authorId));
+
     /// <summary>
     /// Возвращает является ли указанный автор автором указанной книги.
     /// </summary>

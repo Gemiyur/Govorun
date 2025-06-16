@@ -36,7 +36,8 @@ public partial class AuthorsEditor : Window
     private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         EditButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
-        DeleteButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0;
+        DeleteButton.IsEnabled = AuthorsListBox.SelectedIndex >= 0 &&
+                                 !Library.AuthorHasBooks(((Author)AuthorsListBox.SelectedItem).AuthorId);
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -81,20 +82,6 @@ public partial class AuthorsEditor : Window
         }
         authors.Remove(author);
         HasChanges = true;
-
-        // TODO: Нужно ли каскадное удаление? Если да, то закомментированное сделано неправильно.
-        //var books = Library.GetAuthorBooks(author.AuthorId);
-        //const string message = "Автор будет так же удалён из всех книг.\nУдалить автора?";
-        //if (books.Any() && MessageBox.Show(message, Title, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
-        //{
-        //    return;
-        //}
-
-        //foreach (var book in books)
-        //{
-        //    book.Authors.RemoveAll(x => x.AuthorId == author.AuthorId);
-        //}
-
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();

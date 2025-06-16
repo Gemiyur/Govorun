@@ -672,8 +672,10 @@ public partial class MainWindow : Window
         editor.ShowDialog();
         if (!editor.HasChanges)
             return;
-        //UpdateAuthors();
+        var selectedItem = AuthorsListBox.SelectedItem;
         UpdateNavPanel(true, false, false);
+        if (selectedItem != null && AuthorsListBox.SelectedItem == null)
+            UpdateShownBooks();
         foreach (var book in ShownBooks)
         {
             book.OnPropertyChanged("AuthorNamesFirstLast");
