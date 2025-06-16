@@ -707,12 +707,16 @@ public partial class MainWindow : Window
         }
         if (dialog.ChangedBooks.Any())
         {
-            Db.UpdateBooks(dialog.ChangedBooks);
+            var updatedBooks = Library.UpdateBooks(dialog.ChangedBooks);
+            //Db.UpdateBooks(dialog.ChangedBooks);
             if (Player.Book == null)
                 return;
             var book = dialog.ChangedBooks.Find(x => x == Player.Book);
             if (book != null)
+            {
+                Player.PlayOnLoad = false;
                 Player.Book = book;
+            }
         }
     }
 

@@ -82,16 +82,6 @@ public static class Db
 
     public static bool UpdateBook(Book book, LiteDatabase db) => GetBooksCollection(db).Update(book);
 
-    // TODO: Нужен ли тут метод UpdateBooks или перенести эту функцию в класс Library?
-
-    public static void UpdateBooks(IEnumerable<Book> books)
-    {
-        using var db = GetDatabase();
-        var collection = GetBooksCollection(db);
-        foreach (var book in books)
-            collection.Update(book);
-    }
-
     #endregion
 
     #region Авторы.

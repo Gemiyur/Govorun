@@ -181,5 +181,23 @@ public static class Library
         return result;
     }
 
+    /// <summary>
+    /// Обновляет книги из списка в библиотеке и возвращает список обновлённых книг.
+    /// </summary>
+    /// <param name="books">Список книг для обновления.</param>
+    /// <returns>Список обновлённых книг.</returns>
+    public static List<Book> UpdateBooks(IEnumerable<Book> books)
+    {
+        List<Book> result = [];
+        using var db = Db.GetDatabase();
+        var collection = Db.GetBooksCollection(db);
+        foreach (var book in books)
+        {
+            if (collection.Update(book))
+                result.Add(book);
+        }
+        return result;
+    }
+
     #endregion
 }
