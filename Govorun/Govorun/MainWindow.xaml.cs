@@ -575,29 +575,33 @@ public partial class MainWindow : Window
                 Player.Book = null;
             if (!Library.DeleteBook(book))
             {
-                MessageBox.Show($"Не удалось удалить книгу \"{book.Title}\" из библиотеки?", Title);
+                MessageBox.Show($"Не удалось удалить книгу \"{book.Title}\" из библиотеки.", Title);
                 return;
             }
-            ShownBooks.Remove(book);
-            UpdateStatusBarBooksCount();
-            return;
         }
-        var books = BooksListBox.SelectedItems.Cast<Book>().ToList();
-        if (MessageBox.Show("Удалить выбранные книги из библиотеки?", Title,
-                            MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+        else
         {
-            return;
+            var books = BooksListBox.SelectedItems.Cast<Book>().ToList();
+            if (MessageBox.Show("Удалить выбранные книги из библиотеки?", Title,
+                                MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            {
+                return;
+            }
+            if (Player.Book != null && books.Contains(Player.Book))
+                Player.Book = null;
+            var deletedBooks = Library.DeleteBooks(books);
+            if (!deletedBooks.Any())
+            {
+                MessageBox.Show("Не удалось удалить выбранные книги из библиотеки.", Title);
+                return;
+            }
+            if (deletedBooks.Count != books.Count)
+            {
+                MessageBox.Show("Не удалось удалить некоторые книги из библиотеки.", Title);
+            }
         }
-        if (Player.Book != null && books.Contains(Player.Book))
-            Player.Book = null;
-        var deletedBooks = Library.DeleteBooks(books);
-        ShownBooks.RemoveRange(deletedBooks);
-        UpdateStatusBarBooksCount();
-        // TODO: Надо ли выдавать сообщение, что не все книги были удалены? Пока закомментировано.
-        //if (deletedBooks.Count != books.Count)
-        //{
-        //    MessageBox.Show("Не удалось удалить некоторые книги из библиотеки?", Title);
-        //}
+        UpdateNavPanel(false, false, true);
+        UpdateShownBooks();
     }
 
     private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
