@@ -81,7 +81,19 @@ public static class Library
         //Cycles = Db.GetCycles();
     }
 
+    /// <summary>
+    /// Возвращает имеет ли указанный автор книги.
+    /// </summary>
+    /// <param name="authorId">Идентификатор автора.</param>
+    /// <returns>Имеет ли указанный автор книги.</returns>
     public static bool AuthorHasBooks(int authorId) => Books.Any(x => BookHasAuthor(x, authorId));
+
+    /// <summary>
+    /// Возвращает имеет ли указанная серия книги.
+    /// </summary>
+    /// <param name="cycleId">Идентификатор серии.</param>
+    /// <returns>Имеет ли указанная серия книги.</returns>
+    public static bool CycleHasBooks(int cycleId) => Books.Any(x => BookInCycle(x, cycleId));
 
     /// <summary>
     /// Возвращает является ли указанный автор автором указанной книги.
@@ -148,8 +160,6 @@ public static class Library
     public static Book? GetBookWithFile(string filename) =>
         Books.Find(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
 
-    #region Методы добавления, удаления и обновления книг, авторов и серий.
-
     /// <summary>
     /// Удаляет книгу из библиотеки и возвращает удалось ли удалить книгу.
     /// </summary>
@@ -200,6 +210,4 @@ public static class Library
         }
         return result;
     }
-
-    #endregion
 }

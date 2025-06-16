@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.IO;
-using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,7 +8,6 @@ using Govorun.Dialogs;
 using Govorun.Media;
 using Govorun.Models;
 using Govorun.Tools;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Govorun;
 
@@ -689,6 +687,12 @@ public partial class MainWindow : Window
     {
         var editor = new CyclesEditor() { Owner = this };
         editor.ShowDialog();
+        if (!editor.HasChanges)
+            return;
+        var selectedItem = CyclesListBox.SelectedItem;
+        UpdateNavPanel(false, true, false);
+        if (selectedItem != null && CyclesListBox.SelectedItem == null)
+            UpdateShownBooks();
     }
 
     private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)

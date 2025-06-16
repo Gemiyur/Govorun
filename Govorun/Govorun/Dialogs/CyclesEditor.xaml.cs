@@ -33,7 +33,8 @@ public partial class CyclesEditor : Window
     private void CyclesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         EditButton.IsEnabled = CyclesListBox.SelectedIndex >= 0;
-        DeleteButton.IsEnabled = CyclesListBox.SelectedIndex >= 0;
+        DeleteButton.IsEnabled = CyclesListBox.SelectedIndex >= 0 &&
+                                 !Library.CycleHasBooks(((Cycle)CyclesListBox.SelectedItem).CycleId);
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
