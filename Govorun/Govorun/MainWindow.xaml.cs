@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -544,7 +545,11 @@ public partial class MainWindow : Window
                 Player.TitleTextBlock.Text = book.Title;
         }
         if (editor.FileChanged && Player.Book == book)
+        {
+            Player.PlayOnLoad = false;
             Player.Book = book;
+        }
+
         book.OnPropertyChanged("AuthorNamesLastFirst");
         book.OnPropertyChanged("AuthorNamesFirstLast");
     }
