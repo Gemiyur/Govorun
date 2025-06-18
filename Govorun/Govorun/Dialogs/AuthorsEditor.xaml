@@ -27,13 +27,8 @@
         </Grid.ColumnDefinitions>
 
         <ListBox Grid.Column="0" x:Name="AuthorsListBox"
-                     SelectionChanged="AuthorsListBox_SelectionChanged">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding NameLastFirstMiddle}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                 ItemTemplate="{StaticResource AuthorFullNameDataTemplate}"
+                 SelectionChanged="AuthorsListBox_SelectionChanged" />
 
         <Grid Grid.Column="1" Margin="10,0,0,0">
             <Grid.RowDefinitions>
