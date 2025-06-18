@@ -264,7 +264,7 @@
                             <ListBox x:Name="AuthorsListBox"
                                      Style="{StaticResource NavListBoxStyle}"
                                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                                     ItemTemplate="{StaticResource AuthorLastFirstNameDataTemplate}"
+                                     ItemTemplate="{StaticResource AuthorFullNameDataTemplate}"
                                      SelectionChanged="AuthorsListBox_SelectionChanged" />
                         </Expander>
                         <Expander Grid.Row="3" x:Name="CyclesExpander" Header="Серии"
