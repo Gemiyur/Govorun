@@ -49,6 +49,10 @@
             <DataTemplate x:Key="AuthorLastFirstNameDataTemplate">
                 <TextBlock Text="{Binding NameLastFirst}" ToolTip="{Binding NameLastFirstMiddle}" />
             </DataTemplate>
+
+            <DataTemplate x:Key="CycleDataTemplate">
+                <TextBlock Text="{Binding Title}" />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 

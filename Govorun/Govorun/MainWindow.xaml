@@ -272,13 +272,8 @@
                             <ListBox x:Name="CyclesListBox"
                                      Style="{StaticResource NavListBoxStyle}"
                                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                                     SelectionChanged="CyclesListBox_SelectionChanged">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Title}" />
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                                     ItemTemplate="{StaticResource CycleDataTemplate}"
+                                     SelectionChanged="CyclesListBox_SelectionChanged" />
                         </Expander>
                         <Expander Grid.Row="4" x:Name="TagsExpander" Header="Теги"
                                   Style="{StaticResource NavExpanderStyle}">

@@ -28,13 +28,8 @@
 
         <ListBox Grid.Column="0" x:Name="CyclesListBox"
                  ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                 SelectionChanged="CyclesListBox_SelectionChanged">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Title}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                 ItemTemplate="{StaticResource CycleDataTemplate}"
+                 SelectionChanged="CyclesListBox_SelectionChanged" />
 
         <Grid Grid.Column="1" Margin="10,0,0,0">
             <Grid.RowDefinitions>
