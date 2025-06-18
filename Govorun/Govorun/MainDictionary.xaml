@@ -27,7 +27,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
                     <StackPanel Orientation="Horizontal" Background="{TemplateBinding Background}">
-                        <Image Source="{Binding}" Height="20" Margin="0,0,4,0" />
+                        <Image Source="{Binding}" Name="Image" Height="20" Margin="0,0,5,0" />
                         <ContentPresenter VerticalAlignment="Center" />
                     </StackPanel>
                 </ControlTemplate>
@@ -35,15 +35,26 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="Yellow" />
-                <Setter Property="Foreground" Value="Navy" />
-                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Background" Value="{StaticResource SelectedListBoxItemBackgroundBrush}" />
             </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="False" />
+                    <Condition Property="IsMouseOver" Value="True" />
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Background" Value="{StaticResource MouseOverListBoxItemBackgroundBrush}" />
+                </MultiTrigger.Setters>
+            </MultiTrigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="NavExpanderStyle" TargetType="Expander">
         <Setter Property="Margin" Value="0,5,0,0" />
+    </Style>
+
+    <Style x:Key="NavDataTemplate">
+        
     </Style>
 
     <DataTemplate x:Key="BookDataTemplate">

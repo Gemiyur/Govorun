@@ -3,9 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Govorun"
              StartupUri="MainWindow.xaml">
+
     <Application.Resources>
         <ResourceDictionary>
-            <SolidColorBrush x:Key="TextBoxReadOnlyBackgroundBrush" Color="AliceBlue" />
+            <!--<SolidColorBrush x:Key="TextBoxReadOnlyBackgroundBrush" Color="AliceBlue" />-->
+            <SolidColorBrush x:Key="TextBoxReadOnlyBackgroundBrush" Color="#FFF0F0F0" />
+
+            <!--<SolidColorBrush x:Key="SelectedListBoxItemBackgroundBrush" Color="AliceBlue" />-->
+            <SolidColorBrush x:Key="SelectedListBoxItemBackgroundBrush" Color="#FFCBE8F6" />
+
+            <SolidColorBrush x:Key="MouseOverListBoxItemBackgroundBrush" Color="AliceBlue" />
+
+            <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border Name="Border" Padding="2">
+                                <ContentPresenter />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Border" Property="Background"
+                                            Value="{StaticResource SelectedListBoxItemBackgroundBrush}" />
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="False" />
+                                        <Condition Property="IsMouseOver" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <MultiTrigger.Setters>
+                                        <Setter TargetName="Border" Property="Background"
+                                                Value="{StaticResource MouseOverListBoxItemBackgroundBrush}" />
+                                    </MultiTrigger.Setters>
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
+
 </Application>
