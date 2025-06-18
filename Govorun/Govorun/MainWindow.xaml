@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Говорун"
         Width="800" Height="600" ResizeMode="CanResizeWithGrip"
-        MinWidth="800" MinHeight="350"
+        MinWidth="650" MinHeight="450"
         d:Width="800" d:Height="350"
         WindowStartupLocation="CenterScreen"
         Closed="Window_Closed">
@@ -234,7 +234,7 @@
         <!-- Панель навигации и список книг -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" MinWidth="100" MaxWidth="300" />
+                <ColumnDefinition Width="225" MinWidth="150" MaxWidth="300" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>

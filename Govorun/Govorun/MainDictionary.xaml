@@ -59,16 +59,16 @@
 
     <DataTemplate x:Key="BookDataTemplate">
         <StackPanel>
-            <TextBlock Text="{Binding Title}" FontWeight="Bold" />
-            <TextBlock Text="{Binding AuthorNamesFirstLast}" Margin="20,0,0,0" FontStyle="Italic" />
+            <TextBlock Text="{Binding Title}" FontWeight="Bold" Margin="5,0,0,0" />
+            <TextBlock Text="{Binding AuthorNamesFirstLast}" Margin="25,0,0,0" FontStyle="Italic" />
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="BookCycleDataTemplate">
         <StackPanel>
-            <TextBlock Text="{Binding Title}" FontWeight="Bold" />
-            <TextBlock Text="{Binding AuthorNamesFirstLast}" Margin="20,0,0,0" FontStyle="Italic" />
-            <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+            <TextBlock Text="{Binding Title}" FontWeight="Bold" Margin="5,0,0,0" />
+            <TextBlock Text="{Binding AuthorNamesFirstLast}" Margin="25,0,0,0" FontStyle="Italic" />
+            <StackPanel Orientation="Horizontal" Margin="25,0,0,0">
                 <TextBlock Text="Номер в серии:" />
                 <TextBlock Text="{Binding CyclePart}" Margin="5,0,0,0" />
             </StackPanel>
