@@ -41,6 +41,14 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <DataTemplate x:Key="AuthorFullNameDataTemplate">
+                <TextBlock Text="{Binding NameLastFirstMiddle}" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="AuthorLastFirstNameDataTemplate">
+                <TextBlock Text="{Binding NameLastFirst}" ToolTip="{Binding NameLastFirstMiddle}" />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 
