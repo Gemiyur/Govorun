@@ -262,8 +262,8 @@
                         <Expander Grid.Row="2" x:Name="AuthorsExpander" Header="Авторы"
                                   Style="{StaticResource NavExpanderStyle}">
                             <ListBox x:Name="AuthorsListBox"
+                                     Style="{StaticResource NavListBoxStyle}"
                                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                                     BorderThickness="0"
                                      SelectionChanged="AuthorsListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
@@ -275,8 +275,8 @@
                         <Expander Grid.Row="3" x:Name="CyclesExpander" Header="Серии"
                                   Style="{StaticResource NavExpanderStyle}">
                             <ListBox x:Name="CyclesListBox"
+                                     Style="{StaticResource NavListBoxStyle}"
                                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                                     BorderThickness="0"
                                      SelectionChanged="CyclesListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
@@ -288,8 +288,8 @@
                         <Expander Grid.Row="4" x:Name="TagsExpander" Header="Теги"
                                   Style="{StaticResource NavExpanderStyle}">
                             <ListBox x:Name="TagsListBox"
+                                     Style="{StaticResource NavListBoxStyle}"
                                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                                     BorderThickness="0"
                                      SelectionChanged="TagsListBox_SelectionChanged" />
                         </Expander>
                     </Grid>

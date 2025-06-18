@@ -53,8 +53,8 @@
         <Setter Property="Margin" Value="0,5,0,0" />
     </Style>
 
-    <Style x:Key="NavDataTemplate">
-        
+    <Style x:Key="NavListBoxStyle" TargetType="ListBox">
+        <Setter Property="BorderThickness" Value="0" />
     </Style>
 
     <DataTemplate x:Key="BookDataTemplate">
