@@ -79,6 +79,9 @@ public partial class BookEditor : Window
     /// </summary>
     private readonly List<Author> allAuthors = Db.GetAuthors();
 
+    /// <summary>
+    /// Серия книги.
+    /// </summary>
     private Cycle? cycle;
 
     /// <summary>
@@ -149,7 +152,8 @@ public partial class BookEditor : Window
         UpdateAuthorsSource();
         FileNameTextBox.Text = book.FileName;
         AnnotationTextBox.Text = book.Annotation;
-        CycleTextBox.Text = book.Cycle != null ? book.Cycle.Title : string.Empty;
+        cycle = book.Cycle;
+        CycleTextBox.Text = cycle != null ? cycle.Title : string.Empty;
         CyclePartTextBox.Text = book.CyclePart;
         LectorTextBox.Text = book.Lector;
         TranslatorTextBox.Text = book.Translator;
