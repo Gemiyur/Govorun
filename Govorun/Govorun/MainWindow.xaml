@@ -248,9 +248,6 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <ToggleButton Grid.Row="0" x:Name="AllBooksToggleButton" Content="Все книги"
@@ -263,47 +260,38 @@
                                       DataContext="/Images/Buttons/Enabled/Listening.png"
                                       Click="ListeningBooksToggleButton_Click" />
                         <Expander Grid.Row="2" x:Name="AuthorsExpander" Header="Авторы"
-                                  Style="{StaticResource NavExpanderStyle}"
-                                  Collapsed="AuthorsExpander_Collapsed"
-                                  Expanded="AuthorsExpander_Expanded">
+                                  Style="{StaticResource NavExpanderStyle}">
+                            <ListBox x:Name="AuthorsListBox"
+                                     ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+                                     BorderThickness="0"
+                                     SelectionChanged="AuthorsListBox_SelectionChanged">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding NameLastFirst}" ToolTip="{Binding NameLastFirstMiddle}" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </Expander>
-                        <ListBox Grid.Row="3" x:Name="AuthorsListBox"
-                                 ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                                 BorderThickness="0"
-                                 Visibility="Collapsed"
-                                 SelectionChanged="AuthorsListBox_SelectionChanged">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding NameLastFirst}" ToolTip="{Binding NameLastFirstMiddle}" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <Expander Grid.Row="4" x:Name="CyclesExpander" Header="Серии"
-                                  Style="{StaticResource NavExpanderStyle}"
-                                  Collapsed="CyclesExpander_Collapsed"
-                                  Expanded="CyclesExpander_Expanded">
+                        <Expander Grid.Row="3" x:Name="CyclesExpander" Header="Серии"
+                                  Style="{StaticResource NavExpanderStyle}">
+                            <ListBox x:Name="CyclesListBox"
+                                     ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+                                     BorderThickness="0"
+                                     SelectionChanged="CyclesListBox_SelectionChanged">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Title}" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </Expander>
-                        <ListBox Grid.Row="5" x:Name="CyclesListBox"
-                                 ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                                 BorderThickness="0"
-                                 Visibility="Collapsed"
-                                 SelectionChanged="CyclesListBox_SelectionChanged">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Title}" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <Expander Grid.Row="6" x:Name="TagsExpander" Header="Теги"
-                                  Style="{StaticResource NavExpanderStyle}"
-                                  Collapsed="TagsExpander_Collapsed"
-                                  Expanded="TagsExpander_Expanded">
+                        <Expander Grid.Row="4" x:Name="TagsExpander" Header="Теги"
+                                  Style="{StaticResource NavExpanderStyle}">
+                            <ListBox x:Name="TagsListBox"
+                                     ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+                                     BorderThickness="0"
+                                     SelectionChanged="TagsListBox_SelectionChanged" />
                         </Expander>
-                        <ListBox Grid.Row="7" x:Name="TagsListBox"
-                                 ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                                 BorderThickness="0"
-                                 Visibility="Collapsed"
-                                 SelectionChanged="TagsListBox_SelectionChanged" />
                     </Grid>
                 </ScrollViewer>
             </Border>

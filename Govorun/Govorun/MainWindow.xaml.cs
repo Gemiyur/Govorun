@@ -350,16 +350,6 @@ public partial class MainWindow : Window
         UpdateShownBooks();
     }
 
-    private void AuthorsExpander_Collapsed(object sender, RoutedEventArgs e)
-    {
-        AuthorsListBox.Visibility = Visibility.Collapsed;
-    }
-
-    private void AuthorsExpander_Expanded(object sender, RoutedEventArgs e)
-    {
-        AuthorsListBox.Visibility = Visibility.Visible;
-    }
-
     private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (NavHandlersLocked)
@@ -373,16 +363,6 @@ public partial class MainWindow : Window
         UpdateShownBooks();
     }
 
-    private void CyclesExpander_Collapsed(object sender, RoutedEventArgs e)
-    {
-        CyclesListBox.Visibility = Visibility.Collapsed;
-    }
-
-    private void CyclesExpander_Expanded(object sender, RoutedEventArgs e)
-    {
-        CyclesListBox.Visibility = Visibility.Visible;
-    }
-
     private void CyclesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (NavHandlersLocked)
@@ -394,16 +374,6 @@ public partial class MainWindow : Window
         TagsListBox.SelectedIndex = -1;
         UnlockNavHandlers();
         UpdateShownBooks();
-    }
-
-    private void TagsExpander_Collapsed(object sender, RoutedEventArgs e)
-    {
-        TagsListBox.Visibility = Visibility.Collapsed;
-    }
-
-    private void TagsExpander_Expanded(object sender, RoutedEventArgs e)
-    {
-        TagsListBox.Visibility = Visibility.Visible;
     }
 
     private void TagsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
