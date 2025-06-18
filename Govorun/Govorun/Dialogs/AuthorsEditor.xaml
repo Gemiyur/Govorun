@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
-        Title="Авторы"
+        Title="Редактор авторов"
         Width="500" Height="400" ResizeMode="NoResize"
         d:Width="500" d:Height="300"
         WindowStartupLocation="CenterOwner"
@@ -27,6 +27,7 @@
         </Grid.ColumnDefinitions>
 
         <ListBox Grid.Column="0" x:Name="AuthorsListBox"
+                 ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                  ItemTemplate="{StaticResource AuthorFullNameDataTemplate}"
                  SelectionChanged="AuthorsListBox_SelectionChanged" />
 
