@@ -302,21 +302,6 @@ public partial class MainWindow : Window
 
     #endregion
 
-    #region Обработчики событий элемента списка книг.
-
-    private void BooksListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        if (BooksListBox.SelectedItem != null && (e.OriginalSource is TextBlock || e.OriginalSource is Border))
-            RunBookInfoDialog((Book)BooksListBox.SelectedItem);
-    }
-
-    private void BooksListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        StatusBarSelectedCount.Text = BooksListBox.SelectedItems.Count.ToString();
-    }
-
-    #endregion
-
     #region Обработчики событий элементов панели навигации.
 
     private void AllBooksToggleButton_Click(object sender, RoutedEventArgs e)
@@ -387,6 +372,21 @@ public partial class MainWindow : Window
         CyclesListBox.SelectedIndex = -1;
         UnlockNavHandlers();
         UpdateShownBooks();
+    }
+
+    #endregion
+
+    #region Обработчики событий элемента списка книг.
+
+    private void BooksListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (BooksListBox.SelectedItem != null && (e.OriginalSource is TextBlock || e.OriginalSource is Border))
+            RunBookInfoDialog((Book)BooksListBox.SelectedItem);
+    }
+
+    private void BooksListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        StatusBarSelectedCount.Text = BooksListBox.SelectedItems.Count.ToString();
     }
 
     #endregion

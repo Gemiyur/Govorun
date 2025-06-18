@@ -264,13 +264,8 @@
                             <ListBox x:Name="AuthorsListBox"
                                      Style="{StaticResource NavListBoxStyle}"
                                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                                     SelectionChanged="AuthorsListBox_SelectionChanged">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding NameLastFirst}" ToolTip="{Binding NameLastFirstMiddle}" />
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                                     ItemTemplate="{StaticResource AuthorLastFirstNameDataTemplate}"
+                                     SelectionChanged="AuthorsListBox_SelectionChanged" />
                         </Expander>
                         <Expander Grid.Row="3" x:Name="CyclesExpander" Header="Серии"
                                   Style="{StaticResource NavExpanderStyle}">

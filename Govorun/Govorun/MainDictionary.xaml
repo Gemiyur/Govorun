@@ -57,6 +57,14 @@
         <Setter Property="BorderThickness" Value="0" />
     </Style>
 
+    <DataTemplate x:Key="AuthorFullNameDataTemplate">
+        <TextBlock Text="{Binding NameLastFirstMiddle}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="AuthorLastFirstNameDataTemplate">
+        <TextBlock Text="{Binding NameLastFirst}" ToolTip="{Binding NameLastFirstMiddle}" />
+    </DataTemplate>
+
     <DataTemplate x:Key="BookDataTemplate">
         <StackPanel>
             <TextBlock Text="{Binding Title}" FontWeight="Bold" Margin="5,0,0,0" />
