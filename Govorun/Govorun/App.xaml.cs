@@ -55,8 +55,18 @@ public partial class App : Application
     /// </summary>
     /// <param name="data">Массив байт.</param>
     /// <returns>Изображение.</returns>
-    public static BitmapFrame GetBitmapFrame(byte[] data) =>
-        BitmapDecoder.Create(new MemoryStream(data), BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames[0];
+    /// <remarks>В случае ошибки возвращает null.</remarks>
+    public static BitmapFrame? GetBitmapFrame(byte[] data)
+    {
+        try
+        {
+            return BitmapDecoder.Create(new MemoryStream(data), BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames[0];
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     /// <summary>
     /// Возвращает книгу из указанного файла.

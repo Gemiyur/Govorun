@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using Gemiyur.Comparers;
 using Govorun.Media;
 using Govorun.Models;
@@ -94,6 +95,10 @@ public partial class BookEditor : Window
     /// </summary>
     private readonly List<string> tags = [];
 
+    private int coverIndex;
+
+    private List<BitmapFrame> covers = [];
+
     /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
@@ -157,9 +162,10 @@ public partial class BookEditor : Window
         LectorTextBox.Text = book.Lector;
         TranslatorTextBox.Text = book.Translator;
         tags.AddRange(book.Tags);
+        coverIndex = book.CoverIndex;
         SortTags();
         UpdateTagsSource();
-        CoverImage.Source = book.Cover;
+        //CoverImage.Source = book.Cover;
     }
 
     /// <summary>
@@ -190,6 +196,22 @@ public partial class BookEditor : Window
             comments = comments + "\r\n" + trackData.Lyrics;
 
         TrackCommentsTextBox.Text = comments;
+
+        foreach (var pictureData in trackData.PicturesData)
+        {
+            var frame = App.GetBitmapFrame(pictureData);
+            if (frame != null)
+                covers.Add(frame);
+        }
+        if (covers.Count == 0)
+            CoverImage = null;
+        else if (coverIndex > 0 && coverIndex < covers.Count)
+            CoverImage.Source = covers[coverIndex];
+        else
+        {
+            CoverImage.Source = covers[0];
+            coverIndex = 0;
+        }
     }
 
     /// <summary>

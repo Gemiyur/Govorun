@@ -103,26 +103,6 @@ public class Book : BaseModel
         }
     }
 
-    // TODO: Pictures должно быть свойством или сделать его методом?.
-
-    /// <summary>
-    /// Возвращает список изображений книги.
-    /// </summary>
-    [BsonIgnore]
-    public List<BitmapFrame> Pictures
-    {
-        get
-        {
-            List<BitmapFrame> result = [];
-            var list = TrackData.GetPicturesData(FileName);
-            foreach (var item in list)
-            {
-                result.Add(App.GetBitmapFrame(item));
-            }
-            return result;
-        }
-    }
-
     private Cycle? cycle;
 
     /// <summary>
