@@ -160,6 +160,7 @@ public partial class BookEditor : Window
         tags.AddRange(book.Tags);
         SortTags();
         UpdateTagsSource();
+        CoverImage.Source = book.Cover;
     }
 
     /// <summary>

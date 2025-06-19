@@ -321,9 +321,8 @@
                                      Margin="0,4,0,0" />
                     </GroupBox>
                 </TabItem>
-
                 <TabItem Header="Обложка">
-
+                    <Image x:Name="CoverImage"></Image>
                 </TabItem>
             </TabControl>
         </Grid>

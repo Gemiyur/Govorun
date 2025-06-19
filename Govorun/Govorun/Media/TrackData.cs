@@ -125,7 +125,7 @@ public class TrackData
     public static byte[]? GetPictureData(string filename, int index)
     {
         var picturesData = GetPicturesData(filename);
-        return picturesData[index];
+        return GetPictureData(picturesData, index);
     }
 
     /// <summary>
