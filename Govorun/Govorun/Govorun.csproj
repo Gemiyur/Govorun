@@ -38,7 +38,9 @@
     <None Remove="Images\Buttons\Disabled\Delete.png" />
     <None Remove="Images\Buttons\Disabled\Edit.png" />
     <None Remove="Images\Buttons\Disabled\Info.png" />
+    <None Remove="Images\Buttons\Disabled\Next.png" />
     <None Remove="Images\Buttons\Disabled\Play.png" />
+    <None Remove="Images\Buttons\Disabled\Prev.png" />
     <None Remove="Images\Buttons\Disabled\Skip.png" />
     <None Remove="Images\Buttons\Enabled\About.png" />
     <None Remove="Images\Buttons\Enabled\AddBook.png" />
@@ -58,8 +60,10 @@
     <None Remove="Images\Buttons\Enabled\Increase.png" />
     <None Remove="Images\Buttons\Enabled\Info.png" />
     <None Remove="Images\Buttons\Enabled\Listening.png" />
+    <None Remove="Images\Buttons\Enabled\Next.png" />
     <None Remove="Images\Buttons\Enabled\Pause.png" />
     <None Remove="Images\Buttons\Enabled\Play.png" />
+    <None Remove="Images\Buttons\Enabled\Prev.png" />
     <None Remove="Images\Buttons\Enabled\Replay.png" />
     <None Remove="Images\Buttons\Enabled\Settings.png" />
     <None Remove="Images\Buttons\Enabled\Shrink.png" />
@@ -105,8 +109,10 @@
     <Resource Include="Images\Buttons\Disabled\Delete.png" />
     <Resource Include="Images\Buttons\Disabled\Edit.png" />
     <Resource Include="Images\Buttons\Disabled\Info.png" />
+    <Resource Include="Images\Buttons\Disabled\Next.png" />
     <Resource Include="Images\Buttons\Disabled\Play.png" />
     <Resource Include="Controls\PlayerImages\Disabled\Skip.png" />
+    <Resource Include="Images\Buttons\Disabled\Prev.png" />
     <Resource Include="Images\Buttons\Enabled\About.png" />
     <Resource Include="Images\Buttons\Enabled\AddBook.png" />
     <Resource Include="Controls\PlayerImages\Enabled\AddBookmark.png" />
@@ -126,8 +132,10 @@
     <Resource Include="Images\Buttons\Enabled\Info.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Pause.png" />
     <Resource Include="Images\Buttons\Enabled\Listening.png" />
+    <Resource Include="Images\Buttons\Enabled\Next.png" />
     <Resource Include="Images\Buttons\Enabled\Play.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Replay.png" />
+    <Resource Include="Images\Buttons\Enabled\Prev.png" />
     <Resource Include="Images\Buttons\Enabled\Settings.png" />
     <Resource Include="Images\Buttons\Enabled\Shrink.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Skip.png" />

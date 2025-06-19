@@ -95,9 +95,15 @@ public partial class BookEditor : Window
     /// </summary>
     private readonly List<string> tags = [];
 
+    /// <summary>
+    /// Индекс изображения обложки книги в теге файла книги.
+    /// </summary>
     private int coverIndex;
 
-    private List<BitmapFrame> covers = [];
+    /// <summary>
+    /// Список изображений обложки книги в теге файла книги.
+    /// </summary>
+    private readonly List<BitmapFrame> covers = [];
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
@@ -165,7 +171,6 @@ public partial class BookEditor : Window
         coverIndex = book.CoverIndex;
         SortTags();
         UpdateTagsSource();
-        //CoverImage.Source = book.Cover;
     }
 
     /// <summary>
