@@ -347,10 +347,6 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Данные трека"
                            HorizontalAlignment="Left" VerticalAlignment="Center" />
-                <Button Grid.Column="1" x:Name="LoadTrackButton" Content="Загрузить"
-                        Style="{StaticResource EditorButtonStyle}"
-                        HorizontalAlignment="Right" VerticalAlignment="Center"
-                        Click="LoadTrackButton_Click" />
             </Grid>
             <!-- Название (Title) -->
             <GroupBox Grid.Row="3" Header="Название" Style="{StaticResource TrackGroupBoxStyle}">

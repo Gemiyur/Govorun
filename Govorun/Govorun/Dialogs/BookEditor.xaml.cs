@@ -67,7 +67,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Данные книги из тега файла книги.
     /// </summary>
-    private TrackData? trackData;
+    private TrackData trackData;
 
     /// <summary>
     /// Список авторов книги.
@@ -92,7 +92,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Список тегов книги.
     /// </summary>
-    private readonly List<string> tags = new List<string>();
+    private readonly List<string> tags = [];
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
@@ -110,10 +110,9 @@ public partial class BookEditor : Window
             throw new ArgumentException("Не указана книга: book == null.", nameof(book));
         }
         this.book = book;
-        this.trackData = trackData;
+        this.trackData = trackData ?? new TrackData(book.FileName);
         filename = book.FileName;
         FileNotFoundTextBlock.Visibility = book.FileExists ? Visibility.Collapsed : Visibility.Visible;
-        LoadTrackButton.IsEnabled = book.FileExists && trackData == null;
         FileButton.IsEnabled = !book.FileExists;
         LoadBook();
         LoadTrack();
@@ -168,8 +167,6 @@ public partial class BookEditor : Window
     /// </summary>
     private void LoadTrack()
     {
-        if (trackData == null)
-            return;
         TrackTitleTextBox.Text = trackData.Title;
         TrackAuthorTextBox.Text = trackData.Author;
         TrackCycleTitleTextBox.Text = trackData.CycleTitle;
@@ -571,22 +568,6 @@ public partial class BookEditor : Window
         NewTagTextBox.Text = string.Empty;
     }
 
-    private void LoadTrackButton_Click(object sender, RoutedEventArgs e)
-    {
-        // Так сделано на случай если после загрузки книги в редактор файл книги был удалён или переименован.
-        if (File.Exists(filename))
-        {
-            trackData = new TrackData(filename);
-            LoadTrack();
-        }
-        else
-        {
-            FileNotFoundTextBlock.Visibility = Visibility.Visible;
-            FileButton.IsEnabled = true;
-        }
-        LoadTrackButton.IsEnabled = false;
-    }
-
     private void FileButton_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new BookFileDialog(book) { Owner = this };
@@ -594,7 +575,8 @@ public partial class BookEditor : Window
             return;
         filename = dialog.FileName;
         FileNotFoundTextBlock.Visibility = Visibility.Collapsed;
-        LoadTrackButton.IsEnabled = true;
+        trackData = new TrackData(filename);
+        LoadTrack();
         FileButton.IsEnabled = false;
     }
 
