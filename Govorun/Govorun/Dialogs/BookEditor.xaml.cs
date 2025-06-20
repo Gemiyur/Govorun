@@ -218,7 +218,7 @@ public partial class BookEditor : Window
             coverIndex = 0;
         }
 
-        CheckCoverButtons();
+        CheckCoverControls();
     }
 
     /// <summary>
@@ -653,7 +653,7 @@ public partial class BookEditor : Window
 
     #endregion
 
-    private void CheckCoverButtons()
+    private void CheckCoverControls()
     {
         PrevButton.IsEnabled = coverIndex > 0;
         NextButton.IsEnabled = coverIndex < covers.Count - 1;
@@ -675,13 +675,13 @@ public partial class BookEditor : Window
     {
         coverIndex--;
         CoverImage.Source = covers[coverIndex];
-        CheckCoverButtons();
+        CheckCoverControls();
     }
 
     private void NextButton_Click(object sender, RoutedEventArgs e)
     {
         coverIndex++;
         CoverImage.Source = covers[coverIndex];
-        CheckCoverButtons();
+        CheckCoverControls();
     }
 }
