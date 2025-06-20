@@ -242,15 +242,34 @@ public partial class BookEditor : Window
         }
 
         // Авторы.
+
+        //var v1 = authors.Count != book.Authors.Count;
+
+        //var o2 = authors.Any(x => book.Authors.Exists(a => a.AuthorId != x.AuthorId));
+        //var o3 = book.Authors.Any(x => authors.Exists(a => a.AuthorId != x.AuthorId));
+        
+        //var v2 = authors.Any(x => !book.Authors.Exists(a => a.AuthorId == x.AuthorId));
+        //var v3 = book.Authors.Any(x => !authors.Exists(a => a.AuthorId == x.AuthorId));
+
         if (authors.Count != book.Authors.Count ||
-            authors.Any(x => book.Authors.Exists(a => a.AuthorId != x.AuthorId)) ||
-            book.Authors.Any(x => authors.Exists(a => a.AuthorId != x.AuthorId)))
+            authors.Any(x => !book.Authors.Exists(a => a.AuthorId == x.AuthorId)) ||
+            book.Authors.Any(x => !authors.Exists(a => a.AuthorId == x.AuthorId)))
         {
             book.Authors.Clear();
             book.Authors.AddRange(authors);
             changed = true;
             AuthorsChanged = true;
         }
+
+        //if (authors.Count != book.Authors.Count ||
+        //    authors.Any(x => book.Authors.Exists(a => a.AuthorId != x.AuthorId)) ||
+        //    book.Authors.Any(x => authors.Exists(a => a.AuthorId != x.AuthorId)))
+        //{
+        //    book.Authors.Clear();
+        //    book.Authors.AddRange(authors);
+        //    changed = true;
+        //    AuthorsChanged = true;
+        //}
 
         // Аннотация.
         if (book.Annotation != AnnotationTextBox.Text)
