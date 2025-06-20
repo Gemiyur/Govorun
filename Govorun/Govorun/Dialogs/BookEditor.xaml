@@ -20,6 +20,12 @@
                 <Setter Property="Width" Value="75" />
                 <Setter Property="Height" Value="20" />
             </Style>
+            <Style x:Key="NextPrevButtonStyle" TargetType="Button">
+                <Setter Property="Width" Value="48" />
+                <Setter Property="Height" Value="96" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
             <Style x:Key="EditorGroupBoxStyle" TargetType="GroupBox">
                 <Setter Property="Margin" Value="0,10,0,0" />
             </Style>
@@ -322,7 +328,38 @@
                     </GroupBox>
                 </TabItem>
                 <TabItem Header="Обложка">
-                    <Image x:Name="CoverImage"></Image>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Row="0" Grid.Column="0" x:Name="PrevButton"
+                                Style="{StaticResource NextPrevButtonStyle}"
+                                IsEnabled="False"
+                                Click="PrevButton_Click">
+                            <Image Source="\Images\Buttons\Disabled\Prev.png" />
+                        </Button>
+                        
+                        <Image Grid.Row="0" Grid.Column="1" x:Name="CoverImage" />
+                        
+                        <Button Grid.Row="0" Grid.Column="2" x:Name="NextButton"
+                                Style="{StaticResource NextPrevButtonStyle}"
+                                IsEnabled="False"
+                                Click="NextButton_Click">
+                            <Image Source="\Images\Buttons\Disabled\Next.png" />
+                        </Button>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                   x:Name="CoverNumberTextBlock"
+                                   Text="0 из 0" HorizontalAlignment="Center" />
+
+                    </Grid>
                 </TabItem>
             </TabControl>
         </Grid>

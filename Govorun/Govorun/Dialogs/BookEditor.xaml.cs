@@ -217,6 +217,8 @@ public partial class BookEditor : Window
             CoverImage.Source = covers[0];
             coverIndex = 0;
         }
+
+        CheckCoverButtons();
     }
 
     /// <summary>
@@ -650,4 +652,36 @@ public partial class BookEditor : Window
     }
 
     #endregion
+
+    private void CheckCoverButtons()
+    {
+        PrevButton.IsEnabled = coverIndex > 0;
+        NextButton.IsEnabled = coverIndex < covers.Count - 1;
+
+        var bitmap = App.GetBitmapImage(
+            PrevButton.IsEnabled ? @"\Images\Buttons\Enabled\Prev.png" : @"\Images\Buttons\Disabled\Prev.png");
+        ((Image)PrevButton.Content).Source = bitmap;
+
+        bitmap = App.GetBitmapImage(
+            NextButton.IsEnabled ? @"\Images\Buttons\Enabled\Next.png" : @"\Images\Buttons\Disabled\Next.png");
+        ((Image)NextButton.Content).Source = bitmap;
+
+        CoverNumberTextBlock.Text = covers.Count > 0
+            ? $"Обложка {coverIndex + 1} из {covers.Count}"
+            : "Нет обложек";
+    }
+
+    private void PrevButton_Click(object sender, RoutedEventArgs e)
+    {
+        coverIndex--;
+        CoverImage.Source = covers[coverIndex];
+        CheckCoverButtons();
+    }
+
+    private void NextButton_Click(object sender, RoutedEventArgs e)
+    {
+        coverIndex++;
+        CoverImage.Source = covers[coverIndex];
+        CheckCoverButtons();
+    }
 }
