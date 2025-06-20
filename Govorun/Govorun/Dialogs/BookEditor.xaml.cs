@@ -312,6 +312,13 @@ public partial class BookEditor : Window
             TagsChanged = true;
         }
 
+        // Индекс изображения обложки.
+        if (coverIndex != book.CoverIndex)
+        {
+            book.CoverIndex = coverIndex;
+            changed = true;
+        }
+
         // Имя файла.
         if (book.FileName != filename)
         {
