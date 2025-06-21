@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -127,6 +126,33 @@ public partial class BookEditor : Window
         FileButton.IsEnabled = !book.FileExists;
         LoadBook();
         LoadTrack();
+    }
+
+    /// <summary>
+    /// Устанавливает свойства элементов выбора обложки.
+    /// </summary>
+    private void CheckCoverControls()
+    {
+        if (covers.Count == 0 || covers.Count == 1)
+        {
+            PrevButton.Visibility = Visibility.Hidden;
+            NextButton.Visibility = Visibility.Hidden;
+        }
+        else
+        {
+            PrevButton.IsEnabled = coverIndex > 0;
+            var bitmap = App.GetBitmapImage(
+                PrevButton.IsEnabled ? @"\Images\Buttons\Enabled\Prev.png" : @"\Images\Buttons\Disabled\Prev.png");
+            ((Image)PrevButton.Content).Source = bitmap;
+
+            NextButton.IsEnabled = coverIndex < covers.Count - 1;
+            bitmap = App.GetBitmapImage(
+               NextButton.IsEnabled ? @"\Images\Buttons\Enabled\Next.png" : @"\Images\Buttons\Disabled\Next.png");
+            ((Image)NextButton.Content).Source = bitmap;
+        }
+        CoverNumberTextBlock.Text = covers.Count > 0
+            ? $"Обложка {coverIndex + 1} из {covers.Count}"
+            : "Нет обложек";
     }
 
     /// <summary>
@@ -604,6 +630,20 @@ public partial class BookEditor : Window
         NewTagTextBox.Text = string.Empty;
     }
 
+    private void PrevCoverButton_Click(object sender, RoutedEventArgs e)
+    {
+        coverIndex--;
+        CoverImage.Source = covers[coverIndex];
+        CheckCoverControls();
+    }
+
+    private void NextCoverButton_Click(object sender, RoutedEventArgs e)
+    {
+        coverIndex++;
+        CoverImage.Source = covers[coverIndex];
+        CheckCoverControls();
+    }
+
     private void FileButton_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new BookFileDialog(book) { Owner = this };
@@ -659,36 +699,4 @@ public partial class BookEditor : Window
     }
 
     #endregion
-
-    private void CheckCoverControls()
-    {
-        PrevButton.IsEnabled = coverIndex > 0;
-        NextButton.IsEnabled = coverIndex < covers.Count - 1;
-
-        var bitmap = App.GetBitmapImage(
-            PrevButton.IsEnabled ? @"\Images\Buttons\Enabled\Prev.png" : @"\Images\Buttons\Disabled\Prev.png");
-        ((Image)PrevButton.Content).Source = bitmap;
-
-        bitmap = App.GetBitmapImage(
-            NextButton.IsEnabled ? @"\Images\Buttons\Enabled\Next.png" : @"\Images\Buttons\Disabled\Next.png");
-        ((Image)NextButton.Content).Source = bitmap;
-
-        CoverNumberTextBlock.Text = covers.Count > 0
-            ? $"Обложка {coverIndex + 1} из {covers.Count}"
-            : "Нет обложек";
-    }
-
-    private void PrevButton_Click(object sender, RoutedEventArgs e)
-    {
-        coverIndex--;
-        CoverImage.Source = covers[coverIndex];
-        CheckCoverControls();
-    }
-
-    private void NextButton_Click(object sender, RoutedEventArgs e)
-    {
-        coverIndex++;
-        CoverImage.Source = covers[coverIndex];
-        CheckCoverControls();
-    }
 }
