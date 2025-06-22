@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Gemiyur.Collections;
 using Gemiyur.Comparers;
 using Govorun.Media;
 using Govorun.Models;
@@ -72,7 +73,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Список авторов книги.
     /// </summary>
-    private readonly List<Author> authors = [];
+    private readonly ObservableCollectionEx<Author> authors = [];
 
     /// <summary>
     /// Список всех авторов в библиотеке.
@@ -185,7 +186,8 @@ public partial class BookEditor : Window
         TitleTextBox.Text = book.Title;
         authors.AddRange(book.Authors);
         SortAuthors();
-        UpdateAuthorsSource();
+        AuthorsListBox.ItemsSource = authors;
+        //UpdateAuthorsSource();
         FileNameTextBox.Text = book.FileName;
         AnnotationTextBox.Text = book.Annotation;
         cycle = book.Cycle;
@@ -270,7 +272,7 @@ public partial class BookEditor : Window
         // Авторы.
         if (authors.Count != book.Authors.Count ||
             authors.Any(x => !book.Authors.Exists(a => a.AuthorId == x.AuthorId)) ||
-            book.Authors.Any(x => !authors.Exists(a => a.AuthorId == x.AuthorId)))
+            book.Authors.Any(x => !authors.Any(a => a.AuthorId == x.AuthorId)))
         {
             book.Authors.Clear();
             book.Authors.AddRange(authors);
@@ -363,7 +365,7 @@ public partial class BookEditor : Window
     /// <returns>Были ли новые авторы сохранены успешно.</returns>
     private bool SaveNewAuthors()
     {
-        var newAuthors = authors.FindAll(x => x.AuthorId == 0);
+        var newAuthors = authors.ToList().FindAll(x => x.AuthorId == 0);
         if (!newAuthors.Any())
             return true;
         HasNewAuthors = true;
@@ -393,7 +395,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Сортирует список авторов книги по фамилии, имени и отчеству.
     /// </summary>
-    private void SortAuthors() => authors.Sort(new StringKeyComparer(x => ((Author)x).NameLastFirstMiddle));
+    private void SortAuthors() => authors.Sort(x => ((Author)x).NameLastFirstMiddle);
 
     /// <summary>
     /// Сортирует список тегов книги в алфавитном порядке.
@@ -435,15 +437,20 @@ public partial class BookEditor : Window
         var picker = new AuthorsPicker() { Owner = this };
         if (picker.ShowDialog() != true)
             return;
-        authors.AddRange(picker.PickedAuthors.Where(x => !authors.Exists(a => a.AuthorId == x.AuthorId)));
+        //authors.AddRange(picker.PickedAuthors.Where(x => !authors.Any(a => a.AuthorId == x.AuthorId)));
+        foreach (var author in picker.PickedAuthors.Where(x => !authors.Any(a => a.AuthorId == x.AuthorId)))
+        {
+            authors.Add(author);
+        }
         SortAuthors();
-        UpdateAuthorsSource();
+        //UpdateAuthorsSource();
     }
 
     private void RemoveAuthorsButton_Click(object sender, RoutedEventArgs e)
     {
-        authors.RemoveAll(x => AuthorsListBox.SelectedItems.Cast<Author>().Contains(x));
-        UpdateAuthorsSource();
+        //authors.RemoveAll(x => AuthorsListBox.SelectedItems.Cast<Author>().Contains(x));
+        authors.RemoveRange(AuthorsListBox.SelectedItems.Cast<Author>());
+        //UpdateAuthorsSource();
     }
 
     private void NewAuthorLastNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -472,7 +479,7 @@ public partial class BookEditor : Window
                                           x.MiddleName.Equals(middleName, StringComparison.CurrentCultureIgnoreCase));
         if (author != null)
         {
-            if (authors.Exists(x => x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase) &&
+            if (authors.Any(x => x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase) &&
                                     x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
                                     x.MiddleName.Equals(middleName, StringComparison.CurrentCultureIgnoreCase)))
             {
@@ -486,7 +493,7 @@ public partial class BookEditor : Window
         }
         else
         {
-            if (authors.Exists(x => x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase) &&
+            if (authors.Any(x => x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase) &&
                                     x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
                                     x.MiddleName.Equals(middleName, StringComparison.CurrentCultureIgnoreCase)))
             {
@@ -495,11 +502,22 @@ public partial class BookEditor : Window
             }
             else
             {
-                authors.Add(new Author() { LastName = lastName, FirstName = firstName, MiddleName = middleName});
+                authors.Add(new Author() { LastName = lastName, FirstName = firstName, MiddleName = middleName });
             }
+            //if (authors.Exists(x => x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase) &&
+            //                        x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
+            //                        x.MiddleName.Equals(middleName, StringComparison.CurrentCultureIgnoreCase)))
+            //{
+            //    ClearNewAuthor();
+            //    return;
+            //}
+            //else
+            //{
+            //    authors.Add(new Author() { LastName = lastName, FirstName = firstName, MiddleName = middleName});
+            //}
         }
         SortAuthors();
-        UpdateAuthorsSource();
+        //UpdateAuthorsSource();
         ClearNewAuthor();
     }
 
