@@ -188,7 +188,6 @@ public partial class BookEditor : Window
         authors.AddRange(book.Authors);
         SortAuthors();
         AuthorsListBox.ItemsSource = authors;
-        //UpdateAuthorsSource();
         FileNameTextBox.Text = book.FileName;
         AnnotationTextBox.Text = book.Annotation;
         cycle = book.Cycle;
@@ -197,9 +196,9 @@ public partial class BookEditor : Window
         LectorTextBox.Text = book.Lector;
         TranslatorTextBox.Text = book.Translator;
         tags.AddRange(book.Tags);
-        coverIndex = book.CoverIndex;
         SortTags();
         UpdateTagsSource();
+        coverIndex = book.CoverIndex;
     }
 
     /// <summary>
@@ -404,15 +403,6 @@ public partial class BookEditor : Window
     private void SortTags() => tags.Sort(StringComparer.CurrentCultureIgnoreCase);
 
     /// <summary>
-    /// Обновляет источник элементов списка авторов книги.
-    /// </summary>
-    private void UpdateAuthorsSource()
-    {
-        AuthorsListBox.ItemsSource = null;
-        AuthorsListBox.ItemsSource = authors;
-    }
-
-    /// <summary>
     /// Обновляет источник элементов списка тегов книги.
     /// </summary>
     private void UpdateTagsSource()
@@ -439,19 +429,12 @@ public partial class BookEditor : Window
         if (picker.ShowDialog() != true)
             return;
         authors.AddRange(picker.PickedAuthors.Where(x => !authors.Any(a => a.AuthorId == x.AuthorId)));
-        //foreach (var author in picker.PickedAuthors.Where(x => !authors.Any(a => a.AuthorId == x.AuthorId)))
-        //{
-        //    authors.Add(author);
-        //}
         SortAuthors();
-        //UpdateAuthorsSource();
     }
 
     private void RemoveAuthorsButton_Click(object sender, RoutedEventArgs e)
     {
-        //authors.RemoveAll(x => AuthorsListBox.SelectedItems.Cast<Author>().Contains(x));
         authors.RemoveRange(AuthorsListBox.SelectedItems.Cast<Author>());
-        //UpdateAuthorsSource();
     }
 
     private void NewAuthorLastNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -505,20 +488,8 @@ public partial class BookEditor : Window
             {
                 authors.Add(new Author() { LastName = lastName, FirstName = firstName, MiddleName = middleName });
             }
-            //if (authors.Exists(x => x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase) &&
-            //                        x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
-            //                        x.MiddleName.Equals(middleName, StringComparison.CurrentCultureIgnoreCase)))
-            //{
-            //    ClearNewAuthor();
-            //    return;
-            //}
-            //else
-            //{
-            //    authors.Add(new Author() { LastName = lastName, FirstName = firstName, MiddleName = middleName});
-            //}
         }
         SortAuthors();
-        //UpdateAuthorsSource();
         ClearNewAuthor();
     }
 
