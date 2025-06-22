@@ -11,29 +11,17 @@
             </summary>
             <typeparam name="T">Тип элементов в коллекции.</typeparam>
         </member>
-        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.AddRange(System.Collections.Generic.IEnumerable{`0},System.Collections.Specialized.NotifyCollectionChangedAction)">
+        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
             <summary> 
             Добавляет элементы указанной коллекции в конец коллекции ObservableCollection.
             </summary> 
             <param name="collection">Коллекция добавляемых элементов.</param>
-            <param name="notificationMode">Действие, вызванное событием CollectionChanged.<br/>
-            Должно быть Add (по умолчанию) или Reset.</param>
-            <remarks>
-            Не работает если количество элементов в коллекции больше одного.<br/>
-            Выбрасывает исключение "Операции с диапазоном не поддерживаются".<br/>
-            Почему так - непонятно. Разбираться пока нет желания.
-            </remarks>
         </member>
-        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.RemoveRange(System.Collections.Generic.IEnumerable{`0},System.Collections.Specialized.NotifyCollectionChangedAction)">
+        <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.RemoveRange(System.Collections.Generic.IEnumerable{`0})">
             <summary> 
             Удаляет первое появление каждого элемента в указанной коллекции из ObservableCollection.
             </summary> 
             <param name="collection">Коллекция удаляемых элементов.</param>
-            <param name="notificationMode">Действие, вызванное событием CollectionChanged.<br/>
-            Должно быть Remove или Reset (по умолчанию).</param>
-            <remarks>
-            С notificationMode = Remove стартовый индекс удаленных элементов не устанавливается.
-            </remarks>
         </member>
         <member name="M:Gemiyur.Collections.ObservableCollectionEx`1.Replace(`0)">
             <summary> 

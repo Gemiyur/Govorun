@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Specialized;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -73,7 +74,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Список авторов книги.
     /// </summary>
-    private readonly ObservableCollectionEx<Author> authors = [];
+    private readonly ObservableCollectionExNew<Author> authors = [];
 
     /// <summary>
     /// Список всех авторов в библиотеке.
@@ -437,11 +438,11 @@ public partial class BookEditor : Window
         var picker = new AuthorsPicker() { Owner = this };
         if (picker.ShowDialog() != true)
             return;
-        //authors.AddRange(picker.PickedAuthors.Where(x => !authors.Any(a => a.AuthorId == x.AuthorId)));
-        foreach (var author in picker.PickedAuthors.Where(x => !authors.Any(a => a.AuthorId == x.AuthorId)))
-        {
-            authors.Add(author);
-        }
+        authors.AddRange(picker.PickedAuthors.Where(x => !authors.Any(a => a.AuthorId == x.AuthorId)));
+        //foreach (var author in picker.PickedAuthors.Where(x => !authors.Any(a => a.AuthorId == x.AuthorId)))
+        //{
+        //    authors.Add(author);
+        //}
         SortAuthors();
         //UpdateAuthorsSource();
     }
