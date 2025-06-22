@@ -94,7 +94,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Список тегов книги.
     /// </summary>
-    private readonly List<string> tags = [];
+    private readonly ObservableCollectionEx<string> tags = [];
 
     /// <summary>
     /// Индекс изображения обложки книги в теге файла книги.
@@ -197,7 +197,7 @@ public partial class BookEditor : Window
         TranslatorTextBox.Text = book.Translator;
         tags.AddRange(book.Tags);
         SortTags();
-        UpdateTagsSource();
+        TagsListBox.ItemsSource = tags;
         coverIndex = book.CoverIndex;
     }
 
@@ -332,7 +332,7 @@ public partial class BookEditor : Window
         // Теги.
         if (tags.Count != book.Tags.Count ||
             tags.Any(x => !book.Tags.Exists(t => t == x)) ||
-            book.Tags.Any(x => !tags.Exists(t => t == x)))
+            book.Tags.Any(x => !tags.Any(t => t == x)))
         {
             book.Tags.Clear();
             book.Tags.AddRange(tags);
@@ -395,21 +395,12 @@ public partial class BookEditor : Window
     /// <summary>
     /// Сортирует список авторов книги по фамилии, имени и отчеству.
     /// </summary>
-    private void SortAuthors() => authors.Sort(x => ((Author)x).NameLastFirstMiddle);
+    private void SortAuthors() => authors.Sort(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase);
 
     /// <summary>
     /// Сортирует список тегов книги в алфавитном порядке.
     /// </summary>
-    private void SortTags() => tags.Sort(StringComparer.CurrentCultureIgnoreCase);
-
-    /// <summary>
-    /// Обновляет источник элементов списка тегов книги.
-    /// </summary>
-    private void UpdateTagsSource()
-    {
-        TagsListBox.ItemsSource = null;
-        TagsListBox.ItemsSource = tags;
-    }
+    private void SortTags() => tags.Sort(x => x, StringComparer.CurrentCultureIgnoreCase);
 
     #region Обработчики событий элементов управления.
 
@@ -590,15 +581,13 @@ public partial class BookEditor : Window
         var picker = new TagsPicker() { Owner = this };
         if (picker.ShowDialog() != true)
             return;
-        tags.AddRange(picker.PickedTags.Where(x => !tags.Exists(t => t == x)));
+        tags.AddRange(picker.PickedTags.Where(x => !tags.Any(t => t == x)));
         SortTags();
-        UpdateTagsSource();
     }
 
     private void RemoveTagsButton_Click(object sender, RoutedEventArgs e)
     {
-        tags.RemoveAll(TagsListBox.SelectedItems.Contains);
-        UpdateTagsSource();
+        tags.RemoveRange(TagsListBox.SelectedItems.Cast<string>());
     }
 
     private void NewTagTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -616,7 +605,6 @@ public partial class BookEditor : Window
         }
         tags.Add(tag);
         SortTags();
-        UpdateTagsSource();
         NewTagTextBox.Text = string.Empty;
     }
 
