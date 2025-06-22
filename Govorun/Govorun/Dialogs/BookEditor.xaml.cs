@@ -74,7 +74,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Список авторов книги.
     /// </summary>
-    private readonly ObservableCollectionExNew<Author> authors = [];
+    private readonly ObservableCollectionEx<Author> authors = [];
 
     /// <summary>
     /// Список всех авторов в библиотеке.
