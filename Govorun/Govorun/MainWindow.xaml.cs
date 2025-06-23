@@ -716,10 +716,7 @@ public partial class MainWindow : Window
         {
             return;
         }
-        Cursor = Cursors.Wait;
-        App.DoEvents();
         Db.Shrink();
-        Cursor = null;
         MessageBox.Show($"Сжатие базы данных библиотеки завершено.", Title);
     }
 

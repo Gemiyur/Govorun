@@ -3,7 +3,6 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 using Govorun.Media;
 using Govorun.Models;
 
@@ -22,12 +21,6 @@ public partial class App : Application
     /// Имя файла базы данных с полным путём.
     /// </summary>
     public static string? DbName { get; set; }
-
-    /// <summary>
-    /// Аналог System.Windows.Forms.Application.DoEvents.
-    /// </summary>
-    public static void DoEvents() =>
-        Current?.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate { }));
 
     /// <summary>
     /// Возвращает указанное имя файла, гарантируя расширение .db.
