@@ -212,7 +212,8 @@ public partial class MainWindow : Window
             Tags.ReplaceRange(Library.Tags);
             if (selectedTag != null)
             {
-                TagsListBox.SelectedItem = Tags.FirstOrDefault(x => x.Equals(selectedTag, StringComparison.CurrentCultureIgnoreCase));
+                TagsListBox.SelectedItem =
+                    Tags.FirstOrDefault(x => x.Equals(selectedTag, StringComparison.CurrentCultureIgnoreCase));
                 if (TagsListBox.SelectedItem != null)
                     TagsListBox.ScrollIntoView(TagsListBox.SelectedItem);
             }
