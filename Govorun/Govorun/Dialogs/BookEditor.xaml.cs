@@ -1,10 +1,8 @@
-﻿using System.Collections.Specialized;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Gemiyur.Collections;
-using Gemiyur.Comparers;
 using Govorun.Media;
 using Govorun.Models;
 using Govorun.Tools;
@@ -213,19 +211,19 @@ public partial class BookEditor : Window
 
         var comments = trackData.Comment;
 
-        if (!comments.Any())
+        if (comments.Length == 0)
             comments = trackData.Description;
-        else if (trackData.Description.Any())
+        else if (trackData.Description.Length != 0)
             comments = comments + "\r\n" + trackData.Description;
 
-        if (!comments.Any())
+        if (comments.Length == 0)
             comments = trackData.LongDescription;
-        else if (trackData.LongDescription.Any())
+        else if (trackData.LongDescription.Length != 0)
             comments = comments + "\r\n" + trackData.LongDescription;
 
-        if (!comments.Any())
+        if (comments.Length == 0)
             comments = trackData.Lyrics;
-        else if (trackData.Lyrics.Any())
+        else if (trackData.Lyrics.Length != 0)
             comments = comments + "\r\n" + trackData.Lyrics;
 
         TrackCommentsTextBox.Text = comments;
@@ -366,7 +364,7 @@ public partial class BookEditor : Window
     private bool SaveNewAuthors()
     {
         var newAuthors = authors.ToList().FindAll(x => x.AuthorId == 0);
-        if (!newAuthors.Any())
+        if (newAuthors.Count == 0)
             return true;
         HasNewAuthors = true;
         using var db = Db.GetDatabase();
