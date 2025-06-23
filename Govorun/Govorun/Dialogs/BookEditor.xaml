@@ -118,15 +118,12 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <ListBox Grid.Column="0" x:Name="AuthorsListBox"
+                                         ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+                                         ItemTemplate="{StaticResource AuthorFullNameDataTemplate}"
                                          Height="65"
                                          Margin="0,0,10,0"
                                          SelectionMode="Extended"
                                          SelectionChanged="AuthorsListBox_SelectionChanged">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding NameLastFirstMiddle}" />
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
                                 </ListBox>
                                 <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
