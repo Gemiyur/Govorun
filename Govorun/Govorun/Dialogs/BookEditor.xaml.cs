@@ -152,7 +152,7 @@ public partial class BookEditor : Window
         }
         CoverNumberTextBlock.Text = covers.Count > 0
             ? $"Обложка {coverIndex + 1} из {covers.Count}"
-            : "Нет обложек";
+            : "Нет обложки";
     }
 
     /// <summary>

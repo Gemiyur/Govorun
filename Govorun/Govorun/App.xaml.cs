@@ -80,7 +80,6 @@ public partial class App : Application
         var book = new Book();
         trackData = new TrackData(filename);
         book.Title = trackData.Title;
-        book.CoverIndex = trackData.PicturesData.Any() ? 0 : -1;
         book.FileName = filename;
         book.Duration = trackData.Duration;
         book.FileSize = new FileInfo(filename).Length;

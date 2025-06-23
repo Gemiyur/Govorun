@@ -352,7 +352,7 @@
                         </Button>
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
-                                   x:Name="CoverNumberTextBlock" Text="Нет обложек"
+                                   x:Name="CoverNumberTextBlock" Text="Нет обложки"
                                    HorizontalAlignment="Center"
                                    Margin="0,10,0,0" />
 
