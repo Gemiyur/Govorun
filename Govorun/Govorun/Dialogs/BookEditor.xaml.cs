@@ -597,8 +597,9 @@ public partial class BookEditor : Window
 
     private void AddNewTagButton_Click(object sender, RoutedEventArgs e)
     {
-        var tag = NewTagTextBox.Text.Trim();
-        if (tags.Contains(tag))
+        var tag = Library.Tags.Find(x => x.Equals(NewTagTextBox.Text.Trim(), StringComparison.CurrentCultureIgnoreCase));
+        tag ??= NewTagTextBox.Text.Trim();
+        if (tags.Contains(tag, StringComparer.CurrentCultureIgnoreCase))
         {
             NewTagTextBox.Text = string.Empty;
             return;
