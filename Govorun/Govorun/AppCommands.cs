@@ -120,8 +120,8 @@ public static class AppCommands
         // Команды группы "Библиотека".
         AddBook = new RoutedUICommand("Добавить книгу...", "AddBook", typeof(AppCommands));
         FindBooks = new RoutedUICommand("Найти книги в папке...", "FindBooks", typeof(AppCommands));
-        Authors = new RoutedUICommand("Редактор авторов...", "Authors", typeof(AppCommands));
-        Cycles = new RoutedUICommand("Редактор серий...", "Cycles", typeof(AppCommands));
+        Authors = new RoutedUICommand("Авторы...", "Authors", typeof(AppCommands));
+        Cycles = new RoutedUICommand("Серии...", "Cycles", typeof(AppCommands));
         CheckLibrary = new RoutedUICommand("Проверить библиотеку...", "CheckLibrary", typeof(AppCommands));
         Shrink = new RoutedUICommand("Сжать библиотеку...", "Shrink", typeof(AppCommands));
         Settings = new RoutedUICommand("Настройки...", "Settings", typeof(AppCommands));
