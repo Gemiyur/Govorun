@@ -46,7 +46,7 @@
                 <TextBlock Text="{Binding NameLastFirstMiddle}" />
             </DataTemplate>
 
-            <DataTemplate x:Key="AuthorLastFirstNameDataTemplate">
+            <DataTemplate x:Key="AuthorShortNameDataTemplate">
                 <TextBlock Text="{Binding NameLastFirst}" ToolTip="{Binding NameLastFirstMiddle}" />
             </DataTemplate>
 
