@@ -68,6 +68,7 @@
     <None Remove="Images\Buttons\Enabled\Settings.png" />
     <None Remove="Images\Buttons\Enabled\Shrink.png" />
     <None Remove="Images\Buttons\Enabled\Skip.png" />
+    <None Remove="Images\Buttons\Enabled\Tags.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -139,6 +140,7 @@
     <Resource Include="Images\Buttons\Enabled\Settings.png" />
     <Resource Include="Images\Buttons\Enabled\Shrink.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Skip.png" />
+    <Resource Include="Images\Buttons\Enabled\Tags.png" />
   </ItemGroup>
 
   <ItemGroup>
