@@ -6,10 +6,6 @@ using Govorun.Models;
 
 namespace Govorun.Controls;
 
-#region Задачи (TODO).
-
-#endregion
-
 /// <summary>
 /// Класс проигрывателя.
 /// </summary>
@@ -124,7 +120,7 @@ public partial class PlayerControl : UserControl
             {
                 Player.Pause();
                 SetPlayButtonPlayIcon();
-                PlayButton.ToolTip = "Воспроизвести";
+                PlayButton.ToolTip = "Слушать";
             }
         }
     }
