@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
-        Title="Редактор серий книг"
+        Title="Серии"
         Width="500" Height="400" ResizeMode="NoResize"
         d:Width="500" d:Height="300"
         WindowStartupLocation="CenterOwner"

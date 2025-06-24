@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
-        Title="Закладки книги"
+        Title="Закладки"
         Width="600" Height="500" ResizeMode="CanResizeWithGrip"
         MinWidth="500" MinHeight="350"
         d:Width="600" d:Height="350"
