@@ -7,7 +7,7 @@ using Govorun.Tools;
 namespace Govorun.Dialogs;
 
 /// <summary>
-/// Класс редактора серий книг.
+/// Класс редактора серий.
 /// </summary>
 public partial class CyclesEditor : Window
 {

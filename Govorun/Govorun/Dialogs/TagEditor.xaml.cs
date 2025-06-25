@@ -1,7 +1,7 @@
-﻿using Govorun.Models;
-using Govorun.Tools;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using Govorun.Models;
+using Govorun.Tools;
 
 namespace Govorun.Dialogs;
 
