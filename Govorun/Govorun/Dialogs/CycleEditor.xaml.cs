@@ -6,7 +6,7 @@ using Govorun.Tools;
 namespace Govorun.Dialogs;
 
 /// <summary>
-/// Класс редактора серии книг.
+/// Класс редактора серии.
 /// </summary>
 public partial class CycleEditor : Window
 {
