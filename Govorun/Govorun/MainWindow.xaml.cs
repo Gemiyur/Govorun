@@ -208,7 +208,7 @@ public partial class MainWindow : Window
         }
         if (tags)
         {
-            var selectedTag = (string)TagsListBox.SelectedItem;
+            var selectedTag = (Tag)TagsListBox.SelectedItem;
             Tags.ReplaceRange(Db.GetTags());
             if (selectedTag != null)
             {
@@ -667,7 +667,14 @@ public partial class MainWindow : Window
 
     private void Tags_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-
+        var editor = new TagsEditor() { Owner = this };
+        editor.ShowDialog();
+        if (!editor.HasChanges)
+            return;
+        var selectedItem = TagsListBox.SelectedItem;
+        UpdateNavPanel(false, false, true);
+        if (selectedItem != null && TagsListBox.SelectedItem == null)
+            UpdateShownBooks();
     }
 
     private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)
