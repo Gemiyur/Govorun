@@ -25,6 +25,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <ListBox Grid.Row="0" x:Name="TranslatorsListBox"
+                 ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                  MouseDoubleClick="TranslatorsListBox_MouseDoubleClick"
                  SelectionChanged="TranslatorsListBox_SelectionChanged" />
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
