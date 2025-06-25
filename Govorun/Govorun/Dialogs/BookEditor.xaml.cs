@@ -35,7 +35,7 @@ public partial class BookEditor : Window
     public bool FileChanged;
 
     /// <summary>
-    /// Были ли добавлены новые авторы книг в библиотеку.
+    /// Были ли добавлены новые авторы книг.
     /// </summary>
     public bool HasNewAuthors;
 
@@ -43,6 +43,11 @@ public partial class BookEditor : Window
     /// Была ли добавлена новая серия книг.
     /// </summary>
     public bool HasNewCycle;
+
+    /// <summary>
+    /// Были ли добавлены новые теги книг.
+    /// </summary>
+    public bool HasNewTags;
 
     /// <summary>
     /// Были ли изменения в тегах книги.
@@ -92,7 +97,12 @@ public partial class BookEditor : Window
     /// <summary>
     /// Список тегов книги.
     /// </summary>
-    private readonly ObservableCollectionEx<string> tags = [];
+    private readonly ObservableCollectionEx<Tag> tags = [];
+
+    /// <summary>
+    /// Список всех тегов в библиотеке.
+    /// </summary>
+    private readonly List<Tag> allTags = Db.GetTags();
 
     /// <summary>
     /// Индекс изображения обложки книги в теге файла книги.
@@ -329,8 +339,8 @@ public partial class BookEditor : Window
 
         // Теги.
         if (tags.Count != book.Tags.Count ||
-            tags.Any(x => !book.Tags.Exists(t => t == x)) ||
-            book.Tags.Any(x => !tags.Any(t => t == x)))
+            tags.Any(x => !book.Tags.Exists(t => t.TagId == x.TagId)) ||
+            book.Tags.Any(x => !tags.Any(t => t.TagId == x.TagId)))
         {
             book.Tags.Clear();
             book.Tags.AddRange(tags);
@@ -391,6 +401,26 @@ public partial class BookEditor : Window
     }
 
     /// <summary>
+    /// Сохраняет новые теги и присваивает им идентификаторы.
+    /// </summary>
+    /// <returns>Были ли новые теги сохранены успешно.</returns>
+    private bool SaveNewTags()
+    {
+        var newTags = tags.ToList().FindAll(x => x.TagId == 0);
+        if (newTags.Count == 0)
+            return true;
+        HasNewTags = true;
+        using var db = Db.GetDatabase();
+        foreach (var tag in newTags)
+        {
+            tag.TagId = Db.InsertTag(tag, db);
+            if (tag.TagId < 1)
+                return false;
+        }
+        return true;
+    }
+
+    /// <summary>
     /// Сортирует список авторов книги по фамилии, имени и отчеству.
     /// </summary>
     private void SortAuthors() => authors.Sort(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase);
@@ -398,7 +428,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Сортирует список тегов книги в алфавитном порядке.
     /// </summary>
-    private void SortTags() => tags.Sort(x => x, StringComparer.CurrentCultureIgnoreCase);
+    private void SortTags() => tags.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
 
     #region Обработчики событий элементов управления.
 
@@ -453,8 +483,8 @@ public partial class BookEditor : Window
         if (author != null)
         {
             if (authors.Any(x => x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase) &&
-                                    x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
-                                    x.MiddleName.Equals(middleName, StringComparison.CurrentCultureIgnoreCase)))
+                                 x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
+                                 x.MiddleName.Equals(middleName, StringComparison.CurrentCultureIgnoreCase)))
             {
                 ClearNewAuthor();
                 return;
@@ -467,8 +497,8 @@ public partial class BookEditor : Window
         else
         {
             if (authors.Any(x => x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase) &&
-                                    x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
-                                    x.MiddleName.Equals(middleName, StringComparison.CurrentCultureIgnoreCase)))
+                                 x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
+                                 x.MiddleName.Equals(middleName, StringComparison.CurrentCultureIgnoreCase)))
             {
                 ClearNewAuthor();
                 return;
@@ -585,7 +615,7 @@ public partial class BookEditor : Window
 
     private void RemoveTagsButton_Click(object sender, RoutedEventArgs e)
     {
-        tags.RemoveRange(TagsListBox.SelectedItems.Cast<string>());
+        tags.RemoveRange(TagsListBox.SelectedItems.Cast<Tag>());
     }
 
     private void NewTagTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -595,14 +625,32 @@ public partial class BookEditor : Window
 
     private void AddNewTagButton_Click(object sender, RoutedEventArgs e)
     {
-        var tag = Library.Tags.Find(x => x.Equals(NewTagTextBox.Text.Trim()));
-        tag ??= NewTagTextBox.Text.Trim();
-        if (tags.Contains(tag))
+        var title = NewTagTextBox.Text.Trim();
+        var tag = allTags.Find(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase));
+        if (tag != null)
         {
-            NewTagTextBox.Text = string.Empty;
-            return;
+            if (tags.Any(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)))
+            {
+                NewTagTextBox.Text = string.Empty;
+                return;
+            }
+            else
+            {
+                tags.Add(tag);
+            }
         }
-        tags.Add(tag);
+        else
+        {
+            if (tags.Any(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)))
+            {
+                NewTagTextBox.Text = string.Empty;
+                return;
+            }
+            else
+            {
+                tags.Add(new Tag() { Title = title });
+            }
+        }
         SortTags();
         NewTagTextBox.Text = string.Empty;
     }
@@ -643,6 +691,11 @@ public partial class BookEditor : Window
         if (!SaveNewCycle())
         {
             MessageBox.Show("Не удалось сохранить новую серию.", Title);
+            return;
+        }
+        if (!SaveNewTags())
+        {
+            MessageBox.Show("Не удалось сохранить новые теги.", Title);
             return;
         }
         if (!SaveBook())

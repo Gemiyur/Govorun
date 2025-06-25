@@ -34,7 +34,7 @@ public partial class MainWindow : Window
     /// <summary>
     /// Коллекция тегов.
     /// </summary>
-    private readonly ObservableCollectionEx<string> Tags = [];
+    private readonly ObservableCollectionEx<Tag> Tags = [];
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
@@ -68,7 +68,7 @@ public partial class MainWindow : Window
         AuthorsListBox.ItemsSource = Authors;
         Cycles.AddRange(Db.GetCycles());
         CyclesListBox.ItemsSource = Cycles;
-        Tags.AddRange(Library.Tags);
+        Tags.AddRange(Db.GetTags());
         TagsListBox.ItemsSource = Tags;
         ShownBooks.AddRange(Library.Books);
         BooksListBox.ItemsSource = ShownBooks;
@@ -209,7 +209,7 @@ public partial class MainWindow : Window
         if (tags)
         {
             var selectedTag = (string)TagsListBox.SelectedItem;
-            Tags.ReplaceRange(Library.Tags);
+            Tags.ReplaceRange(Db.GetTags());
             if (selectedTag != null)
             {
                 TagsListBox.SelectedItem = Tags.FirstOrDefault(x => x.Equals(selectedTag));
@@ -258,8 +258,8 @@ public partial class MainWindow : Window
         }
         else if (TagsListBox.SelectedItem != null)
         {
-            var tag = (string)TagsListBox.SelectedItem;
-            var books = Library.GetTagBooks(tag);
+            var tag = (Tag)TagsListBox.SelectedItem;
+            var books = Library.GetTagBooks(tag.TagId);
             ShownBooks.ReplaceRange(books);
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
         }
@@ -504,7 +504,7 @@ public partial class MainWindow : Window
         var editor = new BookEditor(book, null) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.TagsChanged);
+        UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.HasNewTags);
         if (editor.TitleChanged || editor.AuthorsChanged ||
             editor.CycleChanged || editor.CycleNumberChanged || editor.TagsChanged)
         {

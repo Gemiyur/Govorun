@@ -45,23 +45,6 @@ public static class Library
                  .Order(StringComparer.CurrentCultureIgnoreCase)];
 
     /// <summary>
-    /// Возвращает список всех тегов.
-    /// </summary>
-    /// <remarks>Теги отсортированы по названию.</remarks>
-    public static List<string> Tags
-    {
-        get
-        {
-            var allTags = new List<string>();
-            foreach (var book in Books)
-            {
-                allTags.AddRange(book.Tags.FindAll(x => !string.IsNullOrWhiteSpace(x) && !allTags.Contains(x)));
-            }
-            return [.. allTags.Distinct().Order(StringComparer.CurrentCultureIgnoreCase)];
-        }
-    }
-
-    /// <summary>
     /// Статический конструктор.
     /// </summary>
     static Library()
@@ -84,6 +67,13 @@ public static class Library
     public static bool CycleHasBooks(int cycleId) => Books.Any(x => BookInCycle(x, cycleId));
 
     /// <summary>
+    /// Возвращает имеет ли указанный тег книги.
+    /// </summary>
+    /// <param name="tagId">Идентификатор тега.</param>
+    /// <returns>Имеет ли указанный тег книги.</returns>
+    public static bool TagHasBook(int tagId) => Books.Any(x => BookHasTag(x, tagId));
+
+    /// <summary>
     /// Возвращает является ли указанный автор автором указанной книги.
     /// </summary>
     /// <param name="book">Книга.</param>
@@ -98,6 +88,14 @@ public static class Library
     /// <param name="cycleId">Идентификатор серии.</param>
     /// <returns>Входит ли указанная книга в указанную серию.</returns>
     public static bool BookInCycle(Book book, int cycleId) => book.Cycle != null && book.Cycle.CycleId == cycleId;
+
+    /// <summary>
+    /// Возвращает имеет ли указанная книга указанный тег.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    /// <param name="tagId">Идентификатор тега.</param>
+    /// <returns>Имеет ли указанная книга указанный тег.</returns>
+    public static bool BookHasTag(Book book, int tagId) => book.Tags.Exists(x => x.TagId == tagId);
 
     /// <summary>
     /// Возвращает есть ли книга с указанным именем файла.
@@ -137,8 +135,8 @@ public static class Library
     /// <param name="tag">Тег.</param>
     /// <returns>Список книг с указанным тегом.</returns>
     /// <remarks>Книги отсортированы по названию.</remarks>
-    public static List<Book> GetTagBooks(string tag) =>
-        [.. Books.FindAll(x => x.Tags.Contains(tag)).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
+    public static List<Book> GetTagBooks(int tagId) =>
+        [.. Books.FindAll(x => BookHasTag(x, tagId)).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
     /// <summary>
     /// Возвращает книгу с указанным именем файла.

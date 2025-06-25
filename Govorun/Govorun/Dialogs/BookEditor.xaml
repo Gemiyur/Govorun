@@ -281,6 +281,7 @@
                                     </Grid.ColumnDefinitions>
                                     <ListBox Grid.Column="0" x:Name="TagsListBox"
                                              ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+                                             ItemTemplate="{StaticResource TagDataTemplate}"
                                              Margin="0,0,10,0"
                                              SelectionMode="Extended"
                                              SelectionChanged="TagsListBox_SelectionChanged" />

@@ -6,10 +6,8 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <!--<SolidColorBrush x:Key="TextBoxReadOnlyBackgroundBrush" Color="AliceBlue" />-->
             <SolidColorBrush x:Key="TextBoxReadOnlyBackgroundBrush" Color="#FFF0F0F0" />
 
-            <!--<SolidColorBrush x:Key="SelectedListBoxItemBackgroundBrush" Color="AliceBlue" />-->
             <SolidColorBrush x:Key="SelectedListBoxItemBackgroundBrush" Color="#FFCBE8F6" />
 
             <SolidColorBrush x:Key="MouseOverListBoxItemBackgroundBrush" Color="AliceBlue" />
@@ -51,6 +49,10 @@
             </DataTemplate>
 
             <DataTemplate x:Key="CycleDataTemplate">
+                <TextBlock Text="{Binding Title}" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="TagDataTemplate">
                 <TextBlock Text="{Binding Title}" />
             </DataTemplate>
         </ResourceDictionary>

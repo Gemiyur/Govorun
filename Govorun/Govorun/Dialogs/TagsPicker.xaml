@@ -27,6 +27,8 @@
 
         <ListBox Grid.Row="0" x:Name="TagsListBox"
                  SelectionMode="Extended"
+                 ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+                 ItemTemplate="{StaticResource TagDataTemplate}"
                  MouseDoubleClick="TagsListBox_MouseDoubleClick"
                  SelectionChanged="TagsListBox_SelectionChanged" />
 

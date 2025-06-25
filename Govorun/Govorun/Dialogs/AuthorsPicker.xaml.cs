@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Govorun.Models;
 using Govorun.Tools;
 
@@ -21,7 +22,7 @@ public partial class AuthorsPicker : Window
         AuthorsListBox.ItemsSource = Db.GetAuthors();
     }
 
-    private void AuthorsListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private void AuthorsListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if (e.OriginalSource is TextBlock && AuthorsListBox.SelectedItem != null)
         {
