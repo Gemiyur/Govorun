@@ -384,18 +384,13 @@ public partial class MainWindow : Window
             RunBookInfoDialog((Book)BooksListBox.SelectedItem);
     }
 
-    private void BooksListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        StatusBarSelectedCount.Text = BooksListBox.SelectedItems.Count.ToString();
-    }
-
     #endregion
 
     #region Обработчики команд группы "Книга".
 
     private void Play_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItems.Count == 1;
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItem != null;
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -415,7 +410,7 @@ public partial class MainWindow : Window
 
     private void Info_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItems.Count == 1;
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItem != null;
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -431,7 +426,7 @@ public partial class MainWindow : Window
 
     private void Chapters_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItems.Count == 1 &&
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItem != null &&
             ((Book)BooksListBox.SelectedItem).Chapters.Any();
         if (!IsVisible)
             return;
@@ -459,7 +454,7 @@ public partial class MainWindow : Window
 
     private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItems.Count == 1 &&
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItem != null &&
             ((Book)BooksListBox.SelectedItem).Bookmarks.Any();
         if (!IsVisible)
             return;
@@ -489,7 +484,7 @@ public partial class MainWindow : Window
 
     private void Edit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItems.Count == 1;
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItem != null;
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -518,15 +513,15 @@ public partial class MainWindow : Window
             Player.PlayOnLoad = false;
             Player.Book = book;
         }
-
-        book.OnPropertyChanged("AuthorNamesLastFirst");
         book.OnPropertyChanged("AuthorNamesFirstLast");
+        book.OnPropertyChanged("AuthorNamesFirstMiddleLast");
+        book.OnPropertyChanged("AuthorNamesLastFirst");
+        book.OnPropertyChanged("AuthorNamesLastFirstMiddle");
     }
 
     private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        // TODO: Нужна ли возможность удаления нескольких книг? Сейчас можно.
-        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItems.Count > 0;
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItem != null;
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -537,43 +532,19 @@ public partial class MainWindow : Window
 
     private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        if (BooksListBox.SelectedItems.Count == 1)
+        var book = (Book)BooksListBox.SelectedItem;
+        if (MessageBox.Show($"Удалить книгу \"{book.Title}\" из библиотеки?", Title,
+                            MessageBoxButton.YesNo) != MessageBoxResult.Yes)
         {
-            var book = (Book)BooksListBox.SelectedItem;
-            if (MessageBox.Show($"Удалить книгу \"{book.Title}\" из библиотеки?", Title,
-                                MessageBoxButton.YesNo) != MessageBoxResult.Yes)
-            {
-                return;
-            }
-            if (!Library.DeleteBook(book))
-            {
-                MessageBox.Show($"Не удалось удалить книгу \"{book.Title}\" из библиотеки.", Title);
-                return;
-            }
-            if (Player.Book == book)
-                Player.Book = null;
+            return;
         }
-        else
+        if (!Library.DeleteBook(book))
         {
-            var books = BooksListBox.SelectedItems.Cast<Book>().ToList();
-            if (MessageBox.Show("Удалить выбранные книги из библиотеки?", Title,
-                                MessageBoxButton.YesNo) != MessageBoxResult.Yes)
-            {
-                return;
-            }
-            var deletedBooks = Library.DeleteBooks(books);
-            if (deletedBooks.Count == 0)
-            {
-                MessageBox.Show("Не удалось удалить выбранные книги из библиотеки.", Title);
-                return;
-            }
-            if (deletedBooks.Count != books.Count)
-            {
-                MessageBox.Show("Не удалось удалить некоторые книги из библиотеки.", Title);
-            }
-            if (Player.Book != null && deletedBooks.Contains(Player.Book))
-                Player.Book = null;
+            MessageBox.Show($"Не удалось удалить книгу \"{book.Title}\" из библиотеки.", Title);
+            return;
         }
+        if (Player.Book == book)
+            Player.Book = null;
         UpdateNavPanel(false, false, true);
         UpdateShownBooks();
     }

@@ -303,9 +303,7 @@
             <ListBox Grid.Row="1" Grid.Column="2" x:Name="BooksListBox"
                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                      ItemTemplate="{StaticResource BookDataTemplate}"
-                     SelectionMode="Extended"
-                     MouseDoubleClick="BooksListBox_MouseDoubleClick"
-                     SelectionChanged="BooksListBox_SelectionChanged" />
+                     MouseDoubleClick="BooksListBox_MouseDoubleClick" />
         </Grid>
 
         <!-- Проигрыватель -->
@@ -317,12 +315,6 @@
             </StatusBarItem>
             <StatusBarItem>
                 <TextBlock x:Name="StatusBarBooksCount">0</TextBlock>
-            </StatusBarItem>
-            <StatusBarItem Margin="10,0,0,0">
-                <TextBlock>Выбрано:</TextBlock>
-            </StatusBarItem>
-            <StatusBarItem>
-                <TextBlock x:Name="StatusBarSelectedCount">0</TextBlock>
             </StatusBarItem>
         </StatusBar>
     </Grid>
