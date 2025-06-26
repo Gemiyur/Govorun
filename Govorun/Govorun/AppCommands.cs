@@ -30,6 +30,11 @@ public static class AppCommands
     public static RoutedUICommand Bookmarks { get; private set; }
 
     /// <summary>
+    /// Команда исключения книги из слушаемых.
+    /// </summary>
+    public static RoutedUICommand NotListen { get; private set; }
+
+    /// <summary>
     /// Команда редактирования данных книги.
     /// </summary>
     public static RoutedUICommand Edit { get; private set; }
@@ -118,6 +123,7 @@ public static class AppCommands
         Info = new RoutedUICommand("О книге...", "Info", typeof(AppCommands));
         Chapters = new RoutedUICommand("Содержание...", "Chapters", typeof(AppCommands));
         Bookmarks = new RoutedUICommand("Закладки...", "Bookmarks", typeof(AppCommands));
+        NotListen = new RoutedUICommand("Не слушаю...", "NotListen", typeof(AppCommands));
         Edit = new RoutedUICommand("Изменить...", "Edit", typeof(AppCommands));
         Delete = new RoutedUICommand("Удалить...", "Delete", typeof(AppCommands));
         Exit = new RoutedUICommand("Выход...", "Exit", typeof(AppCommands));
