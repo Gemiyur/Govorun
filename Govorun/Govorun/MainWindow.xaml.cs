@@ -496,7 +496,10 @@ public partial class MainWindow : Window
 
     private void NotListen_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-
+        var book = (Book)BooksListBox.SelectedItem;
+        book.PlayPosition = TimeSpan.Zero;
+        if (ListeningBooksToggleButton.IsChecked == true)
+            UpdateShownBooks();
     }
 
     private void Edit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
