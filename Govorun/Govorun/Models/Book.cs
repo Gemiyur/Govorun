@@ -1,7 +1,5 @@
-﻿using Govorun.Media;
-using LiteDB;
+﻿using LiteDB;
 using System.IO;
-using System.Windows.Media.Imaging;
 
 namespace Govorun.Models;
 
@@ -80,26 +78,6 @@ public class Book : BaseModel
         {
             annotation = value ?? string.Empty;
             OnPropertyChanged("Annotation");
-        }
-    }
-
-    /// <summary>
-    /// Индекс изображения обложки книги в теге файла книги.
-    /// </summary>
-    public int CoverIndex { get; set; }
-
-    // TODO: Cover должно быть свойством или сделать его методом?.
-
-    /// <summary>
-    /// Возвращает изображение обложки книги.
-    /// </summary>
-    [BsonIgnore]
-    public BitmapFrame? Cover
-    {
-        get
-        {
-            var bytes = TrackData.GetPictureData(FileName, CoverIndex);
-            return bytes != null ? App.GetBitmapFrame(bytes) : null;
         }
     }
 

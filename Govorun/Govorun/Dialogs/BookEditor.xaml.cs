@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using Gemiyur.Collections;
 using Govorun.Media;
 using Govorun.Models;
@@ -105,16 +104,6 @@ public partial class BookEditor : Window
     private readonly List<Tag> allTags = Db.GetTags();
 
     /// <summary>
-    /// Индекс изображения обложки книги в теге файла книги.
-    /// </summary>
-    private int coverIndex;
-
-    /// <summary>
-    /// Список изображений обложки книги в теге файла книги.
-    /// </summary>
-    private readonly List<BitmapFrame> covers = [];
-
-    /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
     /// <param name="book">Книга.</param>
@@ -136,33 +125,6 @@ public partial class BookEditor : Window
         FileButton.IsEnabled = !book.FileExists;
         LoadBook();
         LoadTrack();
-    }
-
-    /// <summary>
-    /// Устанавливает свойства элементов выбора обложки.
-    /// </summary>
-    private void CheckCoverControls()
-    {
-        if (covers.Count == 0 || covers.Count == 1)
-        {
-            PrevButton.Visibility = Visibility.Hidden;
-            NextButton.Visibility = Visibility.Hidden;
-        }
-        else
-        {
-            PrevButton.IsEnabled = coverIndex > 0;
-            var bitmap = App.GetBitmapImage(
-                PrevButton.IsEnabled ? @"\Images\Buttons\Enabled\Prev.png" : @"\Images\Buttons\Disabled\Prev.png");
-            ((Image)PrevButton.Content).Source = bitmap;
-
-            NextButton.IsEnabled = coverIndex < covers.Count - 1;
-            bitmap = App.GetBitmapImage(
-               NextButton.IsEnabled ? @"\Images\Buttons\Enabled\Next.png" : @"\Images\Buttons\Disabled\Next.png");
-            ((Image)NextButton.Content).Source = bitmap;
-        }
-        CoverNumberTextBlock.Text = covers.Count > 0
-            ? $"Обложка {coverIndex + 1} из {covers.Count}"
-            : "Нет обложки";
     }
 
     /// <summary>
@@ -206,7 +168,6 @@ public partial class BookEditor : Window
         tags.AddRange(book.Tags);
         SortTags();
         TagsListBox.ItemsSource = tags;
-        coverIndex = book.CoverIndex;
     }
 
     /// <summary>
@@ -237,24 +198,6 @@ public partial class BookEditor : Window
             comments = comments + "\r\n" + trackData.Lyrics;
 
         TrackCommentsTextBox.Text = comments;
-
-        foreach (var pictureData in trackData.PicturesData)
-        {
-            var frame = App.GetBitmapFrame(pictureData);
-            if (frame != null)
-                covers.Add(frame);
-        }
-        if (covers.Count == 0)
-            CoverImage = null;
-        else if (coverIndex > 0 && coverIndex < covers.Count)
-            CoverImage.Source = covers[coverIndex];
-        else
-        {
-            CoverImage.Source = covers[0];
-            coverIndex = 0;
-        }
-
-        CheckCoverControls();
     }
 
     /// <summary>
@@ -346,13 +289,6 @@ public partial class BookEditor : Window
             book.Tags.AddRange(tags);
             changed = true;
             TagsChanged = true;
-        }
-
-        // Индекс изображения обложки.
-        if (coverIndex != book.CoverIndex)
-        {
-            book.CoverIndex = coverIndex;
-            changed = true;
         }
 
         // Имя файла.
@@ -653,20 +589,6 @@ public partial class BookEditor : Window
         }
         SortTags();
         NewTagTextBox.Text = string.Empty;
-    }
-
-    private void PrevCoverButton_Click(object sender, RoutedEventArgs e)
-    {
-        coverIndex--;
-        CoverImage.Source = covers[coverIndex];
-        CheckCoverControls();
-    }
-
-    private void NextCoverButton_Click(object sender, RoutedEventArgs e)
-    {
-        coverIndex++;
-        CoverImage.Source = covers[coverIndex];
-        CheckCoverControls();
     }
 
     private void FileButton_Click(object sender, RoutedEventArgs e)

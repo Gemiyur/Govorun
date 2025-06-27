@@ -64,11 +64,6 @@ public class TrackData
     public List<ChapterData> Chapters = [];
 
     /// <summary>
-    /// Список массивов байт изображений книги.
-    /// </summary>
-    public List<byte[]> PicturesData = [];
-
-    /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
     /// <param name="filename">Имя файла книги с полным путём.</param>
@@ -95,52 +90,5 @@ public class TrackData
             };
             Chapters.Add(chapterData);
         }
-        foreach (var pictureInfo in track.EmbeddedPictures)
-        {
-            PicturesData.Add(pictureInfo.PictureData);
-        }
-    }
-
-    /// <summary>
-    /// Возвращает массив байт изображения по указанному индексу в списке массивов байт изображений.
-    /// </summary>
-    /// <param name="picturesData">Список массивов байт изображений.</param>
-    /// <param name="index">Индекс изображения в списке.</param>
-    /// <returns>Массив байт изображения.</returns>
-    /// <remarks>Если индекс находится вне диапазона списка, то возвращает null.</remarks>
-    public static byte[]? GetPictureData(List<byte[]> picturesData, int index)
-    {
-        if (index < 0 || picturesData.Count == 0 || picturesData.Count <= index)
-            return null;
-        return picturesData[index];
-    }
-
-    /// <summary>
-    /// Возвращает массив байт изображения по указанному индексу в списке изображений файла книги.
-    /// </summary>
-    /// <param name="filename">Имя файла книги с полным путём.</param>
-    /// <param name="index">Индекс изображения в списке.</param>
-    /// <returns>Массив байт изображения</returns>
-    /// <remarks>Если индекс находится вне диапазона списка, то возвращает null.</remarks>
-    public static byte[]? GetPictureData(string filename, int index)
-    {
-        var picturesData = GetPicturesData(filename);
-        return GetPictureData(picturesData, index);
-    }
-
-    /// <summary>
-    /// Возвращает список массивов байт изображений из указанного файла книги.
-    /// </summary>
-    /// <param name="filename">Имя файла книги с полным путём.</param>
-    /// <returns>Список массивов байт изображений.</returns>
-    public static List<byte[]> GetPicturesData(string filename)
-    {
-        var track = new Track(filename);
-        List<byte[]> result = [];
-        foreach (var pictureInfo in track.EmbeddedPictures)
-        {
-            result.Add(pictureInfo.PictureData);
-        }
-        return result;
     }
 }
