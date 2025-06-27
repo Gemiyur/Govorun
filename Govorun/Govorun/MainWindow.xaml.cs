@@ -138,6 +138,15 @@ public partial class MainWindow : Window
             ? Player.Player.Position
             : TimeSpan.Zero;
         book.PlayPosition = position;
+        SaveBookPlayPosition(book);
+    }
+
+    /// <summary>
+    /// Сохраняет позицию воспроизведения указанной книги в базе данных.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    private void SaveBookPlayPosition(Book book)
+    {
         Db.UpdateBook(book);
         book.OnPropertyChanged("PlayPosition");
     }
@@ -405,6 +414,8 @@ public partial class MainWindow : Window
         if (book == Player.Book)
             return;
         SaveBookPlayPosition();
+        if (book.PlayPosition == TimeSpan.Zero)
+            book.PlayPosition = TimeSpan.FromMilliseconds(1);
         Player.Book = book;
     }
 
@@ -497,7 +508,17 @@ public partial class MainWindow : Window
     private void NotListen_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         var book = (Book)BooksListBox.SelectedItem;
+        if (book == Player.Book)
+        {
+            const string message = "Книга находится в состоянии прослушивания.\n" +
+                                   "Прослушивание книги будет прекращено.\n\n" +
+                                   "Прекратить прослушивание книги?";
+            if (MessageBox.Show(message, Title, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                return;
+            Player.Book = null;
+        }
         book.PlayPosition = TimeSpan.Zero;
+        SaveBookPlayPosition(book);
         if (ListeningBooksToggleButton.IsChecked == true)
             UpdateShownBooks();
     }
