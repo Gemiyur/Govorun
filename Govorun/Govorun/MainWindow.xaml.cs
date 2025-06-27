@@ -482,6 +482,23 @@ public partial class MainWindow : Window
             Player.PlayPosition = dialog.Bookmark.Position;
     }
 
+    private void NotListen_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+    {
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItem != null &&
+            ((Book)BooksListBox.SelectedItem).Listening;
+        if (!IsVisible)
+            return;
+        var bitmap = App.GetBitmapImage(
+            e.CanExecute ? @"Images\Buttons\Enabled\NotListen.png" : @"Images\Buttons\Disabled\NotListen.png");
+        ((Image)NotListenButton.Content).Source = bitmap;
+        ((Image)NotListenMenuItem.Icon).Source = bitmap;
+    }
+
+    private void NotListen_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+
+    }
+
     private void Edit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
         e.CanExecute = BooksListBox != null && BooksListBox.SelectedItem != null;

@@ -21,8 +21,7 @@ public static class Library
     /// </summary>
     /// <remarks>Книги отсортированы по названию.</remarks>
     public static List<Book> ListeningBooks =>
-        [.. Books.FindAll(x => x.PlayPosition > TimeSpan.Zero)
-                 .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
+        [.. Books.FindAll(x => x.Listening).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
     /// <summary>
     /// Возвращает список всех чтецов.

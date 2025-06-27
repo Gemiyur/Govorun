@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Говорун"
         Width="800" Height="600" ResizeMode="CanResizeWithGrip"
-        MinWidth="650" MinHeight="450"
+        MinWidth="700" MinHeight="500"
         d:Width="800" d:Height="350"
         WindowStartupLocation="CenterScreen"
         Closed="Window_Closed">
@@ -34,6 +34,9 @@
         <CommandBinding Command="local:AppCommands.Bookmarks"
                         CanExecute="Bookmarks_CanExecute"
                         Executed="Bookmarks_Executed" />
+        <CommandBinding Command="local:AppCommands.NotListen"
+                        CanExecute="NotListen_CanExecute"
+                        Executed="NotListen_Executed" />
         <CommandBinding Command="local:AppCommands.Edit"
                         CanExecute="Edit_CanExecute"
                         Executed="Edit_Executed" />
@@ -98,6 +101,12 @@
                 <MenuItem x:Name="BookmarksMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Bookmarks">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Bookmarks.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem x:Name="NotListenMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.NotListen">
+                    <MenuItem.Icon>
+                        <Image Source="Images\Buttons\Enabled\NotListen.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
@@ -190,6 +199,10 @@
                 </Button>
                 <Button x:Name="BookmarksButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Bookmarks">
                     <Image Source="Images\Buttons\Enabled\Bookmarks.png" Style="{StaticResource ToolBarIconStyle}" />
+                </Button>
+                <Separator />
+                <Button x:Name="NotListenButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.NotListen">
+                    <Image Source="Images\Buttons\Enabled\NotListen.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
                 <Button x:Name="EditButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Edit">
