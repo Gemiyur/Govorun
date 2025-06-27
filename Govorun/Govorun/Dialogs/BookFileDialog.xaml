@@ -45,7 +45,7 @@
         <TextBox Grid.Row="3" x:Name="FileTextBox"
                  IsReadOnly="True"
                  IsReadOnlyCaretVisible="True"
-                 Background="AliceBlue"
+                 Background="{StaticResource TextBoxReadOnlyBackgroundBrush}"
                  Margin="0,10,0,0" />
 
         <!-- Кнопки -->
