@@ -82,7 +82,7 @@
         <Grid Grid.Row="3" Margin="0,16,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <Button x:Name="PlayButton" Content="Слушать"
@@ -103,6 +103,7 @@
             <Button Grid.Column="1" x:Name="CloseButton" Content="Закрыть"
                     HorizontalAlignment="Right"
                     IsCancel="True"
+                    Margin="10,0,0,0"
                     Style="{StaticResource ButtonStyle}"
                     Click="CloseButton_Click" />
         </Grid>
