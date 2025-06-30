@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="О книге"
         Width="600" Height="500" ResizeMode="CanResizeWithGrip"
-        MinWidth="500" MinHeight="350"
-        d:Width="600" d:Height="350"
+        MinWidth="500" MinHeight="500"
+        d:Width="600" d:Height="500"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -20,9 +20,7 @@
             </Style>
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
                 <Setter Property="IsReadOnly" Value="True" />
-                <Setter Property="IsReadOnlyCaretVisible" Value="True" />
                 <Setter Property="Margin" Value="0,4,0,0" />
-                <!--<Setter Property="Background" Value="AliceBlue" />-->
             </Style>
         </ResourceDictionary>
     </Window.Resources>
@@ -32,50 +30,99 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Авторы и название -->
-        <TextBlock Grid.Row="0" x:Name="AuthorsTextBlock" Text="Авторы" HorizontalAlignment="Center" />
+        <TextBlock Grid.Row="0" x:Name="AuthorsTextBlock" Text="Авторы"
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   Margin="8,0,8,0" />
         <TextBlock Grid.Row="1" x:Name="TitleTextBlock" Text="Название"
+                   TextWrapping="Wrap"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
-                   Margin="0,10,0,0" />
+                   TextAlignment="Center"
+                   Margin="8,10,8,0" />
 
-        <!-- Чтец и продолжительность -->
-        <Grid Grid.Row="2" Margin="8,10,8,0">
+        <!-- Серия и номер -->
+        <Grid Grid.Row="2" x:Name="CycleGrid" Margin="8,10,8,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Серия:" Margin="0,0,5,0" />
+                <TextBlock Grid.Column="1" x:Name="CycleTitleTextBlock" TextWrapping="Wrap" Text="Название серии" />
+            </Grid>
+            <StackPanel Grid.Column="1" x:Name="CycleNumberStackPanel" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Номер в серии:" Margin="25,0,5,0" />
+                <TextBlock x:Name="CycleNumberTextBlock" Text="000" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Чтец и продолжительность -->
+        <Grid Grid.Row="3" Margin="8,10,8,0">
+            <Grid.ColumnDefinitions>
                 <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <TextBlock Text="Читает:" Margin="0,0,5,0" />
-                <TextBlock x:Name="LectorTextBlock" Text="Авторы" />
+                <TextBlock x:Name="LectorTextBlock" Text="Чтец" />
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Продолжительность:" Margin="0,0,5,0" />
+                <TextBlock Text="Время:" Margin="25,0,5,0" />
                 <TextBlock x:Name="DurationTextBlock" Text="000:00:00" />
             </StackPanel>
         </Grid>
 
+        <!-- Перевод -->
+        <StackPanel Grid.Row="4" x:Name="TranslatorStackPanel" Orientation="Horizontal" Margin="8,10,8,0">
+            <TextBlock Text="Перевод:" Margin="0,0,5,0" />
+            <TextBlock x:Name="TranslatorTextBlock" Text="Переводчик" />
+        </StackPanel>
+
+        <!-- Теги -->
+        <Grid Grid.Row="5" x:Name="TagsGrid" Margin="8,10,8,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Теги:" Margin="0,0,5,0" />
+            <TextBlock Grid.Column="1" x:Name="TagsTextBlock" TextWrapping="Wrap" Text="Список тегов" />
+        </Grid>
+
         <!-- Аннотация -->
-        <GroupBox Grid.Row="3" Header="Аннотация" Margin="0,10,0,0">
+        <GroupBox Grid.Row="6" Header="Аннотация" Margin="0,10,0,0">
             <TextBox x:Name="AnnotationTextBox"
+                     BorderThickness="0"
                      TextWrapping="Wrap"
                      VerticalScrollBarVisibility="Auto"
                      Style="{StaticResource TextBoxStyle}" />
         </GroupBox>
 
         <!-- Файл -->
-        <GroupBox Grid.Row="4" Header="Файл" Margin="0,10,0,0">
+        <GroupBox Grid.Row="7" Header="Файл" Margin="0,10,0,0">
             <TextBox x:Name="FileTextBox"
+                     BorderThickness="0"
+                     TextWrapping="Wrap"
+                     Height="Auto"
                      Style="{StaticResource TextBoxStyle}" />
         </GroupBox>
 
         <!-- Кнопки -->
-        <Grid Grid.Row="5" Margin="0,16,0,0">
+        <Grid Grid.Row="8" Margin="0,16,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
