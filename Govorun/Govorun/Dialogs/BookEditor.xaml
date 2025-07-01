@@ -314,10 +314,10 @@
                 <TabItem Header="Аннотация">
                     <GroupBox Header="Аннотация" Style="{StaticResource EditorGroupBoxStyle}">
                         <TextBox x:Name="AnnotationTextBox"
-                                     AcceptsReturn="True"
-                                     TextWrapping="Wrap"
-                                     VerticalScrollBarVisibility="Auto"
-                                     Margin="0,4,0,0" />
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Margin="0,4,0,0" />
                     </GroupBox>
                 </TabItem>
             </TabControl>
