@@ -39,7 +39,7 @@ public partial class BookmarksDialog : Window
         AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
         TitleTextBlock.Text = book.Title;
         bookmarks.AddRange(book.Bookmarks.OrderBy(x => x.Title));
-        BookmarksListView.ItemsSource = bookmarks;
+        BookmarksListBox.ItemsSource = bookmarks;
     }
 
     private void Window_Closed(object sender, EventArgs e)
@@ -51,35 +51,22 @@ public partial class BookmarksDialog : Window
         Db.UpdateBook(book);
     }
 
-    private void BookmarksListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void BookmarksListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        PlayButton.IsEnabled = BookmarksListView.SelectedItems.Count == 1;
-        EditButton.IsEnabled = BookmarksListView.SelectedItems.Count == 1;
-        DeleteButton.IsEnabled = BookmarksListView.SelectedItems.Count > 0;
-    }
-
-    private void BookmarksListView_SizeChanged(object sender, SizeChangedEventArgs e)
-    {
-        var listView = (ListView)sender;
-        var gridView = (GridView)listView.View;
-        var totalWidth = listView.ActualWidth - (SystemParameters.VerticalScrollBarWidth + 10);
-        var usedWidth = 0.0;
-        for (var i = 1; i < gridView.Columns.Count; i++)
-        {
-            usedWidth += gridView.Columns[i].Width;
-        }
-        gridView.Columns[0].Width = totalWidth - usedWidth;
+        PlayButton.IsEnabled = BookmarksListBox.SelectedItems.Count == 1;
+        EditButton.IsEnabled = BookmarksListBox.SelectedItems.Count == 1;
+        DeleteButton.IsEnabled = BookmarksListBox.SelectedItems.Count > 0;
     }
 
     private void PlayButton_Click(object sender, RoutedEventArgs e)
     {
-        Bookmark = (Bookmark)BookmarksListView.SelectedItem;
+        Bookmark = (Bookmark)BookmarksListBox.SelectedItem;
         DialogResult = true;
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
-        var bookmark = (Bookmark)BookmarksListView.SelectedItem;
+        var bookmark = (Bookmark)BookmarksListBox.SelectedItem;
         var title = bookmark.Title;
         var editor = new BookmarkEditor(title) { Owner = this };
         if (editor.ShowDialog() != true)
@@ -90,7 +77,7 @@ public partial class BookmarksDialog : Window
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        bookmarks.RemoveRange(BookmarksListView.SelectedItems.Cast<Bookmark>());
+        bookmarks.RemoveRange(BookmarksListBox.SelectedItems.Cast<Bookmark>());
         hasChanges = true;
     }
 
