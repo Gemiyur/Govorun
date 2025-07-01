@@ -82,17 +82,5 @@ namespace Govorun.Properties {
                 this["LoadLastBook"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string CreatorM4B {
-            get {
-                return ((string)(this["CreatorM4B"]));
-            }
-            set {
-                this["CreatorM4B"] = value;
-            }
-        }
     }
 }

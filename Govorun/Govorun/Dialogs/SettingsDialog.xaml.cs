@@ -14,7 +14,6 @@ public partial class SettingsDialog : Window
     {
         InitializeComponent();
         LoadLastBookCheckBox.IsChecked = Properties.Settings.Default.LoadLastBook;
-        CreatorM4BTextBox.Text = Properties.Settings.Default.CreatorM4B;
 #if DEBUG
         DbNameTextBox.Text = Properties.Settings.Default.DebugDbName;
 #else
@@ -29,14 +28,6 @@ public partial class SettingsDialog : Window
         DbNotChangedStackPanel.Visibility = DbNameChanged ? Visibility.Collapsed : Visibility.Visible;
     }
 
-    private void CreatorM4BButton_Click(object sender, RoutedEventArgs e)
-    {
-        var dialog = App.PickCreatorM4BDialog;
-        if (dialog.ShowDialog() != true)
-            return;
-        CreatorM4BTextBox.Text = dialog.FileName;
-    }
-
     private void DbNameButton_Click(object sender, RoutedEventArgs e)
     {
         var dialog = App.PickDatabaseDialog;
@@ -49,7 +40,6 @@ public partial class SettingsDialog : Window
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         Properties.Settings.Default.LoadLastBook = LoadLastBookCheckBox.IsChecked == true;
-        Properties.Settings.Default.CreatorM4B = CreatorM4BTextBox.Text;
         if (DbNameChanged)
         {
 #if DEBUG

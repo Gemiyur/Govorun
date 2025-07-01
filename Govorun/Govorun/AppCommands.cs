@@ -95,15 +95,6 @@ public static class AppCommands
 
     #endregion
 
-    #region Команды группы "Инструменты".
-
-    /// <summary>
-    /// Команда создания файла M4B из файлов MP3.
-    /// </summary>
-    public static RoutedUICommand CreateM4B { get; private set; }
-
-    #endregion
-
     #region Команды группы "Справка".
 
     /// <summary>
@@ -137,9 +128,6 @@ public static class AppCommands
         NotListen = new RoutedUICommand("Не слушаю...", "NotListen", typeof(AppCommands));
         Edit = new RoutedUICommand("Изменить...", "Edit", typeof(AppCommands));
         Delete = new RoutedUICommand("Удалить...", "Delete", typeof(AppCommands));
-
-        // Команды группы "Инструменты".
-        CreateM4B = new RoutedUICommand("Создать файл M4B из файлов MP3", "CreateM4B", typeof(AppCommands));
 
         // Команды группы "Справка"
         About = new RoutedUICommand("О программе...", "About", typeof(AppCommands));

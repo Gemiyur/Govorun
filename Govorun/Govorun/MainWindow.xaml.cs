@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -75,24 +74,7 @@ public partial class MainWindow : Window
         UpdateStatusBarBooksCount();
         Player.IsEnabled = false;
         LoadLastBook();
-        CheckCreatorM4BExists();
     }
-
-    /// <summary>
-    /// Проверяет существование приложения создания файла M4B.<br/>
-    /// Если приложение не найдено, то присваивает приложению в настройках пустую строку.
-    /// </summary>
-    private static void CheckCreatorM4BExists()
-    {
-        if (!CreatorM4BExists)
-            Properties.Settings.Default.CreatorM4B = string.Empty;
-    }
-
-    /// <summary>
-    /// Возвращает существует ли приложение создания файла M4B.
-    /// </summary>
-    /// <returns></returns>
-    private static bool CreatorM4BExists => File.Exists(Properties.Settings.Default.CreatorM4B);
 
     /// <summary>
     /// Загружает в проигрыватель книгу, которая воспроизводилась при закрытии приложения.
@@ -747,34 +729,6 @@ public partial class MainWindow : Window
             Player.Book = null;
         UpdateNavPanel(false, false, true);
         UpdateShownBooks();
-    }
-
-    #endregion
-
-    #region Обработчики команд группы "Инструменты".
-
-    private void CreateM4B_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-    {
-        e.CanExecute = CreatorM4BExists;
-        if (!IsVisible)
-            return;
-        var bitmap = App.GetBitmapImage(
-            e.CanExecute ? @"Images\Buttons\Enabled\CreateM4B.png" : @"Images\Buttons\Disabled\CreateM4B.png");
-        ((Image)CreateM4BButton.Content).Source = bitmap;
-        ((Image)CreateM4BMenuItem.Icon).Source = bitmap;
-    }
-
-    private void CreateM4B_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var path = Properties.Settings.Default.CreatorM4B;
-        try
-        {
-            Process.Start(path);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Не удалось запустить приложение создания M4B файла.{ex.Message}", Title);
-        }
     }
 
     #endregion
