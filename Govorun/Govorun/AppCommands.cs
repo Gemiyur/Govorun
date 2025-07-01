@@ -7,50 +7,6 @@ namespace Govorun;
 /// </summary>
 public static class AppCommands
 {
-    #region Команды группы "Книга".
-
-    /// <summary>
-    /// Команда воспроизведения книги.
-    /// </summary>
-    public static RoutedUICommand Play { get; private set; }
-
-    /// <summary>
-    /// Команда информации о книге.
-    /// </summary>
-    public static RoutedUICommand Info { get; private set; }
-
-    /// <summary>
-    /// Команда содержания книги.
-    /// </summary>
-    public static RoutedUICommand Chapters { get; private set; }
-
-    /// <summary>
-    /// Команда закладок книги.
-    /// </summary>
-    public static RoutedUICommand Bookmarks { get; private set; }
-
-    /// <summary>
-    /// Команда исключения книги из слушаемых.
-    /// </summary>
-    public static RoutedUICommand NotListen { get; private set; }
-
-    /// <summary>
-    /// Команда редактирования данных книги.
-    /// </summary>
-    public static RoutedUICommand Edit { get; private set; }
-
-    /// <summary>
-    /// Команда удаления выбранных книг.
-    /// </summary>
-    public static RoutedUICommand Delete { get; private set; }
-
-    /// <summary>
-    /// Команда выхода из приложения.
-    /// </summary>
-    public static RoutedUICommand Exit { get; private set; }
-
-    #endregion
-
     #region Команды группы "Библиотека".
 
     /// <summary>
@@ -93,6 +49,50 @@ public static class AppCommands
     /// </summary>
     public static RoutedUICommand Settings { get; private set; }
 
+    /// <summary>
+    /// Команда выхода из приложения.
+    /// </summary>
+    public static RoutedUICommand Exit { get; private set; }
+
+    #endregion
+
+    #region Команды группы "Книга".
+
+    /// <summary>
+    /// Команда воспроизведения книги.
+    /// </summary>
+    public static RoutedUICommand Play { get; private set; }
+
+    /// <summary>
+    /// Команда информации о книге.
+    /// </summary>
+    public static RoutedUICommand Info { get; private set; }
+
+    /// <summary>
+    /// Команда содержания книги.
+    /// </summary>
+    public static RoutedUICommand Chapters { get; private set; }
+
+    /// <summary>
+    /// Команда закладок книги.
+    /// </summary>
+    public static RoutedUICommand Bookmarks { get; private set; }
+
+    /// <summary>
+    /// Команда исключения книги из слушаемых.
+    /// </summary>
+    public static RoutedUICommand NotListen { get; private set; }
+
+    /// <summary>
+    /// Команда редактирования данных книги.
+    /// </summary>
+    public static RoutedUICommand Edit { get; private set; }
+
+    /// <summary>
+    /// Команда удаления выбранных книг.
+    /// </summary>
+    public static RoutedUICommand Delete { get; private set; }
+
     #endregion
 
     #region Команды группы "Инструменты".
@@ -118,16 +118,6 @@ public static class AppCommands
     /// </summary>
     static AppCommands()
     {
-        // Команды группы "Книга".
-        Play = new RoutedUICommand("Слушать", "Play", typeof(AppCommands));
-        Info = new RoutedUICommand("О книге...", "Info", typeof(AppCommands));
-        Chapters = new RoutedUICommand("Содержание...", "Chapters", typeof(AppCommands));
-        Bookmarks = new RoutedUICommand("Закладки...", "Bookmarks", typeof(AppCommands));
-        NotListen = new RoutedUICommand("Не слушаю...", "NotListen", typeof(AppCommands));
-        Edit = new RoutedUICommand("Изменить...", "Edit", typeof(AppCommands));
-        Delete = new RoutedUICommand("Удалить...", "Delete", typeof(AppCommands));
-        Exit = new RoutedUICommand("Выход...", "Exit", typeof(AppCommands));
-
         // Команды группы "Библиотека".
         AddBook = new RoutedUICommand("Добавить книгу...", "AddBook", typeof(AppCommands));
         FindBooks = new RoutedUICommand("Найти книги в папке...", "FindBooks", typeof(AppCommands));
@@ -137,6 +127,16 @@ public static class AppCommands
         CheckLibrary = new RoutedUICommand("Проверить библиотеку...", "CheckLibrary", typeof(AppCommands));
         Shrink = new RoutedUICommand("Сжать библиотеку...", "Shrink", typeof(AppCommands));
         Settings = new RoutedUICommand("Настройки...", "Settings", typeof(AppCommands));
+        Exit = new RoutedUICommand("Выход...", "Exit", typeof(AppCommands));
+
+        // Команды группы "Книга".
+        Play = new RoutedUICommand("Слушать", "Play", typeof(AppCommands));
+        Info = new RoutedUICommand("О книге...", "Info", typeof(AppCommands));
+        Chapters = new RoutedUICommand("Содержание...", "Chapters", typeof(AppCommands));
+        Bookmarks = new RoutedUICommand("Закладки...", "Bookmarks", typeof(AppCommands));
+        NotListen = new RoutedUICommand("Не слушаю...", "NotListen", typeof(AppCommands));
+        Edit = new RoutedUICommand("Изменить...", "Edit", typeof(AppCommands));
+        Delete = new RoutedUICommand("Удалить...", "Delete", typeof(AppCommands));
 
         // Команды группы "Инструменты".
         CreateM4B = new RoutedUICommand("Создать файл M4B из файлов MP3", "CreateM4B", typeof(AppCommands));

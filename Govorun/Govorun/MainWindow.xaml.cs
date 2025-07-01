@@ -395,6 +395,165 @@ public partial class MainWindow : Window
 
     #endregion
 
+    #region Обработчики команд группы "Библиотека".
+
+    private void AddBook_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        var fileDialog = App.PickBookFileDialog;
+        if (fileDialog.ShowDialog() != true)
+            return;
+        var filename = fileDialog.FileName;
+        if (Library.BookWithFileExists(filename))
+        {
+            MessageBox.Show("Книга с этим файлом уже есть в библиотеке.", "Добавление книги");
+            return;
+        }
+        var book = App.GetBookFromFile(filename, out TrackData trackData);
+        var editor = new BookEditor(book, trackData) { Owner = this };
+        if (editor.ShowDialog() != true)
+            return;
+        Library.Books.Add(book);
+        UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.TagsChanged);
+        UpdateShownBooks();
+        SelectBookInShownBooks(book);
+    }
+
+    private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        var folderDialog = App.PickBooksFolderDialog;
+        if (folderDialog.ShowDialog() != true)
+            return;
+        var files = new List<string>(); // Новые файлы книг.
+        var folders = folderDialog.FolderNames;
+        foreach (var folder in folders)
+        {
+            var folderFiles = Directory.GetFiles(folder, "*.m4b", SearchOption.AllDirectories);
+            foreach (var file in folderFiles)
+            {
+                if (!Library.BookWithFileExists(file))
+                    files.Add(file);
+            }
+        }
+        files.Sort(StringComparer.CurrentCultureIgnoreCase);
+        var dialog = new AddBooksDialog(files) { Owner = this };
+        dialog.ShowDialog();
+        if (!dialog.AddedBooks.Any())
+            return;
+        Library.Books.AddRange(dialog.AddedBooks);
+        UpdateNavPanel(dialog.HasNewAuthors, dialog.HasNewCycle, dialog.TagsChanged);
+        UpdateShownBooks();
+    }
+
+    private void Authors_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        var editor = new AuthorsEditor() { Owner = this };
+        editor.ShowDialog();
+        if (!editor.HasChanges)
+            return;
+        var selectedItem = AuthorsListBox.SelectedItem;
+        UpdateNavPanel(true, false, false);
+        if (selectedItem != null && AuthorsListBox.SelectedItem == null)
+            UpdateShownBooks();
+        foreach (var book in ShownBooks)
+        {
+            book.OnPropertyChanged("AuthorNamesFirstLast");
+            book.OnPropertyChanged("AuthorNamesFirstMiddleLast");
+            book.OnPropertyChanged("AuthorNamesLastFirst");
+            book.OnPropertyChanged("AuthorNamesLastFirstMiddle");
+        }
+    }
+
+    private void Cycles_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        var editor = new CyclesEditor() { Owner = this };
+        editor.ShowDialog();
+        if (!editor.HasChanges)
+            return;
+        var selectedItem = CyclesListBox.SelectedItem;
+        UpdateNavPanel(false, true, false);
+        if (selectedItem != null && CyclesListBox.SelectedItem == null)
+            UpdateShownBooks();
+    }
+
+    private void Tags_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        var editor = new TagsEditor() { Owner = this };
+        editor.ShowDialog();
+        if (!editor.HasChanges)
+            return;
+        var selectedItem = TagsListBox.SelectedItem;
+        UpdateNavPanel(false, false, true);
+        if (selectedItem != null && TagsListBox.SelectedItem == null)
+            UpdateShownBooks();
+    }
+
+    private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        var dialog = new CheckLibraryDialog() { Owner = this };
+        dialog.ShowDialog();
+        if (dialog.DeletedBooks.Count > 0)
+        {
+            var deletedBooks = Library.DeleteBooks(dialog.DeletedBooks);
+            if (deletedBooks.Count == 0)
+            {
+                MessageBox.Show("Не удалось удалить выбранные книги из библиотеки.", Title);
+                return;
+            }
+            if (deletedBooks.Count != dialog.DeletedBooks.Count)
+            {
+                MessageBox.Show("Не удалось удалить некоторые книги из библиотеки.", Title);
+            }
+            if (Player.Book != null && deletedBooks.Contains(Player.Book))
+                Player.Book = null;
+            UpdateNavPanel(false, false, true);
+            UpdateShownBooks();
+        }
+        if (dialog.ChangedBooks.Count > 0)
+        {
+            var updatedBooks = Library.UpdateBooks(dialog.ChangedBooks);
+            if (updatedBooks.Count == 0)
+            {
+                MessageBox.Show("Не удалось обновить файлы у выбранных книг.", Title);
+                return;
+            }
+            if (updatedBooks.Count != dialog.ChangedBooks.Count)
+            {
+                MessageBox.Show("Не удалось обновить файлы у некоторых книг.", Title);
+            }
+            if (Player.Book == null)
+                return;
+            var book = updatedBooks.Find(x => x == Player.Book);
+            if (book != null)
+            {
+                Player.PlayOnLoad = false;
+                Player.Book = book;
+            }
+        }
+    }
+
+    private void Shrink_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        // TODOL: После каждого сжатия библиотеки создаётся файл резервной копии. Что с ним делать?
+        if (MessageBox.Show("Сжать базу данных библиотеки?", Title, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+        {
+            return;
+        }
+        Db.Shrink();
+        MessageBox.Show($"Сжатие базы данных библиотеки завершено.", Title);
+    }
+
+    private void Settings_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        new SettingsDialog() { Owner = this }.ShowDialog();
+    }
+
+    private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        Close();
+    }
+
+    #endregion
+
     #region Обработчики команд группы "Книга".
 
     private void Play_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -588,165 +747,6 @@ public partial class MainWindow : Window
             Player.Book = null;
         UpdateNavPanel(false, false, true);
         UpdateShownBooks();
-    }
-
-    private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        Close();
-    }
-
-    #endregion
-
-    #region Обработчики команд группы "Библиотека".
-
-    private void AddBook_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var fileDialog = App.PickBookFileDialog;
-        if (fileDialog.ShowDialog() != true)
-            return;
-        var filename = fileDialog.FileName;
-        if (Library.BookWithFileExists(filename))
-        {
-            MessageBox.Show("Книга с этим файлом уже есть в библиотеке.", "Добавление книги");
-            return;
-        }
-        var book = App.GetBookFromFile(filename, out TrackData trackData);
-        var editor = new BookEditor(book, trackData) { Owner = this };
-        if (editor.ShowDialog() != true)
-            return;
-        Library.Books.Add(book);
-        UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.TagsChanged);
-        UpdateShownBooks();
-        SelectBookInShownBooks(book);
-    }
-
-    private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var folderDialog = App.PickBooksFolderDialog;
-        if (folderDialog.ShowDialog() != true)
-            return;
-        var files = new List<string>(); // Новые файлы книг.
-        var folders = folderDialog.FolderNames;
-        foreach (var folder in folders)
-        {
-            var folderFiles = Directory.GetFiles(folder, "*.m4b", SearchOption.AllDirectories);
-            foreach (var file in folderFiles)
-            {
-                if (!Library.BookWithFileExists(file))
-                    files.Add(file);
-            }
-        }
-        files.Sort(StringComparer.CurrentCultureIgnoreCase);
-        var dialog = new AddBooksDialog(files) { Owner = this };
-        dialog.ShowDialog();
-        if (!dialog.AddedBooks.Any())
-            return;
-        Library.Books.AddRange(dialog.AddedBooks);
-        UpdateNavPanel(dialog.HasNewAuthors, dialog.HasNewCycle, dialog.TagsChanged);
-        UpdateShownBooks();
-    }
-
-    private void Authors_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var editor = new AuthorsEditor() { Owner = this };
-        editor.ShowDialog();
-        if (!editor.HasChanges)
-            return;
-        var selectedItem = AuthorsListBox.SelectedItem;
-        UpdateNavPanel(true, false, false);
-        if (selectedItem != null && AuthorsListBox.SelectedItem == null)
-            UpdateShownBooks();
-        foreach (var book in ShownBooks)
-        {
-            book.OnPropertyChanged("AuthorNamesFirstLast");
-            book.OnPropertyChanged("AuthorNamesFirstMiddleLast");
-            book.OnPropertyChanged("AuthorNamesLastFirst");
-            book.OnPropertyChanged("AuthorNamesLastFirstMiddle");
-        }
-    }
-
-    private void Cycles_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var editor = new CyclesEditor() { Owner = this };
-        editor.ShowDialog();
-        if (!editor.HasChanges)
-            return;
-        var selectedItem = CyclesListBox.SelectedItem;
-        UpdateNavPanel(false, true, false);
-        if (selectedItem != null && CyclesListBox.SelectedItem == null)
-            UpdateShownBooks();
-    }
-
-    private void Tags_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var editor = new TagsEditor() { Owner = this };
-        editor.ShowDialog();
-        if (!editor.HasChanges)
-            return;
-        var selectedItem = TagsListBox.SelectedItem;
-        UpdateNavPanel(false, false, true);
-        if (selectedItem != null && TagsListBox.SelectedItem == null)
-            UpdateShownBooks();
-    }
-
-    private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var dialog = new CheckLibraryDialog() { Owner = this };
-        dialog.ShowDialog();
-        if (dialog.DeletedBooks.Count > 0)
-        {
-            var deletedBooks = Library.DeleteBooks(dialog.DeletedBooks);
-            if (deletedBooks.Count == 0)
-            {
-                MessageBox.Show("Не удалось удалить выбранные книги из библиотеки.", Title);
-                return;
-            }
-            if (deletedBooks.Count != dialog.DeletedBooks.Count)
-            {
-                MessageBox.Show("Не удалось удалить некоторые книги из библиотеки.", Title);
-            }
-            if (Player.Book != null && deletedBooks.Contains(Player.Book))
-                Player.Book = null;
-            UpdateNavPanel(false, false, true);
-            UpdateShownBooks();
-        }
-        if (dialog.ChangedBooks.Count > 0)
-        {
-            var updatedBooks = Library.UpdateBooks(dialog.ChangedBooks);
-            if (updatedBooks.Count == 0)
-            {
-                MessageBox.Show("Не удалось обновить файлы у выбранных книг.", Title);
-                return;
-            }
-            if (updatedBooks.Count != dialog.ChangedBooks.Count)
-            {
-                MessageBox.Show("Не удалось обновить файлы у некоторых книг.", Title);
-            }
-            if (Player.Book == null)
-                return;
-            var book = updatedBooks.Find(x => x == Player.Book);
-            if (book != null)
-            {
-                Player.PlayOnLoad = false;
-                Player.Book = book;
-            }
-        }
-    }
-
-    private void Shrink_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        // TODOL: После каждого сжатия библиотеки создаётся файл резервной копии. Что с ним делать?
-        if (MessageBox.Show("Сжать базу данных библиотеки?", Title, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
-        {
-            return;
-        }
-        Db.Shrink();
-        MessageBox.Show($"Сжатие базы данных библиотеки завершено.", Title);
-    }
-
-    private void Settings_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        new SettingsDialog() { Owner = this }.ShowDialog();
     }
 
     #endregion
