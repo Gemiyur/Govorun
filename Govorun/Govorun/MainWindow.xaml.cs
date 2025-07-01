@@ -102,8 +102,13 @@ public partial class MainWindow : Window
     private void RunBookInfoDialog(Book book)
     {
         var dialog = new BookInfoDialog(book) { Owner = this };
-        if (dialog.ShowDialog() != true || book == Player.Book)
+        if (dialog.ShowDialog() != true)
             return;
+        if (book == Player.Book)
+        {
+            Player.Play();
+            return;
+        }
         SaveBookPlayPosition();
         Player.Book = book;
     }
@@ -553,7 +558,10 @@ public partial class MainWindow : Window
     {
         var book = (Book)BooksListBox.SelectedItem;
         if (book == Player.Book)
+        {
+            Player.Play();
             return;
+        }
         SaveBookPlayPosition();
         if (book.PlayPosition == TimeSpan.Zero)
             book.PlayPosition = TimeSpan.FromMilliseconds(1);
@@ -601,7 +609,10 @@ public partial class MainWindow : Window
             Player.Book = book;
         }
         else
+        {
             Player.PlayPosition = dialog.Chapter.StartTime;
+            Player.Play();
+        }
     }
 
     private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -631,7 +642,10 @@ public partial class MainWindow : Window
             Player.Book = book;
         }
         else
+        {
             Player.PlayPosition = dialog.Bookmark.Position;
+            Player.Play();
+        }
     }
 
     private void NotListen_CanExecute(object sender, CanExecuteRoutedEventArgs e)

@@ -182,6 +182,16 @@ public partial class PlayerControl : UserControl
     }
 
     /// <summary>
+    /// Воспроизводит книгу.
+    /// </summary>
+    /// <remarks> Если проигрыватель не доступен или книга воспроизводится, то ничего не делает.</remarks>
+    public void Play()
+    {
+        if (IsEnabled && !Playing)
+            Playing = true;
+    }
+
+    /// <summary>
     /// Устанавливает доступность кнопки добавления закладки.
     /// </summary>
     /// <param name="enabled">Должна ли быть доступна кнопка.</param>
