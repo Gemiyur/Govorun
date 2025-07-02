@@ -31,10 +31,15 @@
         </Grid.RowDefinitions>
 
         <!-- Авторы и название -->
-        <TextBlock Grid.Row="0" x:Name="AuthorsTextBlock" Text="Авторы" HorizontalAlignment="Center" />
+        <TextBlock Grid.Row="0" x:Name="AuthorsTextBlock" Text="Авторы"
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center" />
         <TextBlock Grid.Row="1" x:Name="TitleTextBlock" Text="Название"
+                   TextWrapping="Wrap"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
+                   TextAlignment="Center"
                    Margin="0,10,0,0" />
 
         <!-- Список глав книги -->
