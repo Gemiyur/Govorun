@@ -11,6 +11,7 @@
         d:Width="600" d:Height="350"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
+        Loaded="Window_Loaded"
         Closed="Window_Closed">
 
     <Window.Resources>

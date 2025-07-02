@@ -46,6 +46,24 @@ public partial class ChaptersDialog : Window
         ChaptersListView.ItemsSource = chapters;
     }
 
+    /// <summary>
+    /// Выделяет в списке глав текущую (слушаемую).
+    /// </summary>
+    private void SelectCurrentChapter()
+    {
+        if (!book.Listening)
+            return;
+        var player = Owner is not null and MainWindow ? ((MainWindow)Owner).Player : null;
+        var position = player != null && player.Book == book ? player.PlayPosition : book.PlayPosition;
+        ChaptersListView.SelectedItem = chapters.FirstOrDefault(x => x.StartTime <= position && x.EndTime > position);
+        ChaptersListView.ScrollIntoView(ChaptersListView.SelectedItem);
+    }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        SelectCurrentChapter();
+    }
+
     private void Window_Closed(object sender, EventArgs e)
     {
         if (hasChanges)
