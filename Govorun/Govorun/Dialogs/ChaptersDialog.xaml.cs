@@ -57,6 +57,7 @@ public partial class ChaptersDialog : Window
         var position = player != null && player.Book == book ? player.PlayPosition : book.PlayPosition;
         ChaptersListView.SelectedItem = chapters.FirstOrDefault(x => x.StartTime <= position && x.EndTime > position);
         ChaptersListView.ScrollIntoView(ChaptersListView.SelectedItem);
+        CurrentButton.IsEnabled = book.Listening;
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -104,6 +105,11 @@ public partial class ChaptersDialog : Window
             return;
         chapter.Title = editor.ChapterTitle;
         hasChanges = true;
+    }
+
+    private void CurrentButton_Click(object sender, RoutedEventArgs e)
+    {
+        SelectCurrentChapter();
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)
