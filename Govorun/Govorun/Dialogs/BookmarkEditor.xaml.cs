@@ -13,6 +13,10 @@ public partial class BookmarkEditor : Window
     /// </summary>
     public string BookmarkTitle;
 
+    /// <summary>
+    /// Инициализирует новый экземпляр класса.
+    /// </summary>
+    /// <param name="title">Название закладки книги.</param>
     public BookmarkEditor(string title)
     {
         InitializeComponent();
