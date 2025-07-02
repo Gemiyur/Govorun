@@ -374,6 +374,14 @@ public partial class MainWindow : Window
 
     #region Обработчики событий элемента списка книг.
 
+    private void BooksListBox_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+    {
+        if (e.OriginalSource is not TextBlock)
+        {
+            e.Handled = true;
+        }
+    }
+
     private void BooksListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if (BooksListBox.SelectedItem != null && (e.OriginalSource is TextBlock || e.OriginalSource is Border))
@@ -552,6 +560,7 @@ public partial class MainWindow : Window
             e.CanExecute ? @"Images\Buttons\Enabled\Play.png" : @"Images\Buttons\Disabled\Play.png");
         ((Image)PlayButton.Content).Source = bitmap;
         ((Image)PlayMenuItem.Icon).Source = bitmap;
+        ((Image)PlayContextMenuItem.Icon).Source = bitmap;
     }
 
     private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -577,6 +586,7 @@ public partial class MainWindow : Window
             e.CanExecute ? @"Images\Buttons\Enabled\Info.png" : @"Images\Buttons\Disabled\Info.png");
         ((Image)InfoButton.Content).Source = bitmap;
         ((Image)InfoMenuItem.Icon).Source = bitmap;
+        ((Image)InfoContextMenuItem.Icon).Source = bitmap;
     }
 
     private void Info_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -594,6 +604,7 @@ public partial class MainWindow : Window
             e.CanExecute ? @"Images\Buttons\Enabled\Chapters.png" : @"Images\Buttons\Disabled\Chapters.png");
         ((Image)ChaptersButton.Content).Source = bitmap;
         ((Image)ChaptersMenuItem.Icon).Source = bitmap;
+        ((Image)ChaptersContextMenuItem.Icon).Source = bitmap;
     }
 
     private void Chapters_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -625,6 +636,7 @@ public partial class MainWindow : Window
             e.CanExecute ? @"Images\Buttons\Enabled\Bookmarks.png" : @"Images\Buttons\Disabled\Bookmarks.png");
         ((Image)BookmarksButton.Content).Source = bitmap;
         ((Image)BookmarksMenuItem.Icon).Source = bitmap;
+        ((Image)BookmarksContextMenuItem.Icon).Source = bitmap;
     }
 
     private void Bookmarks_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -658,6 +670,7 @@ public partial class MainWindow : Window
             e.CanExecute ? @"Images\Buttons\Enabled\NotListen.png" : @"Images\Buttons\Disabled\NotListen.png");
         ((Image)NotListenButton.Content).Source = bitmap;
         ((Image)NotListenMenuItem.Icon).Source = bitmap;
+        ((Image)NotListenContextMenuItem.Icon).Source = bitmap;
     }
 
     private void NotListen_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -687,6 +700,7 @@ public partial class MainWindow : Window
             e.CanExecute ? @"Images\Buttons\Enabled\Edit.png" : @"Images\Buttons\Disabled\Edit.png");
         ((Image)EditButton.Content).Source = bitmap;
         ((Image)EditMenuItem.Icon).Source = bitmap;
+        ((Image)EditContextMenuItem.Icon).Source = bitmap;
     }
 
     private void Edit_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -724,6 +738,7 @@ public partial class MainWindow : Window
             e.CanExecute ? @"Images\Buttons\Enabled\Delete.png" : @"Images\Buttons\Disabled\Delete.png");
         ((Image)DeleteButton.Content).Source = bitmap;
         ((Image)DeleteMenuItem.Icon).Source = bitmap;
+        ((Image)DeleteContextMenuItem.Icon).Source = bitmap;
     }
 
     private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)

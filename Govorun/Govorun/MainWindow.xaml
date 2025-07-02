@@ -78,95 +78,112 @@
 
         <Menu Grid.Row="0">
             <MenuItem Header="Библиотека">
-                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.AddBook">
+                <MenuItem Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.AddBook">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\AddBook.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.FindBooks">
+                <MenuItem Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.FindBooks">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\FindBooks.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Authors">
+                <MenuItem Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Authors">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Authors.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Cycles">
+                <MenuItem Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Cycles">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Cycles.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Tags">
+                <MenuItem Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Tags">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Tags.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.CheckLibrary">
+                <MenuItem Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.CheckLibrary">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\CheckLibrary.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Shrink">
+                <MenuItem Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Shrink">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Shrink.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Settings">
+                <MenuItem Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Settings">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Settings.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem x:Name="ExitMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Exit" />
+                <MenuItem x:Name="ExitMenuItem" Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Exit" />
             </MenuItem>
             <MenuItem Header="Книга">
-                <MenuItem x:Name="PlayMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Play">
+                <MenuItem x:Name="PlayMenuItem" Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Play">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Play.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem x:Name="InfoMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Info">
+                <MenuItem x:Name="InfoMenuItem" Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Info">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Info.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="ChaptersMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Chapters">
+                <MenuItem x:Name="ChaptersMenuItem" Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Chapters">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Chapters.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="BookmarksMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Bookmarks">
+                <MenuItem x:Name="BookmarksMenuItem" Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Bookmarks">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Bookmarks.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem x:Name="NotListenMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.NotListen">
+                <MenuItem x:Name="NotListenMenuItem" Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.NotListen">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\NotListen.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem x:Name="EditMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Edit">
+                <MenuItem x:Name="EditMenuItem" Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Edit">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Edit.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem x:Name="DeleteMenuItem" Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.Delete">
+                <MenuItem x:Name="DeleteMenuItem" Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.Delete">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Delete.png" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Справка">
-                <MenuItem Style="{StaticResource MenuItemStyle}" Command="local:AppCommands.About">
+                <MenuItem Style="{StaticResource MenuItemStyle}"
+                          Command="local:AppCommands.About">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\About.png" />
                     </MenuItem.Icon>
@@ -176,63 +193,79 @@
 
         <ToolBarTray Grid.Row="1">
             <ToolBar x:Name="LibraryToolBar">
-                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.AddBook">
+                <Button Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.AddBook">
                     <Image Source="Images\Buttons\Enabled\AddBook.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.FindBooks">
+                <Button Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.FindBooks">
                     <Image Source="Images\Buttons\Enabled\FindBooks.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
-                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Authors">
+                <Button Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.Authors">
                     <Image Source="Images\Buttons\Enabled\Authors.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Cycles">
+                <Button Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.Cycles">
                     <Image Source="Images\Buttons\Enabled\Cycles.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Tags">
+                <Button Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.Tags">
                     <Image Source="Images\Buttons\Enabled\Tags.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
-                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.CheckLibrary">
+                <Button Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.CheckLibrary">
                     <Image Source="Images\Buttons\Enabled\CheckLibrary.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Shrink">
+                <Button Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.Shrink">
                     <Image Source="Images\Buttons\Enabled\Shrink.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
-                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Settings">
+                <Button Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.Settings">
                     <Image Source="Images\Buttons\Enabled\Settings.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
             </ToolBar>
             <ToolBar x:Name="BookToolBar">
-                <Button x:Name="PlayButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Play">
+                <Button x:Name="PlayButton" Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.Play">
                     <Image Source="Images\Buttons\Enabled\Play.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
-                <Button x:Name="InfoButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Info">
+                <Button x:Name="InfoButton" Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.Info">
                     <Image Source="Images\Buttons\Enabled\Info.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
-                <Button x:Name="ChaptersButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Chapters">
+                <Button x:Name="ChaptersButton" Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.Chapters">
                     <Image Source="Images\Buttons\Enabled\Chapters.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
-                <Button x:Name="BookmarksButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Bookmarks">
+                <Button x:Name="BookmarksButton" Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.Bookmarks">
                     <Image Source="Images\Buttons\Enabled\Bookmarks.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
-                <Button x:Name="NotListenButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.NotListen">
+                <Button x:Name="NotListenButton" Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.NotListen">
                     <Image Source="Images\Buttons\Enabled\NotListen.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
-                <Button x:Name="EditButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Edit">
+                <Button x:Name="EditButton" Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.Edit">
                     <Image Source="Images\Buttons\Enabled\Edit.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
-                <Button x:Name="DeleteButton" Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.Delete">
+                <Button x:Name="DeleteButton" Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.Delete">
                     <Image Source="Images\Buttons\Enabled\Delete.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
             </ToolBar>
             <ToolBar x:Name="HelpToolBar">
-                <Button Style="{StaticResource ToolBarButtonStyle}" Command="local:AppCommands.About">
+                <Button Style="{StaticResource ToolBarButtonStyle}"
+                        Command="local:AppCommands.About">
                     <Image Source="Images\Buttons\Enabled\About.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
             </ToolBar>
@@ -300,7 +333,58 @@
             <ListBox Grid.Row="1" Grid.Column="2" x:Name="BooksListBox"
                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                      ItemTemplate="{StaticResource BookDataTemplate}"
-                     MouseDoubleClick="BooksListBox_MouseDoubleClick" />
+                     MouseDoubleClick="BooksListBox_MouseDoubleClick" ContextMenuOpening="BooksListBox_ContextMenuOpening">
+                <ListBox.ContextMenu>
+                    <ContextMenu x:Name="BookContextMenu">
+                        <MenuItem x:Name="PlayContextMenuItem" Style="{StaticResource MenuItemStyle}"
+                                  Command="local:AppCommands.Play">
+                            <MenuItem.Icon>
+                                <Image Source="Images\Buttons\Enabled\Play.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem x:Name="InfoContextMenuItem" Style="{StaticResource MenuItemStyle}" FontWeight="Bold"
+                                  Command="local:AppCommands.Info">
+                            <MenuItem.Icon>
+                                <Image Source="Images\Buttons\Enabled\Info.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="ChaptersContextMenuItem" Style="{StaticResource MenuItemStyle}"
+                                  Command="local:AppCommands.Chapters">
+                            <MenuItem.Icon>
+                                <Image Source="Images\Buttons\Enabled\Chapters.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="BookmarksContextMenuItem" Style="{StaticResource MenuItemStyle}"
+                                  Command="local:AppCommands.Bookmarks">
+                            <MenuItem.Icon>
+                                <Image Source="Images\Buttons\Enabled\Bookmarks.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem x:Name="NotListenContextMenuItem" Style="{StaticResource MenuItemStyle}"
+                                  Command="local:AppCommands.NotListen">
+                            <MenuItem.Icon>
+                                <Image Source="Images\Buttons\Enabled\NotListen.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem x:Name="EditContextMenuItem" Style="{StaticResource MenuItemStyle}"
+                                  Command="local:AppCommands.Edit">
+                            <MenuItem.Icon>
+                                <Image Source="Images\Buttons\Enabled\Edit.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem x:Name="DeleteContextMenuItem" Style="{StaticResource MenuItemStyle}"
+                                  Command="local:AppCommands.Delete">
+                            <MenuItem.Icon>
+                                <Image Source="Images\Buttons\Enabled\Delete.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
         </Grid>
 
         <!-- Проигрыватель -->

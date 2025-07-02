@@ -127,6 +127,12 @@ public class Book : BaseModel
     [BsonIgnore]
     public string CyclePart => CycleNumber > 0 ? CycleNumber.ToString() : "";
 
+    /// <summary>
+    /// Возвращает строку номера книги серии для отображения в списке.
+    /// </summary>
+    [BsonIgnore]
+    public string CyclePartText => CycleNumber > 0 ? $"Номер в серии: {CyclePart}" : "Номер в серии не указан";
+
     private string lector = string.Empty;
 
     /// <summary>
