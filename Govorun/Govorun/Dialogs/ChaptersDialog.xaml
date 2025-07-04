@@ -142,9 +142,7 @@
         </Grid>
 
         <Controls:PopupTextEditorControl x:Name="TitleEditor" Width="450" Height="150"
-                                         HorizontalAlignment="Center" VerticalAlignment="Center">
-            
-        </Controls:PopupTextEditorControl>
+                                         HorizontalAlignment="Center" VerticalAlignment="Center" />
 
     </Grid>
 </Window>

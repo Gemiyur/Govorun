@@ -31,6 +31,11 @@ public partial class BookmarksDialog : Window
     /// </summary>
     private bool hasChanges = false;
 
+    /// <summary>
+    /// Возвращает выбранную закладку в списке закладок.
+    /// </summary>
+    private Bookmark SelectedBookmark => (Bookmark)BookmarksListBox.SelectedItem;
+
     public BookmarksDialog(Book book)
     {
         InitializeComponent();
@@ -40,6 +45,11 @@ public partial class BookmarksDialog : Window
         TitleTextBlock.Text = book.Title;
         bookmarks.AddRange(book.Bookmarks.OrderBy(x => x.Title));
         BookmarksListBox.ItemsSource = bookmarks;
+        TitleEditor.Header = "Название закладки";
+        TitleEditor.Visibility = Visibility.Collapsed;
+        // Подписка в коде потому что при подписке в дизайнере обработчик отрабатывает,
+        // но код обработчика отображается в редакторе как неиспользуемый, что не удобно.
+        TitleEditor.IsVisibleChanged += TitleEditor_IsVisibleChanged;
     }
 
     private void Window_Closed(object sender, EventArgs e)
@@ -60,19 +70,15 @@ public partial class BookmarksDialog : Window
 
     private void PlayButton_Click(object sender, RoutedEventArgs e)
     {
-        Bookmark = (Bookmark)BookmarksListBox.SelectedItem;
+        Bookmark = SelectedBookmark;
         DialogResult = true;
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
-        var bookmark = (Bookmark)BookmarksListBox.SelectedItem;
-        var title = bookmark.Title;
-        var editor = new BookmarkEditor(title) { Owner = this };
-        if (editor.ShowDialog() != true)
-            return;
-        bookmark.Title = editor.BookmarkTitle;
-        hasChanges = true;
+        TitleEditor.Text = SelectedBookmark.Title;
+        TitleEditor.Visibility = Visibility.Visible;
+        MainGrid.IsEnabled = false;
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -84,5 +90,17 @@ public partial class BookmarksDialog : Window
     private void CloseButton_Click(object sender, RoutedEventArgs e)
     {
         Close();
+    }
+
+    private void TitleEditor_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (TitleEditor.Visibility != Visibility.Collapsed)
+            return;
+        if (TitleEditor.Result)
+        {
+            SelectedBookmark.Title = TitleEditor.Text;
+            hasChanges = true;
+        }
+        MainGrid.IsEnabled = true;
     }
 }
