@@ -32,6 +32,11 @@ public partial class ChaptersDialog : Window
     private bool hasChanges = false;
 
     /// <summary>
+    /// Возвращает выбранную главу в списке глав.
+    /// </summary>
+    private Chapter SelectedChapter => (Chapter)ChaptersListView.SelectedItem;
+
+    /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
     /// <param name="book">Книга.</param>
@@ -44,6 +49,11 @@ public partial class ChaptersDialog : Window
         TitleTextBlock.Text = book.Title;
         chapters.AddRange(book.Chapters);
         ChaptersListView.ItemsSource = chapters;
+        TitleEditor.Header = "Название главы";
+        TitleEditor.Visibility = Visibility.Collapsed;
+        // Подписка в коде потому что при подписке в дизайнере обработчик отрабатывает,
+        // но код обработчика отображается в редакторе как неиспользуемый, что не удобно.
+        TitleEditor.IsVisibleChanged += TitleEditor_IsVisibleChanged;
     }
 
     /// <summary>
@@ -92,19 +102,15 @@ public partial class ChaptersDialog : Window
 
     private void PlayButton_Click(object sender, RoutedEventArgs e)
     {
-        Chapter = (Chapter)ChaptersListView.SelectedItem;
+        Chapter = SelectedChapter;
         DialogResult = true;
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
-        var chapter = (Chapter)ChaptersListView.SelectedItem;
-        var title = chapter.Title;
-        var editor = new ChapterEditor(title) { Owner = this };
-        if (editor.ShowDialog() != true)
-            return;
-        chapter.Title = editor.ChapterTitle;
-        hasChanges = true;
+        TitleEditor.Text = SelectedChapter.Title;
+        TitleEditor.Visibility = Visibility.Visible;
+        MainGrid.IsEnabled = false;
     }
 
     private void CurrentButton_Click(object sender, RoutedEventArgs e)
@@ -117,18 +123,15 @@ public partial class ChaptersDialog : Window
         Close();
     }
 
-    //private void EditorTitleTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    //{
-
-    //}
-
-    //private void EditorSaveButton_Click(object sender, RoutedEventArgs e)
-    //{
-
-    //}
-
-    //private void EditorCancelButton_Click(object sender, RoutedEventArgs e)
-    //{
-
-    //}
+    private void TitleEditor_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (TitleEditor.Visibility != Visibility.Collapsed)
+            return;
+        if (TitleEditor.Result)
+        {
+            SelectedChapter.Title = TitleEditor.Text;
+            hasChanges = true;
+        }
+        MainGrid.IsEnabled = true;
+    }
 }

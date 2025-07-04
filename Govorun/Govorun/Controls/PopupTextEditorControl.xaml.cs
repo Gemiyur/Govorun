@@ -18,13 +18,17 @@ public partial class PopupTextEditorControl : UserControl
     /// <summary>
     /// Возвращает или задаёт заголовок.
     /// </summary>
-    public string Header {  get; set; } = string.Empty;
+    public string Header
+    {
+        get => HeaderTextBlock.Text;
+        set => HeaderTextBlock.Text = value;
+    }
 
     /// <summary>
     /// Возвращает результат редактирования после нажатия кнопки.
     /// </summary>
     /// <remarks>true - была нажата кнопка "Сохранить", false - была нажата кнопка "Отмена".</remarks>
-    public bool Result {  get; private set; }
+    public bool Result { get; private set; }
 
     private string text = string.Empty;
 
@@ -42,6 +46,7 @@ public partial class PopupTextEditorControl : UserControl
         {
             text = value;
             EditorTextBox.Text = text;
+            Result = false;
         }
     }
 
