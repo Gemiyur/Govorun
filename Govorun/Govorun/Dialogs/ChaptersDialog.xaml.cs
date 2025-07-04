@@ -116,4 +116,19 @@ public partial class ChaptersDialog : Window
     {
         Close();
     }
+
+    //private void EditorTitleTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    //{
+
+    //}
+
+    //private void EditorSaveButton_Click(object sender, RoutedEventArgs e)
+    //{
+
+    //}
+
+    //private void EditorCancelButton_Click(object sender, RoutedEventArgs e)
+    //{
+
+    //}
 }
