@@ -161,6 +161,16 @@ public partial class PlayerControl : UserControl
     }
 
     /// <summary>
+    /// Последняя синхронизированная с содержанием глава.
+    /// </summary>
+    private Chapter? lastSyncChapter;
+
+    /// <summary>
+    /// Возвращает главу текущей позиции или null если главы нет.
+    /// </summary>
+    private Chapter? CurrentChapter => GetChapter(PlayPosition);
+
+    /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
     public PlayerControl()
@@ -180,6 +190,14 @@ public partial class PlayerControl : UserControl
         if (book != null)
             SetBookmarksButtonEnabled(book.Bookmarks.Any());
     }
+
+    /// <summary>
+    /// Возвращает главу указанной позиции или null если главы нет.
+    /// </summary>
+    /// <param name="position">Позиция.</param>
+    /// <returns>Глава указанной позиции или null если главы нет.</returns>
+    private Chapter? GetChapter(TimeSpan position) =>
+        book?.Chapters.FirstOrDefault(x => x.StartTime <= position && x.EndTime > position);
 
     /// <summary>
     /// Воспроизводит книгу.
@@ -345,6 +363,7 @@ public partial class PlayerControl : UserControl
         var position = book != null && book.PlayPosition < Player.NaturalDuration.TimeSpan
             ? book.PlayPosition
             : TimeSpan.Zero;
+        lastSyncChapter = GetChapter(position);
         PassTimeTextBlock.Text = App.TimeSpanToString(position);
         FullTimeTextBlock.Text = App.TimeSpanToString(Player.NaturalDuration.TimeSpan);
         LeftTimeTextBlock.Text = App.TimeSpanToString(Player.NaturalDuration.TimeSpan - position);
@@ -392,6 +411,14 @@ public partial class PlayerControl : UserControl
             LeftTimeTextBlock.Text = App.TimeSpanToString(Player.NaturalDuration.TimeSpan - Player.Position);
         if (!playTimer.IsEnabled)
             playTimer.Start();
+        if (lastSyncChapter == null)
+            return;
+        var chaptersWindow = App.FindChaptersWindow();
+        if (chaptersWindow != null && chaptersWindow.Book == book && lastSyncChapter != CurrentChapter)
+        {
+            lastSyncChapter = CurrentChapter;
+            chaptersWindow.SelectCurrentChapter();
+        }
     }
 
     private void DecreaseButton_Click(object sender, RoutedEventArgs e)
