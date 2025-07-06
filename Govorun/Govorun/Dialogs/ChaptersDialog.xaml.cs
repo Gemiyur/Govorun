@@ -19,7 +19,20 @@ public partial class ChaptersDialog : Window
     /// <summary>
     /// Книга.
     /// </summary>
-    private readonly Book book;
+    private Book book;
+
+    /// <summary>
+    /// Книга.
+    /// </summary>
+    public Book Book
+    {
+        get => book;
+        set
+        {
+            book = value;
+            LoadBook();
+        }
+    }
 
     /// <summary>
     /// Коллекция глав книги.
@@ -45,26 +58,36 @@ public partial class ChaptersDialog : Window
         InitializeComponent();
         this.book = book;
         TitleTextBlock.FontSize = FontSize + 2;
-        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
-        TitleTextBlock.Text = book.Title;
-        chapters.AddRange(book.Chapters);
-        ChaptersListView.ItemsSource = chapters;
         TitleEditor.Header = "Название главы";
-        TitleEditor.Visibility = Visibility.Collapsed;
+        ChaptersListView.ItemsSource = chapters;
+        LoadBook();
         // Подписка в коде потому что при подписке в дизайнере обработчик отрабатывает,
         // но код обработчика отображается в редакторе как неиспользуемый, что не удобно.
         TitleEditor.IsVisibleChanged += TitleEditor_IsVisibleChanged;
     }
 
     /// <summary>
+    /// Загружает книгу.
+    /// </summary>
+    private void LoadBook()
+    {
+        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
+        TitleTextBlock.Text = book.Title;
+        chapters.ReplaceRange(book.Chapters);
+        TitleEditor.Visibility = Visibility.Collapsed;
+        if (IsInitialized)
+            SelectCurrentChapter();
+    }
+
+    /// <summary>
     /// Выделяет в списке глав текущую (слушаемую).
     /// </summary>
-    private void SelectCurrentChapter()
+    public void SelectCurrentChapter()
     {
         if (!book.Listening)
             return;
-        var player = Owner is not null and MainWindow ? ((MainWindow)Owner).Player : null;
-        var position = player != null && player.Book == book ? player.PlayPosition : book.PlayPosition;
+        var player = App.GetMainWindow().Player;
+        var position = player.Book == book ? player.PlayPosition : book.PlayPosition;
         ChaptersListView.SelectedItem = chapters.FirstOrDefault(x => x.StartTime <= position && x.EndTime > position);
         ChaptersListView.ScrollIntoView(ChaptersListView.SelectedItem);
         CurrentButton.IsEnabled = book.Listening;
@@ -79,11 +102,13 @@ public partial class ChaptersDialog : Window
     {
         if (hasChanges)
             Db.UpdateBook(book);
+        App.GetMainWindow().Activate();
     }
 
     private void ChaptersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         PlayButton.IsEnabled = ChaptersListView.SelectedItems.Count == 1;
+        CurrentButton.IsEnabled = book.Listening;
         EditButton.IsEnabled = ChaptersListView.SelectedItems.Count == 1;
     }
 
@@ -103,7 +128,7 @@ public partial class ChaptersDialog : Window
     private void PlayButton_Click(object sender, RoutedEventArgs e)
     {
         Chapter = SelectedChapter;
-        DialogResult = true;
+        App.GetMainWindow().PlayBook(book, SelectedChapter.StartTime);
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)

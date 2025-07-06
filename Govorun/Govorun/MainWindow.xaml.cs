@@ -85,6 +85,7 @@ public partial class MainWindow : Window
     {
         if (!Properties.Settings.Default.LoadLastBook)
             return;
+        // TODO: Может в настройках хранить не имя файла книги, идентификатор книги? Надо подумать.
         var lastBookFileName = Properties.Settings.Default.LastBook;
         if (string.IsNullOrWhiteSpace(lastBookFileName))
             return;
@@ -93,6 +94,26 @@ public partial class MainWindow : Window
             return;
         Player.PlayOnLoad = false;
         Player.Book = lastBook;
+    }
+
+    /// <summary>
+    /// Воспроизводит указанную книгу с указанной позиции.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    /// <param name="position">Позиция воспроизведения.</param>
+    public void PlayBook(Book book, TimeSpan position)
+    {
+        if (book != Player.Book)
+        {
+            SavePlayerBookPlayPosition();
+            book.PlayPosition = position;
+            Player.Book = book;
+        }
+        else
+        {
+            Player.PlayPosition = position;
+            Player.Play();
+        }
     }
 
     /// <summary>
@@ -109,14 +130,14 @@ public partial class MainWindow : Window
             Player.Play();
             return;
         }
-        SaveBookPlayPosition();
+        SavePlayerBookPlayPosition();
         Player.Book = book;
     }
 
     /// <summary>
     /// Сохраняет позицию воспроизведения книги в проигрывателе в базе данных.
     /// </summary>
-    private void SaveBookPlayPosition()
+    private void SavePlayerBookPlayPosition()
     {
         var book = Player.Book;
         if (book == null || Player.MediaFailed)
@@ -132,7 +153,7 @@ public partial class MainWindow : Window
     /// Сохраняет позицию воспроизведения указанной книги в базе данных.
     /// </summary>
     /// <param name="book">Книга.</param>
-    private void SaveBookPlayPosition(Book book)
+    private static void SaveBookPlayPosition(Book book)
     {
         Db.UpdateBook(book);
         book.OnPropertyChanged("PlayPosition");
@@ -144,6 +165,7 @@ public partial class MainWindow : Window
     /// <remarks>Используется при закрытии приложения.</remarks>
     private void SaveLastBook()
     {
+        // TODO: Может в настройках хранить не имя файла книги, идентификатор книги? Надо подумать.
         var book = Player.Book;
         var filename = book != null && !Player.MediaFailed ? book.FileName : "";
         Properties.Settings.Default.LastBook = filename;
@@ -168,6 +190,35 @@ public partial class MainWindow : Window
         {
             BooksListBox.SelectedItem = book;
             BooksListBox.ScrollIntoView(BooksListBox.SelectedItem);
+        }
+    }
+
+    /// <summary>
+    /// Отображает окно содержания указанной книги.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public void ShowChapters(Book book)
+    {
+        var window = App.FindChaptersWindow();
+        if (window != null)
+        {
+            if (window.Book != book)
+                window.Book = book;
+            else if (window.Book == Player.Book)
+                window.SelectCurrentChapter();
+            if (window.WindowState != WindowState.Normal)
+                window.WindowState = WindowState.Normal;
+            // TODO: Нужно ли делать второю установку Normal, чтобы окно гарантированно было Normal?
+            // Вторая проверка для приведения окна в нормальное состояние, если оно было развёрнуто перед сворачиванием.
+            // В этом случае первая установка Normal устанавливает Maximized, а вторая уже Normal.
+            // Пока закомментировано, пусть окно будет развёрнутым, если оно было развёрнуто перед сворачиванием.
+            //if (window.WindowState != WindowState.Normal)
+            //    window.WindowState = WindowState.Normal;
+            window.Activate();
+        }
+        else
+        {
+            new ChaptersDialog(book) { Owner = this }.Show();
         }
     }
 
@@ -290,7 +341,7 @@ public partial class MainWindow : Window
 
     private void Window_Closed(object sender, EventArgs e)
     {
-        SaveBookPlayPosition();
+        SavePlayerBookPlayPosition();
         SaveLastBook();
         SavePlayerVolume();
         Properties.Settings.Default.Save();
@@ -571,7 +622,7 @@ public partial class MainWindow : Window
             Player.Play();
             return;
         }
-        SaveBookPlayPosition();
+        SavePlayerBookPlayPosition();
         if (book.PlayPosition == TimeSpan.Zero)
             book.PlayPosition = TimeSpan.FromMilliseconds(1);
         Player.Book = book;
@@ -610,20 +661,7 @@ public partial class MainWindow : Window
     private void Chapters_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         var book = (Book)BooksListBox.SelectedItem;
-        var dialog = new ChaptersDialog(book) { Owner = this };
-        if (dialog.ShowDialog() != true || dialog.Chapter == null)
-            return;
-        if (book != Player.Book)
-        {
-            SaveBookPlayPosition();
-            book.PlayPosition = dialog.Chapter.StartTime;
-            Player.Book = book;
-        }
-        else
-        {
-            Player.PlayPosition = dialog.Chapter.StartTime;
-            Player.Play();
-        }
+        ShowChapters(book);
     }
 
     private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -649,7 +687,7 @@ public partial class MainWindow : Window
             return;
         if (book != Player.Book)
         {
-            SaveBookPlayPosition();
+            SavePlayerBookPlayPosition();
             book.PlayPosition = dialog.Bookmark.Position;
             Player.Book = book;
         }

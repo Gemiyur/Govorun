@@ -11,7 +11,6 @@
         MinWidth="500" MinHeight="350"
         d:Width="600" d:Height="350"
         WindowStartupLocation="CenterOwner"
-        ShowInTaskbar="False"
         Loaded="Window_Loaded"
         Closed="Window_Closed">
 
@@ -26,7 +25,7 @@
 
     <Grid>
 
-        <Grid x:Name="MainGrid" IsEnabled="True" Margin="10,10,10,10">
+        <Grid x:Name="MainGrid" Margin="10,10,10,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />

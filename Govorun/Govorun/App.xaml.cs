@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Govorun.Media;
 using Govorun.Models;
+using Govorun.Dialogs;
 
 namespace Govorun;
 
@@ -44,11 +45,10 @@ public partial class App : Application
     public static BitmapImage GetBitmapImage(string path) => new(new Uri(path, UriKind.Relative));
 
     /// <summary>
-    /// Возвращает книгу из указанного файла.
-    /// В выходной параметр trackData возвращает данные из тега.
+    /// Возвращает книгу из указанного файла. В выходной параметр trackData возвращаются данные трека.
     /// </summary>
     /// <param name="filename">Имя файла книги с полным путём.</param>
-    /// <param name="trackData">Данные тега из файла книги.</param>
+    /// <param name="trackData">Данные трека.</param>
     /// <returns>Книга.</returns>
     public static Book GetBookFromFile(string filename, out TrackData trackData)
     {
@@ -69,6 +69,40 @@ public partial class App : Application
         }
         return book;
     }
+
+    #region Получение окон приложения.
+
+    /// <summary>
+    /// Возвращает главное окно приложения.
+    /// </summary>
+    /// <returns>Главное окно приложения.</returns>
+    public static MainWindow GetMainWindow() => (MainWindow)Current.MainWindow;
+
+    /// <summary>
+    /// Возвращает окно закладок или null, если окна нет.
+    /// </summary>
+    /// <returns>Окно закладок или null, если окна нет.</returns>
+    public static BookmarksDialog? FindBookmarksWindow()
+    {
+        foreach (var window in Current.Windows)
+            if (window is BookmarksDialog bookmarksWindow)
+                return bookmarksWindow;
+        return null;
+    }
+
+    /// <summary>
+    /// Возвращает окно содержания или null, если окна нет.
+    /// </summary>
+    /// <returns>Окно содержания или null, если окна нет.</returns>
+    public static ChaptersDialog? FindChaptersWindow()
+    {
+        foreach (var window in Current.Windows)
+            if (window is ChaptersDialog chaptersWindow)
+                return chaptersWindow;
+        return null;
+    }
+
+    #endregion
 
     #region Диалоги выбора файла и папки книг.
 

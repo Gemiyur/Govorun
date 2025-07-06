@@ -441,9 +441,7 @@ public partial class PlayerControl : UserControl
     {
         if (book == null)
             return;
-        var dialog = new ChaptersDialog(book) { Owner = Window.GetWindow(this) };
-        if (dialog.ShowDialog() == true && dialog.Chapter != null)
-            PlayPosition = dialog.Chapter.StartTime;
+        ((MainWindow)Window.GetWindow(this)).ShowChapters(book);
     }
 
     private void BookmarksButton_Click(object sender, RoutedEventArgs e)
