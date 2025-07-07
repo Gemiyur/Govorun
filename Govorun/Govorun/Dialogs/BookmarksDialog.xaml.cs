@@ -24,6 +24,8 @@ public partial class BookmarksDialog : Window
         get => book;
         set
         {
+            if (book != value)
+                SaveChanged();
             book = value;
             LoadBook();
         }
@@ -80,8 +82,11 @@ public partial class BookmarksDialog : Window
         CheckAddButton();
         TitleEditor.Visibility = Visibility.Collapsed;
     }
-
-    private void Window_Closed(object sender, EventArgs e)
+    
+    /// <summary>
+    /// Сохраняет изменения в базе данных, если они были.
+    /// </summary>
+    private void SaveChanged()
     {
         if (hasChanges)
         {
@@ -89,6 +94,11 @@ public partial class BookmarksDialog : Window
             book.Bookmarks.AddRange(bookmarks);
             Db.UpdateBook(book);
         }
+    }
+
+    private void Window_Closed(object sender, EventArgs e)
+    {
+        SaveChanged();
         App.GetMainWindow().Activate();
     }
 
