@@ -115,9 +115,17 @@ public partial class BookmarksDialog : Window
         App.GetMainWindow().PlayBook(book, SelectedBookmark.Position);
     }
 
+    private bool isNewBookmark;
+
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-
+        isNewBookmark = true;
+        var bookmark = new Bookmark();
+        bookmarks.Add(bookmark);
+        BookmarksListBox.SelectedItem = bookmark;
+        TitleEditor.Text = SelectedBookmark.Title;
+        TitleEditor.Visibility = Visibility.Visible;
+        MainGrid.IsEnabled = false;
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -146,6 +154,11 @@ public partial class BookmarksDialog : Window
         {
             SelectedBookmark.Title = TitleEditor.Text;
             hasChanges = true;
+        }
+        else if (isNewBookmark)
+        {
+            bookmarks.Remove(SelectedBookmark);
+            isNewBookmark = false;
         }
         MainGrid.IsEnabled = true;
     }

@@ -482,15 +482,15 @@ public partial class PlayerControl : UserControl
 
     private void AddBookmarkButton_Click(object sender, RoutedEventArgs e)
     {
-        if (book == null)
-            return;
-        var position = PlayPosition;
-        var editor = new BookmarkEditor(string.Empty) { Owner = Window.GetWindow(this) };
-        if (editor.ShowDialog() != true)
-            return;
-        var bookmark = new Bookmark() { Position = position, Title = editor.BookmarkTitle };
-        book.Bookmarks.Add(bookmark);
-        CheckBookmarksButton();
+        //if (book == null)
+        //    return;
+        //var position = PlayPosition;
+        //var editor = new BookmarkEditor(string.Empty) { Owner = Window.GetWindow(this) };
+        //if (editor.ShowDialog() != true)
+        //    return;
+        //var bookmark = new Bookmark() { Position = position, Title = editor.BookmarkTitle };
+        //book.Bookmarks.Add(bookmark);
+        //CheckBookmarksButton();
     }
 
     #endregion
