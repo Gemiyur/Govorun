@@ -88,6 +88,15 @@ public partial class ChaptersDialog : Window
         CurrentButton.IsEnabled = book.Listening;
     }
 
+    /// <summary>
+    /// Устанавливает состояние элементов для не слушаемой книги.
+    /// </summary>
+    public void SetNotListening()
+    {
+        CurrentButton.IsEnabled = false;
+        ChaptersListView.SelectedItem = null;
+    }
+
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         SelectCurrentChapter();
@@ -123,6 +132,7 @@ public partial class ChaptersDialog : Window
     private void PlayButton_Click(object sender, RoutedEventArgs e)
     {
         App.GetMainWindow().PlayBook(book, SelectedChapter.StartTime);
+        CurrentButton.IsEnabled = true;
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)

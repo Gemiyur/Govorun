@@ -738,6 +738,9 @@ public partial class MainWindow : Window
         SaveBookPlayPosition(book);
         if (ListeningBooksToggleButton.IsChecked == true)
             UpdateShownBooks();
+        var chaptersWindow = App.FindChaptersWindow();
+        if (chaptersWindow != null && chaptersWindow.Book == book)
+            chaptersWindow.SetNotListening();
     }
 
     private void Edit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
