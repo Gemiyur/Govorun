@@ -42,6 +42,11 @@ public partial class BookmarksDialog : Window
     private bool hasChanges = false;
 
     /// <summary>
+    /// В редакторе новая закладка?
+    /// </summary>
+    private bool isNewBookmark;
+
+    /// <summary>
     /// Возвращает выбранную закладку в списке закладок.
     /// </summary>
     private Bookmark SelectedBookmark => (Bookmark)BookmarksListBox.SelectedItem;
@@ -79,8 +84,17 @@ public partial class BookmarksDialog : Window
         AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
         TitleTextBlock.Text = book.Title;
         bookmarks.ReplaceRange(book.Bookmarks);
+        SortBookmarks();
         CheckAddButton();
         TitleEditor.Visibility = Visibility.Collapsed;
+    }
+
+    /// <summary>
+    /// Сортирует закладки в алфавитном порядке.
+    /// </summary>
+    private void SortBookmarks()
+    {
+        bookmarks.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
     }
     
     /// <summary>
@@ -115,12 +129,10 @@ public partial class BookmarksDialog : Window
         App.GetMainWindow().PlayBook(book, SelectedBookmark.Position);
     }
 
-    private bool isNewBookmark;
-
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
         isNewBookmark = true;
-        var bookmark = new Bookmark();
+        var bookmark = new Bookmark() { Position = App.GetMainWindow().Player.PlayPosition };
         bookmarks.Add(bookmark);
         BookmarksListBox.SelectedItem = bookmark;
         TitleEditor.Text = SelectedBookmark.Title;
@@ -153,6 +165,7 @@ public partial class BookmarksDialog : Window
         if (TitleEditor.Result)
         {
             SelectedBookmark.Title = TitleEditor.Text;
+            SortBookmarks();
             hasChanges = true;
         }
         else if (isNewBookmark)
