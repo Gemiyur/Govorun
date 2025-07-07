@@ -59,7 +59,6 @@ public partial class PlayerControl : UserControl
                 SetInfoButtonEnabled(false);
                 SetChaptersButtonEnabled(false);
                 SetBookmarksButtonEnabled(false);
-                SetAddBookmarkButtonEnabled(false);
                 return;
             }
             Player.Source = new Uri(book.FileName);
@@ -68,7 +67,6 @@ public partial class PlayerControl : UserControl
             SetInfoButtonEnabled(true);
             SetChaptersButtonEnabled(book.Chapters.Any());
             SetBookmarksButtonEnabled(true);
-            SetAddBookmarkButtonEnabled(true);
             Playing = true;
         }
     }
@@ -212,18 +210,6 @@ public partial class PlayerControl : UserControl
     }
 
     /// <summary>
-    /// Устанавливает доступность кнопки добавления закладки.
-    /// </summary>
-    /// <param name="enabled">Должна ли быть доступна кнопка.</param>
-    private void SetAddBookmarkButtonEnabled(bool enabled)
-    {
-        AddBookmarkButton.IsEnabled = enabled;
-        ((Image)AddBookmarkButton.Content).Source = enabled
-            ? App.GetBitmapImage($"{EnabledPath}AddBookmark.png")
-            : App.GetBitmapImage($"{DisabledPath}AddBookmark.png");
-    }
-
-    /// <summary>
     /// Устанавливает доступность кнопки окна списка закладок.
     /// </summary>
     /// <param name="enabled">Должна ли быть доступна кнопка.</param>
@@ -336,7 +322,6 @@ public partial class PlayerControl : UserControl
             ((Image)InfoButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Info.png");
             ((Image)ChaptersButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Chapters.png");
             ((Image)BookmarksButton.Content).Source = App.GetBitmapImage($"{EnabledPath}Bookmarks.png");
-            ((Image)AddBookmarkButton.Content).Source = App.GetBitmapImage($"{EnabledPath}AddBookmark.png");
         }
         else
         {
@@ -349,7 +334,6 @@ public partial class PlayerControl : UserControl
             ((Image)InfoButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Info.png");
             ((Image)ChaptersButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Chapters.png");
             ((Image)BookmarksButton.Content).Source = App.GetBitmapImage($"{DisabledPath}Bookmarks.png");
-            ((Image)AddBookmarkButton.Content).Source = App.GetBitmapImage($"{DisabledPath}AddBookmark.png");
         }
     }
 
@@ -478,19 +462,6 @@ public partial class PlayerControl : UserControl
         if (book == null)
             return;
         ((MainWindow)Window.GetWindow(this)).ShowBookmarks(book);
-    }
-
-    private void AddBookmarkButton_Click(object sender, RoutedEventArgs e)
-    {
-        //if (book == null)
-        //    return;
-        //var position = PlayPosition;
-        //var editor = new BookmarkEditor(string.Empty) { Owner = Window.GetWindow(this) };
-        //if (editor.ShowDialog() != true)
-        //    return;
-        //var bookmark = new Bookmark() { Position = position, Title = editor.BookmarkTitle };
-        //book.Bookmarks.Add(bookmark);
-        //CheckBookmarksButton();
     }
 
     #endregion

@@ -100,7 +100,6 @@
     <Resource Include="Controls\PlayerImages\Enabled\Play.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Volume.png" />
     <Resource Include="Images\About.png" />
-    <Resource Include="Controls\PlayerImages\Disabled\AddBookmark.png" />
     <Resource Include="Controls\PlayerImages\Disabled\Back.png" />
     <Resource Include="Images\Buttons\Disabled\Bookmarks.png" />
     <Resource Include="Images\Buttons\Disabled\Chapters.png" />
@@ -113,7 +112,6 @@
     <Resource Include="Controls\PlayerImages\Disabled\Skip.png" />
     <Resource Include="Images\Buttons\Enabled\About.png" />
     <Resource Include="Images\Buttons\Enabled\AddBook.png" />
-    <Resource Include="Controls\PlayerImages\Enabled\AddBookmark.png" />
     <Resource Include="Images\Buttons\Enabled\AllBooks.png" />
     <Resource Include="Images\Buttons\Enabled\Authors.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Back.png" />

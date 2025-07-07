@@ -166,18 +166,10 @@
             <Button x:Name="BookmarksButton"
                     Style="{StaticResource ButtonStyle}"
                     Template="{StaticResource ButtonTemplate}"
-                    Margin="8,4,0,4"
+                    Margin="8,4,8,4"
                     ToolTip="Закладки"
                     Click="BookmarksButton_Click">
                 <Image Source="PlayerImages\Enabled\Bookmarks.png" Style="{StaticResource IconStyle}" />
-            </Button>
-            <Button x:Name="AddBookmarkButton"
-                    Style="{StaticResource ButtonStyle}"
-                    Template="{StaticResource ButtonTemplate}"
-                    Margin="8,4,8,4"
-                    ToolTip="Добавить закладку"
-                    Click="AddBookmarkButton_Click">
-                <Image Source="PlayerImages\Enabled\AddBookmark.png" Style="{StaticResource IconStyle}" />
             </Button>
         </StackPanel>
     </Grid>
