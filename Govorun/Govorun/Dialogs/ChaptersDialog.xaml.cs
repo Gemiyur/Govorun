@@ -24,6 +24,8 @@ public partial class ChaptersDialog : Window
         get => book;
         set
         {
+            if (book != value)
+                SaveChanged();
             book = value;
             LoadBook();
         }
@@ -75,6 +77,18 @@ public partial class ChaptersDialog : Window
     }
 
     /// <summary>
+    /// Сохраняет изменения в базе данных, если они были.
+    /// </summary>
+    private void SaveChanged()
+    {
+        if (hasChanges)
+        {
+            Db.UpdateBook(book);
+            hasChanges = false;
+        }
+    }
+
+    /// <summary>
     /// Выделяет в списке глав текущую (слушаемую).
     /// </summary>
     public void SelectCurrentChapter()
@@ -104,8 +118,7 @@ public partial class ChaptersDialog : Window
 
     private void Window_Closed(object sender, EventArgs e)
     {
-        if (hasChanges)
-            Db.UpdateBook(book);
+        SaveChanged();
         App.GetMainWindow().Activate();
     }
 
