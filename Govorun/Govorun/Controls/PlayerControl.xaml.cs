@@ -64,7 +64,7 @@ public partial class PlayerControl : UserControl
             SetPlayingControlsEnabled(true);
             SetInfoButtonEnabled(true);
             SetChaptersButtonEnabled(book.Chapters.Any());
-            SetBookmarksButtonEnabled(book.Bookmarks.Any());
+            SetBookmarksButtonEnabled(true);
             SetAddBookmarkButtonEnabled(true);
             Playing = true;
         }
@@ -187,8 +187,7 @@ public partial class PlayerControl : UserControl
     /// </summary>
     public void CheckBookmarksButton()
     {
-        if (book != null)
-            SetBookmarksButtonEnabled(book.Bookmarks.Any());
+        SetBookmarksButtonEnabled(book != null);
     }
 
     /// <summary>
@@ -475,9 +474,12 @@ public partial class PlayerControl : UserControl
     {
         if (book == null)
             return;
-        var dialog = new BookmarksDialog(book) { Owner = Window.GetWindow(this) };
-        if (dialog.ShowDialog() == true && dialog.Bookmark != null)
-            PlayPosition = dialog.Bookmark.Position;
+        ((MainWindow)Window.GetWindow(this)).ShowBookmarks(book);
+
+        //var dialog = new BookmarksDialog(book) { Owner = Window.GetWindow(this) };
+        //if (dialog.ShowDialog() == true && dialog.Bookmark != null)
+        //    PlayPosition = dialog.Bookmark.Position;
+
         CheckBookmarksButton();
     }
 

@@ -11,7 +11,6 @@
         MinWidth="500" MinHeight="350"
         d:Width="600" d:Height="350"
         WindowStartupLocation="CenterOwner"
-        ShowInTaskbar="False"
         Closed="Window_Closed">
 
     <Window.Resources>

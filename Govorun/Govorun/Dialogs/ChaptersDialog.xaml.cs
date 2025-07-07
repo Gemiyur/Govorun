@@ -12,11 +12,6 @@ namespace Govorun.Dialogs;
 public partial class ChaptersDialog : Window
 {
     /// <summary>
-    /// Выбранная глава книги.
-    /// </summary>
-    public Chapter? Chapter;
-
-    /// <summary>
     /// Книга.
     /// </summary>
     private Book book;
@@ -127,7 +122,6 @@ public partial class ChaptersDialog : Window
 
     private void PlayButton_Click(object sender, RoutedEventArgs e)
     {
-        Chapter = SelectedChapter;
         App.GetMainWindow().PlayBook(book, SelectedChapter.StartTime);
     }
 

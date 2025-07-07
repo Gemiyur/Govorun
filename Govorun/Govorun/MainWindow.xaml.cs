@@ -194,6 +194,33 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
+    /// Отображает окно закладок указанной книги.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public void ShowBookmarks(Book book)
+    {
+        var window = App.FindBookmarksWindow();
+        if (window != null)
+        {
+            if (window.Book != book)
+                window.Book = book;
+            if (window.WindowState != WindowState.Normal)
+                window.WindowState = WindowState.Normal;
+            // TODO: Нужно ли делать второю установку Normal, чтобы окно гарантированно было Normal?
+            // Вторая проверка для приведения окна в нормальное состояние, если оно было развёрнуто перед сворачиванием.
+            // В этом случае первая установка Normal устанавливает Maximized, а вторая уже Normal.
+            // Пока закомментировано, пусть окно будет развёрнутым, если оно было развёрнуто перед сворачиванием.
+            //if (window.WindowState != WindowState.Normal)
+            //    window.WindowState = WindowState.Normal;
+            window.Activate();
+        }
+        else
+        {
+            new BookmarksDialog(book) { Owner = this }.Show();
+        }
+    }
+
+    /// <summary>
     /// Отображает окно содержания указанной книги.
     /// </summary>
     /// <param name="book">Книга.</param>
@@ -666,8 +693,7 @@ public partial class MainWindow : Window
 
     private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItem != null &&
-            ((Book)BooksListBox.SelectedItem).Bookmarks.Any();
+        e.CanExecute = BooksListBox != null && BooksListBox.SelectedItem != null;
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -680,22 +706,7 @@ public partial class MainWindow : Window
     private void Bookmarks_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         var book = (Book)BooksListBox.SelectedItem;
-        var dialog = new BookmarksDialog(book) { Owner = this };
-        var dialogResult = dialog.ShowDialog() == true;
-        Player.CheckBookmarksButton();
-        if (!dialogResult || dialog.Bookmark == null)
-            return;
-        if (book != Player.Book)
-        {
-            SavePlayerBookPlayPosition();
-            book.PlayPosition = dialog.Bookmark.Position;
-            Player.Book = book;
-        }
-        else
-        {
-            Player.PlayPosition = dialog.Bookmark.Position;
-            Player.Play();
-        }
+        ShowBookmarks(book);
     }
 
     private void NotListen_CanExecute(object sender, CanExecuteRoutedEventArgs e)

@@ -12,14 +12,22 @@ namespace Govorun.Dialogs;
 public partial class BookmarksDialog : Window
 {
     /// <summary>
-    /// Выбранная закладка книги.
+    /// Книга.
     /// </summary>
-    public Bookmark? Bookmark;
+    private Book book;
 
     /// <summary>
     /// Книга.
     /// </summary>
-    private readonly Book book;
+    public Book Book
+    {
+        get => book;
+        set
+        {
+            book = value;
+            LoadBook();
+        }
+    }
 
     /// <summary>
     /// Коллекция закладок книги.
@@ -36,29 +44,43 @@ public partial class BookmarksDialog : Window
     /// </summary>
     private Bookmark SelectedBookmark => (Bookmark)BookmarksListBox.SelectedItem;
 
+    /// <summary>
+    /// Инициализирует новый экземпляр класса.
+    /// </summary>
+    /// <param name="book">Книга.</param>
     public BookmarksDialog(Book book)
     {
         InitializeComponent();
         this.book = book;
         TitleTextBlock.FontSize = FontSize + 2;
-        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
-        TitleTextBlock.Text = book.Title;
-        bookmarks.AddRange(book.Bookmarks.OrderBy(x => x.Title));
-        BookmarksListBox.ItemsSource = bookmarks;
         TitleEditor.Header = "Название закладки";
-        TitleEditor.Visibility = Visibility.Collapsed;
+        BookmarksListBox.ItemsSource = bookmarks;
+        LoadBook();
         // Подписка в коде потому что при подписке в дизайнере обработчик отрабатывает,
         // но код обработчика отображается в редакторе как неиспользуемый, что не удобно.
         TitleEditor.IsVisibleChanged += TitleEditor_IsVisibleChanged;
     }
 
+    /// <summary>
+    /// Загружает книгу.
+    /// </summary>
+    private void LoadBook()
+    {
+        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
+        TitleTextBlock.Text = book.Title;
+        bookmarks.ReplaceRange(book.Bookmarks);
+        TitleEditor.Visibility = Visibility.Collapsed;
+    }
+
     private void Window_Closed(object sender, EventArgs e)
     {
-        if (!hasChanges)
-            return;
-        book.Bookmarks.Clear();
-        book.Bookmarks.AddRange(bookmarks);
-        Db.UpdateBook(book);
+        if (hasChanges)
+        {
+            book.Bookmarks.Clear();
+            book.Bookmarks.AddRange(bookmarks);
+            Db.UpdateBook(book);
+        }
+        App.GetMainWindow().Activate();
     }
 
     private void BookmarksListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -70,8 +92,7 @@ public partial class BookmarksDialog : Window
 
     private void PlayButton_Click(object sender, RoutedEventArgs e)
     {
-        Bookmark = SelectedBookmark;
-        DialogResult = true;
+        App.GetMainWindow().PlayBook(book, SelectedBookmark.Position);
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
