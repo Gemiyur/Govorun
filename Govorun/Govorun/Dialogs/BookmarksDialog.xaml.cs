@@ -62,6 +62,14 @@ public partial class BookmarksDialog : Window
     }
 
     /// <summary>
+    /// Проверяет и устанавливает доступность кнопки добавления закладки.
+    /// </summary>
+    public void CheckAddButton()
+    {
+        AddButton.IsEnabled = book == App.GetMainWindow().Player.Book;
+    }
+
+    /// <summary>
     /// Загружает книгу.
     /// </summary>
     private void LoadBook()
@@ -69,6 +77,7 @@ public partial class BookmarksDialog : Window
         AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
         TitleTextBlock.Text = book.Title;
         bookmarks.ReplaceRange(book.Bookmarks);
+        CheckAddButton();
         TitleEditor.Visibility = Visibility.Collapsed;
     }
 
@@ -93,6 +102,11 @@ public partial class BookmarksDialog : Window
     private void PlayButton_Click(object sender, RoutedEventArgs e)
     {
         App.GetMainWindow().PlayBook(book, SelectedBookmark.Position);
+    }
+
+    private void AddButton_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)

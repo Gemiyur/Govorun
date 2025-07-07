@@ -44,6 +44,9 @@ public partial class PlayerControl : UserControl
             book = value;
             IsEnabled = book != null;
             FailedTextBlock.Visibility = Visibility.Collapsed;
+            var bookmarksWindow = App.FindBookmarksWindow();
+            if (bookmarksWindow != null)
+                bookmarksWindow.CheckAddButton();
             if (book == null)
             {
                 Player.Source = null;
@@ -475,12 +478,6 @@ public partial class PlayerControl : UserControl
         if (book == null)
             return;
         ((MainWindow)Window.GetWindow(this)).ShowBookmarks(book);
-
-        //var dialog = new BookmarksDialog(book) { Owner = Window.GetWindow(this) };
-        //if (dialog.ShowDialog() == true && dialog.Bookmark != null)
-        //    PlayPosition = dialog.Bookmark.Position;
-
-        CheckBookmarksButton();
     }
 
     private void AddBookmarkButton_Click(object sender, RoutedEventArgs e)
