@@ -146,12 +146,30 @@ public static class Library
         Books.Find(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
 
     /// <summary>
+    /// Закрывает открытые окна указанной книги.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public static void CloseBookWindows(Book book)
+    {
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null && bookInfoWindow.Book == book)
+            bookInfoWindow.Close();
+        var bookmarksWindow = App.FindBookmarksWindow();
+        if (bookmarksWindow != null && bookmarksWindow.Book == book)
+            bookmarksWindow.Close();
+        var chaptersWindow = App.FindChaptersWindow();
+        if (chaptersWindow != null && chaptersWindow.Book == book)
+            chaptersWindow.Close();
+    }
+
+    /// <summary>
     /// Удаляет книгу из библиотеки и возвращает удалось ли удалить книгу.
     /// </summary>
     /// <param name="book">Книга для удаления.</param>
     /// <returns>Удалось ли удалить книгу.</returns>
     public static bool DeleteBook(Book book)
     {
+        CloseBookWindows(book);
         if (!Db.DeleteBook(book.BookId))
             return false;
         Books.Remove(book);
@@ -170,6 +188,7 @@ public static class Library
         var collection = Db.GetBooksCollection(db);
         foreach (var book in books)
         {
+            CloseBookWindows(book);
             if (!collection.Delete(book.BookId))
                 continue;
             result.Add(book);
