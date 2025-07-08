@@ -198,6 +198,23 @@ public static class Library
     }
 
     /// <summary>
+    /// Обновляет открытые окна указанной книги.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public static void UpdateBookWindows(Book book)
+    {
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null && bookInfoWindow.Book == book)
+            bookInfoWindow.UpdateBook();
+        var bookmarksWindow = App.FindBookmarksWindow();
+        if (bookmarksWindow != null && bookmarksWindow.Book == book)
+            bookmarksWindow.UpdateBook();
+        var chaptersWindow = App.FindChaptersWindow();
+        if (chaptersWindow != null && chaptersWindow.Book == book)
+            chaptersWindow.UpdateBook();
+    }
+
+    /// <summary>
     /// Обновляет книги из списка в библиотеке и возвращает список обновлённых книг.
     /// </summary>
     /// <param name="books">Список книг для обновления.</param>
@@ -210,7 +227,12 @@ public static class Library
         foreach (var book in books)
         {
             if (collection.Update(book))
+            {
+                var bookInfoWindow = App.FindBookInfoWindow();
+                if (bookInfoWindow != null && bookInfoWindow.Book == book)
+                    bookInfoWindow.UpdateFile();
                 result.Add(book);
+            }
         }
         return result;
     }

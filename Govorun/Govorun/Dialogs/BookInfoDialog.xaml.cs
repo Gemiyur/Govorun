@@ -86,6 +86,22 @@ public partial class BookInfoDialog : Window
         FileTextBox.Text = book.FileName;
     }
 
+    /// <summary>
+    /// Обновляет данные книги в окне.
+    /// </summary>
+    public void UpdateBook()
+    {
+        LoadBook();
+    }
+
+    /// <summary>
+    /// Обновляет имя файла книги в окне.
+    /// </summary>
+    public void UpdateFile()
+    {
+        FileTextBox.Text = book.FileName;
+    }
+
     private void Window_Closed(object sender, EventArgs e)
     {
         App.GetMainWindow().Activate();

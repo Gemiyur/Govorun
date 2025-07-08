@@ -111,6 +111,16 @@ public partial class BookmarksDialog : Window
         }
     }
 
+    /// <summary>
+    /// Обновляет данные книги в окне.
+    /// </summary>
+    /// <remarks>Обновляет только авторов и название книги.</remarks>
+    public void UpdateBook()
+    {
+        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
+        TitleTextBlock.Text = book.Title;
+    }
+
     private void Window_Closed(object sender, EventArgs e)
     {
         SaveChanged();
