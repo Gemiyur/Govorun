@@ -79,6 +79,18 @@ public partial class App : Application
     public static MainWindow GetMainWindow() => (MainWindow)Current.MainWindow;
 
     /// <summary>
+    /// Возвращает окно информации о книге или null, если окна нет.
+    /// </summary>
+    /// <returns>Окно информации о книге или null, если окна нет.</returns>
+    public static BookInfoDialog? FindBookInfoWindow()
+    {
+        foreach (var window in Current.Windows)
+            if (window is BookInfoDialog bookInfoWindow)
+                return bookInfoWindow;
+        return null;
+    }
+
+    /// <summary>
     /// Возвращает окно закладок или null, если окна нет.
     /// </summary>
     /// <returns>Окно закладок или null, если окна нет.</returns>

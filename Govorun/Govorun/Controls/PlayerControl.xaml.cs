@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using Govorun.Dialogs;
 using Govorun.Models;
 
 namespace Govorun.Controls;
@@ -447,21 +446,19 @@ public partial class PlayerControl : UserControl
     private void InfoButton_Click(object sender, RoutedEventArgs e)
     {
         if (book != null)
-            new BookInfoDialog(book) { Owner = Window.GetWindow(this) }.ShowDialog();
+            ((MainWindow)Window.GetWindow(this)).ShowBookInfo(book);
     }
 
     private void ChaptersButton_Click(object sender, RoutedEventArgs e)
     {
-        if (book == null)
-            return;
-        ((MainWindow)Window.GetWindow(this)).ShowChapters(book);
+        if (book != null)
+            ((MainWindow)Window.GetWindow(this)).ShowChapters(book);
     }
 
     private void BookmarksButton_Click(object sender, RoutedEventArgs e)
     {
-        if (book == null)
-            return;
-        ((MainWindow)Window.GetWindow(this)).ShowBookmarks(book);
+        if (book != null)
+            ((MainWindow)Window.GetWindow(this)).ShowBookmarks(book);
     }
 
     #endregion

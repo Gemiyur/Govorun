@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="О книге"
         Width="600" Height="500" ResizeMode="CanResizeWithGrip"
-        MinWidth="500" MinHeight="500"
-        d:Width="600" d:Height="500"
+        MinWidth="500" MinHeight="450"
+        d:Width="600" d:Height="450"
         WindowStartupLocation="CenterOwner"
-        ShowInTaskbar="False">
+        Closed="Window_Closed">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -127,10 +127,10 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" x:Name="ListenButton" Content="Слушать"
+            <Button Grid.Column="0" x:Name="PlayButton" Content="Слушать"
                     HorizontalAlignment="Left"
                     Style="{StaticResource ButtonStyle}"
-                    Click="ListenButton_Click" />
+                    Click="PlayButton_Click" />
             <Button Grid.Column="1" x:Name="CloseButton" Content="Закрыть"
                     HorizontalAlignment="Right"
                     IsCancel="True"

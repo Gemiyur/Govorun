@@ -17,7 +17,7 @@ public partial class BookmarksDialog : Window
     private Book book;
 
     /// <summary>
-    /// Книга.
+    /// Возвращает или задаёт книгу.
     /// </summary>
     public Book Book
     {

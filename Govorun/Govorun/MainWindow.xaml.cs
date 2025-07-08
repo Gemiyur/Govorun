@@ -97,6 +97,23 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
+    /// Воспроизводит указанную книгу.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public void PlayBook(Book book)
+    {
+        if (book == Player.Book)
+        {
+            Player.Play();
+            return;
+        }
+        SavePlayerBookPlayPosition();
+        if (book.PlayPosition == TimeSpan.Zero)
+            book.PlayPosition = TimeSpan.FromMilliseconds(1);
+        Player.Book = book;
+    }
+
+    /// <summary>
     /// Воспроизводит указанную книгу с указанной позиции.
     /// </summary>
     /// <param name="book">Книга.</param>
@@ -114,24 +131,6 @@ public partial class MainWindow : Window
             Player.PlayPosition = position;
             Player.Play();
         }
-    }
-
-    /// <summary>
-    /// Запускает и выполняет диалоговое окно информации о книге.
-    /// </summary>
-    /// <param name="book"></param>
-    private void RunBookInfoDialog(Book book)
-    {
-        var dialog = new BookInfoDialog(book) { Owner = this };
-        if (dialog.ShowDialog() != true)
-            return;
-        if (book == Player.Book)
-        {
-            Player.Play();
-            return;
-        }
-        SavePlayerBookPlayPosition();
-        Player.Book = book;
     }
 
     /// <summary>
@@ -190,6 +189,33 @@ public partial class MainWindow : Window
         {
             BooksListBox.SelectedItem = book;
             BooksListBox.ScrollIntoView(BooksListBox.SelectedItem);
+        }
+    }
+
+    /// <summary>
+    /// Отображает окно информации о книге.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public void ShowBookInfo(Book book)
+    {
+        var window = App.FindBookInfoWindow();
+        if (window != null)
+        {
+            if (window.Book != book)
+                window.Book = book;
+            if (window.WindowState != WindowState.Normal)
+                window.WindowState = WindowState.Normal;
+            // TODO: Нужно ли делать второю установку Normal, чтобы окно гарантированно было Normal?
+            // Вторая проверка для приведения окна в нормальное состояние, если оно было развёрнуто перед сворачиванием.
+            // В этом случае первая установка Normal устанавливает Maximized, а вторая уже Normal.
+            // Пока закомментировано, пусть окно будет развёрнутым, если оно было развёрнуто перед сворачиванием.
+            //if (window.WindowState != WindowState.Normal)
+            //    window.WindowState = WindowState.Normal;
+            window.Activate();
+        }
+        else
+        {
+            new BookInfoDialog(book) { Owner = this }.Show();
         }
     }
 
@@ -463,7 +489,7 @@ public partial class MainWindow : Window
     private void BooksListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if (BooksListBox.SelectedItem != null && (e.OriginalSource is TextBlock || e.OriginalSource is Border))
-            RunBookInfoDialog((Book)BooksListBox.SelectedItem);
+            ShowBookInfo((Book)BooksListBox.SelectedItem);
     }
 
     #endregion
@@ -644,15 +670,7 @@ public partial class MainWindow : Window
     private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         var book = (Book)BooksListBox.SelectedItem;
-        if (book == Player.Book)
-        {
-            Player.Play();
-            return;
-        }
-        SavePlayerBookPlayPosition();
-        if (book.PlayPosition == TimeSpan.Zero)
-            book.PlayPosition = TimeSpan.FromMilliseconds(1);
-        Player.Book = book;
+        PlayBook(book);
     }
 
     private void Info_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -669,7 +687,7 @@ public partial class MainWindow : Window
 
     private void Info_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        RunBookInfoDialog((Book)BooksListBox.SelectedItem);
+        ShowBookInfo((Book)BooksListBox.SelectedItem);
     }
 
     private void Chapters_CanExecute(object sender, CanExecuteRoutedEventArgs e)

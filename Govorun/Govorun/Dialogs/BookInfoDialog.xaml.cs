@@ -8,17 +8,52 @@ namespace Govorun.Dialogs;
 /// </summary>
 public partial class BookInfoDialog : Window
 {
+    /// <summary>
+    /// Книга.
+    /// </summary>
+    private Book book;
+
+    /// <summary>
+    /// Возвращает или задаёт книгу.
+    /// </summary>
+    public Book Book
+    {
+        get => book;
+        set
+        {
+            book = value;
+            LoadBook();
+        }
+    }
+
+    /// <summary>
+    /// Инициализирует новый экземпляр класса.
+    /// </summary>
+    /// <param name="book">Книга.</param>
     public BookInfoDialog(Book book)
     {
         InitializeComponent();
-        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
+        this.book = book;
         TitleTextBlock.FontSize = FontSize + 2;
+        LoadBook();
+    }
+
+    /// <summary>
+    /// Загружает книгу.
+    /// </summary>
+    private void LoadBook()
+    {
+        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
         TitleTextBlock.Text = book.Title;
         if (book.Cycle != null)
         {
+            CycleGrid.Visibility = Visibility.Visible;
             CycleTitleTextBlock.Text = book.Cycle.Title;
             if (book.CyclePart.Length > 0)
+            {
+                CycleNumberStackPanel.Visibility = Visibility.Visible;
                 CycleNumberTextBlock.Text = book.CyclePart;
+            }
             else
                 CycleNumberStackPanel.Visibility = Visibility.Collapsed;
         }
@@ -30,6 +65,7 @@ public partial class BookInfoDialog : Window
         DurationTextBlock.Text = book.DurationText;
         if (book.Translator.Length > 0)
         {
+            TranslatorStackPanel.Visibility = Visibility.Visible;
             TranslatorTextBlock.Text = book.Translator;
         }
         else
@@ -38,6 +74,7 @@ public partial class BookInfoDialog : Window
         }
         if (book.Tags.Count > 0)
         {
+            TagsGrid.Visibility = Visibility.Visible;
             TagsTextBlock.Text =
                 App.ListToString(book.Tags, "; ", x => ((Tag)x).Title, StringComparer.CurrentCultureIgnoreCase);
         }
@@ -49,9 +86,14 @@ public partial class BookInfoDialog : Window
         FileTextBox.Text = book.FileName;
     }
 
-    private void ListenButton_Click(object sender, RoutedEventArgs e)
+    private void Window_Closed(object sender, EventArgs e)
     {
-        DialogResult = true;
+        App.GetMainWindow().Activate();
+    }
+
+    private void PlayButton_Click(object sender, RoutedEventArgs e)
+    {
+        App.GetMainWindow().PlayBook(book);
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)
