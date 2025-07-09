@@ -9,9 +9,9 @@
         <ResourceDictionary>
             <SolidColorBrush x:Key="TextBoxReadOnlyBackgroundBrush" Color="#FFF0F0F0" />
 
-            <SolidColorBrush x:Key="SelectedListBoxItemBackgroundBrush" Color="#FFCBE8F6" />
+            <SolidColorBrush x:Key="SelectedListItemBackgroundBrush" Color="#FFCBE8F6" />
 
-            <SolidColorBrush x:Key="MouseOverListBoxItemBackgroundBrush" Color="AliceBlue" />
+            <SolidColorBrush x:Key="MouseOverListItemBackgroundBrush" Color="AliceBlue" />
 
             <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
                 <Setter Property="Template">
@@ -23,7 +23,7 @@
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter TargetName="Border" Property="Background"
-                                            Value="{StaticResource SelectedListBoxItemBackgroundBrush}" />
+                                            Value="{StaticResource SelectedListItemBackgroundBrush}" />
                                 </Trigger>
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
@@ -32,7 +32,7 @@
                                     </MultiTrigger.Conditions>
                                     <MultiTrigger.Setters>
                                         <Setter TargetName="Border" Property="Background"
-                                                Value="{StaticResource MouseOverListBoxItemBackgroundBrush}" />
+                                                Value="{StaticResource MouseOverListItemBackgroundBrush}" />
                                     </MultiTrigger.Setters>
                                 </MultiTrigger>
                             </ControlTemplate.Triggers>

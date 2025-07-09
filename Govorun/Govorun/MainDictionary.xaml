@@ -35,7 +35,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="{StaticResource SelectedListBoxItemBackgroundBrush}" />
+                <Setter Property="Background" Value="{StaticResource SelectedListItemBackgroundBrush}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -43,7 +43,7 @@
                     <Condition Property="IsMouseOver" Value="True" />
                 </MultiTrigger.Conditions>
                 <MultiTrigger.Setters>
-                    <Setter Property="Background" Value="{StaticResource MouseOverListBoxItemBackgroundBrush}" />
+                    <Setter Property="Background" Value="{StaticResource MouseOverListItemBackgroundBrush}" />
                 </MultiTrigger.Setters>
             </MultiTrigger>
         </Style.Triggers>
