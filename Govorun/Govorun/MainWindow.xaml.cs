@@ -96,11 +96,10 @@ public partial class MainWindow : Window
     {
         if (!Properties.Settings.Default.LoadLastBook)
             return;
-        // TODO: Может в настройках хранить не имя файла книги, идентификатор книги? Надо подумать.
-        var lastBookFileName = Properties.Settings.Default.LastBook;
-        if (string.IsNullOrWhiteSpace(lastBookFileName))
+        var lastBookId = Properties.Settings.Default.LastBookId;
+        if (lastBookId == 0)
             return;
-        var lastBook = Library.GetBookWithFile(lastBookFileName);
+        var lastBook = Library.GetBook(lastBookId);
         if (lastBook == null)
             return;
         Player.PlayOnLoad = false;
@@ -175,10 +174,8 @@ public partial class MainWindow : Window
     /// <remarks>Используется при закрытии приложения.</remarks>
     private void SaveLastBook()
     {
-        // TODO: Может в настройках хранить не имя файла книги, идентификатор книги? Надо подумать.
         var book = Player.Book;
-        var filename = book != null && !Player.MediaFailed ? book.FileName : "";
-        Properties.Settings.Default.LastBook = filename;
+        Properties.Settings.Default.LastBookId = book != null && !Player.MediaFailed ? book.BookId : 0;
     }
 
     /// <summary>

@@ -61,13 +61,13 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastBook {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LastBookId {
             get {
-                return ((string)(this["LastBook"]));
+                return ((int)(this["LastBookId"]));
             }
             set {
-                this["LastBook"] = value;
+                this["LastBookId"] = value;
             }
         }
         

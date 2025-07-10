@@ -105,6 +105,13 @@ public static class Library
         Books.Exists(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
 
     /// <summary>
+    /// Возвращает книгу с указанным идентификатором.
+    /// </summary>
+    /// <param name="bookId">Идентификатор книги.</param>
+    /// <returns>Книга с указанным идентификатором.</returns>
+    public static Book? GetBook(int bookId) => Books.Find(x => x.BookId == bookId);
+
+    /// <summary>
     /// Возвращает список книг указанного автора.
     /// </summary>
     /// <param name="authorId">Идентификатор автора.</param>
@@ -136,14 +143,6 @@ public static class Library
     /// <remarks>Книги отсортированы по названию.</remarks>
     public static List<Book> GetTagBooks(int tagId) =>
         [.. Books.FindAll(x => BookHasTag(x, tagId)).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
-
-    /// <summary>
-    /// Возвращает книгу с указанным именем файла.
-    /// </summary>
-    /// <param name="filename">Имя файла.</param>
-    /// <returns>Книга с указанным именем файла.</returns>
-    public static Book? GetBookWithFile(string filename) =>
-        Books.Find(x => x.FileName.Equals(filename, StringComparison.CurrentCultureIgnoreCase));
 
     /// <summary>
     /// Закрывает открытые окна указанной книги.
