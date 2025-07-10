@@ -82,5 +82,17 @@ namespace Govorun.Properties {
                 this["LoadLastBook"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool NavAuthorFullName {
+            get {
+                return ((bool)(this["NavAuthorFullName"]));
+            }
+            set {
+                this["NavAuthorFullName"] = value;
+            }
+        }
     }
 }

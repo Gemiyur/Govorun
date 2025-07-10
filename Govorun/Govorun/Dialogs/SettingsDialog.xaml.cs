@@ -14,6 +14,7 @@ public partial class SettingsDialog : Window
     {
         InitializeComponent();
         LoadLastBookCheckBox.IsChecked = Properties.Settings.Default.LoadLastBook;
+        NavAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.NavAuthorFullName;
 #if DEBUG
         DbNameTextBox.Text = Properties.Settings.Default.DebugDbName;
 #else
@@ -40,6 +41,8 @@ public partial class SettingsDialog : Window
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         Properties.Settings.Default.LoadLastBook = LoadLastBookCheckBox.IsChecked == true;
+        Properties.Settings.Default.NavAuthorFullName = NavAuthorFullNameCheckBox.IsChecked == true;
+        App.GetMainWindow().CheckAuthorsNameFormat();
         if (DbNameChanged)
         {
 #if DEBUG

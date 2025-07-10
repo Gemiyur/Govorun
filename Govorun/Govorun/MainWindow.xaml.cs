@@ -65,6 +65,7 @@ public partial class MainWindow : Window
         }
         Authors.AddRange(Db.GetAuthors());
         AuthorsListBox.ItemsSource = Authors;
+        CheckAuthorsNameFormat();
         Cycles.AddRange(Db.GetCycles());
         CyclesListBox.ItemsSource = Cycles;
         Tags.AddRange(Db.GetTags());
@@ -74,6 +75,16 @@ public partial class MainWindow : Window
         UpdateStatusBarBooksCount();
         Player.IsEnabled = false;
         LoadLastBook();
+    }
+
+    /// <summary>
+    /// Устанавливает формат отображения имён авторов в панели навигации.
+    /// </summary>
+    public void CheckAuthorsNameFormat()
+    {
+        AuthorsListBox.ItemTemplate = Properties.Settings.Default.NavAuthorFullName
+            ? (DataTemplate)FindResource("AuthorFullNameDataTemplate")
+            : (DataTemplate)FindResource("AuthorShortNameDataTemplate");
     }
 
     /// <summary>
