@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Настройки"
-        Width="500" Height="270" ResizeMode="NoResize"
+        Width="500" Height="320" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -45,6 +45,12 @@
                 <CheckBox x:Name="NavAuthorFullNameCheckBox"
                       Content="В панеле навигации отображать полные имена авторов"
                       Style="{StaticResource ParamCheckBoxStyle}" />
+                <CheckBox x:Name="SaveBookWindowsLocationCheckBox"
+                      Content="Сохранять положение и размеры окон книги"
+                      Style="{StaticResource ParamCheckBoxStyle}" />
+                <CheckBox x:Name="SaveMainWindowLocationCheckBox"
+                      Content="Сохранять положение и размер окна приложения"
+                      Style="{StaticResource ParamCheckBoxStyle}" />
             </StackPanel>
         </GroupBox>
 
@@ -56,7 +62,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <Grid Margin="0,4,0,0">
+                <Grid Margin="0,8,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="Auto" />
