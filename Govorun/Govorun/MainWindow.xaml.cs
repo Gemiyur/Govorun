@@ -400,11 +400,28 @@ public partial class MainWindow : Window
 
     #region Обработчики событий окна.
 
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (Properties.Settings.Default.SaveMainWindowLocation &&
+            App.SizeDefined(Properties.Settings.Default.MainWindowSize))
+        {
+            Left = Properties.Settings.Default.MainWindowPos.X;
+            Top = Properties.Settings.Default.MainWindowPos.Y;
+            Width = Properties.Settings.Default.MainWindowSize.Width;
+            Height = Properties.Settings.Default.MainWindowSize.Height;
+        }
+    }
+
     private void Window_Closed(object sender, EventArgs e)
     {
         SavePlayerBookPlayPosition();
         SaveLastBook();
         SavePlayerVolume();
+        if (Properties.Settings.Default.SaveMainWindowLocation)
+        {
+            Properties.Settings.Default.MainWindowPos = new System.Drawing.Point((int)Left, (int)Top);
+            Properties.Settings.Default.MainWindowSize = new System.Drawing.Size((int)Width, (int)Height);
+        }
         Properties.Settings.Default.Save();
     }
 
