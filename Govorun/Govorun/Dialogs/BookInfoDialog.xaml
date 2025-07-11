@@ -10,6 +10,7 @@
         MinWidth="500" MinHeight="450"
         d:Width="600" d:Height="450"
         WindowStartupLocation="CenterOwner"
+        Loaded="Window_Loaded"
         Closed="Window_Closed">
 
     <Window.Resources>

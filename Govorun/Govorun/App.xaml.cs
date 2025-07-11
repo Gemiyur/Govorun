@@ -70,6 +70,14 @@ public partial class App : Application
         return book;
     }
 
+    /// <summary>
+    /// Возвращает задан ли указанный размер.
+    /// </summary>
+    /// <remarks>Возвращает true если высота и ширина больше нуля.</remarks>
+    /// <param name="size">Размер.</param>
+    /// <returns></returns>
+    public static bool SizeDefined(System.Drawing.Size size) => size.Width > 0 && size.Height > 0;
+
     #region Получение окон приложения.
 
     /// <summary>

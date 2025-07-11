@@ -121,9 +121,26 @@ public partial class BookmarksDialog : Window
         TitleTextBlock.Text = book.Title;
     }
 
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (Properties.Settings.Default.SaveBookWindowsLocation &&
+            App.SizeDefined(Properties.Settings.Default.BookmarksSize))
+        {
+            Left = Properties.Settings.Default.BookmarksPos.X;
+            Top = Properties.Settings.Default.BookmarksPos.Y;
+            Width = Properties.Settings.Default.BookmarksSize.Width;
+            Height = Properties.Settings.Default.BookmarksSize.Height;
+        }
+    }
+
     private void Window_Closed(object sender, EventArgs e)
     {
         SaveChanged();
+        if (Properties.Settings.Default.SaveBookWindowsLocation)
+        {
+            Properties.Settings.Default.BookmarksPos = new System.Drawing.Point((int)Left, (int)Top);
+            Properties.Settings.Default.BookmarksSize = new System.Drawing.Size((int)Width, (int)Height);
+        }
         App.GetMainWindow().Activate();
     }
 
