@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Настройки"
-        Width="500" Height="320" ResizeMode="NoResize"
+        Width="500" Height="400" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -15,6 +15,9 @@
             <Style x:Key="ButtonStyle" TargetType="Button">
                 <Setter Property="Width" Value="75" />
                 <Setter Property="Height" Value="25" />
+            </Style>
+            <Style x:Key="DbButtonStyle" TargetType="Button">
+                <Setter Property="Width" Value="70" />
             </Style>
             <Style x:Key="DbChangedStackPanelStyle" TargetType="StackPanel">
                 <Setter Property="Margin" Value="0,4,0,0" />
@@ -32,6 +35,7 @@
 
     <Grid Margin="10,10,10,10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -54,35 +58,45 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Header="База данных" Margin="0,10,0,0">
+        <GroupBox Grid.Row="1" Header="Сжатие базы данных" Margin="0,10,0,0">
+            <Grid Grid.Row="0" Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Сжатие удалит неиспользуемое пространство из базы данных." />
+                <Button Grid.Column="1" x:Name="DbShrinkButton" Content="Сжать"
+                        Style="{StaticResource DbButtonStyle}"
+                        Margin="8,0,0,4"
+                        Click="DbShrinkButton_Click" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Header="Файл базы данных" Margin="0,10,0,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-
-                <Grid Margin="0,8,0,0">
+                <Grid Grid.Row="0" Margin="0,8,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    
                     <TextBox Grid.Column="0" x:Name="DbNameTextBox"
                              Style="{StaticResource ReadOnlyTextBoxStyle}" />
                     <Button Grid.Column="1" x:Name="DbNameButton" Content="Изменить"
-                            Width="70"
+                            Style="{StaticResource DbButtonStyle}"
                             Margin="8,0,0,0"
                             Click="DbNameButton_Click" />
                 </Grid>
-
                 <StackPanel Grid.Row="1" Grid.Column="0" x:Name="DbChangedStackPanel"
                             Style="{StaticResource DbChangedStackPanelStyle}"
                             Visibility="Collapsed">
                     <TextBlock Text="Файл базы данных был изменён." Foreground="Red" FontWeight="Bold" />
                     <TextBlock Text="Изменение вступит в силу при следующем запуске приложения." />
                 </StackPanel>
-
                 <StackPanel Grid.Row="2" Grid.Column="0" x:Name="DbNotChangedStackPanel"
                             Style="{StaticResource DbChangedStackPanelStyle}">
                     <TextBlock Text="Важно!" />
@@ -93,11 +107,13 @@
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button x:Name="SaveButton" Content="Сохранить"
-                    Style="{StaticResource ButtonStyle}" Click="SaveButton_Click" />
+                    Style="{StaticResource ButtonStyle}"
+                    Click="SaveButton_Click" />
             <Button x:Name="CancelButton" Content="Отмена"
                     Style="{StaticResource ButtonStyle}"
                     IsCancel="True"
-                    Margin="10,0,0,0" Click="CancelButton_Click" />
+                    Margin="10,0,0,0"
+                    Click="CancelButton_Click" />
         </StackPanel>
     </Grid>
 </Window>

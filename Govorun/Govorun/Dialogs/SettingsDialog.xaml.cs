@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Govorun.Tools;
 
 namespace Govorun.Dialogs;
 
@@ -29,6 +30,14 @@ public partial class SettingsDialog : Window
     {
         DbChangedStackPanel.Visibility = DbNameChanged ? Visibility.Visible : Visibility.Collapsed;
         DbNotChangedStackPanel.Visibility = DbNameChanged ? Visibility.Collapsed : Visibility.Visible;
+        DbShrinkButton.IsEnabled = !DbNameChanged;
+    }
+
+    private void DbShrinkButton_Click(object sender, RoutedEventArgs e)
+    {
+        // TODOL: После каждого сжатия библиотеки создаётся файл резервной копии. Что с ним делать?
+        Db.Shrink();
+        MessageBox.Show($"Сжатие базы данных библиотеки завершено.", Title);
     }
 
     private void DbNameButton_Click(object sender, RoutedEventArgs e)
@@ -61,14 +70,11 @@ public partial class SettingsDialog : Window
             Properties.Settings.Default.MainWindowPos = new System.Drawing.Point(0, 0);
             Properties.Settings.Default.MainWindowSize = new System.Drawing.Size(0, 0);
         }
-        if (DbNameChanged)
-        {
 #if DEBUG
-            Properties.Settings.Default.DebugDbName = DbNameTextBox.Text;
+        Properties.Settings.Default.DebugDbName = DbNameTextBox.Text;
 #else
-            Properties.Settings.Default.DbName = DbNameTextBox.Text;
+        Properties.Settings.Default.DbName = DbNameTextBox.Text;
 #endif
-        }
         DialogResult = true;
     }
 
