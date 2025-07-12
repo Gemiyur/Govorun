@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.IO;
+using System.Windows;
 using Govorun.Tools;
 
 namespace Govorun.Dialogs;
@@ -35,7 +37,12 @@ public partial class SettingsDialog : Window
 
     private void DbShrinkButton_Click(object sender, RoutedEventArgs e)
     {
-        // TODOL: После каждого сжатия библиотеки создаётся файл резервной копии. Что с ним делать?
+        var path = Path.GetDirectoryName(App.DbName) ?? "";
+        var name = Path.GetFileNameWithoutExtension(App.DbName);
+        var ext = Path.GetExtension(App.DbName);
+        var filename = Path.Combine(path, name + "-backup" + ext);
+        try { File.Delete(filename); }
+        catch { }
         Db.Shrink();
         MessageBox.Show($"Сжатие базы данных библиотеки завершено.", Title);
     }
