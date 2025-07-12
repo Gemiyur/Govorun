@@ -35,8 +35,6 @@
                         Executed="Tags_Executed" />
         <CommandBinding Command="local:AppCommands.CheckLibrary"
                         Executed="CheckLibrary_Executed" />
-        <CommandBinding Command="local:AppCommands.Shrink"
-                        Executed="Shrink_Executed" />
         <CommandBinding Command="local:AppCommands.Settings"
                         Executed="Settings_Executed" />
         <CommandBinding Command="local:AppCommands.Exit"
@@ -115,12 +113,6 @@
                           Command="local:AppCommands.CheckLibrary">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\CheckLibrary.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Style="{StaticResource MenuItemStyle}"
-                          Command="local:AppCommands.Shrink">
-                    <MenuItem.Icon>
-                        <Image Source="Images\Buttons\Enabled\Shrink.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
@@ -219,10 +211,6 @@
                 <Button Style="{StaticResource ToolBarButtonStyle}"
                         Command="local:AppCommands.CheckLibrary">
                     <Image Source="Images\Buttons\Enabled\CheckLibrary.png" Style="{StaticResource ToolBarIconStyle}" />
-                </Button>
-                <Button Style="{StaticResource ToolBarButtonStyle}"
-                        Command="local:AppCommands.Shrink">
-                    <Image Source="Images\Buttons\Enabled\Shrink.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
                 <Button Style="{StaticResource ToolBarButtonStyle}"

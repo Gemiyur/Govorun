@@ -655,17 +655,6 @@ public partial class MainWindow : Window
         }
     }
 
-    private void Shrink_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        //// TODOL: После каждого сжатия библиотеки создаётся файл резервной копии. Что с ним делать?
-        //if (MessageBox.Show("Сжать базу данных библиотеки?", Title, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
-        //{
-        //    return;
-        //}
-        //Db.Shrink();
-        //MessageBox.Show($"Сжатие базы данных библиотеки завершено.", Title);
-    }
-
     private void Settings_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         new SettingsDialog() { Owner = this }.ShowDialog();

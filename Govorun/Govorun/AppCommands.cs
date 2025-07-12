@@ -40,11 +40,6 @@ public static class AppCommands
     public static RoutedUICommand CheckLibrary { get; private set; }
 
     /// <summary>
-    /// Команда сжатия библиотеки.
-    /// </summary>
-    public static RoutedUICommand Shrink { get; private set; }
-
-    /// <summary>
     /// Команда настроек приложения.
     /// </summary>
     public static RoutedUICommand Settings { get; private set; }
@@ -116,7 +111,6 @@ public static class AppCommands
         Cycles = new RoutedUICommand("Серии...", "Cycles", typeof(AppCommands));
         Tags = new RoutedUICommand("Теги...", "Tags", typeof(AppCommands));
         CheckLibrary = new RoutedUICommand("Проверить библиотеку...", "CheckLibrary", typeof(AppCommands));
-        Shrink = new RoutedUICommand("Сжать библиотеку...", "Shrink", typeof(AppCommands));
         Settings = new RoutedUICommand("Настройки...", "Settings", typeof(AppCommands));
         Exit = new RoutedUICommand("Выход...", "Exit", typeof(AppCommands));
 
