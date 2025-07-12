@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -9,10 +8,6 @@ using Govorun.Models;
 using Govorun.Dialogs;
 
 namespace Govorun;
-
-#region Задачи (TODO).
-
-#endregion
 
 /// <summary>
 /// Класс приложения.
@@ -231,46 +226,6 @@ public partial class App : Application
     /// <param name="timeSpan">Интервал времени.</param>
     /// <returns>Строковое представление интервала времени.</returns>
     public static string TimeSpanToString(TimeSpan timeSpan) => timeSpan.ToString(@"h\:mm\:ss");
-
-    #endregion
-
-    #region Удаление файлов.
-
-    /// <summary>
-    /// Удаляет указанный.
-    /// </summary>
-    /// <param name="fileName">Имя файла с полным путём.</param>
-    /// <returns>Удалось ли удалить файл.</returns>
-    public static bool DeleteFile(string fileName)
-    {
-        try
-        {
-            File.Delete(fileName);
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Удаляет указанный файл в корзину.
-    /// </summary>
-    /// <param name="fileName">Имя файла с полным путём.</param>
-    /// <returns>Удалось ли удалить файл.</returns>
-    public static bool DeleteFileToRecycleBin(string fileName)
-    {
-        try
-        {
-            FileSystem.DeleteFile(fileName, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
-    }
 
     #endregion
 }
