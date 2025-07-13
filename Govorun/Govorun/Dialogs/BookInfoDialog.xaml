@@ -16,7 +16,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="Width" Value="75" />
+                <Setter Property="Width" Value="90" />
                 <Setter Property="Height" Value="25" />
             </Style>
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
@@ -52,8 +52,24 @@
                    TextAlignment="Center"
                    Margin="8,10,8,0" />
 
+        <!-- Чтец и продолжительность -->
+        <Grid Grid.Row="2" Margin="8,10,8,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <TextBlock Text="Читает:" Margin="0,0,5,0" />
+                <TextBlock x:Name="LectorTextBlock" Text="Чтец" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Время:" Margin="25,0,5,0" />
+                <TextBlock x:Name="DurationTextBlock" Text="000:00:00" />
+            </StackPanel>
+        </Grid>
+
         <!-- Серия и номер -->
-        <Grid Grid.Row="2" x:Name="CycleGrid" Margin="8,10,8,0">
+        <Grid Grid.Row="3" x:Name="CycleGrid" Margin="8,4,8,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />
@@ -72,30 +88,14 @@
             </StackPanel>
         </Grid>
 
-        <!-- Чтец и продолжительность -->
-        <Grid Grid.Row="3" Margin="8,10,8,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <TextBlock Text="Читает:" Margin="0,0,5,0" />
-                <TextBlock x:Name="LectorTextBlock" Text="Чтец" />
-            </StackPanel>
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Время:" Margin="25,0,5,0" />
-                <TextBlock x:Name="DurationTextBlock" Text="000:00:00" />
-            </StackPanel>
-        </Grid>
-
         <!-- Перевод -->
-        <StackPanel Grid.Row="4" x:Name="TranslatorStackPanel" Orientation="Horizontal" Margin="8,10,8,0">
+        <StackPanel Grid.Row="4" x:Name="TranslatorStackPanel" Orientation="Horizontal" Margin="8,4,8,0">
             <TextBlock Text="Перевод:" Margin="0,0,5,0" />
             <TextBlock x:Name="TranslatorTextBlock" Text="Переводчик" />
         </StackPanel>
 
         <!-- Теги -->
-        <Grid Grid.Row="5" x:Name="TagsGrid" Margin="8,10,8,0">
+        <Grid Grid.Row="5" x:Name="TagsGrid" Margin="8,4,8,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
@@ -126,12 +126,24 @@
         <Grid Grid.Row="8" Margin="0,16,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" x:Name="PlayButton" Content="Слушать"
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button x:Name="PlayButton" Content="Слушать"
                     HorizontalAlignment="Left"
                     Style="{StaticResource ButtonStyle}"
                     Click="PlayButton_Click" />
+                <Button x:Name="ChaptersButton" Content="Содержание"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource ButtonStyle}"
+                    Margin="10,0,0,0"
+                    Click="ChaptersButton_Click" />
+                <Button x:Name="BookmarksButton" Content="Закладки"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource ButtonStyle}"
+                    Margin="10,0,0,0"
+                    Click="BookmarksButton_Click" />
+            </StackPanel>
             <Button Grid.Column="1" x:Name="CloseButton" Content="Закрыть"
                     HorizontalAlignment="Right"
                     IsCancel="True"
