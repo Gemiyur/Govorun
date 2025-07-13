@@ -112,14 +112,14 @@ public static class AppCommands
         Tags = new RoutedUICommand("Теги...", "Tags", typeof(AppCommands));
         CheckLibrary = new RoutedUICommand("Проверить библиотеку...", "CheckLibrary", typeof(AppCommands));
         Settings = new RoutedUICommand("Настройки...", "Settings", typeof(AppCommands));
-        Exit = new RoutedUICommand("Выход...", "Exit", typeof(AppCommands));
+        Exit = new RoutedUICommand("Выход", "Exit", typeof(AppCommands));
 
         // Команды группы "Книга".
         Play = new RoutedUICommand("Слушать", "Play", typeof(AppCommands));
-        Info = new RoutedUICommand("О книге...", "Info", typeof(AppCommands));
-        Chapters = new RoutedUICommand("Содержание...", "Chapters", typeof(AppCommands));
-        Bookmarks = new RoutedUICommand("Закладки...", "Bookmarks", typeof(AppCommands));
-        NotListen = new RoutedUICommand("Не слушаю...", "NotListen", typeof(AppCommands));
+        Info = new RoutedUICommand("О книге", "Info", typeof(AppCommands));
+        Chapters = new RoutedUICommand("Содержание", "Chapters", typeof(AppCommands));
+        Bookmarks = new RoutedUICommand("Закладки", "Bookmarks", typeof(AppCommands));
+        NotListen = new RoutedUICommand("Не слушаю", "NotListen", typeof(AppCommands));
         Edit = new RoutedUICommand("Изменить...", "Edit", typeof(AppCommands));
         Delete = new RoutedUICommand("Удалить...", "Delete", typeof(AppCommands));
 
