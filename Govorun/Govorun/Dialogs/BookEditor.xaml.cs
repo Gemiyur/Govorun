@@ -114,8 +114,7 @@ public partial class BookEditor : Window
         InitializeComponent();
         if (book == null)
         {
-            // TODOL: Выдавать сообщение всегда или только при отладке?
-            MessageBox.Show("Не указана книга: book == null.", "Ошибка");
+            MessageBox.Show("Не указана книга: book == null.", Title);
             throw new ArgumentException("Не указана книга: book == null.", nameof(book));
         }
         this.book = book;
