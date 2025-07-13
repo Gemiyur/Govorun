@@ -118,6 +118,19 @@ public partial class App : Application
         return null;
     }
 
+    /// <summary>
+    /// Восстанавливает состояние указанного окна в нормальное.
+    /// </summary>
+    /// <param name="window"></param>
+    public static void RestoreWindow(Window window)
+    {
+        if (window.WindowState != WindowState.Normal)
+        {
+            window.WindowState = WindowState.Normal;
+            // Вторая установка для приведения окна в Normal, если оно было Maximized перед сворачиванием.
+            window.WindowState = WindowState.Normal;
+        }
+    }
     #endregion
 
     #region Диалоги выбора файла и папки книг.

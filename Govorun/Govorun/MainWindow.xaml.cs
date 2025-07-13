@@ -211,14 +211,7 @@ public partial class MainWindow : Window
         {
             if (window.Book != book)
                 window.Book = book;
-            if (window.WindowState != WindowState.Normal)
-                window.WindowState = WindowState.Normal;
-            // TODO: Нужно ли делать второю установку Normal, чтобы окно гарантированно было Normal?
-            // Вторая проверка для приведения окна в нормальное состояние, если оно было развёрнуто перед сворачиванием.
-            // В этом случае первая установка Normal устанавливает Maximized, а вторая уже Normal.
-            // Пока закомментировано, пусть окно будет развёрнутым, если оно было развёрнуто перед сворачиванием.
-            //if (window.WindowState != WindowState.Normal)
-            //    window.WindowState = WindowState.Normal;
+            App.RestoreWindow(window);
             window.Activate();
         }
         else
@@ -238,14 +231,7 @@ public partial class MainWindow : Window
         {
             if (window.Book != book)
                 window.Book = book;
-            if (window.WindowState != WindowState.Normal)
-                window.WindowState = WindowState.Normal;
-            // TODO: Нужно ли делать второю установку Normal, чтобы окно гарантированно было Normal?
-            // Вторая проверка для приведения окна в нормальное состояние, если оно было развёрнуто перед сворачиванием.
-            // В этом случае первая установка Normal устанавливает Maximized, а вторая уже Normal.
-            // Пока закомментировано, пусть окно будет развёрнутым, если оно было развёрнуто перед сворачиванием.
-            //if (window.WindowState != WindowState.Normal)
-            //    window.WindowState = WindowState.Normal;
+            App.RestoreWindow(window);
             window.Activate();
         }
         else
@@ -267,14 +253,7 @@ public partial class MainWindow : Window
                 window.Book = book;
             else if (window.Book == Player.Book)
                 window.SelectCurrentChapter();
-            if (window.WindowState != WindowState.Normal)
-                window.WindowState = WindowState.Normal;
-            // TODO: Нужно ли делать второю установку Normal, чтобы окно гарантированно было Normal?
-            // Вторая проверка для приведения окна в нормальное состояние, если оно было развёрнуто перед сворачиванием.
-            // В этом случае первая установка Normal устанавливает Maximized, а вторая уже Normal.
-            // Пока закомментировано, пусть окно будет развёрнутым, если оно было развёрнуто перед сворачиванием.
-            //if (window.WindowState != WindowState.Normal)
-            //    window.WindowState = WindowState.Normal;
+            App.RestoreWindow(window);
             window.Activate();
         }
         else
