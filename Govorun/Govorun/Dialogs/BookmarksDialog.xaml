@@ -7,9 +7,9 @@
         xmlns:Controls="clr-namespace:Govorun.Controls"
         mc:Ignorable="d"
         Title="Закладки"
-        Width="600" Height="500" ResizeMode="CanResizeWithGrip"
+        Width="550" Height="350" ResizeMode="CanResizeWithGrip"
         MinWidth="550" MinHeight="350"
-        d:Width="600" d:Height="350"
+        d:Width="550" d:Height="350"
         WindowStartupLocation="CenterOwner"
         Loaded="Window_Loaded"
         Closed="Window_Closed">
