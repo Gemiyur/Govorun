@@ -36,6 +36,8 @@ public partial class SettingsDialog : Window
 
     private void DbShrinkButton_Click(object sender, RoutedEventArgs e)
     {
+        if (MessageBox.Show("Сжать базу данных библиотеки,", Title, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            return;
         var path = Path.GetDirectoryName(App.DbName) ?? "";
         var name = Path.GetFileNameWithoutExtension(App.DbName);
         var ext = Path.GetExtension(App.DbName);
@@ -43,7 +45,7 @@ public partial class SettingsDialog : Window
         try { File.Delete(filename); }
         catch { }
         Db.Shrink();
-        MessageBox.Show($"Сжатие базы данных библиотеки завершено.", Title);
+        MessageBox.Show("Сжатие базы данных библиотеки завершено.", Title);
     }
 
     private void DbNameButton_Click(object sender, RoutedEventArgs e)
