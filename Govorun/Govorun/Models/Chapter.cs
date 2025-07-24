@@ -74,9 +74,4 @@ public class Chapter : BaseModel
             OnPropertyChanged("Title");
         }
     }
-
-    /// <summary>
-    /// Список подразделов раздела книги.
-    /// </summary>
-    public List<Chapter> Chapters { get; set; } = [];
 }
