@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using Gemiyur.Collections;
 using Govorun.Models;
-using Govorun.Tools;
 
 namespace Govorun.Dialogs;
 
@@ -30,8 +29,6 @@ public partial class CheckLibraryDialog : Window
     {
         InitializeComponent();
         this.books.AddRange(books);
-        //books.AddRange(Library.Books.FindAll(
-        //    x => !x.FileExists).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase));
         BooksListView.ItemsSource = books;
     }
 
