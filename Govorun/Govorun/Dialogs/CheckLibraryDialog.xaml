@@ -15,7 +15,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="Width" Value="80" />
+                <Setter Property="Width" Value="75" />
                 <Setter Property="Height" Value="25" />
             </Style>
         </ResourceDictionary>
@@ -81,20 +81,11 @@
                         Margin="10,0,0,0"
                         Click="DeleteButton_Click" />
             </StackPanel>
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock x:Name="CheckTextBlock" Text="Проверка завершена"
-                           Margin="0,0,10,0"
-                           VerticalAlignment="Center"
-                           Visibility="Collapsed" />
-                <Button x:Name="CheckButton" Content="Проверить"
-                        Style="{StaticResource ButtonStyle}"
-                        Margin="0,0,10,0"
-                        Click="CheckButton_Click" />
-                <Button x:Name="CloseButton" Content="Закрыть"
-                        Style="{StaticResource ButtonStyle}"
-                        IsCancel="True"
-                        Click="CloseButton_Click" />
-            </StackPanel>
+            <Button Grid.Column="1" x:Name="CloseButton" Content="Закрыть"
+                    Style="{StaticResource ButtonStyle}"
+                    IsCancel="True"
+                    HorizontalAlignment="Right"
+                    Click="CloseButton_Click" />
         </Grid>
     </Grid>
 </Window>
