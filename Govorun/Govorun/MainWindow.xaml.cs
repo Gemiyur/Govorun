@@ -1,12 +1,13 @@
-﻿using System.IO;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Gemiyur.Collections;
+﻿using Gemiyur.Collections;
 using Govorun.Dialogs;
 using Govorun.Media;
 using Govorun.Models;
 using Govorun.Tools;
+using System.IO;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Govorun;
 
@@ -595,7 +596,17 @@ public partial class MainWindow : Window
 
     private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        var dialog = new CheckLibraryDialog() { Owner = this };
+        StatusBarAction.Text = "Проверка библиотеки...";
+        ActionStatusBarItem.Visibility = Visibility.Visible;
+        var books = Library.Books.FindAll(
+            x => !x.FileExists).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
+        ActionStatusBarItem.Visibility = Visibility.Collapsed;
+        if (!books.Any())
+        {
+            MessageBox.Show("Проверка библиотеки выполнена.\nПроблем не обнаружено.", Title);
+            return;
+        }
+        var dialog = new CheckLibraryDialog(books) { Owner = this };
         dialog.ShowDialog();
         if (dialog.DeletedBooks.Count > 0)
         {

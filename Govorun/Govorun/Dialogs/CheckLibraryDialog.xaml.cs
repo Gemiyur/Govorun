@@ -26,11 +26,12 @@ public partial class CheckLibraryDialog : Window
     /// </summary>
     private readonly ObservableCollectionEx<Book> books = [];
 
-    public CheckLibraryDialog()
+    public CheckLibraryDialog(IEnumerable<Book> books)
     {
         InitializeComponent();
-        books.AddRange(Library.Books.FindAll(
-            x => !x.FileExists).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase));
+        this.books.AddRange(books);
+        //books.AddRange(Library.Books.FindAll(
+        //    x => !x.FileExists).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase));
         BooksListView.ItemsSource = books;
     }
 
