@@ -58,10 +58,14 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <TextBlock Text="Читает:" Margin="0,0,5,0" />
-                <TextBlock x:Name="LectorTextBlock" Text="Чтец" />
-            </StackPanel>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Читает:" Margin="0,0,5,0" />
+                <TextBlock Grid.Column="1" x:Name="LectorTextBlock" TextWrapping="Wrap" Text="Список чтецов" />
+            </Grid>
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Время:" Margin="25,0,5,0" />
                 <TextBlock x:Name="DurationTextBlock" Text="000:00:00" />
@@ -91,7 +95,7 @@
         <!-- Перевод -->
         <StackPanel Grid.Row="4" x:Name="TranslatorStackPanel" Orientation="Horizontal" Margin="8,4,8,0">
             <TextBlock Text="Перевод:" Margin="0,0,5,0" />
-            <TextBlock x:Name="TranslatorTextBlock" Text="Переводчик" />
+            <TextBlock x:Name="TranslatorTextBlock" Text="Список переводчиков" />
         </StackPanel>
 
         <!-- Теги -->
