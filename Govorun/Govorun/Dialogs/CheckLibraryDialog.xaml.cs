@@ -29,8 +29,6 @@ public partial class CheckLibraryDialog : Window
     public CheckLibraryDialog()
     {
         InitializeComponent();
-        books.AddRange(Library.Books.FindAll(
-            x => !x.FileExists).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase));
         BooksListView.ItemsSource = books;
     }
 
@@ -69,6 +67,14 @@ public partial class CheckLibraryDialog : Window
         var deletedBooks = BooksListView.SelectedItems.Cast<Book>();
         DeletedBooks.AddRange(deletedBooks);
         books.RemoveRange(deletedBooks);
+    }
+
+    private void CheckButton_Click(object sender, RoutedEventArgs e)
+    {
+        books.AddRange(Library.Books.FindAll(
+            x => !x.FileExists).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase));
+        CheckButton.Visibility = Visibility.Collapsed;
+        CheckTextBlock.Visibility = Visibility.Visible;
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)
