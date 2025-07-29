@@ -526,6 +526,8 @@ public partial class MainWindow : Window
         var folderDialog = App.PickBooksFolderDialog;
         if (folderDialog.ShowDialog() != true)
             return;
+        StatusBarAction.Text = "Поиск файлов книг...";
+        ActionStatusBarItem.Visibility = Visibility.Visible;
         var files = new List<string>(); // Новые файлы книг.
         var folders = folderDialog.FolderNames;
         foreach (var folder in folders)
@@ -538,6 +540,7 @@ public partial class MainWindow : Window
             }
         }
         files.Sort(StringComparer.CurrentCultureIgnoreCase);
+        ActionStatusBarItem.Visibility = Visibility.Collapsed;
         var dialog = new AddBooksDialog(files) { Owner = this };
         dialog.ShowDialog();
         if (!dialog.AddedBooks.Any())

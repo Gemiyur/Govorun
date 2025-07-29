@@ -387,7 +387,9 @@
                 <TextBlock x:Name="StatusBarBooksCount">0</TextBlock>
             </StatusBarItem>
             <StatusBarItem x:Name="ActionStatusBarItem"
-                           HorizontalAlignment="Right" Margin="10,0,20,0" Visibility="Collapsed">
+                           HorizontalAlignment="Right"
+                           Margin="10,0,20,0"
+                           Visibility="Collapsed">
                 <TextBlock x:Name="StatusBarAction">Выполняемое действие...</TextBlock>
             </StatusBarItem>
         </StatusBar>
