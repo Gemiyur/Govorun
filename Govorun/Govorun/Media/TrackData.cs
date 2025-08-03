@@ -76,7 +76,10 @@ public class TrackData
         Comment = track.Comment;
         Description = track.Description;
         LongDescription = track.LongDescription;
-        Lyrics = track.Lyrics.UnsynchronizedLyrics;
+
+        Lyrics = track.Lyrics[0].UnsynchronizedLyrics;
+        //Lyrics = string.Empty;
+
         CycleTitle = track.SeriesTitle;
         CyclePart = track.SeriesPart;
         Duration = TimeSpan.FromSeconds(track.Duration);
