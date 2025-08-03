@@ -37,7 +37,7 @@ public partial class App : Application
     /// Возвращает BitmapImage из указанного файла изображения.
     /// </summary>
     /// <param name="path">Путь к файлу.</param>
-    /// <returns></returns>
+    /// <returns>BitmapImage.</returns>
     public static BitmapImage GetBitmapImage(string path) => new(new Uri(path, UriKind.Relative));
 
     /// <summary>
@@ -69,7 +69,7 @@ public partial class App : Application
     /// <summary>
     /// Восстанавливает состояние указанного окна в нормальное.
     /// </summary>
-    /// <param name="window"></param>
+    /// <param name="window">Окно.</param>
     public static void RestoreWindow(Window window)
     {
         if (window.WindowState != WindowState.Normal)
@@ -85,7 +85,7 @@ public partial class App : Application
     /// </summary>
     /// <remarks>Возвращает true если высота и ширина больше нуля.</remarks>
     /// <param name="size">Размер.</param>
-    /// <returns></returns>
+    /// <returns>Задан ли указанный размер.</returns>
     public static bool SizeDefined(System.Drawing.Size size) => size.Width > 0 && size.Height > 0;
 
     #region Получение окон приложения.
@@ -154,16 +154,6 @@ public partial class App : Application
         AddToRecent = false,
         Multiselect = true,
         Title = "Выбрать папку с файлами книг",
-    };
-
-    /// <summary>
-    /// Возвращает диалог выбора приложения создания файла M4B.
-    /// </summary>
-    public static OpenFileDialog PickCreatorM4BDialog => new()
-    {
-        AddToRecent = false,
-        Title = "Выбрать приложение создания файла M4B",
-        Filter = $"Исполняемые файлы|*.exe"
     };
 
     /// <summary>
