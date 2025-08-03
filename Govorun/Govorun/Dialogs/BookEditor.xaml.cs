@@ -183,18 +183,18 @@ public partial class BookEditor : Window
 
         if (comments.Length == 0)
             comments = trackData.Description;
-        else if (trackData.Description.Length != 0)
-            comments = comments + "\r\n" + trackData.Description;
+        else if (trackData.Description.Length > 0)
+            comments += "\r\n" + trackData.Description;
 
         if (comments.Length == 0)
             comments = trackData.LongDescription;
-        else if (trackData.LongDescription.Length != 0)
-            comments = comments + "\r\n" + trackData.LongDescription;
+        else if (trackData.LongDescription.Length > 0)
+            comments += "\r\n" + trackData.LongDescription;
 
         if (comments.Length == 0)
             comments = trackData.Lyrics;
-        else if (trackData.Lyrics.Length != 0)
-            comments = comments + "\r\n" + trackData.Lyrics;
+        else if (trackData.Lyrics.Length > 0)
+            comments += "\r\n" + trackData.Lyrics;
 
         TrackCommentsTextBox.Text = comments;
     }
