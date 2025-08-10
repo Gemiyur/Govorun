@@ -322,7 +322,8 @@
             <ListBox Grid.Row="1" Grid.Column="2" x:Name="BooksListBox"
                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                      ItemTemplate="{StaticResource BookDataTemplate}"
-                     MouseDoubleClick="BooksListBox_MouseDoubleClick" ContextMenuOpening="BooksListBox_ContextMenuOpening">
+                     ContextMenuOpening="BooksListBox_ContextMenuOpening"
+                     MouseDoubleClick="BooksListBox_MouseDoubleClick">
                 <ListBox.ContextMenu>
                     <ContextMenu x:Name="BookContextMenu">
                         <MenuItem x:Name="PlayContextMenuItem" Style="{StaticResource MenuItemStyle}"
@@ -384,13 +385,13 @@
                 <TextBlock>Всего книг:</TextBlock>
             </StatusBarItem>
             <StatusBarItem>
-                <TextBlock x:Name="StatusBarBooksCount">0</TextBlock>
+                <TextBlock x:Name="BooksCountTextBlock">0</TextBlock>
             </StatusBarItem>
             <StatusBarItem x:Name="ActionStatusBarItem"
                            HorizontalAlignment="Right"
                            Margin="10,0,20,0"
                            Visibility="Collapsed">
-                <TextBlock x:Name="StatusBarAction">Выполняемое действие...</TextBlock>
+                <TextBlock x:Name="ActionTextBlock">Выполняемое действие...</TextBlock>
             </StatusBarItem>
         </StatusBar>
     </Grid>

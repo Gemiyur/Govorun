@@ -169,7 +169,7 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Сохраняет имя файла воспроизводимой книги в настройках приложения.
+    /// Сохраняет идентификатор воспроизводимой книги в настройках приложения.
     /// </summary>
     /// <remarks>Используется при закрытии приложения.</remarks>
     private void SaveLastBook()
@@ -356,7 +356,7 @@ public partial class MainWindow : Window
     /// <summary>
     /// Обновляет количество отображаемых книг в строке статуса.
     /// </summary>
-    private void UpdateStatusBarBooksCount() => StatusBarBooksCount.Text = BooksListBox.Items.Count.ToString();
+    private void UpdateStatusBarBooksCount() => BooksCountTextBlock.Text = BooksListBox.Items.Count.ToString();
 
     #region Блокировка и разблокировка обработчиков событий элементов панели навигации.
 
@@ -526,7 +526,7 @@ public partial class MainWindow : Window
         var folderDialog = App.PickBooksFolderDialog;
         if (folderDialog.ShowDialog() != true)
             return;
-        StatusBarAction.Text = "Поиск файлов книг...";
+        ActionTextBlock.Text = "Поиск файлов книг...";
         ActionStatusBarItem.Visibility = Visibility.Visible;
         var files = new List<string>(); // Новые файлы книг.
         var folders = folderDialog.FolderNames;
@@ -595,7 +595,7 @@ public partial class MainWindow : Window
 
     private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        StatusBarAction.Text = "Проверка библиотеки...";
+        ActionTextBlock.Text = "Проверка библиотеки...";
         ActionStatusBarItem.Visibility = Visibility.Visible;
         var books = Library.Books.FindAll(
             x => !x.FileExists).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
