@@ -10,7 +10,6 @@
         Width="500" Height="400" ResizeMode="CanResizeWithGrip"
         MinWidth="500" MinHeight="400"
         d:Width="500" d:Height="400"
-        WindowStartupLocation="CenterOwner"
         SourceInitialized="Window_SourceInitialized"
         Loaded="Window_Loaded"
         Closed="Window_Closed">
