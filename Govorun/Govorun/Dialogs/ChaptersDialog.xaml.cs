@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 using Gemiyur.Collections;
 using Govorun.Models;
 using Govorun.Tools;
@@ -11,6 +13,19 @@ namespace Govorun.Dialogs;
 /// </summary>
 public partial class ChaptersDialog : Window
 {
+    #region Для запрета разворачивания окна на весь экран.
+
+    [DllImport("user32.dll")]
+    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+    [DllImport("user32.dll")]
+    private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+    private const int GWL_STYLE = -16;
+    private const int WS_MAXIMIZEBOX = 0x10000;
+
+    #endregion
+
     /// <summary>
     /// Книга.
     /// </summary>
@@ -121,6 +136,12 @@ public partial class ChaptersDialog : Window
         TitleTextBlock.Text = book.Title;
     }
 
+    private void Window_SourceInitialized(object sender, EventArgs e)
+    {
+        IntPtr handle = new WindowInteropHelper(this).Handle;
+        _ = SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_MAXIMIZEBOX);
+    }
+
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         if (Properties.Settings.Default.SaveBookWindowsLocation &&
@@ -142,6 +163,7 @@ public partial class ChaptersDialog : Window
             Properties.Settings.Default.ChaptersPos = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.ChaptersSize = new System.Drawing.Size((int)Width, (int)Height);
         }
+        // TODO: Надо ли активировать главное окно при закрытии окна содержания?
         var window = App.GetMainWindow();
         if (window != null)
         {

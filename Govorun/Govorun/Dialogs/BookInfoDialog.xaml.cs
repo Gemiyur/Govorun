@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Interop;
 using Govorun.Models;
 
 namespace Govorun.Dialogs;
@@ -8,6 +10,19 @@ namespace Govorun.Dialogs;
 /// </summary>
 public partial class BookInfoDialog : Window
 {
+    #region Для запрета разворачивания окна на весь экран.
+
+    [DllImport("user32.dll")]
+    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+    [DllImport("user32.dll")]
+    private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+    private const int GWL_STYLE = -16;
+    private const int WS_MAXIMIZEBOX = 0x10000;
+
+    #endregion
+
     /// <summary>
     /// Книга.
     /// </summary>
@@ -102,6 +117,12 @@ public partial class BookInfoDialog : Window
         FileTextBox.Text = book.FileName;
     }
 
+    private void Window_SourceInitialized(object sender, EventArgs e)
+    {
+        IntPtr handle = new WindowInteropHelper(this).Handle;
+        _ = SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_MAXIMIZEBOX);
+    }
+
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         if (Properties.Settings.Default.SaveBookWindowsLocation &&
@@ -121,6 +142,7 @@ public partial class BookInfoDialog : Window
             Properties.Settings.Default.BookInfoPos = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.BookInfoSize = new System.Drawing.Size((int)Width, (int)Height);
         }
+        // TODO: Надо ли активировать главное окно при закрытии окна "О книге"?
         var window = App.GetMainWindow();
         if (window != null)
         {
