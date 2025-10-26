@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="DebugDbName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Databases\LiteDB\Говорун\GovorunDebug.db</Value>
+      <Value Profile="(Default)">C:\Databases\LiteDB\Govorun\GovorunDebug.db</Value>
     </Setting>
     <Setting Name="DbName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Databases\LiteDB\Говорун\Govorun.db</Value>
+      <Value Profile="(Default)">C:\Databases\LiteDB\Govorun\Govorun.db</Value>
     </Setting>
     <Setting Name="PlayerVolume" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">50</Value>

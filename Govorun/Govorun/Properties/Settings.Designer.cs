@@ -12,7 +12,7 @@ namespace Govorun.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.13.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.14.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,7 +25,7 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Databases\\LiteDB\\Говорун\\GovorunDebug.db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Databases\\LiteDB\\Govorun\\GovorunDebug.db")]
         public string DebugDbName {
             get {
                 return ((string)(this["DebugDbName"]));
@@ -37,7 +37,7 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Databases\\LiteDB\\Говорун\\Govorun.db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Databases\\LiteDB\\Govorun\\Govorun.db")]
         public string DbName {
             get {
                 return ((string)(this["DbName"]));
