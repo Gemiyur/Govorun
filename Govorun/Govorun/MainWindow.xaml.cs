@@ -216,7 +216,7 @@ public partial class MainWindow : Window
         }
         else
         {
-            new BookInfoDialog(book) { Owner = this }.Show();
+            new BookInfoDialog(book).Show();
         }
     }
 
@@ -236,7 +236,7 @@ public partial class MainWindow : Window
         }
         else
         {
-            new BookmarksDialog(book) { Owner = this }.Show();
+            new BookmarksDialog(book).Show();
         }
     }
 
@@ -258,7 +258,7 @@ public partial class MainWindow : Window
         }
         else
         {
-            new ChaptersDialog(book) { Owner = this }.Show();
+            new ChaptersDialog(book).Show();
         }
     }
 

@@ -142,7 +142,12 @@ public partial class ChaptersDialog : Window
             Properties.Settings.Default.ChaptersPos = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.ChaptersSize = new System.Drawing.Size((int)Width, (int)Height);
         }
-        App.GetMainWindow().Activate();
+        var window = App.GetMainWindow();
+        if (window != null)
+        {
+            App.RestoreWindow(window);
+            window.Activate();
+        }
     }
 
     private void ChaptersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
