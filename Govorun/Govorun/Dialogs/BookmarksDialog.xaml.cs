@@ -162,13 +162,6 @@ public partial class BookmarksDialog : Window
             Properties.Settings.Default.BookmarksPos = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.BookmarksSize = new System.Drawing.Size((int)Width, (int)Height);
         }
-        // TODO: Надо ли активировать главное окно при закрытии окна закладок?
-        var window = App.GetMainWindow();
-        if (window != null)
-        {
-            App.RestoreWindow(window);
-            window.Activate();
-        }
     }
 
     private void BookmarksListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

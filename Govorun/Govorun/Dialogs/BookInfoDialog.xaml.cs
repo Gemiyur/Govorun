@@ -142,13 +142,6 @@ public partial class BookInfoDialog : Window
             Properties.Settings.Default.BookInfoPos = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.BookInfoSize = new System.Drawing.Size((int)Width, (int)Height);
         }
-        // TODO: Надо ли активировать главное окно при закрытии окна "О книге"?
-        var window = App.GetMainWindow();
-        if (window != null)
-        {
-            App.RestoreWindow(window);
-            window.Activate();
-        }
     }
 
     private void PlayButton_Click(object sender, RoutedEventArgs e)
