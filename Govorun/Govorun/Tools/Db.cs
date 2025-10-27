@@ -14,6 +14,8 @@ namespace Govorun.Tools;
 /// </remarks>
 public static class Db
 {
+    public const string DbExtension = ".litedb";
+
     public static LiteDatabase GetDatabase() => new(App.DbName);
 
     /// <summary>
@@ -26,9 +28,9 @@ public static class Db
     /// Если имя файла имеет другое расширение, то к имени файла добавляет расширение .db.
     /// </remarks>
     public static string EnsureDbExtension(string filename) =>
-        Path.GetExtension(filename).Equals(".litedb", StringComparison.CurrentCultureIgnoreCase)
+        Path.GetExtension(filename).Equals(DbExtension, StringComparison.CurrentCultureIgnoreCase)
             ? filename
-            : filename + ".litedb";
+            : filename + DbExtension;
 
     public static long Shrink()
     {

@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 using Govorun.Media;
 using Govorun.Models;
 using Govorun.Dialogs;
+using Govorun.Tools;
 
 namespace Govorun;
 
@@ -163,7 +164,7 @@ public partial class App : Application
         CheckFileExists = false,
         OverwritePrompt = false,
         Title = "Файл базы данных",
-        Filter = $"Файлы базы данных|*.litedb"
+        Filter = $"Файлы базы данных|*{Db.DbExtension}"
     };
 
     #endregion
