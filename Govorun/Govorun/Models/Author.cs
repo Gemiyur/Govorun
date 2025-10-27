@@ -70,6 +70,21 @@ public class Author : BaseModel
         }
     }
 
+    private string about = string.Empty;
+
+    /// <summary>
+    /// Об авторе.
+    /// </summary>
+    public string About
+    {
+        get => about;
+        set
+        {
+            about = value ?? string.Empty;
+            OnPropertyChanged("About");
+        }
+    }
+
     /// <summary>
     /// Имя и фамилия.
     /// </summary>
