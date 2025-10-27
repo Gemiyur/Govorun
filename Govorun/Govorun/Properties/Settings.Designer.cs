@@ -25,7 +25,7 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Databases\\LiteDB\\Govorun\\GovorunDebug.db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Databases\\LiteDB\\Govorun\\GovorunDebug.litedb")]
         public string DebugDbName {
             get {
                 return ((string)(this["DebugDbName"]));
@@ -37,7 +37,7 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Databases\\LiteDB\\Govorun\\Govorun.db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Databases\\LiteDB\\Govorun\\Govorun.litedb")]
         public string DbName {
             get {
                 return ((string)(this["DbName"]));

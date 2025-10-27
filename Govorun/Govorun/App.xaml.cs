@@ -29,9 +29,9 @@ public partial class App : Application
     /// Если имя файла имеет другое расширение, то к имени файла добавляет расширение .db.
     /// </remarks>
     public static string EnsureDbExtension(string filename) =>
-        Path.GetExtension(filename).Equals(".db", StringComparison.CurrentCultureIgnoreCase)
+        Path.GetExtension(filename).Equals(".litedb", StringComparison.CurrentCultureIgnoreCase)
             ? filename
-            : filename + ".db";
+            : filename + ".litedb";
 
     /// <summary>
     /// Возвращает BitmapImage из указанного файла изображения.
@@ -177,7 +177,7 @@ public partial class App : Application
         CheckFileExists = false,
         OverwritePrompt = false,
         Title = "Файл базы данных",
-        Filter = $"Файлы базы данных|*.db"
+        Filter = $"Файлы базы данных|*.litedb"
     };
 
     #endregion
