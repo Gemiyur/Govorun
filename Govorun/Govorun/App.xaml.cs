@@ -21,6 +21,18 @@ public partial class App : Application
     public static string? DbName { get; set; }
 
     /// <summary>
+    /// Отображает окно сообщения подтверждения операции.
+    /// </summary>
+    /// <param name="message">Сообщение.</param>
+    /// <param name="caption">Заголовок окна.</param>
+    /// <returns>Была ли подтверждена операция.</returns>
+    /// <remarks>
+    /// Это обёртка для MessageBox.Show с кнопками Да и Нет.
+    /// </remarks>
+    public static bool ConfirmAction(string message, string caption) =>
+        MessageBox.Show(message, caption, MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+
+    /// <summary>
     /// Возвращает BitmapImage из указанного файла изображения.
     /// </summary>
     /// <param name="path">Путь к файлу.</param>
