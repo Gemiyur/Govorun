@@ -1,4 +1,5 @@
-﻿using LiteDB;
+﻿using System.IO;
+using LiteDB;
 using Govorun.Models;
 
 namespace Govorun.Tools;
@@ -14,6 +15,20 @@ namespace Govorun.Tools;
 public static class Db
 {
     public static LiteDatabase GetDatabase() => new(App.DbName);
+
+    /// <summary>
+    /// Возвращает указанное имя файла, гарантируя расширение .db.
+    /// </summary>
+    /// <param name="filename">Имя файла.</param>
+    /// <returns>Имя файла с расширением .db.</returns>
+    /// <remarks>
+    /// Если имя файла имеет расширение .db, то возвращает имя файла без изменений.<br/>
+    /// Если имя файла имеет другое расширение, то к имени файла добавляет расширение .db.
+    /// </remarks>
+    public static string EnsureDbExtension(string filename) =>
+        Path.GetExtension(filename).Equals(".litedb", StringComparison.CurrentCultureIgnoreCase)
+            ? filename
+            : filename + ".litedb";
 
     public static long Shrink()
     {

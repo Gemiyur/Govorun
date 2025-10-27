@@ -53,7 +53,7 @@ public partial class SettingsDialog : Window
         var dialog = App.PickDatabaseDialog;
         if (dialog.ShowDialog() != true)
             return;
-        DbNameTextBox.Text = App.EnsureDbExtension(dialog.FileName);
+        DbNameTextBox.Text = Db.EnsureDbExtension(dialog.FileName);
         CheckDbNameChanged();
     }
 

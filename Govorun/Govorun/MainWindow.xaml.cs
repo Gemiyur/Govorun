@@ -56,7 +56,7 @@ public partial class MainWindow : Window
                 MessageBox.Show("Файл базы данных не выбран.\nПриложение закроется.", Title);
                 Close();
             }
-            App.DbName = App.EnsureDbExtension(dialog.FileName);
+            App.DbName = Db.EnsureDbExtension(dialog.FileName);
 #if DEBUG
             Properties.Settings.Default.DebugDbName = App.DbName;
 #else
