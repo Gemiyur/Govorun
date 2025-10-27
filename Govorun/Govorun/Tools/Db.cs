@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text;
 using LiteDB;
 using Govorun.Models;
 
@@ -14,28 +15,71 @@ namespace Govorun.Tools;
 /// </remarks>
 public static class Db
 {
+    /// <summary>
+    /// Расширение файла базы данных. Начинается с точки.
+    /// </summary>
     public const string DbExtension = ".litedb";
 
+    /// <summary>
+    /// Возвращает объект базы данных.
+    /// </summary>
+    /// <returns>Объект базы данных.</returns>
     public static LiteDatabase GetDatabase() => new(App.DbName);
 
     /// <summary>
-    /// Возвращает указанное имя файла, гарантируя расширение .db.
+    /// Возвращает указанное имя файла, гарантируя расширение, определённое константой DbExtension.
     /// </summary>
     /// <param name="filename">Имя файла.</param>
-    /// <returns>Имя файла с расширением .db.</returns>
+    /// <returns>Имя файла с расширением, определённым константой DbExtension.</returns>
     /// <remarks>
-    /// Если имя файла имеет расширение .db, то возвращает имя файла без изменений.<br/>
-    /// Если имя файла имеет другое расширение, то к имени файла добавляет расширение .db.
+    /// Если имя файла имеет расширение, определённое константой DbExtension, то возвращает имя файла без изменений.<br/>
+    /// Если имя файла имеет другое расширение, то к имени файла добавляет расширение, определённое константой DbExtension.
     /// </remarks>
     public static string EnsureDbExtension(string filename) =>
         Path.GetExtension(filename).Equals(DbExtension, StringComparison.CurrentCultureIgnoreCase)
             ? filename
             : filename + DbExtension;
 
+    /// <summary>
+    /// Сжимает файл базы данных, удаляя неиспользуемое пространство.
+    /// </summary>
+    /// <returns>Код завершения.</returns>
+    /// <remarks>При сжатии создаётся резервная копия исходного файла, в котором к имени добавляется "-backup".</remarks>
     public static long Shrink()
     {
         using var db = GetDatabase();
         return db.Rebuild();
+    }
+
+    /// <summary>
+    /// Проверяет является ли указанный файл файлом базы данных LiteDB.
+    /// </summary>
+    /// <param name="filename">Имя файла с полным путём.</param>
+    /// <returns>Является ли указанный файл файлом базы данных LiteDB.</returns>
+    public static bool ValidateDb(string filename)
+    {
+        if (!File.Exists(filename))
+            return true;
+        try
+        {
+            using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            {
+                byte[] bytes = new byte[27];
+                stream.Seek(32, SeekOrigin.Begin);
+                stream.Read(bytes, 0, bytes.Length);
+                var sb = new StringBuilder();
+                foreach (var b in bytes)
+                    sb.Append((char)b);
+                if (sb.ToString() != "** This is a LiteDB file **")
+                    return false;
+            }
+            using var db = new LiteDatabase(filename);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     #region Получение коллекций.

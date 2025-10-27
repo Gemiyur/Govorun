@@ -53,7 +53,13 @@ public partial class SettingsDialog : Window
         var dialog = App.PickDatabaseDialog;
         if (dialog.ShowDialog() != true)
             return;
-        DbNameTextBox.Text = Db.EnsureDbExtension(dialog.FileName);
+        var dbName = Db.EnsureDbExtension(dialog.FileName);
+        if (!Db.ValidateDb(dbName))
+        {
+            MessageBox.Show("Файл не является базой данных LiteDB или повреждён.", Title);
+            return;
+        }
+        DbNameTextBox.Text = dbName;
         CheckDbNameChanged();
     }
 
