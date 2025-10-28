@@ -516,7 +516,7 @@ public partial class MainWindow : Window
         if (editor.ShowDialog() != true)
             return;
         Library.Books.Add(book);
-        UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.TagsChanged);
+        UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.GenresChanged);
         UpdateShownBooks();
         SelectBookInShownBooks(book);
     }
@@ -786,9 +786,9 @@ public partial class MainWindow : Window
         if (editor.ShowDialog() != true)
             return;
         Library.UpdateBookWindows(book);
-        UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.HasNewTags);
+        UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.HasNewGenres);
         if (editor.TitleChanged || editor.AuthorsChanged ||
-            editor.CycleChanged || editor.CycleNumbersChanged || editor.TagsChanged)
+            editor.CycleChanged || editor.CycleNumbersChanged || editor.GenresChanged)
         {
             UpdateShownBooks();
             SelectBookInShownBooks(book);

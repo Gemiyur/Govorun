@@ -44,14 +44,14 @@ public partial class BookEditor : Window
     public bool HasNewCycle;
 
     /// <summary>
-    /// Были ли добавлены новые теги книг.
+    /// Были ли добавлены новые жанры книг.
     /// </summary>
-    public bool HasNewTags;
+    public bool HasNewGenres;
 
     /// <summary>
-    /// Были ли изменения в тегах книги.
+    /// Были ли изменения в жанрах книги.
     /// </summary>
-    public bool TagsChanged;
+    public bool GenresChanged;
 
     /// <summary>
     /// Было ли изменено название книги.
@@ -94,14 +94,14 @@ public partial class BookEditor : Window
     private readonly List<Cycle> allCycles = Db.GetCycles();
 
     /// <summary>
-    /// Список тегов книги.
+    /// Список жанров книги.
     /// </summary>
-    private readonly ObservableCollectionEx<Genre> tags = [];
+    private readonly ObservableCollectionEx<Genre> genres = [];
 
     /// <summary>
-    /// Список всех тегов в библиотеке.
+    /// Список всех жанров в библиотеке.
     /// </summary>
-    private readonly List<Genre> allTags = Db.GetGenres();
+    private readonly List<Genre> allGenres = Db.GetGenres();
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
@@ -164,9 +164,9 @@ public partial class BookEditor : Window
         CycleNumbersTextBox.Text = book.CycleNumbers;
         LectorTextBox.Text = book.Lector;
         TranslatorTextBox.Text = book.Translator;
-        tags.AddRange(book.Genres);
-        SortTags();
-        TagsListBox.ItemsSource = tags;
+        genres.AddRange(book.Genres);
+        SortGenres();
+        GenresListBox.ItemsSource = genres;
     }
 
     /// <summary>
@@ -278,15 +278,15 @@ public partial class BookEditor : Window
             changed = true;
         }
 
-        // Теги.
-        if (tags.Count != book.Genres.Count ||
-            tags.Any(x => !book.Genres.Exists(t => t.GenreId == x.GenreId)) ||
-            book.Genres.Any(x => !tags.Any(t => t.GenreId == x.GenreId)))
+        // Жанры.
+        if (genres.Count != book.Genres.Count ||
+            genres.Any(x => !book.Genres.Exists(g => g.GenreId == x.GenreId)) ||
+            book.Genres.Any(x => !genres.Any(g => g.GenreId == x.GenreId)))
         {
             book.Genres.Clear();
-            book.Genres.AddRange(tags);
+            book.Genres.AddRange(genres);
             changed = true;
-            TagsChanged = true;
+            GenresChanged = true;
         }
 
         // Имя файла.
@@ -335,20 +335,20 @@ public partial class BookEditor : Window
     }
 
     /// <summary>
-    /// Сохраняет новые теги и присваивает им идентификаторы.
+    /// Сохраняет новые жанры и присваивает им идентификаторы.
     /// </summary>
-    /// <returns>Были ли новые теги сохранены успешно.</returns>
-    private bool SaveNewTags()
+    /// <returns>Были ли новые жанры сохранены успешно.</returns>
+    private bool SaveNewGenres()
     {
-        var newTags = tags.ToList().FindAll(x => x.GenreId == 0);
-        if (newTags.Count == 0)
+        var newGenres = genres.ToList().FindAll(x => x.GenreId == 0);
+        if (newGenres.Count == 0)
             return true;
-        HasNewTags = true;
+        HasNewGenres = true;
         using var db = Db.GetDatabase();
-        foreach (var tag in newTags)
+        foreach (var genre in newGenres)
         {
-            tag.GenreId = Db.InsertGenre(tag, db);
-            if (tag.GenreId < 1)
+            genre.GenreId = Db.InsertGenre(genre, db);
+            if (genre.GenreId < 1)
                 return false;
         }
         return true;
@@ -360,9 +360,9 @@ public partial class BookEditor : Window
     private void SortAuthors() => authors.Sort(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase);
 
     /// <summary>
-    /// Сортирует список тегов книги в алфавитном порядке.
+    /// Сортирует список жанров книги в алфавитном порядке.
     /// </summary>
-    private void SortTags() => tags.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
+    private void SortGenres() => genres.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
 
     #region Обработчики событий элементов управления.
 
@@ -565,60 +565,60 @@ public partial class BookEditor : Window
         NewCycleTextBox.Text = string.Empty;
     }
 
-    private void TagsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void GenresListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        RemoveTagsButton.IsEnabled = TagsListBox.SelectedItems.Count > 0;
+        RemoveGenresButton.IsEnabled = GenresListBox.SelectedItems.Count > 0;
     }
 
-    private void PickTagsButton_Click(object sender, RoutedEventArgs e)
+    private void PickGenresButton_Click(object sender, RoutedEventArgs e)
     {
         var picker = new GenresPicker() { Owner = this };
         if (picker.ShowDialog() != true)
             return;
-        tags.AddRange(picker.PickedGenres.Where(x => !tags.Any(t => t == x)));
-        SortTags();
+        genres.AddRange(picker.PickedGenres.Where(x => !genres.Any(g => g == x)));
+        SortGenres();
     }
 
-    private void RemoveTagsButton_Click(object sender, RoutedEventArgs e)
+    private void RemoveGenresButton_Click(object sender, RoutedEventArgs e)
     {
-        tags.RemoveRange(TagsListBox.SelectedItems.Cast<Genre>());
+        genres.RemoveRange(GenresListBox.SelectedItems.Cast<Genre>());
     }
 
-    private void NewTagTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    private void NewGenreTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
-        AddNewTagButton.IsEnabled = !string.IsNullOrWhiteSpace(NewTagTextBox.Text);
+        AddNewGenreButton.IsEnabled = !string.IsNullOrWhiteSpace(NewGenreTextBox.Text);
     }
 
-    private void AddNewTagButton_Click(object sender, RoutedEventArgs e)
+    private void AddNewGenreButton_Click(object sender, RoutedEventArgs e)
     {
-        var title = NewTagTextBox.Text.Trim();
-        var tag = allTags.Find(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase));
-        if (tag != null)
+        var title = NewGenreTextBox.Text.Trim();
+        var genre = allGenres.Find(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase));
+        if (genre != null)
         {
-            if (tags.Any(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)))
+            if (genres.Any(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)))
             {
-                NewTagTextBox.Text = string.Empty;
+                NewGenreTextBox.Text = string.Empty;
                 return;
             }
             else
             {
-                tags.Add(tag);
+                genres.Add(genre);
             }
         }
         else
         {
-            if (tags.Any(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)))
+            if (genres.Any(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)))
             {
-                NewTagTextBox.Text = string.Empty;
+                NewGenreTextBox.Text = string.Empty;
                 return;
             }
             else
             {
-                tags.Add(new Genre() { Title = title });
+                genres.Add(new Genre() { Title = title });
             }
         }
-        SortTags();
-        NewTagTextBox.Text = string.Empty;
+        SortGenres();
+        NewGenreTextBox.Text = string.Empty;
     }
 
     private void FileButton_Click(object sender, RoutedEventArgs e)
@@ -645,7 +645,7 @@ public partial class BookEditor : Window
             MessageBox.Show("Не удалось сохранить новую серию.", Title);
             return;
         }
-        if (!SaveNewTags())
+        if (!SaveNewGenres())
         {
             MessageBox.Show("Не удалось сохранить новые теги.", Title);
             return;

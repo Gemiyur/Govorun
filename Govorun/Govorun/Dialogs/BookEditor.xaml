@@ -206,7 +206,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Серия и теги">
+                <TabItem Header="Серия и жанры">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -268,7 +268,7 @@
                                         Click="AddNewCycleButton_Click" />
                             </Grid>
                         </GroupBox>
-                        <GroupBox Grid.Row="2" Header="Теги" Style="{StaticResource EditorGroupBoxStyle}">
+                        <GroupBox Grid.Row="2" Header="Жанры" Style="{StaticResource EditorGroupBoxStyle}">
                             <Grid Margin="0,4,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
@@ -279,23 +279,23 @@
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <ListBox Grid.Column="0" x:Name="TagsListBox"
+                                    <ListBox Grid.Column="0" x:Name="GenresListBox"
                                              ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                                              ItemTemplate="{StaticResource GenreDataTemplate}"
                                              Margin="0,0,10,0"
                                              SelectionMode="Extended"
-                                             SelectionChanged="TagsListBox_SelectionChanged" />
+                                             SelectionChanged="GenresListBox_SelectionChanged" />
                                     <StackPanel Grid.Column="1" Orientation="Vertical">
-                                        <Button x:Name="PickTagsButton" Content="Выбрать"
+                                        <Button x:Name="PickGenresButton" Content="Выбрать"
                                                 Style="{StaticResource EditorButtonStyle}"
                                                 VerticalAlignment="Top"
-                                                Click="PickTagsButton_Click" />
-                                        <Button x:Name="RemoveTagsButton" Content="Удалить"
+                                                Click="PickGenresButton_Click" />
+                                        <Button x:Name="RemoveGenresButton" Content="Удалить"
                                                 Style="{StaticResource EditorButtonStyle}"
                                                 VerticalAlignment="Top"
                                                 Margin="0,10,0,0"
                                                 IsEnabled="False"
-                                                Click="RemoveTagsButton_Click" />
+                                                Click="RemoveGenresButton_Click" />
                                     </StackPanel>
                                 </Grid>
                                 <Grid Grid.Row="1" Margin="0,10,0,0">
@@ -303,13 +303,13 @@
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Column="0" x:Name="NewTagTextBox"
+                                    <TextBox Grid.Column="0" x:Name="NewGenreTextBox"
                                              Margin="0,0,10,0"
-                                             TextChanged="NewTagTextBox_TextChanged" />
-                                    <Button Grid.Column="1" x:Name="AddNewTagButton" Content="Добавить"
+                                             TextChanged="NewGenreTextBox_TextChanged" />
+                                    <Button Grid.Column="1" x:Name="AddNewGenreButton" Content="Добавить"
                                             Style="{StaticResource EditorButtonStyle}"
                                             IsEnabled="False"
-                                            Click="AddNewTagButton_Click" />
+                                            Click="AddNewGenreButton_Click" />
                                 </Grid>
                             </Grid>
                         </GroupBox>

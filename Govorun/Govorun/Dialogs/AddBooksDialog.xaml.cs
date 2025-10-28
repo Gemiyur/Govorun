@@ -73,7 +73,7 @@ public partial class AddBooksDialog : Window
                 HasNewAuthors = true;
             if (!HasNewCycle && editor.HasNewCycle)
                 HasNewCycle = true;
-            if (!TagsChanged && editor.TagsChanged)
+            if (!TagsChanged && editor.GenresChanged)
                 TagsChanged = true;
             AddedBooks.Add(book);
             addedFilesCount--;
