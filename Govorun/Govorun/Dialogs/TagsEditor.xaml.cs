@@ -39,10 +39,10 @@ public partial class TagsEditor : Window
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        var editor = new TagEditor(null, tags) { Owner = this };
+        var editor = new GenreEditor(null, tags) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        var tag = editor.EditedTag;
+        var tag = editor.EditedGenre;
         tag.GenreId = Db.InsertTag(tag);
         if (tag.GenreId < 1)
         {
@@ -57,7 +57,7 @@ public partial class TagsEditor : Window
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
         var tag = (Genre)TagsListBox.SelectedItem;
-        var editor = new TagEditor(tag, tags) { Owner = this };
+        var editor = new GenreEditor(tag, tags) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
         if (!Db.UpdateTag(tag))
