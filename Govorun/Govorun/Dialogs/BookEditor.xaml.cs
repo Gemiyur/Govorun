@@ -572,10 +572,10 @@ public partial class BookEditor : Window
 
     private void PickTagsButton_Click(object sender, RoutedEventArgs e)
     {
-        var picker = new TagsPicker() { Owner = this };
+        var picker = new GenresPicker() { Owner = this };
         if (picker.ShowDialog() != true)
             return;
-        tags.AddRange(picker.PickedTags.Where(x => !tags.Any(t => t == x)));
+        tags.AddRange(picker.PickedGenres.Where(x => !tags.Any(t => t == x)));
         SortTags();
     }
 

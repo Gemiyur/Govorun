@@ -1,11 +1,11 @@
-﻿<Window x:Class="Govorun.Dialogs.TagsPicker"
+﻿<Window x:Class="Govorun.Dialogs.GenresPicker"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
-        Title="Выбор тегов"
+        Title="Выбор жанров"
         Width="400" Height="500" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
@@ -25,12 +25,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ListBox Grid.Row="0" x:Name="TagsListBox"
+        <ListBox Grid.Row="0" x:Name="GenresListBox"
                  SelectionMode="Extended"
                  ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                  ItemTemplate="{StaticResource GenreDataTemplate}"
-                 MouseDoubleClick="TagsListBox_MouseDoubleClick"
-                 SelectionChanged="TagsListBox_SelectionChanged" />
+                 MouseDoubleClick="GenresListBox_MouseDoubleClick"
+                 SelectionChanged="GenresListBox_SelectionChanged" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="PickButton" Content="Выбрать"
