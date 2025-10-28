@@ -94,7 +94,7 @@ public static class Library
     /// <param name="book">Книга.</param>
     /// <param name="tagId">Идентификатор тега.</param>
     /// <returns>Имеет ли указанная книга указанный тег.</returns>
-    public static bool BookHasTag(Book book, int tagId) => book.Tags.Exists(x => x.GenreId == tagId);
+    public static bool BookHasTag(Book book, int tagId) => book.Genres.Exists(x => x.GenreId == tagId);
 
     /// <summary>
     /// Возвращает есть ли книга с указанным именем файла.

@@ -90,7 +90,7 @@ public static class Db
 
     public static ILiteCollection<Cycle> GetCyclesCollection(LiteDatabase db) => db.GetCollection<Cycle>("Cycles");
 
-    public static ILiteCollection<Genre> GetTagsCollection(LiteDatabase db) => db.GetCollection<Genre>("Tags");
+    public static ILiteCollection<Genre> GetGenresCollection(LiteDatabase db) => db.GetCollection<Genre>("Genres");
 
     #endregion
 
@@ -106,7 +106,7 @@ public static class Db
         GetBooksCollection(db)
             .Include(x => x.Authors)
             .Include(x => x.Cycle)
-            .Include(x => x.Tags)
+            .Include(x => x.Genres)
             .FindById(bookId);
 
     public static List<Book> GetBooks()
@@ -119,7 +119,7 @@ public static class Db
         [.. GetBooksCollection(db)
             .Include(x => x.Authors)
             .Include(x => x.Cycle)
-            .Include(x => x.Tags)
+            .Include(x => x.Genres)
             .FindAll()
             .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
@@ -263,7 +263,7 @@ public static class Db
         return GetTag(tagId, db);
     }
 
-    public static Genre GetTag(int tagId, LiteDatabase db) => GetTagsCollection(db).FindById(tagId);
+    public static Genre GetTag(int tagId, LiteDatabase db) => GetGenresCollection(db).FindById(tagId);
 
     public static List<Genre> GetTags()
     {
@@ -272,7 +272,7 @@ public static class Db
     }
 
     public static List<Genre> GetTags(LiteDatabase db) =>
-        [.. GetTagsCollection(db)
+        [.. GetGenresCollection(db)
             .FindAll()
             .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
@@ -282,7 +282,7 @@ public static class Db
         return InsertTag(tag, db);
     }
 
-    public static int InsertTag(Genre tag, LiteDatabase db) => GetTagsCollection(db).Insert(tag);
+    public static int InsertTag(Genre tag, LiteDatabase db) => GetGenresCollection(db).Insert(tag);
 
     public static bool DeleteTag(int tagId)
     {
@@ -293,9 +293,9 @@ public static class Db
     public static bool DeleteTag(int tagId, LiteDatabase db)
     {
         var booksCollection = GetBooksCollection(db);
-        if (booksCollection.Exists(x => x.Tags.Select(t => t.GenreId).Any(id => id == tagId)))
+        if (booksCollection.Exists(x => x.Genres.Select(t => t.GenreId).Any(id => id == tagId)))
             return false;
-        return GetTagsCollection(db).Delete(tagId);
+        return GetGenresCollection(db).Delete(tagId);
     }
 
     public static bool UpdateTag(Genre tag)
@@ -304,7 +304,7 @@ public static class Db
         return UpdateTag(tag, db);
     }
 
-    public static bool UpdateTag(Genre tag, LiteDatabase db) => GetTagsCollection(db).Update(tag);
+    public static bool UpdateTag(Genre tag, LiteDatabase db) => GetGenresCollection(db).Update(tag);
 
     #endregion
 }

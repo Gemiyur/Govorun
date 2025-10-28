@@ -160,8 +160,8 @@ public class Book : BaseModel
     /// <summary>
     /// Теги книги.
     /// </summary>
-    [BsonRef("Tags")]
-    public List<Genre> Tags { get; set; } = [];
+    [BsonRef("Genres")]
+    public List<Genre> Genres { get; set; } = [];
 
     private string filename = string.Empty;
 

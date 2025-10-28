@@ -87,11 +87,11 @@ public partial class BookInfoDialog : Window
         {
             TranslatorStackPanel.Visibility = Visibility.Collapsed;
         }
-        if (book.Tags.Count > 0)
+        if (book.Genres.Count > 0)
         {
             TagsGrid.Visibility = Visibility.Visible;
             TagsTextBlock.Text =
-                App.ListToString(book.Tags, "; ", x => ((Genre)x).Title, StringComparer.CurrentCultureIgnoreCase);
+                App.ListToString(book.Genres, "; ", x => ((Genre)x).Title, StringComparer.CurrentCultureIgnoreCase);
         }
         else
         {

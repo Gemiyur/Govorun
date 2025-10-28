@@ -164,7 +164,7 @@ public partial class BookEditor : Window
         CycleNumbersTextBox.Text = book.CycleNumbers;
         LectorTextBox.Text = book.Lector;
         TranslatorTextBox.Text = book.Translator;
-        tags.AddRange(book.Tags);
+        tags.AddRange(book.Genres);
         SortTags();
         TagsListBox.ItemsSource = tags;
     }
@@ -279,12 +279,12 @@ public partial class BookEditor : Window
         }
 
         // Теги.
-        if (tags.Count != book.Tags.Count ||
-            tags.Any(x => !book.Tags.Exists(t => t.GenreId == x.GenreId)) ||
-            book.Tags.Any(x => !tags.Any(t => t.GenreId == x.GenreId)))
+        if (tags.Count != book.Genres.Count ||
+            tags.Any(x => !book.Genres.Exists(t => t.GenreId == x.GenreId)) ||
+            book.Genres.Any(x => !tags.Any(t => t.GenreId == x.GenreId)))
         {
-            book.Tags.Clear();
-            book.Tags.AddRange(tags);
+            book.Genres.Clear();
+            book.Genres.AddRange(tags);
             changed = true;
             TagsChanged = true;
         }
