@@ -105,7 +105,7 @@
                 <MenuItem Style="{StaticResource MenuItemStyle}"
                           Command="local:AppCommands.Tags">
                     <MenuItem.Icon>
-                        <Image Source="Images\Buttons\Enabled\Tags.png" />
+                        <Image Source="Images\Buttons\Enabled\Genres.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
@@ -205,7 +205,7 @@
                 </Button>
                 <Button Style="{StaticResource ToolBarButtonStyle}"
                         Command="local:AppCommands.Tags">
-                    <Image Source="Images\Buttons\Enabled\Tags.png" Style="{StaticResource ToolBarIconStyle}" />
+                    <Image Source="Images\Buttons\Enabled\Genres.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
                 <Button Style="{StaticResource ToolBarButtonStyle}"
