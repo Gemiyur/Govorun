@@ -99,13 +99,13 @@
         </StackPanel>
 
         <!-- Теги -->
-        <Grid Grid.Row="5" x:Name="TagsGrid" Margin="8,4,8,0">
+        <Grid Grid.Row="5" x:Name="GenressGrid" Margin="8,4,8,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Теги:" Margin="0,0,5,0" />
-            <TextBlock Grid.Column="1" x:Name="TagsTextBlock" TextWrapping="Wrap" Text="Список тегов" />
+            <TextBlock Grid.Column="0" Text="Жанры:" Margin="0,0,5,0" />
+            <TextBlock Grid.Column="1" x:Name="GenresTextBlock" TextWrapping="Wrap" Text="Список жанров" />
         </Grid>
 
         <!-- Аннотация -->

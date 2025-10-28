@@ -89,13 +89,13 @@ public partial class BookInfoDialog : Window
         }
         if (book.Genres.Count > 0)
         {
-            TagsGrid.Visibility = Visibility.Visible;
-            TagsTextBlock.Text =
+            GenressGrid.Visibility = Visibility.Visible;
+            GenresTextBlock.Text =
                 App.ListToString(book.Genres, "; ", x => ((Genre)x).Title, StringComparer.CurrentCultureIgnoreCase);
         }
         else
         {
-            TagsGrid.Visibility = Visibility.Collapsed;
+            GenressGrid.Visibility = Visibility.Collapsed;
         }
         AnnotationTextBox.Text = book.Annotation;
         FileTextBox.Text = book.FileName;
