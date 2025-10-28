@@ -26,7 +26,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Был ли изменён номер книги в серии.
     /// </summary>
-    public bool CycleNumberChanged;
+    public bool CycleNumbersChanged;
 
     /// <summary>
     /// Было ли изменено имя файла книги.
@@ -161,7 +161,7 @@ public partial class BookEditor : Window
         AnnotationTextBox.Text = book.Annotation;
         cycle = book.Cycle;
         CycleTextBox.Text = cycle != null ? cycle.Title : string.Empty;
-        CyclePartTextBox.Text = book.CyclePart;
+        CycleNumbersTextBox.Text = book.CycleNumbers;
         LectorTextBox.Text = book.Lector;
         TranslatorTextBox.Text = book.Translator;
         tags.AddRange(book.Tags);
@@ -256,13 +256,12 @@ public partial class BookEditor : Window
             }
         }
 
-        // Номер в серии.
-        int.TryParse(CyclePartTextBox.Text, NumberStyles.None, null, out var cycleNumber);
-        if (book.CycleNumber != cycleNumber)
+        // Номера в серии.
+        if (book.CycleNumbers != CycleNumbersTextBox.Text)
         {
-            book.CycleNumber = cycleNumber;
+            book.CycleNumbers = CycleNumbersTextBox.Text;
             changed = true;
-            CycleNumberChanged = true;
+            CycleNumbersChanged = true;
         }
 
         // Чтец.
@@ -482,38 +481,70 @@ public partial class BookEditor : Window
             return;
         cycle = picker.PickedCycle;
         CycleTextBox.Text = cycle.Title;
-        CyclePartTextBox.Text = string.Empty;
+        CycleNumbersTextBox.Text = string.Empty;
     }
 
     private void RemoveCycleButton_Click(object sender, RoutedEventArgs e)
     {
         cycle = null;
         CycleTextBox.Text = string.Empty;
-        CyclePartTextBox.Text = string.Empty;
+        CycleNumbersTextBox.Text = string.Empty;
     }
 
-    private string oldCyclePartText = string.Empty;
+    private string oldCycleNumbers = string.Empty;
 
-    private void CyclePartTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    private bool ValidateCycleNumbers()
     {
-        if (oldCyclePartText == CyclePartTextBox.Text)
+        var array = CycleNumbersTextBox.Text.Split([' ', ','], StringSplitOptions.RemoveEmptyEntries);
+        foreach (var item in array)
+        {
+            if (!int.TryParse(item.Trim(), NumberStyles.None, null, out _))
+                return false;
+        }
+        return true;
+    }
+
+    private void SortCycleNumbers()
+    {
+        var array = CycleNumbersTextBox.Text.Split([' ', ','], StringSplitOptions.RemoveEmptyEntries);
+        List<int> list = [.. array.Select(int.Parse)];
+        list.Sort();
+        var result = string.Empty;
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (i < list.Count - 1)
+                result += $"{list[i]}, ";
+            else
+                result += list[i].ToString();
+        }
+        CycleNumbersTextBox.Text = result;
+    }
+
+    private void CycleNumbersTextBox_LostFocus(object sender, RoutedEventArgs e)
+    {
+        SortCycleNumbers();
+    }
+
+    private void CycleNumbersTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (oldCycleNumbers == CycleNumbersTextBox.Text)
             return;
-        var text = CyclePartTextBox.Text;
+        var text = CycleNumbersTextBox.Text;
         if (text == string.Empty)
         {
-            oldCyclePartText = string.Empty;
-            CyclePartTextBox.Text = oldCyclePartText;
+            oldCycleNumbers = string.Empty;
+            CycleNumbersTextBox.Text = oldCycleNumbers;
             return;
         }
-        var pos = CyclePartTextBox.SelectionStart;
-        if (!int.TryParse(text, NumberStyles.None, null, out var value))
+        var pos = CycleNumbersTextBox.SelectionStart;
+        if (!ValidateCycleNumbers())
         {
-            CyclePartTextBox.Text = oldCyclePartText;
-            CyclePartTextBox.SelectionStart = pos - 1;
+            CycleNumbersTextBox.Text = oldCycleNumbers;
+            CycleNumbersTextBox.SelectionStart = pos - 1;
         }
         else
         {
-            oldCyclePartText = CyclePartTextBox.Text;
+            oldCycleNumbers = CycleNumbersTextBox.Text;
         }
     }
 
@@ -530,7 +561,7 @@ public partial class BookEditor : Window
             return;
         cycle = dbCycle ?? new Cycle() { Title = title };
         CycleTextBox.Text = cycle.Title;
-        CyclePartTextBox.Text = string.Empty;
+        CycleNumbersTextBox.Text = string.Empty;
         NewCycleTextBox.Text = string.Empty;
     }
 

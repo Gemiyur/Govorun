@@ -63,7 +63,7 @@
         <StackPanel>
             <TextBlock Text="{Binding Title}" FontWeight="Bold" Padding="5,0,0,0" />
             <TextBlock Text="{Binding AuthorNamesFirstLast}" Padding="25,0,0,0" FontStyle="Italic" />
-            <TextBlock Text="{Binding CyclePartText}" Padding="25,0,0,0" />
+            <TextBlock Text="{Binding CycleNumbersText}" Padding="25,0,0,0" />
         </StackPanel>
     </DataTemplate>
 

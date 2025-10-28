@@ -86,9 +86,9 @@
                 <TextBlock Grid.Column="0" Text="Серия:" Margin="0,0,5,0" />
                 <TextBlock Grid.Column="1" x:Name="CycleTitleTextBlock" TextWrapping="Wrap" Text="Название серии" />
             </Grid>
-            <StackPanel Grid.Column="1" x:Name="CycleNumberStackPanel" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Номер в серии:" Margin="25,0,5,0" />
-                <TextBlock x:Name="CycleNumberTextBlock" Text="000" />
+            <StackPanel Grid.Column="1" x:Name="CycleNumbersStackPanel" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Номера в серии:" Margin="25,0,5,0" />
+                <TextBlock x:Name="CycleNumbersTextBlock" Text="000" />
             </StackPanel>
         </Grid>
 

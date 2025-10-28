@@ -64,13 +64,13 @@ public partial class BookInfoDialog : Window
         {
             CycleGrid.Visibility = Visibility.Visible;
             CycleTitleTextBlock.Text = book.Cycle.Title;
-            if (book.CyclePart.Length > 0)
+            if (book.CycleNumbers.Length > 0)
             {
-                CycleNumberStackPanel.Visibility = Visibility.Visible;
-                CycleNumberTextBlock.Text = book.CyclePart;
+                CycleNumbersStackPanel.Visibility = Visibility.Visible;
+                CycleNumbersTextBlock.Text = book.CycleNumbers;
             }
             else
-                CycleNumberStackPanel.Visibility = Visibility.Collapsed;
+                CycleNumbersStackPanel.Visibility = Visibility.Collapsed;
         }
         else
         {

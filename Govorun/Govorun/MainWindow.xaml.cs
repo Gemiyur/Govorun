@@ -788,7 +788,7 @@ public partial class MainWindow : Window
         Library.UpdateBookWindows(book);
         UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.HasNewTags);
         if (editor.TitleChanged || editor.AuthorsChanged ||
-            editor.CycleChanged || editor.CycleNumberChanged || editor.TagsChanged)
+            editor.CycleChanged || editor.CycleNumbersChanged || editor.TagsChanged)
         {
             UpdateShownBooks();
             SelectBookInShownBooks(book);
