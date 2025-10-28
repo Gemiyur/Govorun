@@ -583,7 +583,7 @@ public partial class MainWindow : Window
 
     private void Tags_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        var editor = new TagsEditor() { Owner = this };
+        var editor = new GenresEditor() { Owner = this };
         editor.ShowDialog();
         if (!editor.HasChanges)
             return;

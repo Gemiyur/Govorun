@@ -1,11 +1,11 @@
-﻿<Window x:Class="Govorun.Dialogs.TagsEditor"
+﻿<Window x:Class="Govorun.Dialogs.GenresEditor"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
-        Title="Теги"
+        Title="Жанры"
         Width="500" Height="400" ResizeMode="NoResize"
         d:Width="500" d:Height="300"
         WindowStartupLocation="CenterOwner"
@@ -26,10 +26,10 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <ListBox Grid.Column="0" x:Name="TagsListBox"
+        <ListBox Grid.Column="0" x:Name="GenresListBox"
                  ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                 ItemTemplate="{StaticResource TagDataTemplate}"
-                 SelectionChanged="TagsListBox_SelectionChanged" />
+                 ItemTemplate="{StaticResource GenreDataTemplate}"
+                 SelectionChanged="GenresListBox_SelectionChanged" />
 
         <Grid Grid.Column="1" Margin="10,0,0,0">
             <Grid.RowDefinitions>

@@ -72,7 +72,7 @@
                 <TextBlock Text="{Binding Title}" />
             </DataTemplate>
 
-            <DataTemplate x:Key="TagDataTemplate">
+            <DataTemplate x:Key="GenreDataTemplate">
                 <TextBlock Text="{Binding Title}" />
             </DataTemplate>
         </ResourceDictionary>

@@ -309,7 +309,7 @@
                             <ListBox x:Name="TagsListBox"
                                      Style="{StaticResource NavListBoxStyle}"
                                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                                     ItemTemplate="{StaticResource TagDataTemplate}"
+                                     ItemTemplate="{StaticResource GenreDataTemplate}"
                                      SelectionChanged="TagsListBox_SelectionChanged" />
                         </Expander>
                     </Grid>
