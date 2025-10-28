@@ -68,9 +68,9 @@ public static class Library
     /// <summary>
     /// Возвращает имеет ли указанный тег книги.
     /// </summary>
-    /// <param name="tagId">Идентификатор тега.</param>
+    /// <param name="genreId">Идентификатор тега.</param>
     /// <returns>Имеет ли указанный тег книги.</returns>
-    public static bool TagHasBook(int tagId) => Books.Any(x => BookHasTag(x, tagId));
+    public static bool GenreHasBook(int genreId) => Books.Any(x => BookHasGenre(x, genreId));
 
     /// <summary>
     /// Возвращает является ли указанный автор автором указанной книги.
@@ -92,9 +92,9 @@ public static class Library
     /// Возвращает имеет ли указанная книга указанный тег.
     /// </summary>
     /// <param name="book">Книга.</param>
-    /// <param name="tagId">Идентификатор тега.</param>
+    /// <param name="genreId">Идентификатор тега.</param>
     /// <returns>Имеет ли указанная книга указанный тег.</returns>
-    public static bool BookHasTag(Book book, int tagId) => book.Genres.Exists(x => x.GenreId == tagId);
+    public static bool BookHasGenre(Book book, int genreId) => book.Genres.Exists(x => x.GenreId == genreId);
 
     /// <summary>
     /// Возвращает есть ли книга с указанным именем файла.
@@ -140,8 +140,8 @@ public static class Library
     /// <param name="tag">Тег.</param>
     /// <returns>Список книг с указанным тегом.</returns>
     /// <remarks>Книги отсортированы по названию.</remarks>
-    public static List<Book> GetTagBooks(int tagId) =>
-        [.. Books.FindAll(x => BookHasTag(x, tagId)).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
+    public static List<Book> GetGenreBooks(int genreId) =>
+        [.. Books.FindAll(x => BookHasGenre(x, genreId)).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
     /// <summary>
     /// Закрывает открытые окна указанной книги.

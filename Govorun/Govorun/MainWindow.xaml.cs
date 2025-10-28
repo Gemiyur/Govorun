@@ -346,7 +346,7 @@ public partial class MainWindow : Window
         else if (TagsListBox.SelectedItem != null)
         {
             var tag = (Genre)TagsListBox.SelectedItem;
-            var books = Library.GetTagBooks(tag.GenreId);
+            var books = Library.GetGenreBooks(tag.GenreId);
             ShownBooks.ReplaceRange(books);
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
         }
