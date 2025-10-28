@@ -96,12 +96,12 @@ public partial class BookEditor : Window
     /// <summary>
     /// Список тегов книги.
     /// </summary>
-    private readonly ObservableCollectionEx<Tag> tags = [];
+    private readonly ObservableCollectionEx<Genre> tags = [];
 
     /// <summary>
     /// Список всех тегов в библиотеке.
     /// </summary>
-    private readonly List<Tag> allTags = Db.GetTags();
+    private readonly List<Genre> allTags = Db.GetTags();
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
@@ -280,8 +280,8 @@ public partial class BookEditor : Window
 
         // Теги.
         if (tags.Count != book.Tags.Count ||
-            tags.Any(x => !book.Tags.Exists(t => t.TagId == x.TagId)) ||
-            book.Tags.Any(x => !tags.Any(t => t.TagId == x.TagId)))
+            tags.Any(x => !book.Tags.Exists(t => t.GenreId == x.GenreId)) ||
+            book.Tags.Any(x => !tags.Any(t => t.GenreId == x.GenreId)))
         {
             book.Tags.Clear();
             book.Tags.AddRange(tags);
@@ -340,15 +340,15 @@ public partial class BookEditor : Window
     /// <returns>Были ли новые теги сохранены успешно.</returns>
     private bool SaveNewTags()
     {
-        var newTags = tags.ToList().FindAll(x => x.TagId == 0);
+        var newTags = tags.ToList().FindAll(x => x.GenreId == 0);
         if (newTags.Count == 0)
             return true;
         HasNewTags = true;
         using var db = Db.GetDatabase();
         foreach (var tag in newTags)
         {
-            tag.TagId = Db.InsertTag(tag, db);
-            if (tag.TagId < 1)
+            tag.GenreId = Db.InsertTag(tag, db);
+            if (tag.GenreId < 1)
                 return false;
         }
         return true;
@@ -581,7 +581,7 @@ public partial class BookEditor : Window
 
     private void RemoveTagsButton_Click(object sender, RoutedEventArgs e)
     {
-        tags.RemoveRange(TagsListBox.SelectedItems.Cast<Tag>());
+        tags.RemoveRange(TagsListBox.SelectedItems.Cast<Genre>());
     }
 
     private void NewTagTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -614,7 +614,7 @@ public partial class BookEditor : Window
             }
             else
             {
-                tags.Add(new Tag() { Title = title });
+                tags.Add(new Genre() { Title = title });
             }
         }
         SortTags();

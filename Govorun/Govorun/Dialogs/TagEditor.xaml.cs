@@ -13,22 +13,22 @@ public partial class TagEditor : Window
     /// <summary>
     /// Редактируемый тег.
     /// </summary>
-    public Tag EditedTag;
+    public Genre EditedTag;
 
     /// <summary>
     /// Список существующих тегов.
     /// </summary>
-    private readonly List<Tag> tags = [];
+    private readonly List<Genre> tags = [];
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
     /// <param name="tag">Редактируемый тег.</param>
     /// <param name="tags">Список существующих тегов.</param>
-    public TagEditor(Tag? tag, IEnumerable<Tag>? tags)
+    public TagEditor(Genre? tag, IEnumerable<Genre>? tags)
     {
         InitializeComponent();
-        EditedTag = tag ?? new Tag();
+        EditedTag = tag ?? new Genre();
         TitleTextBox.Text = EditedTag.Title;
         this.tags.AddRange(tags ?? Db.GetTags());
     }

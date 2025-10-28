@@ -161,7 +161,7 @@ public class Book : BaseModel
     /// Теги книги.
     /// </summary>
     [BsonRef("Tags")]
-    public List<Tag> Tags { get; set; } = [];
+    public List<Genre> Tags { get; set; } = [];
 
     private string filename = string.Empty;
 

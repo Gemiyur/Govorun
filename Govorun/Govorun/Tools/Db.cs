@@ -90,7 +90,7 @@ public static class Db
 
     public static ILiteCollection<Cycle> GetCyclesCollection(LiteDatabase db) => db.GetCollection<Cycle>("Cycles");
 
-    public static ILiteCollection<Tag> GetTagsCollection(LiteDatabase db) => db.GetCollection<Tag>("Tags");
+    public static ILiteCollection<Genre> GetTagsCollection(LiteDatabase db) => db.GetCollection<Genre>("Tags");
 
     #endregion
 
@@ -257,32 +257,32 @@ public static class Db
 
     #region Теги.
 
-    public static Tag GetTag(int tagId)
+    public static Genre GetTag(int tagId)
     {
         using var db = GetDatabase();
         return GetTag(tagId, db);
     }
 
-    public static Tag GetTag(int tagId, LiteDatabase db) => GetTagsCollection(db).FindById(tagId);
+    public static Genre GetTag(int tagId, LiteDatabase db) => GetTagsCollection(db).FindById(tagId);
 
-    public static List<Tag> GetTags()
+    public static List<Genre> GetTags()
     {
         using var db = GetDatabase();
         return GetTags(db);
     }
 
-    public static List<Tag> GetTags(LiteDatabase db) =>
+    public static List<Genre> GetTags(LiteDatabase db) =>
         [.. GetTagsCollection(db)
             .FindAll()
             .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
-    public static int InsertTag(Tag tag)
+    public static int InsertTag(Genre tag)
     {
         using var db = GetDatabase();
         return InsertTag(tag, db);
     }
 
-    public static int InsertTag(Tag tag, LiteDatabase db) => GetTagsCollection(db).Insert(tag);
+    public static int InsertTag(Genre tag, LiteDatabase db) => GetTagsCollection(db).Insert(tag);
 
     public static bool DeleteTag(int tagId)
     {
@@ -293,18 +293,18 @@ public static class Db
     public static bool DeleteTag(int tagId, LiteDatabase db)
     {
         var booksCollection = GetBooksCollection(db);
-        if (booksCollection.Exists(x => x.Tags.Select(t => t.TagId).Any(id => id == tagId)))
+        if (booksCollection.Exists(x => x.Tags.Select(t => t.GenreId).Any(id => id == tagId)))
             return false;
         return GetTagsCollection(db).Delete(tagId);
     }
 
-    public static bool UpdateTag(Tag tag)
+    public static bool UpdateTag(Genre tag)
     {
         using var db = GetDatabase();
         return UpdateTag(tag, db);
     }
 
-    public static bool UpdateTag(Tag tag, LiteDatabase db) => GetTagsCollection(db).Update(tag);
+    public static bool UpdateTag(Genre tag, LiteDatabase db) => GetTagsCollection(db).Update(tag);
 
     #endregion
 }

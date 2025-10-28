@@ -33,7 +33,7 @@ public partial class MainWindow : Window
     /// <summary>
     /// Коллекция тегов.
     /// </summary>
-    private readonly ObservableCollectionEx<Tag> Tags = [];
+    private readonly ObservableCollectionEx<Genre> Tags = [];
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
@@ -295,7 +295,7 @@ public partial class MainWindow : Window
         }
         if (tags)
         {
-            var selectedTag = (Tag)TagsListBox.SelectedItem;
+            var selectedTag = (Genre)TagsListBox.SelectedItem;
             Tags.ReplaceRange(Db.GetTags());
             if (selectedTag != null)
             {
@@ -345,8 +345,8 @@ public partial class MainWindow : Window
         }
         else if (TagsListBox.SelectedItem != null)
         {
-            var tag = (Tag)TagsListBox.SelectedItem;
-            var books = Library.GetTagBooks(tag.TagId);
+            var tag = (Genre)TagsListBox.SelectedItem;
+            var books = Library.GetTagBooks(tag.GenreId);
             ShownBooks.ReplaceRange(books);
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
         }

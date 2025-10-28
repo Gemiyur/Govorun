@@ -1,19 +1,19 @@
 ﻿namespace Govorun.Models;
 
 /// <summary>
-/// Класс тега книги.
+/// Класс жанра книги.
 /// </summary>
-public class Tag : BaseModel
+public class Genre : BaseModel
 {
     /// <summary>
-    /// Идентификатор тега книги.
+    /// Идентификатор жанра книги.
     /// </summary>
-    public int TagId { get; set; }
+    public int GenreId { get; set; }
 
     private string title = string.Empty;
 
     /// <summary>
-    /// Название тега книги.
+    /// Название жанра книги.
     /// </summary>
     public string Title
     {

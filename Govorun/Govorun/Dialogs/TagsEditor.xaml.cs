@@ -19,7 +19,7 @@ public partial class TagsEditor : Window
     /// <summary>
     /// Коллекция тегов.
     /// </summary>
-    private readonly ObservableCollectionEx<Tag> tags = [];
+    private readonly ObservableCollectionEx<Genre> tags = [];
 
     public TagsEditor()
     {
@@ -34,7 +34,7 @@ public partial class TagsEditor : Window
     {
         EditButton.IsEnabled = TagsListBox.SelectedIndex >= 0;
         DeleteButton.IsEnabled = TagsListBox.SelectedIndex >= 0 &&
-                                 !Library.TagHasBook(((Tag)TagsListBox.SelectedItem).TagId);
+                                 !Library.TagHasBook(((Genre)TagsListBox.SelectedItem).GenreId);
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -43,8 +43,8 @@ public partial class TagsEditor : Window
         if (editor.ShowDialog() != true)
             return;
         var tag = editor.EditedTag;
-        tag.TagId = Db.InsertTag(tag);
-        if (tag.TagId < 1)
+        tag.GenreId = Db.InsertTag(tag);
+        if (tag.GenreId < 1)
         {
             MessageBox.Show("Не удалось добавить тег.", Title);
             return;
@@ -56,7 +56,7 @@ public partial class TagsEditor : Window
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
-        var tag = (Tag)TagsListBox.SelectedItem;
+        var tag = (Genre)TagsListBox.SelectedItem;
         var editor = new TagEditor(tag, tags) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
@@ -71,8 +71,8 @@ public partial class TagsEditor : Window
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        var tag = (Tag)TagsListBox.SelectedItem;
-        if (!Db.DeleteTag(tag.TagId))
+        var tag = (Genre)TagsListBox.SelectedItem;
+        if (!Db.DeleteTag(tag.GenreId))
         {
             MessageBox.Show("Не удалось удалить тег.", Title);
             return;

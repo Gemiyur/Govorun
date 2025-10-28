@@ -91,7 +91,7 @@ public partial class BookInfoDialog : Window
         {
             TagsGrid.Visibility = Visibility.Visible;
             TagsTextBlock.Text =
-                App.ListToString(book.Tags, "; ", x => ((Tag)x).Title, StringComparer.CurrentCultureIgnoreCase);
+                App.ListToString(book.Tags, "; ", x => ((Genre)x).Title, StringComparer.CurrentCultureIgnoreCase);
         }
         else
         {

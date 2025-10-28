@@ -14,7 +14,7 @@ public partial class TagsPicker : Window
     /// <summary>
     /// Список выбранных тегов.
     /// </summary>
-    public List<Tag> PickedTags = [];
+    public List<Genre> PickedTags = [];
 
     public TagsPicker()
     {
@@ -26,7 +26,7 @@ public partial class TagsPicker : Window
     {
         if (e.OriginalSource is TextBlock && TagsListBox.SelectedItem != null)
         {
-            PickedTags.Add((Tag)TagsListBox.SelectedItem);
+            PickedTags.Add((Genre)TagsListBox.SelectedItem);
             DialogResult = true;
         }
     }
@@ -38,7 +38,7 @@ public partial class TagsPicker : Window
 
     private void PickButton_Click(object sender, RoutedEventArgs e)
     {
-        PickedTags.AddRange(TagsListBox.SelectedItems.Cast<Tag>());
+        PickedTags.AddRange(TagsListBox.SelectedItems.Cast<Genre>());
         DialogResult = true;
     }
 
