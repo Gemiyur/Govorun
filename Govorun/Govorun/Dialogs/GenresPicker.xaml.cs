@@ -19,7 +19,7 @@ public partial class GenresPicker : Window
     public GenresPicker()
     {
         InitializeComponent();
-        GenresListBox.ItemsSource = Db.GetTags();
+        GenresListBox.ItemsSource = Db.GetGenres();
     }
 
     private void GenresListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)

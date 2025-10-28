@@ -24,7 +24,7 @@ public partial class GenresEditor : Window
     public GenresEditor()
     {
         InitializeComponent();
-        genres.AddRange(Db.GetTags());
+        genres.AddRange(Db.GetGenres());
         GenresListBox.ItemsSource = genres;
     }
 
@@ -43,7 +43,7 @@ public partial class GenresEditor : Window
         if (editor.ShowDialog() != true)
             return;
         var genre = editor.EditedGenre;
-        genre.GenreId = Db.InsertTag(genre);
+        genre.GenreId = Db.InsertGenre(genre);
         if (genre.GenreId < 1)
         {
             MessageBox.Show("Не удалось добавить жанр.", Title);
@@ -60,7 +60,7 @@ public partial class GenresEditor : Window
         var editor = new GenreEditor(genre, genres) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        if (!Db.UpdateTag(genre))
+        if (!Db.UpdateGenre(genre))
         {
             MessageBox.Show("Не удалось сохранить жанр.", Title);
             return;
@@ -72,7 +72,7 @@ public partial class GenresEditor : Window
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         var genre = (Genre)GenresListBox.SelectedItem;
-        if (!Db.DeleteTag(genre.GenreId))
+        if (!Db.DeleteGenre(genre.GenreId))
         {
             MessageBox.Show("Не удалось удалить жанр.", Title);
             return;

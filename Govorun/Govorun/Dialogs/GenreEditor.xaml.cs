@@ -30,7 +30,7 @@ public partial class GenreEditor : Window
         InitializeComponent();
         EditedGenre = genre ?? new Genre();
         TitleTextBox.Text = EditedGenre.Title;
-        this.genres.AddRange(genres ?? Db.GetTags());
+        this.genres.AddRange(genres ?? Db.GetGenres());
     }
 
     private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e) =>

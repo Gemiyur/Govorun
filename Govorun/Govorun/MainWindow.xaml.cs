@@ -68,7 +68,7 @@ public partial class MainWindow : Window
         CheckAuthorsNameFormat();
         Cycles.AddRange(Db.GetCycles());
         CyclesListBox.ItemsSource = Cycles;
-        Tags.AddRange(Db.GetTags());
+        Tags.AddRange(Db.GetGenres());
         TagsListBox.ItemsSource = Tags;
         ShownBooks.AddRange(Library.Books);
         BooksListBox.ItemsSource = ShownBooks;
@@ -296,7 +296,7 @@ public partial class MainWindow : Window
         if (tags)
         {
             var selectedTag = (Genre)TagsListBox.SelectedItem;
-            Tags.ReplaceRange(Db.GetTags());
+            Tags.ReplaceRange(Db.GetGenres());
             if (selectedTag != null)
             {
                 TagsListBox.SelectedItem = Tags.FirstOrDefault(x => x.Equals(selectedTag));

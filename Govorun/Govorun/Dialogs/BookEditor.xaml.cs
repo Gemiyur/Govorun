@@ -101,7 +101,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Список всех тегов в библиотеке.
     /// </summary>
-    private readonly List<Genre> allTags = Db.GetTags();
+    private readonly List<Genre> allTags = Db.GetGenres();
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
@@ -347,7 +347,7 @@ public partial class BookEditor : Window
         using var db = Db.GetDatabase();
         foreach (var tag in newTags)
         {
-            tag.GenreId = Db.InsertTag(tag, db);
+            tag.GenreId = Db.InsertGenre(tag, db);
             if (tag.GenreId < 1)
                 return false;
         }

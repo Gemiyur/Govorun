@@ -255,56 +255,56 @@ public static class Db
 
     #endregion
 
-    #region Теги.
+    #region Жанры.
 
-    public static Genre GetTag(int tagId)
+    public static Genre GetGenre(int genreId)
     {
         using var db = GetDatabase();
-        return GetTag(tagId, db);
+        return GetGenre(genreId, db);
     }
 
-    public static Genre GetTag(int tagId, LiteDatabase db) => GetGenresCollection(db).FindById(tagId);
+    public static Genre GetGenre(int genreId, LiteDatabase db) => GetGenresCollection(db).FindById(genreId);
 
-    public static List<Genre> GetTags()
+    public static List<Genre> GetGenres()
     {
         using var db = GetDatabase();
-        return GetTags(db);
+        return GetGenres(db);
     }
 
-    public static List<Genre> GetTags(LiteDatabase db) =>
+    public static List<Genre> GetGenres(LiteDatabase db) =>
         [.. GetGenresCollection(db)
             .FindAll()
             .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
-    public static int InsertTag(Genre tag)
+    public static int InsertGenre(Genre genre)
     {
         using var db = GetDatabase();
-        return InsertTag(tag, db);
+        return InsertGenre(genre, db);
     }
 
-    public static int InsertTag(Genre tag, LiteDatabase db) => GetGenresCollection(db).Insert(tag);
+    public static int InsertGenre(Genre genre, LiteDatabase db) => GetGenresCollection(db).Insert(genre);
 
-    public static bool DeleteTag(int tagId)
+    public static bool DeleteGenre(int genreId)
     {
         using var db = GetDatabase();
-        return DeleteTag(tagId, db);
+        return DeleteGenre(genreId, db);
     }
 
-    public static bool DeleteTag(int tagId, LiteDatabase db)
+    public static bool DeleteGenre(int genreId, LiteDatabase db)
     {
         var booksCollection = GetBooksCollection(db);
-        if (booksCollection.Exists(x => x.Genres.Select(t => t.GenreId).Any(id => id == tagId)))
+        if (booksCollection.Exists(x => x.Genres.Select(g => g.GenreId).Any(id => id == genreId)))
             return false;
-        return GetGenresCollection(db).Delete(tagId);
+        return GetGenresCollection(db).Delete(genreId);
     }
 
-    public static bool UpdateTag(Genre tag)
+    public static bool UpdateGenre(Genre genre)
     {
         using var db = GetDatabase();
-        return UpdateTag(tag, db);
+        return UpdateGenre(genre, db);
     }
 
-    public static bool UpdateTag(Genre tag, LiteDatabase db) => GetGenresCollection(db).Update(tag);
+    public static bool UpdateGenre(Genre genre, LiteDatabase db) => GetGenresCollection(db).Update(genre);
 
     #endregion
 }
