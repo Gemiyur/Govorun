@@ -21,6 +21,23 @@ public partial class App : Application
     public static string? DbName { get; set; }
 
     /// <summary>
+    /// Закрывает открытые окна указанной книги.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public static void CloseBookWindows(Book book)
+    {
+        var bookInfoWindow = FindBookInfoWindow();
+        if (bookInfoWindow != null && bookInfoWindow.Book == book)
+            bookInfoWindow.Close();
+        var bookmarksWindow = FindBookmarksWindow();
+        if (bookmarksWindow != null && bookmarksWindow.Book == book)
+            bookmarksWindow.Close();
+        var chaptersWindow = FindChaptersWindow();
+        if (chaptersWindow != null && chaptersWindow.Book == book)
+            chaptersWindow.Close();
+    }
+
+    /// <summary>
     /// Отображает окно сообщения подтверждения операции.
     /// </summary>
     /// <param name="message">Сообщение.</param>
