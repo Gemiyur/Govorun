@@ -786,7 +786,7 @@ public partial class MainWindow : Window
         var editor = new BookEditor(book, null) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        Library.UpdateBookWindows(book);
+        App.UpdateBookWindows(book);
         UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.HasNewGenres);
         if (editor.TitleChanged || editor.AuthorsChanged ||
             editor.CycleChanged || editor.CycleNumbersChanged || editor.GenresChanged)

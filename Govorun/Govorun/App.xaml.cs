@@ -116,6 +116,23 @@ public partial class App : Application
     /// <returns>Задан ли указанный размер.</returns>
     public static bool SizeDefined(System.Drawing.Size size) => size.Width > 0 && size.Height > 0;
 
+    /// <summary>
+    /// Обновляет открытые окна указанной книги.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public static void UpdateBookWindows(Book book)
+    {
+        var bookInfoWindow = FindBookInfoWindow();
+        if (bookInfoWindow != null && bookInfoWindow.Book == book)
+            bookInfoWindow.UpdateBook();
+        var bookmarksWindow = FindBookmarksWindow();
+        if (bookmarksWindow != null && bookmarksWindow.Book == book)
+            bookmarksWindow.UpdateBook();
+        var chaptersWindow = FindChaptersWindow();
+        if (chaptersWindow != null && chaptersWindow.Book == book)
+            chaptersWindow.UpdateBook();
+    }
+
     #region Получение окон приложения.
 
     /// <summary>

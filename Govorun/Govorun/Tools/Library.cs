@@ -141,23 +141,6 @@ public static class Library
     /// <returns>Книга с указанным идентификатором.</returns>
     public static Book? GetBook(int bookId) => Books.Find(x => x.BookId == bookId);
 
-    /// <summary>
-    /// Обновляет открытые окна указанной книги.
-    /// </summary>
-    /// <param name="book">Книга.</param>
-    public static void UpdateBookWindows(Book book)
-    {
-        var bookInfoWindow = App.FindBookInfoWindow();
-        if (bookInfoWindow != null && bookInfoWindow.Book == book)
-            bookInfoWindow.UpdateBook();
-        var bookmarksWindow = App.FindBookmarksWindow();
-        if (bookmarksWindow != null && bookmarksWindow.Book == book)
-            bookmarksWindow.UpdateBook();
-        var chaptersWindow = App.FindChaptersWindow();
-        if (chaptersWindow != null && chaptersWindow.Book == book)
-            chaptersWindow.UpdateBook();
-    }
-
     #region Методы получения списков книг.
 
     /// <summary>
