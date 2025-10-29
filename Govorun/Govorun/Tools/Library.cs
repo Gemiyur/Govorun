@@ -17,6 +17,21 @@ public static class Library
     public static readonly List<Book> Books;
 
     /// <summary>
+    /// Список всех авторов.
+    /// </summary>
+    public static readonly List<Author> Authors = [];
+
+    /// <summary>
+    /// Список всех серий.
+    /// </summary>
+    public static readonly List<Cycle> Cycles = [];
+
+    /// <summary>
+    /// Список всех жанров.
+    /// </summary>
+    public static readonly List<Genre> Genres = [];
+
+    /// <summary>
     /// Возвращает список слушаемых книг.
     /// </summary>
     /// <remarks>Книги отсортированы по названию.</remarks>
@@ -49,6 +64,21 @@ public static class Library
     static Library()
     {
         Books = Db.GetBooks();
+
+        var authors = Books.SelectMany(x => x.Authors).Cast<Author>();
+        Authors.AddRange(authors.Where(x => !Authors.Exists(a => a.AuthorId == x.AuthorId)));
+        Authors.AddRange(Db.GetAuthors().Where(x => !Authors.Exists(a => a.AuthorId == x.AuthorId)));
+        SortAuthors();
+
+        var cycles = Books.Select(x => x.Cycle).Cast<Cycle>().Where(x => x != null);
+        Cycles.AddRange(cycles.Where(x => !Cycles.Exists(c => c.CycleId == x.CycleId)));
+        Cycles.AddRange(Db.GetCycles().Where(x => !Cycles.Exists(c => c.CycleId == x.CycleId)));
+        SortCycles();
+
+        var genres = Books.SelectMany(x => x.Genres).Cast<Genre>();
+        Genres.AddRange(genres.Where(x => !Genres.Exists(g => g.GenreId == x.GenreId)));
+        Genres.AddRange(Db.GetGenres().Where(x => !Genres.Exists(g => g.GenreId == x.GenreId)));
+        SortGenres();
     }
 
     /// <summary>
@@ -112,6 +142,42 @@ public static class Library
     public static Book? GetBook(int bookId) => Books.Find(x => x.BookId == bookId);
 
     /// <summary>
+    /// Закрывает открытые окна указанной книги.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public static void CloseBookWindows(Book book)
+    {
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null && bookInfoWindow.Book == book)
+            bookInfoWindow.Close();
+        var bookmarksWindow = App.FindBookmarksWindow();
+        if (bookmarksWindow != null && bookmarksWindow.Book == book)
+            bookmarksWindow.Close();
+        var chaptersWindow = App.FindChaptersWindow();
+        if (chaptersWindow != null && chaptersWindow.Book == book)
+            chaptersWindow.Close();
+    }
+
+    /// <summary>
+    /// Обновляет открытые окна указанной книги.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public static void UpdateBookWindows(Book book)
+    {
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null && bookInfoWindow.Book == book)
+            bookInfoWindow.UpdateBook();
+        var bookmarksWindow = App.FindBookmarksWindow();
+        if (bookmarksWindow != null && bookmarksWindow.Book == book)
+            bookmarksWindow.UpdateBook();
+        var chaptersWindow = App.FindChaptersWindow();
+        if (chaptersWindow != null && chaptersWindow.Book == book)
+            chaptersWindow.UpdateBook();
+    }
+
+    #region Методы получения списков книг.
+
+    /// <summary>
     /// Возвращает список книг указанного автора.
     /// </summary>
     /// <param name="authorId">Идентификатор автора.</param>
@@ -143,21 +209,48 @@ public static class Library
     public static List<Book> GetGenreBooks(int genreId) =>
         [.. Books.FindAll(x => BookHasGenre(x, genreId)).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
+    #endregion
+
+    #region Методы сортировки списков.
+
     /// <summary>
-    /// Закрывает открытые окна указанной книги.
+    /// Сортирует список книг по названию.
+    /// </summary>
+    public static void SortBooks() => Books.Sort(new StringKeyComparer(x => ((Book)x).Title));
+
+    /// <summary>
+    /// Сортирует список авторов по фамилии-имени-отчеству.
+    /// </summary>
+    public static void SortAuthors() => Authors.Sort(new StringKeyComparer(x => ((Author)x).NameLastFirstMiddle));
+
+    /// <summary>
+    /// Сортирует список серий по названию.
+    /// </summary>
+    public static void SortCycles() => Cycles.Sort(new StringKeyComparer(x => ((Cycle)x).Title));
+
+    /// <summary>
+    /// Сортирует список жанров по названию.
+    /// </summary>
+    public static void SortGenres() => Genres.Sort(new StringKeyComparer(x => ((Genre)x).Title));
+
+    #endregion
+
+    #region Методы добавления, обновления и удаления.
+
+    /// <summary>
+    /// Добавляет книгу в библиотеку и возвращает удалось ли добавить книгу.
     /// </summary>
     /// <param name="book">Книга.</param>
-    public static void CloseBookWindows(Book book)
+    /// <returns>Удалось ли добавить книгу.</returns>
+    public static bool AddBook(Book book)
     {
-        var bookInfoWindow = App.FindBookInfoWindow();
-        if (bookInfoWindow != null && bookInfoWindow.Book == book)
-            bookInfoWindow.Close();
-        var bookmarksWindow = App.FindBookmarksWindow();
-        if (bookmarksWindow != null && bookmarksWindow.Book == book)
-            bookmarksWindow.Close();
-        var chaptersWindow = App.FindChaptersWindow();
-        if (chaptersWindow != null && chaptersWindow.Book == book)
-            chaptersWindow.Close();
+        var id = Db.InsertBook(book);
+        if (id < 1)
+            return false;
+        book.BookId = id;
+        Books.Add(book);
+        SortBooks();
+        return true;
     }
 
     /// <summary>
@@ -196,20 +289,18 @@ public static class Library
     }
 
     /// <summary>
-    /// Обновляет открытые окна указанной книги.
+    /// Обновляет книгу в библиотеке и возвращает удалось ли обновить книгу.
     /// </summary>
     /// <param name="book">Книга.</param>
-    public static void UpdateBookWindows(Book book)
+    /// <returns>Удалось ли обновить книгу.</returns>
+    public static bool UpdateBook(Book book)
     {
-        var bookInfoWindow = App.FindBookInfoWindow();
-        if (bookInfoWindow != null && bookInfoWindow.Book == book)
-            bookInfoWindow.UpdateBook();
-        var bookmarksWindow = App.FindBookmarksWindow();
-        if (bookmarksWindow != null && bookmarksWindow.Book == book)
-            bookmarksWindow.UpdateBook();
-        var chaptersWindow = App.FindChaptersWindow();
-        if (chaptersWindow != null && chaptersWindow.Book == book)
-            chaptersWindow.UpdateBook();
+        if (Db.UpdateBook(book))
+        {
+            SortBooks();
+            return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -232,6 +323,141 @@ public static class Library
                 result.Add(book);
             }
         }
+        SortBooks();
         return result;
     }
+
+    /// <summary>
+    /// Добавляет автора в библиотеку и возвращает удалось ли добавить автора.
+    /// </summary>
+    /// <param name="author">Автор.</param>
+    /// <returns>Удалось ли добавить автора.</returns>
+    public static bool AddAuthor(Author author)
+    {
+        var id = Db.InsertAuthor(author);
+        if (id < 1)
+            return false;
+        author.AuthorId = id;
+        Authors.Add(author);
+        SortAuthors();
+        return true;
+    }
+
+    /// <summary>
+    /// Удаляет автора из библиотеки и возвращает удалось ли удалить автора.
+    /// </summary>
+    /// <param name="author">Автор.</param>
+    /// <returns>Удалось ли удалить автора.</returns>
+    public static bool DeleteAuthor(Author author)
+    {
+        if (!Db.DeleteAuthor(author.AuthorId))
+            return false;
+        Authors.Remove(author);
+        return true;
+    }
+
+    /// <summary>
+    /// Обновляет автора в библиотеке и возвращает удалось ли обновить автора.
+    /// </summary>
+    /// <param name="author">Автор.</param>
+    /// <returns>Удалось ли обновить автора.</returns>
+    public static bool UpdateAuthor(Author author)
+    {
+        if (Db.UpdateAuthor(author))
+        {
+            SortAuthors();
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Добавляет серию в библиотеку и возвращает удалось ли добавить серию.
+    /// </summary>
+    /// <param name="cycle">Серия.</param>
+    /// <returns>Удалось ли добавить серию.</returns>
+    public static bool AddCycle(Cycle cycle)
+    {
+        var id = Db.InsertCycle(cycle);
+        if (id < 1)
+            return false;
+        cycle.CycleId = id;
+        Cycles.Add(cycle);
+        SortCycles();
+        return true;
+    }
+
+    /// <summary>
+    /// Удаляет серию из библиотеки и возвращает удалось ли удалить серию.
+    /// </summary>
+    /// <param name="cycle">Серия.</param>
+    /// <returns>Удалось ли удалить серию.</returns>
+    public static bool DeleteCycle(Cycle cycle)
+    {
+        if (!Db.DeleteCycle(cycle.CycleId))
+            return false;
+        Cycles.Remove(cycle);
+        return true;
+    }
+
+    /// <summary>
+    /// Обновляет серию в библиотеке и возвращает удалось ли обновить серию.
+    /// </summary>
+    /// <param name="cycle">Серия.</param>
+    /// <returns>Удалось ли обновить серию.</returns>
+    public static bool UpdateCycle(Cycle cycle)
+    {
+        if (Db.UpdateCycle(cycle))
+        {
+            SortCycles();
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Добавляет жанр в библиотеку и возвращает удалось ли добавить жанр.
+    /// </summary>
+    /// <param name="genre">Жанр.</param>
+    /// <returns>Удалось ли добавить жанр.</returns>
+    public static bool AddGenre(Genre genre)
+    {
+        var id = Db.InsertGenre(genre);
+        if (id < 1)
+            return false;
+        genre.GenreId = id;
+        Genres.Add(genre);
+        SortGenres();
+        return true;
+    }
+
+    /// <summary>
+    /// Удаляет жанр из библиотеки и возвращает удалось ли удалить жанр.
+    /// </summary>
+    /// <param name="genre">Жанр.</param>
+    /// <returns>Удалось ли удалить жанр.</returns>
+    public static bool DeleteGenre(Genre genre)
+    {
+        if (!Db.DeleteGenre(genre.GenreId))
+            return false;
+        Genres.Remove(genre);
+        return true;
+    }
+
+    /// <summary>
+    /// Обновляет жанр в библиотеке и возвращает удалось ли обновить жанр.
+    /// </summary>
+    /// <param name="genre">Жанр.</param>
+    /// <returns>Удалось ли обновить жанр.</returns>
+    public static bool UpdateGenre(Genre genre)
+    {
+        if (Db.UpdateGenre(genre))
+        {
+            SortGenres();
+            return true;
+        }
+        return false;
+    }
+
+    #endregion
 }
