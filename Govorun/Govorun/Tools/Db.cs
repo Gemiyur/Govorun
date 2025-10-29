@@ -82,6 +82,22 @@ public static class Db
         }
     }
 
+    /// <summary>
+    /// Пересохраняет объекты в базе данных.
+    /// </summary>
+    /// <remarks>
+    /// Метод предназначен для удаления свойств объектов коллекций, которые были удалены из модели.
+    /// </remarks>
+    public static void ReSaveDbObjects()
+    {
+        //using var db = GetDatabase();
+        //var books = GetBooks(db);
+        //foreach (var book in books)
+        //{
+        //    UpdateBook(book, db);
+        //}
+    }
+
     #region Получение коллекций.
 
     public static ILiteCollection<Book> GetBooksCollection(LiteDatabase db) => db.GetCollection<Book>("Books");
