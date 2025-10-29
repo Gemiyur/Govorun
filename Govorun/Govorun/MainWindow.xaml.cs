@@ -63,15 +63,19 @@ public partial class MainWindow : Window
             Properties.Settings.Default.DbName = App.DbName;
 #endif
         }
-        Authors.AddRange(Db.GetAuthors());
+        Authors.AddRange(Library.Authors);
         AuthorsListBox.ItemsSource = Authors;
         CheckAuthorsNameFormat();
-        Cycles.AddRange(Db.GetCycles());
+        Cycles.AddRange(Library.Cycles);
         CyclesListBox.ItemsSource = Cycles;
-        Genres.AddRange(Db.GetGenres());
+        Genres.AddRange(Library.Genres);
         GenresListBox.ItemsSource = Genres;
         ShownBooks.AddRange(Library.Books);
         BooksListBox.ItemsSource = ShownBooks;
+        // TODO: Настройка отображения полного или краткого имени в списке книг. Так в Крокотеке.
+        //BooksListViewTitleColumn.CellTemplate = Properties.Settings.Default.BookListAuthorFullName
+        //    ? (DataTemplate)FindResource("BookAuthorsFullNameDataTemplate")
+        //    : (DataTemplate)FindResource("BookAuthorsShortNameDataTemplate");
         UpdateStatusBarBooksCount();
         Player.IsEnabled = false;
         LoadLastBook();
