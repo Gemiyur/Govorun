@@ -49,19 +49,21 @@ public partial class MainWindow : Window
         if (!File.Exists(App.DbName))
         {
             MessageBox.Show("Файл базы данных не найден.\nУкажите имя существующего или нового файла.", Title);
-            var dialog = App.PickDatabaseDialog;
-            dialog.FileName = Path.GetFileName(App.DbName);
-            if (dialog.ShowDialog() != true)
+            if (!PickDbFile(Path.GetFileName(App.DbName)))
             {
-                MessageBox.Show("Файл базы данных не выбран.\nПриложение закроется.", Title);
                 Close();
+                return;
             }
-            App.DbName = Db.EnsureDbExtension(dialog.FileName);
-#if DEBUG
-            Properties.Settings.Default.DebugDbName = App.DbName;
-#else
-            Properties.Settings.Default.DbName = App.DbName;
-#endif
+        }
+        else if (!Db.ValidateDb(App.DbName))
+        {
+            MessageBox.Show(
+                "Файл не является базой данных LiteDB или повреждён.\nУкажите имя существующего или нового файла.", Title);
+            if (!PickDbFile(App.DbName))
+            {
+                Close();
+                return;
+            }
         }
         Authors.AddRange(Library.Authors);
         AuthorsListBox.ItemsSource = Authors;
@@ -108,6 +110,37 @@ public partial class MainWindow : Window
             return;
         Player.PlayOnLoad = false;
         Player.Book = lastBook;
+    }
+
+    /// <summary>
+    /// Выполняет выбор файла базы данных и возвращает был ли выбран файл.
+    /// </summary>
+    /// <param name="filename">Имя файла.</param>
+    /// <returns>Был ли выбран файл.</returns>
+    private bool PickDbFile(string filename)
+    {
+        var dialog = App.PickDatabaseDialog;
+        dialog.FileName = filename;
+        string dbName;
+        while (true)
+        {
+            if (dialog.ShowDialog() != true)
+            {
+                MessageBox.Show("Файл базы данных не выбран.\nПриложение закроется.", Title);
+                return false;
+            }
+            dbName = Db.EnsureDbExtension(dialog.FileName);
+            if (Db.ValidateDb(dbName))
+                break;
+            MessageBox.Show("Файл не является базой данных LiteDB или повреждён.", Title);
+        }
+        App.DbName = dbName;
+#if DEBUG
+        Properties.Settings.Default.DebugDbName = App.DbName;
+#else
+        Properties.Settings.Default.DbName = App.DbName;
+#endif
+        return true;
     }
 
     /// <summary>
