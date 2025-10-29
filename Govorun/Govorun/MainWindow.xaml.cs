@@ -33,7 +33,7 @@ public partial class MainWindow : Window
     /// <summary>
     /// Коллекция тегов.
     /// </summary>
-    private readonly ObservableCollectionEx<Genre> Tags = [];
+    private readonly ObservableCollectionEx<Genre> Genres = [];
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
@@ -68,8 +68,8 @@ public partial class MainWindow : Window
         CheckAuthorsNameFormat();
         Cycles.AddRange(Db.GetCycles());
         CyclesListBox.ItemsSource = Cycles;
-        Tags.AddRange(Db.GetGenres());
-        TagsListBox.ItemsSource = Tags;
+        Genres.AddRange(Db.GetGenres());
+        GenresListBox.ItemsSource = Genres;
         ShownBooks.AddRange(Library.Books);
         BooksListBox.ItemsSource = ShownBooks;
         UpdateStatusBarBooksCount();
@@ -267,8 +267,8 @@ public partial class MainWindow : Window
     /// </summary>
     /// <param name="authors">Обновить список авторов.</param>
     /// <param name="cycles">Обновить список серий.</param>
-    /// <param name="tags">Обновить список тегов.</param>
-    private void UpdateNavPanel(bool authors, bool cycles, bool tags)
+    /// <param name="genres">Обновить список жанров.</param>
+    private void UpdateNavPanel(bool authors, bool cycles, bool genres)
     {
         LockNavHandlers();
         if (authors)
@@ -293,20 +293,20 @@ public partial class MainWindow : Window
                     CyclesListBox.ScrollIntoView(CyclesListBox.SelectedItem);
             }
         }
-        if (tags)
+        if (genres)
         {
-            var selectedTag = (Genre)TagsListBox.SelectedItem;
-            Tags.ReplaceRange(Db.GetGenres());
-            if (selectedTag != null)
+            var selectedGenre = (Genre)GenresListBox.SelectedItem;
+            Genres.ReplaceRange(Db.GetGenres());
+            if (selectedGenre != null)
             {
-                TagsListBox.SelectedItem = Tags.FirstOrDefault(x => x.Equals(selectedTag));
-                if (TagsListBox.SelectedItem != null)
-                    TagsListBox.ScrollIntoView(TagsListBox.SelectedItem);
+                GenresListBox.SelectedItem = Genres.FirstOrDefault(x => x.Equals(selectedGenre));
+                if (GenresListBox.SelectedItem != null)
+                    GenresListBox.ScrollIntoView(GenresListBox.SelectedItem);
             }
         }
         if (AuthorsListBox.SelectedItem == null &&
             CyclesListBox.SelectedItem == null &&
-            TagsListBox.SelectedItem == null &&
+            GenresListBox.SelectedItem == null &&
             ListeningBooksToggleButton.IsChecked != true)
         {
             AllBooksToggleButton.IsChecked = true;
@@ -343,10 +343,10 @@ public partial class MainWindow : Window
             ShownBooks.ReplaceRange(books);
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookCycleDataTemplate");
         }
-        else if (TagsListBox.SelectedItem != null)
+        else if (GenresListBox.SelectedItem != null)
         {
-            var tag = (Genre)TagsListBox.SelectedItem;
-            var books = Library.GetGenreBooks(tag.GenreId);
+            var genre = (Genre)GenresListBox.SelectedItem;
+            var books = Library.GetGenreBooks(genre.GenreId);
             ShownBooks.ReplaceRange(books);
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
         }
@@ -419,7 +419,7 @@ public partial class MainWindow : Window
         LockNavHandlers();
         AuthorsListBox.SelectedIndex = -1;
         CyclesListBox.SelectedIndex = -1;
-        TagsListBox.SelectedIndex = -1;
+        GenresListBox.SelectedIndex = -1;
         UnlockNavHandlers();
         UpdateShownBooks();
     }
@@ -435,6 +435,7 @@ public partial class MainWindow : Window
         LockNavHandlers();
         AuthorsListBox.SelectedIndex = -1;
         CyclesListBox.SelectedIndex = -1;
+        GenresListBox.SelectedIndex = -1;
         UnlockNavHandlers();
         UpdateShownBooks();
     }
@@ -447,7 +448,7 @@ public partial class MainWindow : Window
         ListeningBooksToggleButton.IsChecked = false;
         LockNavHandlers();
         CyclesListBox.SelectedIndex = -1;
-        TagsListBox.SelectedIndex = -1;
+        GenresListBox.SelectedIndex = -1;
         UnlockNavHandlers();
         UpdateShownBooks();
     }
@@ -460,16 +461,16 @@ public partial class MainWindow : Window
         ListeningBooksToggleButton.IsChecked = false;
         LockNavHandlers();
         AuthorsListBox.SelectedIndex = -1;
-        TagsListBox.SelectedIndex = -1;
+        GenresListBox.SelectedIndex = -1;
         UnlockNavHandlers();
         UpdateShownBooks();
     }
 
-    private void TagsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void GenresListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (NavHandlersLocked)
             return;
-        AllBooksToggleButton.IsChecked = TagsListBox.SelectedIndex < 0;
+        AllBooksToggleButton.IsChecked = GenresListBox.SelectedIndex < 0;
         ListeningBooksToggleButton.IsChecked = false;
         LockNavHandlers();
         AuthorsListBox.SelectedIndex = -1;
@@ -546,7 +547,7 @@ public partial class MainWindow : Window
         if (!dialog.AddedBooks.Any())
             return;
         Library.Books.AddRange(dialog.AddedBooks);
-        UpdateNavPanel(dialog.HasNewAuthors, dialog.HasNewCycle, dialog.TagsChanged);
+        UpdateNavPanel(dialog.HasNewAuthors, dialog.HasNewCycle, dialog.GenresChanged);
         UpdateShownBooks();
     }
 
@@ -587,9 +588,9 @@ public partial class MainWindow : Window
         editor.ShowDialog();
         if (!editor.HasChanges)
             return;
-        var selectedItem = TagsListBox.SelectedItem;
+        var selectedItem = GenresListBox.SelectedItem;
         UpdateNavPanel(false, false, true);
-        if (selectedItem != null && TagsListBox.SelectedItem == null)
+        if (selectedItem != null && GenresListBox.SelectedItem == null)
             UpdateShownBooks();
     }
 

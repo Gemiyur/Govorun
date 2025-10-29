@@ -27,9 +27,9 @@ public partial class AddBooksDialog : Window
     public bool HasNewCycle;
 
     /// <summary>
-    /// Были ли изменения в тегах книг.
+    /// Были ли изменения в жанрах книг.
     /// </summary>
-    public bool TagsChanged;
+    public bool GenresChanged;
 
     /// <summary>
     /// Коллекция имён файлов книг с полным путём.
@@ -73,8 +73,8 @@ public partial class AddBooksDialog : Window
                 HasNewAuthors = true;
             if (!HasNewCycle && editor.HasNewCycle)
                 HasNewCycle = true;
-            if (!TagsChanged && editor.GenresChanged)
-                TagsChanged = true;
+            if (!GenresChanged && editor.GenresChanged)
+                GenresChanged = true;
             AddedBooks.Add(book);
             addedFilesCount--;
             files.Remove(file);

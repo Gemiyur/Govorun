@@ -304,13 +304,13 @@
                                      ItemTemplate="{StaticResource CycleDataTemplate}"
                                      SelectionChanged="CyclesListBox_SelectionChanged" />
                         </Expander>
-                        <Expander Grid.Row="4" x:Name="TagsExpander" Header="Теги"
+                        <Expander Grid.Row="4" x:Name="GenresExpander" Header="Жанры"
                                   Style="{StaticResource NavExpanderStyle}">
-                            <ListBox x:Name="TagsListBox"
+                            <ListBox x:Name="GenresListBox"
                                      Style="{StaticResource NavListBoxStyle}"
                                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                                      ItemTemplate="{StaticResource GenreDataTemplate}"
-                                     SelectionChanged="TagsListBox_SelectionChanged" />
+                                     SelectionChanged="GenresListBox_SelectionChanged" />
                         </Expander>
                     </Grid>
                 </ScrollViewer>
