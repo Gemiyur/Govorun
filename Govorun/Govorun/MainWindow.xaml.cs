@@ -391,6 +391,20 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
+    /// Обновляет имена авторов в списке отображаемых книг.
+    /// </summary>
+    private void UpdateShownBooksAuthors()
+    {
+        foreach (var book in ShownBooks)
+        {
+            book.OnPropertyChanged("AuthorNamesFirstLast");
+            book.OnPropertyChanged("AuthorNamesFirstMiddleLast");
+            book.OnPropertyChanged("AuthorNamesLastFirst");
+            book.OnPropertyChanged("AuthorNamesLastFirstMiddle");
+        }
+    }
+
+    /// <summary>
     /// Обновляет количество отображаемых книг в строке статуса.
     /// </summary>
     private void UpdateStatusBarBooksCount() => BooksCountTextBlock.Text = BooksListBox.Items.Count.ToString();
