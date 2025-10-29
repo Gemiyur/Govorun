@@ -31,8 +31,8 @@
                         Executed="Authors_Executed" />
         <CommandBinding Command="local:AppCommands.Cycles"
                         Executed="Cycles_Executed" />
-        <CommandBinding Command="local:AppCommands.Tags"
-                        Executed="Tags_Executed" />
+        <CommandBinding Command="local:AppCommands.Genres"
+                        Executed="Genres_Executed" />
         <CommandBinding Command="local:AppCommands.CheckLibrary"
                         Executed="CheckLibrary_Executed" />
         <CommandBinding Command="local:AppCommands.Settings"
@@ -103,7 +103,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Style="{StaticResource MenuItemStyle}"
-                          Command="local:AppCommands.Tags">
+                          Command="local:AppCommands.Genres">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Genres.png" />
                     </MenuItem.Icon>
@@ -204,7 +204,7 @@
                     <Image Source="Images\Buttons\Enabled\Cycles.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Button Style="{StaticResource ToolBarButtonStyle}"
-                        Command="local:AppCommands.Tags">
+                        Command="local:AppCommands.Genres">
                     <Image Source="Images\Buttons\Enabled\Genres.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />

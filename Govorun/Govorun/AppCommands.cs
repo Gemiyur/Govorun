@@ -30,9 +30,9 @@ public static class AppCommands
     public static RoutedUICommand Cycles { get; private set; }
 
     /// <summary>
-    /// Команда редактирования тегов.
+    /// Команда редактирования жанров.
     /// </summary>
-    public static RoutedUICommand Tags { get; private set; }
+    public static RoutedUICommand Genres { get; private set; }
 
     /// <summary>
     /// Команда проверки библиотеки на наличие файлов книг.
@@ -109,7 +109,7 @@ public static class AppCommands
         FindBooks = new RoutedUICommand("Найти книги в папке...", "FindBooks", typeof(AppCommands));
         Authors = new RoutedUICommand("Авторы...", "Authors", typeof(AppCommands));
         Cycles = new RoutedUICommand("Серии...", "Cycles", typeof(AppCommands));
-        Tags = new RoutedUICommand("Теги...", "Tags", typeof(AppCommands));
+        Genres = new RoutedUICommand("Жанры...", "Genres", typeof(AppCommands));
         CheckLibrary = new RoutedUICommand("Проверить библиотеку...", "CheckLibrary", typeof(AppCommands));
         Settings = new RoutedUICommand("Настройки...", "Settings", typeof(AppCommands));
         Exit = new RoutedUICommand("Выход", "Exit", typeof(AppCommands));

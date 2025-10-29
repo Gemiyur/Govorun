@@ -581,7 +581,7 @@ public partial class MainWindow : Window
             UpdateShownBooks();
     }
 
-    private void Tags_Executed(object sender, ExecutedRoutedEventArgs e)
+    private void Genres_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         var editor = new GenresEditor() { Owner = this };
         editor.ShowDialog();
