@@ -19,7 +19,7 @@ public partial class CyclePicker : Window
     public CyclePicker()
     {
         InitializeComponent();
-        CyclesListBox.ItemsSource = Db.GetCycles();
+        CyclesListBox.ItemsSource = Library.Cycles;
     }
 
     private void CyclesListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -33,7 +33,7 @@ public partial class CyclePicker : Window
 
     private void CyclesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        PickButton.IsEnabled = CyclesListBox.SelectedIndex > -1;
+        PickButton.IsEnabled = CyclesListBox.SelectedIndex >= 0;
     }
 
     private void PickButton_Click(object sender, RoutedEventArgs e)
