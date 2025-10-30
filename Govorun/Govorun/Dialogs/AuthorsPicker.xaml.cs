@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Govorun.Models;
 using Govorun.Tools;
 
@@ -19,21 +18,12 @@ public partial class AuthorsPicker : Window
     public AuthorsPicker()
     {
         InitializeComponent();
-        AuthorsListBox.ItemsSource = Db.GetAuthors();
-    }
-
-    private void AuthorsListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        if (e.OriginalSource is TextBlock && AuthorsListBox.SelectedItem != null)
-        {
-            PickedAuthors.Add((Author)AuthorsListBox.SelectedItem);
-            DialogResult = true;
-        }
+        AuthorsListBox.ItemsSource = Library.Authors;
     }
 
     private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        PickButton.IsEnabled = AuthorsListBox.SelectedIndex > -1;
+        PickButton.IsEnabled = AuthorsListBox.SelectedItems.Count > 0;
     }
 
     private void PickButton_Click(object sender, RoutedEventArgs e)
@@ -42,8 +32,5 @@ public partial class AuthorsPicker : Window
         DialogResult = true;
     }
 
-    private void CancelButton_Click(object sender, RoutedEventArgs e)
-    {
-        DialogResult = false;
-    }
+    private void CancelButton_Click(object sender, RoutedEventArgs e) => DialogResult = false;
 }

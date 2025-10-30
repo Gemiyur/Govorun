@@ -29,7 +29,6 @@
                  SelectionMode="Extended"
                  ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                  ItemTemplate="{StaticResource AuthorFullNameDataTemplate}"
-                 MouseDoubleClick="AuthorsListBox_MouseDoubleClick"
                  SelectionChanged="AuthorsListBox_SelectionChanged" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
