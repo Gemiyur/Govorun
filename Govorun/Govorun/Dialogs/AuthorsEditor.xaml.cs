@@ -27,7 +27,7 @@ public partial class AuthorsEditor : Window
     public AuthorsEditor()
     {
         InitializeComponent();
-        authors.AddRange(Db.GetAuthors());
+        authors.AddRange(Library.Authors);
         AuthorsListBox.ItemsSource = authors;
     }
 
@@ -42,16 +42,10 @@ public partial class AuthorsEditor : Window
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        var editor = new AuthorEditor(null, authors) { Owner = this };
+        var author = new Author();
+        var editor = new AuthorEditor(author) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        var author = editor.Author;
-        author.AuthorId = Db.InsertAuthor(author);
-        if (author.AuthorId < 1)
-        {
-            MessageBox.Show("Не удалось добавить автора.", Title);
-            return;
-        }
         authors.Add(author);
         SortAuthors();
         HasChanges = true;
@@ -60,14 +54,9 @@ public partial class AuthorsEditor : Window
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
         var author = (Author)AuthorsListBox.SelectedItem;
-        var editor = new AuthorEditor(author, authors) { Owner = this };
-        if (editor.ShowDialog() != true)
+        var editor = new AuthorEditor(author) { Owner = this };
+        if (editor.ShowDialog() != true || !editor.NameChanged)
             return;
-        if (!Db.UpdateAuthor(author))
-        {
-            MessageBox.Show("Не удалось сохранить автора.", Title);
-            return;
-        }
         SortAuthors();
         HasChanges = true;
     }
@@ -75,7 +64,11 @@ public partial class AuthorsEditor : Window
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         var author = (Author)AuthorsListBox.SelectedItem;
-        if (!Db.DeleteAuthor(author.AuthorId))
+        if (!App.ConfirmAction($"Удалить автора \"{author.NameLastFirstMiddle}\" из библиотеки?", Title))
+        {
+            return;
+        }
+        if (!Library.DeleteAuthor(author))
         {
             MessageBox.Show("Не удалось удалить автора.", Title);
             return;
