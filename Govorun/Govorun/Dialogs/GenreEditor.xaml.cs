@@ -13,38 +13,42 @@ public partial class GenreEditor : Window
     /// <summary>
     /// Редактируемый жанр.
     /// </summary>
-    public Genre EditedGenre;
-
-    /// <summary>
-    /// Список существующих жанров.
-    /// </summary>
-    private readonly List<Genre> genres = [];
+    private readonly Genre genre;
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
     /// <param name="genre">Редактируемый жанр.</param>
-    /// <param name="genres">Список существующих жанров.</param>
-    public GenreEditor(Genre? genre, IEnumerable<Genre>? genres)
+    public GenreEditor(Genre genre)
     {
         InitializeComponent();
-        EditedGenre = genre ?? new Genre();
-        TitleTextBox.Text = EditedGenre.Title;
-        this.genres.AddRange(genres ?? Db.GetGenres());
+        this.genre = genre;
+        TitleTextBox.Text = genre.Title;
     }
 
     private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e) =>
-        SaveButton.IsEnabled = !string.IsNullOrWhiteSpace(TitleTextBox.Text) && TitleTextBox.Text.Trim() != EditedGenre.Title;
+        SaveButton.IsEnabled = !string.IsNullOrWhiteSpace(TitleTextBox.Text) && TitleTextBox.Text.Trim() != genre.Title;
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         var title = TitleTextBox.Text.Trim();
-        if (genres.Exists(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)))
+
+        var foundGenre = Library.Genres.Find(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase));
+        if (foundGenre != null && foundGenre.GenreId != genre.GenreId)
         {
             MessageBox.Show("Жанр с таким названием уже существует.", Title);
             return;
         }
-        EditedGenre.Title = title;
+
+        var origTitle = genre.Title;
+        genre.Title = title;
+        var saved = genre.GenreId > 0 ? Library.UpdateGenre(genre) : Library.AddGenre(genre);
+        if (!saved)
+        {
+            MessageBox.Show("Не удалось сохранить жанр.", Title);
+            genre.Title = origTitle;
+            DialogResult = false;
+        }
         DialogResult = true;
     }
 

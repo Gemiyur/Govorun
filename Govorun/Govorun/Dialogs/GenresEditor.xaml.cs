@@ -24,7 +24,7 @@ public partial class GenresEditor : Window
     public GenresEditor()
     {
         InitializeComponent();
-        genres.AddRange(Db.GetGenres());
+        genres.AddRange(Library.Genres);
         GenresListBox.ItemsSource = genres;
     }
 
@@ -39,16 +39,10 @@ public partial class GenresEditor : Window
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        var editor = new GenreEditor(null, genres) { Owner = this };
+        var genre = new Genre();
+        var editor = new GenreEditor(genre) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        var genre = editor.EditedGenre;
-        genre.GenreId = Db.InsertGenre(genre);
-        if (genre.GenreId < 1)
-        {
-            MessageBox.Show("Не удалось добавить жанр.", Title);
-            return;
-        }
         genres.Add(genre);
         SortGenres();
         HasChanges = true;
@@ -57,14 +51,9 @@ public partial class GenresEditor : Window
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
         var genre = (Genre)GenresListBox.SelectedItem;
-        var editor = new GenreEditor(genre, genres) { Owner = this };
+        var editor = new GenreEditor(genre) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        if (!Db.UpdateGenre(genre))
-        {
-            MessageBox.Show("Не удалось сохранить жанр.", Title);
-            return;
-        }
         SortGenres();
         HasChanges = true;
     }
@@ -72,7 +61,11 @@ public partial class GenresEditor : Window
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         var genre = (Genre)GenresListBox.SelectedItem;
-        if (!Db.DeleteGenre(genre.GenreId))
+        if (!App.ConfirmAction($"Удалить жанр \"{genre.Title}\" из библиотеки?", Title))
+        {
+            return;
+        }
+        if (!Library.DeleteGenre(genre))
         {
             MessageBox.Show("Не удалось удалить жанр.", Title);
             return;
