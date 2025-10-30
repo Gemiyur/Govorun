@@ -24,7 +24,6 @@ public partial class AuthorEditor : Window
     /// Инициализирует новый экземпляр класса.
     /// </summary>
     /// <param name="author">Редактируемый автор.</param>
-    /// <param name="authors">Список существующих авторов.</param>
     public AuthorEditor(Author author)
     {
         InitializeComponent();

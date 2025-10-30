@@ -24,7 +24,7 @@ public partial class CyclesEditor : Window
     public CyclesEditor()
     {
         InitializeComponent();
-        cycles.AddRange(Db.GetCycles());
+        cycles.AddRange(Library.Cycles);
         CyclesListBox.ItemsSource = cycles;
     }
 
@@ -39,16 +39,10 @@ public partial class CyclesEditor : Window
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        var editor = new CycleEditor(null, cycles) { Owner = this };
+        var cycle = new Cycle();
+        var editor = new CycleEditor(cycle) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        var cycle = editor.Cycle;
-        cycle.CycleId = Db.InsertCycle(cycle);
-        if (cycle.CycleId < 1)
-        {
-            MessageBox.Show("Не удалось добавить серию.", Title);
-            return;
-        }
         cycles.Add(cycle);
         SortCycles();
         HasChanges = true;
@@ -57,14 +51,9 @@ public partial class CyclesEditor : Window
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
         var cycle = (Cycle)CyclesListBox.SelectedItem;
-        var editor = new CycleEditor(cycle, cycles) { Owner = this };
-        if (editor.ShowDialog() != true)
+        var editor = new CycleEditor(cycle) { Owner = this };
+        if (editor.ShowDialog() != true || !editor.TitleChanged)
             return;
-        if (!Db.UpdateCycle(cycle))
-        {
-            MessageBox.Show("Не удалось сохранить серию.", Title);
-            return;
-        }
         SortCycles();
         HasChanges = true;
     }
@@ -72,7 +61,11 @@ public partial class CyclesEditor : Window
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         var cycle = (Cycle)CyclesListBox.SelectedItem;
-        if (!Db.DeleteCycle(cycle.CycleId))
+        if (!App.ConfirmAction($"Удалить серию \"{cycle.Title}\" из библиотеки?", Title))
+        {
+            return;
+        }
+        if (!Library.DeleteCycle(cycle))
         {
             MessageBox.Show("Не удалось удалить серию.", Title);
             return;

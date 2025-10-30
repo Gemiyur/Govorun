@@ -11,41 +11,69 @@ namespace Govorun.Dialogs;
 public partial class CycleEditor : Window
 {
     /// <summary>
-    /// Редактируемая серия.
+    /// Возвращает было ли изменено название серии.
     /// </summary>
-    public Cycle Cycle;
+    public bool TitleChanged { get; private set; }
 
     /// <summary>
-    /// Список существующих серий.
+    /// Редактируемая серия.
     /// </summary>
-    private readonly List<Cycle> cycles = [];
+    private readonly Cycle cycle;
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
     /// </summary>
     /// <param name="cycle">Редактируемая серия.</param>
-    /// <param name="cycles">Список существующих серий.</param>
-    public CycleEditor(Cycle? cycle, IEnumerable<Cycle>? cycles)
+    public CycleEditor(Cycle cycle)
     {
         InitializeComponent();
-        Cycle = cycle ?? new Cycle();
-        TitleTextBox.Text = Cycle.Title;
-        this.cycles.AddRange(cycles ?? Db.GetCycles());
+        this.cycle = cycle;
+        TitleTextBox.Text = cycle.Title;
+        //AnnotationTextBox.Text = cycle.Annotation;
     }
 
-    private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e) =>
-        SaveButton.IsEnabled = !string.IsNullOrWhiteSpace(TitleTextBox.Text) && TitleTextBox.Text.Trim() != Cycle.Title;
+    /// <summary>
+    /// Проверяет доступность кнопки Сохранить.
+    /// </summary>
+    private void CheckSaveButton()
+    {
+        var titleEmpty = string.IsNullOrWhiteSpace(TitleTextBox.Text);
+        TitleChanged = TitleTextBox.Text.Trim() != cycle.Title;
+        SaveButton.IsEnabled = !titleEmpty && TitleChanged;
+        //SaveButton.IsEnabled = !titleEmpty && (TitleChanged || AnnotationTextBox.Text.Trim() != cycle.Annotation);
+    }
+
+    private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckSaveButton();
+
+    //private void AnnotationTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckSaveButton();
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         var title = TitleTextBox.Text.Trim();
-        if (cycles.Exists(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)))
+        //var annotation = AnnotationTextBox.Text.Trim();
+
+        var foundCycle = Library.Cycles.Find(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase));
+        if (foundCycle != null && foundCycle.CycleId != cycle.CycleId)
         {
             MessageBox.Show("Серия с таким названием уже существует.", Title);
             return;
         }
-        Cycle.Title = title;
-        DialogResult = true;
+
+        var origTitle = cycle.Title;
+        var origAnnotation = cycle.Annotation;
+
+        cycle.Title = title;
+        //cycle.Annotation = annotation;
+
+        var saved = cycle.CycleId > 0 ? Library.UpdateCycle(cycle) : Library.AddCycle(cycle);
+        if (!saved)
+        {
+            MessageBox.Show("Не удалось сохранить серию.", Title);
+            cycle.Title = origTitle;
+            cycle.Annotation = origAnnotation;
+            DialogResult = false;
+        }
+
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();
