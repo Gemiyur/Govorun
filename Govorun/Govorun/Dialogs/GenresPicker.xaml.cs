@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Govorun.Models;
 using Govorun.Tools;
 
@@ -19,21 +18,12 @@ public partial class GenresPicker : Window
     public GenresPicker()
     {
         InitializeComponent();
-        GenresListBox.ItemsSource = Db.GetGenres();
-    }
-
-    private void GenresListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        if (e.OriginalSource is TextBlock && GenresListBox.SelectedItem != null)
-        {
-            PickedGenres.Add((Genre)GenresListBox.SelectedItem);
-            DialogResult = true;
-        }
+        GenresListBox.ItemsSource = Library.Genres;
     }
 
     private void GenresListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        PickButton.IsEnabled = GenresListBox.SelectedIndex > -1;
+        PickButton.IsEnabled = GenresListBox.SelectedItems.Count > 0;
     }
 
     private void PickButton_Click(object sender, RoutedEventArgs e)
@@ -42,8 +32,5 @@ public partial class GenresPicker : Window
         DialogResult = true;
     }
 
-    private void CancelButton_Click(object sender, RoutedEventArgs e)
-    {
-        DialogResult = false;
-    }
+    private void CancelButton_Click(object sender, RoutedEventArgs e) => DialogResult = false;
 }
