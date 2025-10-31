@@ -1,12 +1,14 @@
-﻿using Microsoft.Win32;
+﻿using Govorun.Dialogs;
+using Govorun.Media;
+using Govorun.Models;
+using Govorun.Tools;
+using Microsoft.Win32;
+using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using Govorun.Media;
-using Govorun.Models;
-using Govorun.Dialogs;
-using Govorun.Tools;
 
 namespace Govorun;
 
@@ -15,6 +17,38 @@ namespace Govorun;
 /// </summary>
 public partial class App : Application
 {
+    #region Запуск только одного экземпляра приложения.
+
+    [DllImport("user32.dll")]
+    private static extern bool ShowWindow(IntPtr handle, int cmdShow);
+
+    [DllImport("user32.dll")]
+    private static extern int SetForegroundWindow(IntPtr handle);
+
+    private readonly Mutex mutex = new(false, "Govorun");
+
+    private void Application_Startup(object sender, StartupEventArgs e)
+    {
+        if (!mutex.WaitOne(500, false))
+        {
+#if DEBUG
+            MessageBox.Show("Приложение уже запущено.", "Говорун");
+#endif
+            var processName = Process.GetCurrentProcess().ProcessName;
+            var process = Process.GetProcesses().Where(p => p.ProcessName == processName).FirstOrDefault();
+            if (process != null)
+            {
+                IntPtr handle = process.MainWindowHandle;
+                ShowWindow(handle, 1);
+                if (SetForegroundWindow(handle) == 0)
+                    MessageBox.Show("Приложение уже запущено.", "Говорун");
+                Environment.Exit(0);
+            }
+        }
+    }
+
+    #endregion
+
     /// <summary>
     /// Имя файла базы данных с полным путём.
     /// </summary>
