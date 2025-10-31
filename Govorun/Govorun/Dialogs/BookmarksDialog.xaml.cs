@@ -121,7 +121,7 @@ public partial class BookmarksDialog : Window
         {
             book.Bookmarks.Clear();
             book.Bookmarks.AddRange(bookmarks);
-            Db.UpdateBook(book);
+            Library.UpdateBook(book);
             hasChanges = false;
         }
     }
