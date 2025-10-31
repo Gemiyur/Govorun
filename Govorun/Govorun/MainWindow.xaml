@@ -388,10 +388,12 @@
                 <TextBlock x:Name="BooksCountTextBlock">0</TextBlock>
             </StatusBarItem>
             <StatusBarItem x:Name="ActionStatusBarItem"
-                           HorizontalAlignment="Right"
-                           Margin="10,0,20,0"
+                           Margin="10,0,10,0"
                            Visibility="Collapsed">
                 <TextBlock x:Name="ActionTextBlock">Выполняемое действие...</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Margin="10,0,20,0" HorizontalAlignment="Right">
+                <TextBlock x:Name="NavItemTextBlock" Text="Все книги" />
             </StatusBarItem>
         </StatusBar>
     </Grid>

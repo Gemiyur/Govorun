@@ -360,11 +360,13 @@ public partial class MainWindow : Window
         {
             ShownBooks.ReplaceRange(Library.Books.OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase));
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
+            NavItemTextBlock.Text = "Все книги";
         }
         else if (ListeningBooksToggleButton.IsChecked == true)
         {
             ShownBooks.ReplaceRange(Library.ListeningBooks);
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
+            NavItemTextBlock.Text = "Слушаемые книги";
         }
         else if (AuthorsListBox.SelectedItem != null)
         {
@@ -372,6 +374,7 @@ public partial class MainWindow : Window
             var books = Library.GetAuthorBooks(author.AuthorId);
             ShownBooks.ReplaceRange(books);
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
+            NavItemTextBlock.Text = $"Автор: {author.NameLastFirstMiddle}";
         }
         else if (CyclesListBox.SelectedItem != null)
         {
@@ -379,6 +382,7 @@ public partial class MainWindow : Window
             var books = Library.GetCycleBooks(cycle.CycleId);
             ShownBooks.ReplaceRange(books);
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookCycleDataTemplate");
+            NavItemTextBlock.Text = $"Серия: {cycle.Title}";
         }
         else if (GenresListBox.SelectedItem != null)
         {
@@ -386,6 +390,7 @@ public partial class MainWindow : Window
             var books = Library.GetGenreBooks(genre.GenreId);
             ShownBooks.ReplaceRange(books);
             BooksListBox.ItemTemplate = (DataTemplate)FindResource("BookDataTemplate");
+            NavItemTextBlock.Text = $"Жанр: {genre.Title}";
         }
         UpdateStatusBarBooksCount();
     }
