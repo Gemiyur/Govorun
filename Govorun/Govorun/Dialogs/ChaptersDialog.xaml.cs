@@ -98,7 +98,7 @@ public partial class ChaptersDialog : Window
     {
         if (hasChanges)
         {
-            Db.UpdateBook(book);
+            Library.UpdateBook(book);
             hasChanges = false;
         }
     }
