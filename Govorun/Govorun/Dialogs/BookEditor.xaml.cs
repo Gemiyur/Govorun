@@ -81,7 +81,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Список всех авторов в библиотеке.
     /// </summary>
-    private readonly List<Author> allAuthors = Db.GetAuthors();
+    private readonly List<Author> allAuthors = Library.Authors;
 
     /// <summary>
     /// Серия книги.
@@ -91,7 +91,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Список всех серий в библиотеке.
     /// </summary>
-    private readonly List<Cycle> allCycles = Db.GetCycles();
+    private readonly List<Cycle> allCycles = Library.Cycles;
 
     /// <summary>
     /// Список жанров книги.
@@ -101,7 +101,7 @@ public partial class BookEditor : Window
     /// <summary>
     /// Список всех жанров в библиотеке.
     /// </summary>
-    private readonly List<Genre> allGenres = Db.GetGenres();
+    private readonly List<Genre> allGenres = Library.Genres;
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
@@ -311,11 +311,9 @@ public partial class BookEditor : Window
         if (newAuthors.Count == 0)
             return true;
         HasNewAuthors = true;
-        using var db = Db.GetDatabase();
         foreach (var author in newAuthors)
         {
-            author.AuthorId = Db.InsertAuthor(author, db);
-            if (author.AuthorId < 1)
+            if (!Library.AddAuthor(author))
                 return false;
         }
         return true;
@@ -330,8 +328,7 @@ public partial class BookEditor : Window
         if (cycle == null || cycle.CycleId > 0)
             return true;
         HasNewCycle = true;
-        cycle.CycleId = Db.InsertCycle(cycle);
-        return cycle.CycleId > 0;
+        return Library.AddCycle(cycle);
     }
 
     /// <summary>
@@ -344,11 +341,9 @@ public partial class BookEditor : Window
         if (newGenres.Count == 0)
             return true;
         HasNewGenres = true;
-        using var db = Db.GetDatabase();
         foreach (var genre in newGenres)
         {
-            genre.GenreId = Db.InsertGenre(genre, db);
-            if (genre.GenreId < 1)
+            if (!Library.AddGenre(genre))
                 return false;
         }
         return true;
@@ -657,7 +652,7 @@ public partial class BookEditor : Window
         }
         if (book.BookId > 0)
         {
-            if (!Db.UpdateBook(book))
+            if (!Library.UpdateBook(book))
             {
                 MessageBox.Show("Не удалось сохранить книгу.", Title);
                 return;
@@ -665,8 +660,7 @@ public partial class BookEditor : Window
         }
         else
         {
-            book.BookId = Db.InsertBook(book);
-            if (book.BookId < 1)
+            if (!Library.AddBook(book))
             {
                 MessageBox.Show("Не удалось добавить книгу.", Title);
                 return;
