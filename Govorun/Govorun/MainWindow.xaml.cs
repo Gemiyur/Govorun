@@ -201,7 +201,7 @@ public partial class MainWindow : Window
     /// <param name="book">Книга.</param>
     private static void SaveBookPlayPosition(Book book)
     {
-        Db.UpdateBook(book);
+        Library.UpdateBook(book);
         book.OnPropertyChanged("PlayPosition");
     }
 
@@ -311,7 +311,7 @@ public partial class MainWindow : Window
         if (authors)
         {
             var selectedAuthor = (Author)AuthorsListBox.SelectedItem;
-            Authors.ReplaceRange(Db.GetAuthors());
+            Authors.ReplaceRange(Library.Authors);
             if (selectedAuthor != null)
             {
                 AuthorsListBox.SelectedItem = Authors.FirstOrDefault(x => x.AuthorId == selectedAuthor.AuthorId);
@@ -322,7 +322,7 @@ public partial class MainWindow : Window
         if (cycles)
         {
             var selectedCycle = (Cycle)CyclesListBox.SelectedItem;
-            Cycles.ReplaceRange(Db.GetCycles());
+            Cycles.ReplaceRange(Library.Cycles);
             if (selectedCycle != null)
             {
                 CyclesListBox.SelectedItem = Cycles.FirstOrDefault(x => x.CycleId == selectedCycle.CycleId);
@@ -333,7 +333,7 @@ public partial class MainWindow : Window
         if (genres)
         {
             var selectedGenre = (Genre)GenresListBox.SelectedItem;
-            Genres.ReplaceRange(Db.GetGenres());
+            Genres.ReplaceRange(Library.Genres);
             if (selectedGenre != null)
             {
                 GenresListBox.SelectedItem = Genres.FirstOrDefault(x => x.Equals(selectedGenre));
