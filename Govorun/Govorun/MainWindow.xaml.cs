@@ -618,13 +618,7 @@ public partial class MainWindow : Window
         UpdateNavPanel(true, false, false);
         if (selectedItem != null && AuthorsListBox.SelectedItem == null)
             UpdateShownBooks();
-        foreach (var book in ShownBooks)
-        {
-            book.OnPropertyChanged("AuthorNamesFirstLast");
-            book.OnPropertyChanged("AuthorNamesFirstMiddleLast");
-            book.OnPropertyChanged("AuthorNamesLastFirst");
-            book.OnPropertyChanged("AuthorNamesLastFirstMiddle");
-        }
+        UpdateShownBooksAuthors();
     }
 
     private void Cycles_Executed(object sender, ExecutedRoutedEventArgs e)
