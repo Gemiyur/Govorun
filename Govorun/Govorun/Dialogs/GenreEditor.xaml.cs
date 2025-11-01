@@ -49,6 +49,7 @@ public partial class GenreEditor : Window
             genre.Title = origTitle;
             DialogResult = false;
         }
+
         DialogResult = true;
     }
 

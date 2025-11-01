@@ -300,6 +300,18 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
+    /// Обновляет имена авторов указанной книги.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    private void UpdateBookAuthors(Book book)
+    {
+        book.OnPropertyChanged("AuthorNamesFirstLast");
+        book.OnPropertyChanged("AuthorNamesFirstMiddleLast");
+        book.OnPropertyChanged("AuthorNamesLastFirst");
+        book.OnPropertyChanged("AuthorNamesLastFirstMiddle");
+    }
+
+    /// <summary>
     /// Обновляет списки панели навигации.
     /// </summary>
     /// <param name="authors">Обновить список авторов.</param>
@@ -404,14 +416,6 @@ public partial class MainWindow : Window
         {
             UpdateBookAuthors(book);
         }
-    }
-
-    private void UpdateBookAuthors(Book book)
-    {
-        book.OnPropertyChanged("AuthorNamesFirstLast");
-        book.OnPropertyChanged("AuthorNamesFirstMiddleLast");
-        book.OnPropertyChanged("AuthorNamesLastFirst");
-        book.OnPropertyChanged("AuthorNamesLastFirstMiddle");
     }
 
     /// <summary>
@@ -619,6 +623,16 @@ public partial class MainWindow : Window
         if (selectedItem != null && AuthorsListBox.SelectedItem == null)
             UpdateShownBooks();
         UpdateShownBooksAuthors();
+        // Костыль. В следующей версии всё будет совсем по-другому.
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null)
+            bookInfoWindow.UpdateBook();
+        var bookmarksWindow = App.FindBookmarksWindow();
+        if (bookmarksWindow != null)
+            bookmarksWindow.UpdateBook();
+        var chaptersWindow = App.FindChaptersWindow();
+        if (chaptersWindow != null)
+            chaptersWindow.UpdateBook();
     }
 
     private void Cycles_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -631,6 +645,10 @@ public partial class MainWindow : Window
         UpdateNavPanel(false, true, false);
         if (selectedItem != null && CyclesListBox.SelectedItem == null)
             UpdateShownBooks();
+        // Костыль. В следующей версии всё будет совсем по-другому.
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null)
+            bookInfoWindow.UpdateBook();
     }
 
     private void Genres_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -643,6 +661,10 @@ public partial class MainWindow : Window
         UpdateNavPanel(false, false, true);
         if (selectedItem != null && GenresListBox.SelectedItem == null)
             UpdateShownBooks();
+        // Костыль. В следующей версии всё будет совсем по-другому.
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null)
+            bookInfoWindow.UpdateBook();
     }
 
     private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)

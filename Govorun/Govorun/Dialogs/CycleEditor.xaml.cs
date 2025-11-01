@@ -74,6 +74,7 @@ public partial class CycleEditor : Window
             DialogResult = false;
         }
 
+        DialogResult = true;
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();
