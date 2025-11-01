@@ -402,11 +402,16 @@ public partial class MainWindow : Window
     {
         foreach (var book in ShownBooks)
         {
-            book.OnPropertyChanged("AuthorNamesFirstLast");
-            book.OnPropertyChanged("AuthorNamesFirstMiddleLast");
-            book.OnPropertyChanged("AuthorNamesLastFirst");
-            book.OnPropertyChanged("AuthorNamesLastFirstMiddle");
+            UpdateBookAuthors(book);
         }
+    }
+
+    private void UpdateBookAuthors(Book book)
+    {
+        book.OnPropertyChanged("AuthorNamesFirstLast");
+        book.OnPropertyChanged("AuthorNamesFirstMiddleLast");
+        book.OnPropertyChanged("AuthorNamesLastFirst");
+        book.OnPropertyChanged("AuthorNamesLastFirstMiddle");
     }
 
     /// <summary>
@@ -853,10 +858,7 @@ public partial class MainWindow : Window
             Player.PlayOnLoad = false;
             Player.Book = book;
         }
-        book.OnPropertyChanged("AuthorNamesFirstLast");
-        book.OnPropertyChanged("AuthorNamesFirstMiddleLast");
-        book.OnPropertyChanged("AuthorNamesLastFirst");
-        book.OnPropertyChanged("AuthorNamesLastFirstMiddle");
+        UpdateBookAuthors(book);
     }
 
     private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
