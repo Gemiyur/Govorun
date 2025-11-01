@@ -12,11 +12,6 @@ namespace Govorun.Dialogs;
 public partial class AddBooksDialog : Window
 {
     /// <summary>
-    /// Список добавленных книг.
-    /// </summary>
-    public readonly List<Book> AddedBooks = [];
-
-    /// <summary>
     /// Были ли добавлены новые авторы книг в библиотеку.
     /// </summary>
     public bool HasNewAuthors;
@@ -75,7 +70,6 @@ public partial class AddBooksDialog : Window
                 HasNewCycle = true;
             if (!GenresChanged && editor.GenresChanged)
                 GenresChanged = true;
-            AddedBooks.Add(book);
             addedFilesCount--;
             files.Remove(file);
         }

@@ -572,7 +572,6 @@ public partial class MainWindow : Window
         var editor = new BookEditor(book, trackData) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        Library.Books.Add(book);
         UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.GenresChanged);
         UpdateShownBooks();
         SelectBookInShownBooks(book);
@@ -600,9 +599,6 @@ public partial class MainWindow : Window
         ActionStatusBarItem.Visibility = Visibility.Collapsed;
         var dialog = new AddBooksDialog(files) { Owner = this };
         dialog.ShowDialog();
-        if (!dialog.AddedBooks.Any())
-            return;
-        Library.Books.AddRange(dialog.AddedBooks);
         UpdateNavPanel(dialog.HasNewAuthors, dialog.HasNewCycle, dialog.GenresChanged);
         UpdateShownBooks();
     }
