@@ -58,12 +58,31 @@
         <!-- Команды авторов -->
         <CommandBinding Command="local:AppCommands.Authors"
                         Executed="Authors_Executed" />
+        <CommandBinding Command="local:AppCommands.AuthorInfo"
+                        Executed="AuthorInfo_Executed" />
+        <CommandBinding Command="local:AppCommands.AuthorEdit"
+                        Executed="AuthorEdit_Executed" />
+        <CommandBinding Command="local:AppCommands.AuthorDelete"
+                        CanExecute="AuthorDelete_CanExecute"
+                        Executed="AuthorDelete_Executed" />
         <!-- Команды серий -->
         <CommandBinding Command="local:AppCommands.Cycles"
                         Executed="Cycles_Executed" />
+        <CommandBinding Command="local:AppCommands.CycleInfo"
+                        Executed="CycleInfo_Executed" />
+        <CommandBinding Command="local:AppCommands.CycleEdit"
+                        Executed="CycleEdit_Executed" />
+        <CommandBinding Command="local:AppCommands.CycleDelete"
+                        CanExecute="CycleDelete_CanExecute"
+                        Executed="CycleDelete_Executed" />
         <!-- Команды жанров -->
         <CommandBinding Command="local:AppCommands.Genres"
                         Executed="Genres_Executed" />
+        <CommandBinding Command="local:AppCommands.GenreEdit"
+                        Executed="GenreEdit_Executed" />
+        <CommandBinding Command="local:AppCommands.GenreDelete"
+                        CanExecute="GenreDelete_CanExecute"
+                        Executed="GenreDelete_Executed" />
         <!-- Команды справки -->
         <CommandBinding Command="local:AppCommands.About"
                         Executed="About_Executed" />

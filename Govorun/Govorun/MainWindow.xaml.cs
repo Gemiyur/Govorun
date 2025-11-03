@@ -880,6 +880,26 @@ public partial class MainWindow : Window
             chaptersWindow.UpdateBook();
     }
 
+    private void AuthorInfo_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+
+    }
+
+    private void AuthorEdit_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+
+    }
+
+    private void AuthorDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+    {
+
+    }
+
+    private void AuthorDelete_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+
+    }
+
     #endregion
 
     #region Обработчики команд серий.
@@ -900,6 +920,26 @@ public partial class MainWindow : Window
             bookInfoWindow.UpdateBook();
     }
 
+    private void CycleInfo_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+
+    }
+
+    private void CycleEdit_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+
+    }
+
+    private void CycleDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+    {
+
+    }
+
+    private void CycleDelete_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+
+    }
+
     #endregion
 
     #region Обработчики команд жанров.
@@ -918,6 +958,21 @@ public partial class MainWindow : Window
         var bookInfoWindow = App.FindBookInfoWindow();
         if (bookInfoWindow != null)
             bookInfoWindow.UpdateBook();
+    }
+
+    private void GenreEdit_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+
+    }
+
+    private void GenreDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+    {
+
+    }
+
+    private void GenreDelete_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+
     }
 
     #endregion
