@@ -316,7 +316,33 @@
                                      Style="{StaticResource NavListBoxStyle}"
                                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                                      ItemTemplate="{StaticResource AuthorFullNameDataTemplate}"
-                                     SelectionChanged="AuthorsListBox_SelectionChanged" />
+                                     SelectionChanged="AuthorsListBox_SelectionChanged">
+                                <ListBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem x:Name="AuthorInfoContextMenuItem"
+                                                  Style="{StaticResource MenuItemStyle}"
+                                                  Command="local:AppCommands.AuthorInfo">
+                                            <MenuItem.Icon>
+                                                <Image Source="Images\Buttons\Enabled\Info.png" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem x:Name="AuthorEditContextMenuItem"
+                                                  Style="{StaticResource MenuItemStyle}"
+                                                  Command="local:AppCommands.AuthorEdit">
+                                            <MenuItem.Icon>
+                                                <Image Source="Images\Buttons\Enabled\Edit.png" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem x:Name="AuthorDeleteContextMenuItem"
+                                                  Style="{StaticResource MenuItemStyle}"
+                                                  Command="local:AppCommands.AuthorDelete">
+                                            <MenuItem.Icon>
+                                                <Image Source="Images\Buttons\Enabled\Delete.png" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </ListBox.ContextMenu>
+                            </ListBox>
                         </Expander>
                         <Expander Grid.Row="3" x:Name="CyclesExpander" Header="Серии"
                                   Style="{StaticResource NavExpanderStyle}">
@@ -324,7 +350,33 @@
                                      Style="{StaticResource NavListBoxStyle}"
                                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                                      ItemTemplate="{StaticResource CycleDataTemplate}"
-                                     SelectionChanged="CyclesListBox_SelectionChanged" />
+                                     SelectionChanged="CyclesListBox_SelectionChanged">
+                                <ListBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem x:Name="CycleInfoContextMenuItem"
+                                                  Style="{StaticResource MenuItemStyle}"
+                                                  Command="local:AppCommands.CycleInfo">
+                                            <MenuItem.Icon>
+                                                <Image Source="Images\Buttons\Enabled\Info.png" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem x:Name="CycleEditContextMenuItem"
+                                                  Style="{StaticResource MenuItemStyle}"
+                                                  Command="local:AppCommands.CycleEdit">
+                                            <MenuItem.Icon>
+                                                <Image Source="Images\Buttons\Enabled\Edit.png" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem x:Name="CycleDeleteContextMenuItem"
+                                                  Style="{StaticResource MenuItemStyle}"
+                                                  Command="local:AppCommands.CycleDelete">
+                                            <MenuItem.Icon>
+                                                <Image Source="Images\Buttons\Enabled\Delete.png" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </ListBox.ContextMenu>
+                            </ListBox>
                         </Expander>
                         <Expander Grid.Row="4" x:Name="GenresExpander" Header="Жанры"
                                   Style="{StaticResource NavExpanderStyle}">
@@ -332,7 +384,26 @@
                                      Style="{StaticResource NavListBoxStyle}"
                                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
                                      ItemTemplate="{StaticResource GenreDataTemplate}"
-                                     SelectionChanged="GenresListBox_SelectionChanged" />
+                                     SelectionChanged="GenresListBox_SelectionChanged">
+                                <ListBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem x:Name="GenreEditContextMenuItem"
+                                                  Style="{StaticResource MenuItemStyle}"
+                                                  Command="local:AppCommands.GenreEdit">
+                                            <MenuItem.Icon>
+                                                <Image Source="Images\Buttons\Enabled\Edit.png" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem x:Name="GenreDeleteContextMenuItem"
+                                                  Style="{StaticResource MenuItemStyle}"
+                                                  Command="local:AppCommands.GenreDelete">
+                                            <MenuItem.Icon>
+                                                <Image Source="Images\Buttons\Enabled\Delete.png" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </ListBox.ContextMenu>
+                            </ListBox>
                         </Expander>
                     </Grid>
                 </ScrollViewer>
