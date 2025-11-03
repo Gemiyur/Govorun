@@ -868,7 +868,7 @@ public partial class MainWindow : Window
         if (selectedItem != null && AuthorsListBox.SelectedItem == null)
             UpdateShownBooks();
         UpdateShownBooksAuthors();
-        // Костыль. В следующей версии всё будет совсем по-другому.
+        // TODO: Костыль. В следующей версии всё будет совсем по-другому.
         var bookInfoWindow = App.FindBookInfoWindow();
         if (bookInfoWindow != null)
             bookInfoWindow.UpdateBook();
@@ -914,7 +914,7 @@ public partial class MainWindow : Window
         UpdateNavPanel(false, true, false);
         if (selectedItem != null && CyclesListBox.SelectedItem == null)
             UpdateShownBooks();
-        // Костыль. В следующей версии всё будет совсем по-другому.
+        // TODO: Костыль. В следующей версии всё будет совсем по-другому.
         var bookInfoWindow = App.FindBookInfoWindow();
         if (bookInfoWindow != null)
             bookInfoWindow.UpdateBook();
@@ -954,7 +954,7 @@ public partial class MainWindow : Window
         UpdateNavPanel(false, false, true);
         if (selectedItem != null && GenresListBox.SelectedItem == null)
             UpdateShownBooks();
-        // Костыль. В следующей версии всё будет совсем по-другому.
+        // TODO: Костыль. В следующей версии всё будет совсем по-другому.
         var bookInfoWindow = App.FindBookInfoWindow();
         if (bookInfoWindow != null)
             bookInfoWindow.UpdateBook();
