@@ -32,6 +32,7 @@
     <None Remove="Images\About.png" />
     <None Remove="Images\Buttons\Disabled\AddBookmark.png" />
     <None Remove="Images\Buttons\Disabled\Back.png" />
+    <None Remove="Images\Buttons\Disabled\BookInfo.png" />
     <None Remove="Images\Buttons\Disabled\Bookmarks.png" />
     <None Remove="Images\Buttons\Disabled\Chapters.png" />
     <None Remove="Images\Buttons\Disabled\CreateM4B.png" />
@@ -47,6 +48,7 @@
     <None Remove="Images\Buttons\Enabled\AllBooks.png" />
     <None Remove="Images\Buttons\Enabled\Authors.png" />
     <None Remove="Images\Buttons\Enabled\Back.png" />
+    <None Remove="Images\Buttons\Enabled\BookInfo.png" />
     <None Remove="Images\Buttons\Enabled\Bookmarks.png" />
     <None Remove="Images\Buttons\Enabled\Chapters.png" />
     <None Remove="Images\Buttons\Enabled\CheckLibrary.png" />
@@ -100,6 +102,7 @@
     <Resource Include="Controls\PlayerImages\Enabled\Volume.png" />
     <Resource Include="Images\About.png" />
     <Resource Include="Controls\PlayerImages\Disabled\Back.png" />
+    <Resource Include="Images\Buttons\Disabled\BookInfo.png" />
     <Resource Include="Images\Buttons\Disabled\Bookmarks.png" />
     <Resource Include="Images\Buttons\Disabled\Chapters.png" />
     <Resource Include="Images\Buttons\Disabled\CreateM4B.png" />
@@ -114,6 +117,7 @@
     <Resource Include="Images\Buttons\Enabled\AllBooks.png" />
     <Resource Include="Images\Buttons\Enabled\Authors.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Back.png" />
+    <Resource Include="Images\Buttons\Enabled\BookInfo.png" />
     <Resource Include="Images\Buttons\Enabled\Bookmarks.png" />
     <Resource Include="Images\Buttons\Enabled\Chapters.png" />
     <Resource Include="Images\Buttons\Enabled\CheckLibrary.png" />

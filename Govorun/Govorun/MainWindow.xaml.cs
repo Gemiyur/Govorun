@@ -704,7 +704,7 @@ public partial class MainWindow : Window
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
-            e.CanExecute ? @"Images\Buttons\Enabled\Info.png" : @"Images\Buttons\Disabled\Info.png");
+            e.CanExecute ? @"Images\Buttons\Enabled\BookInfo.png" : @"Images\Buttons\Disabled\BookInfo.png");
         ((Image)InfoButton.Content).Source = bitmap;
         ((Image)InfoMenuItem.Icon).Source = bitmap;
         ((Image)InfoContextMenuItem.Icon).Source = bitmap;

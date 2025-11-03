@@ -140,7 +140,7 @@
                 <MenuItem x:Name="InfoMenuItem" Style="{StaticResource MenuItemStyle}"
                           Command="local:AppCommands.Info">
                     <MenuItem.Icon>
-                        <Image Source="Images\Buttons\Enabled\Info.png" />
+                        <Image Source="Images\Buttons\Enabled\BookInfo.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem x:Name="ChaptersMenuItem" Style="{StaticResource MenuItemStyle}"
@@ -229,7 +229,7 @@
                 <Separator />
                 <Button x:Name="InfoButton" Style="{StaticResource ToolBarButtonStyle}"
                         Command="local:AppCommands.Info">
-                    <Image Source="Images\Buttons\Enabled\Info.png" Style="{StaticResource ToolBarIconStyle}" />
+                    <Image Source="Images\Buttons\Enabled\BookInfo.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Button x:Name="ChaptersButton" Style="{StaticResource ToolBarButtonStyle}"
                         Command="local:AppCommands.Chapters">
