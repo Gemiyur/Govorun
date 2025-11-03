@@ -82,6 +82,21 @@ public static class AppCommands
     /// </summary>
     public static RoutedUICommand Authors { get; private set; }
 
+    /// <summary>
+    /// Команда информации об авторе.
+    /// </summary>
+    public static RoutedUICommand AuthorInfo { get; private set; }
+
+    /// <summary>
+    /// Команда редактирования автора.
+    /// </summary>
+    public static RoutedUICommand AuthorEdit { get; private set; }
+
+    /// <summary>
+    /// Команда удаления автора.
+    /// </summary>
+    public static RoutedUICommand AuthorDelete { get; private set; }
+
     #endregion
 
     #region Команды серий.
@@ -91,6 +106,21 @@ public static class AppCommands
     /// </summary>
     public static RoutedUICommand Cycles { get; private set; }
 
+    /// <summary>
+    /// Команда информации о серии.
+    /// </summary>
+    public static RoutedUICommand CycleInfo { get; private set; }
+
+    /// <summary>
+    /// Команда редактирования серии.
+    /// </summary>
+    public static RoutedUICommand CycleEdit { get; private set; }
+
+    /// <summary>
+    /// Команда удаления серии.
+    /// </summary>
+    public static RoutedUICommand CycleDelete { get; private set; }
+
     #endregion
 
     #region Команды жанров.
@@ -99,6 +129,16 @@ public static class AppCommands
     /// Команда редактирования жанров.
     /// </summary>
     public static RoutedUICommand Genres { get; private set; }
+
+    /// <summary>
+    /// Команда редактирования жанра.
+    /// </summary>
+    public static RoutedUICommand GenreEdit { get; private set; }
+
+    /// <summary>
+    /// Команда удаления жанра.
+    /// </summary>
+    public static RoutedUICommand GenreDelete { get; private set; }
 
     #endregion
 
@@ -134,12 +174,20 @@ public static class AppCommands
 
         // Команды авторов.
         Authors = new RoutedUICommand("Авторы...", "Authors", typeof(AppCommands));
+        AuthorInfo = new RoutedUICommand("Об авторе...", "AuthorInfo", typeof(AppCommands));
+        AuthorEdit = new RoutedUICommand("Изменить автора...", "AuthorEdit", typeof(AppCommands));
+        AuthorDelete = new RoutedUICommand("Удалить автора...", "AuthorDelete", typeof(AppCommands));
 
         // Команды серий.
         Cycles = new RoutedUICommand("Серии...", "Cycles", typeof(AppCommands));
+        CycleInfo = new RoutedUICommand("О серии...", "CycleInfo", typeof(AppCommands));
+        CycleEdit = new RoutedUICommand("Изменить серию...", "CycleEdit", typeof(AppCommands));
+        CycleDelete = new RoutedUICommand("Удалить серию...", "CycleDelete", typeof(AppCommands));
 
         // Команды жанров.
         Genres = new RoutedUICommand("Жанры...", "Genres", typeof(AppCommands));
+        GenreEdit = new RoutedUICommand("Изменить жанр...", "GenreEdit", typeof(AppCommands));
+        GenreDelete = new RoutedUICommand("Удалить жанр...", "GenreDelete", typeof(AppCommands));
 
         // Команды справки.
         About = new RoutedUICommand("О программе...", "About", typeof(AppCommands));
