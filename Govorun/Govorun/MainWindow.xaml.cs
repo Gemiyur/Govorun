@@ -564,108 +564,7 @@ public partial class MainWindow : Window
 
     #endregion
 
-    #region Обработчики команд группы "Библиотека".
-
-    private void AddBook_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var fileDialog = App.PickBookFileDialog;
-        if (fileDialog.ShowDialog() != true)
-            return;
-        var filename = fileDialog.FileName;
-        if (Library.BookWithFileExists(filename))
-        {
-            MessageBox.Show("Книга с этим файлом уже есть в библиотеке.", "Добавление книги");
-            return;
-        }
-        var book = App.GetBookFromFile(filename, out TrackData trackData);
-        var editor = new BookEditor(book, trackData) { Owner = this };
-        if (editor.ShowDialog() != true)
-            return;
-        UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.GenresChanged);
-        UpdateShownBooks();
-        SelectBookInShownBooks(book);
-    }
-
-    private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var folderDialog = App.PickBooksFolderDialog;
-        if (folderDialog.ShowDialog() != true)
-            return;
-        ActionTextBlock.Text = "Поиск файлов книг...";
-        ActionStatusBarItem.Visibility = Visibility.Visible;
-        var files = new List<string>(); // Новые файлы книг.
-        var folders = folderDialog.FolderNames;
-        foreach (var folder in folders)
-        {
-            var folderFiles = Directory.GetFiles(folder, "*.m4b", SearchOption.AllDirectories);
-            foreach (var file in folderFiles)
-            {
-                if (!Library.BookWithFileExists(file))
-                    files.Add(file);
-            }
-        }
-        files.Sort(StringComparer.CurrentCultureIgnoreCase);
-        ActionStatusBarItem.Visibility = Visibility.Collapsed;
-        var dialog = new AddBooksDialog(files) { Owner = this };
-        dialog.ShowDialog();
-        UpdateNavPanel(dialog.HasNewAuthors, dialog.HasNewCycle, dialog.GenresChanged);
-        UpdateShownBooks();
-    }
-
-    private void Authors_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var editor = new AuthorsEditor() { Owner = this };
-        editor.ShowDialog();
-        if (!editor.HasChanges)
-            return;
-        var selectedItem = AuthorsListBox.SelectedItem;
-        UpdateNavPanel(true, false, false);
-        if (selectedItem != null && AuthorsListBox.SelectedItem == null)
-            UpdateShownBooks();
-        UpdateShownBooksAuthors();
-        // Костыль. В следующей версии всё будет совсем по-другому.
-        var bookInfoWindow = App.FindBookInfoWindow();
-        if (bookInfoWindow != null)
-            bookInfoWindow.UpdateBook();
-        var bookmarksWindow = App.FindBookmarksWindow();
-        if (bookmarksWindow != null)
-            bookmarksWindow.UpdateBook();
-        var chaptersWindow = App.FindChaptersWindow();
-        if (chaptersWindow != null)
-            chaptersWindow.UpdateBook();
-    }
-
-    private void Cycles_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var editor = new CyclesEditor() { Owner = this };
-        editor.ShowDialog();
-        if (!editor.HasChanges)
-            return;
-        var selectedItem = CyclesListBox.SelectedItem;
-        UpdateNavPanel(false, true, false);
-        if (selectedItem != null && CyclesListBox.SelectedItem == null)
-            UpdateShownBooks();
-        // Костыль. В следующей версии всё будет совсем по-другому.
-        var bookInfoWindow = App.FindBookInfoWindow();
-        if (bookInfoWindow != null)
-            bookInfoWindow.UpdateBook();
-    }
-
-    private void Genres_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        var editor = new GenresEditor() { Owner = this };
-        editor.ShowDialog();
-        if (!editor.HasChanges)
-            return;
-        var selectedItem = GenresListBox.SelectedItem;
-        UpdateNavPanel(false, false, true);
-        if (selectedItem != null && GenresListBox.SelectedItem == null)
-            UpdateShownBooks();
-        // Костыль. В следующей версии всё будет совсем по-другому.
-        var bookInfoWindow = App.FindBookInfoWindow();
-        if (bookInfoWindow != null)
-            bookInfoWindow.UpdateBook();
-    }
+    #region Обработчики команд библиотеки.
 
     private void CheckLibrary_Executed(object sender, ExecutedRoutedEventArgs e)
     {
@@ -733,7 +632,53 @@ public partial class MainWindow : Window
 
     #endregion
 
-    #region Обработчики команд группы "Книга".
+    #region Обработчики команд книг.
+
+    private void AddBook_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        var fileDialog = App.PickBookFileDialog;
+        if (fileDialog.ShowDialog() != true)
+            return;
+        var filename = fileDialog.FileName;
+        if (Library.BookWithFileExists(filename))
+        {
+            MessageBox.Show("Книга с этим файлом уже есть в библиотеке.", "Добавление книги");
+            return;
+        }
+        var book = App.GetBookFromFile(filename, out TrackData trackData);
+        var editor = new BookEditor(book, trackData) { Owner = this };
+        if (editor.ShowDialog() != true)
+            return;
+        UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.GenresChanged);
+        UpdateShownBooks();
+        SelectBookInShownBooks(book);
+    }
+
+    private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        var folderDialog = App.PickBooksFolderDialog;
+        if (folderDialog.ShowDialog() != true)
+            return;
+        ActionTextBlock.Text = "Поиск файлов книг...";
+        ActionStatusBarItem.Visibility = Visibility.Visible;
+        var files = new List<string>(); // Новые файлы книг.
+        var folders = folderDialog.FolderNames;
+        foreach (var folder in folders)
+        {
+            var folderFiles = Directory.GetFiles(folder, "*.m4b", SearchOption.AllDirectories);
+            foreach (var file in folderFiles)
+            {
+                if (!Library.BookWithFileExists(file))
+                    files.Add(file);
+            }
+        }
+        files.Sort(StringComparer.CurrentCultureIgnoreCase);
+        ActionStatusBarItem.Visibility = Visibility.Collapsed;
+        var dialog = new AddBooksDialog(files) { Owner = this };
+        dialog.ShowDialog();
+        UpdateNavPanel(dialog.HasNewAuthors, dialog.HasNewCycle, dialog.GenresChanged);
+        UpdateShownBooks();
+    }
 
     private void Play_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
@@ -910,7 +855,74 @@ public partial class MainWindow : Window
 
     #endregion
 
-    #region Обработчики команд группы "Справка".
+    #region Обработчики команд авторов.
+
+    private void Authors_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        var editor = new AuthorsEditor() { Owner = this };
+        editor.ShowDialog();
+        if (!editor.HasChanges)
+            return;
+        var selectedItem = AuthorsListBox.SelectedItem;
+        UpdateNavPanel(true, false, false);
+        if (selectedItem != null && AuthorsListBox.SelectedItem == null)
+            UpdateShownBooks();
+        UpdateShownBooksAuthors();
+        // Костыль. В следующей версии всё будет совсем по-другому.
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null)
+            bookInfoWindow.UpdateBook();
+        var bookmarksWindow = App.FindBookmarksWindow();
+        if (bookmarksWindow != null)
+            bookmarksWindow.UpdateBook();
+        var chaptersWindow = App.FindChaptersWindow();
+        if (chaptersWindow != null)
+            chaptersWindow.UpdateBook();
+    }
+
+    #endregion
+
+    #region Обработчики команд серий.
+
+    private void Cycles_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        var editor = new CyclesEditor() { Owner = this };
+        editor.ShowDialog();
+        if (!editor.HasChanges)
+            return;
+        var selectedItem = CyclesListBox.SelectedItem;
+        UpdateNavPanel(false, true, false);
+        if (selectedItem != null && CyclesListBox.SelectedItem == null)
+            UpdateShownBooks();
+        // Костыль. В следующей версии всё будет совсем по-другому.
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null)
+            bookInfoWindow.UpdateBook();
+    }
+
+    #endregion
+
+    #region Обработчики команд жанров.
+
+    private void Genres_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+        var editor = new GenresEditor() { Owner = this };
+        editor.ShowDialog();
+        if (!editor.HasChanges)
+            return;
+        var selectedItem = GenresListBox.SelectedItem;
+        UpdateNavPanel(false, false, true);
+        if (selectedItem != null && GenresListBox.SelectedItem == null)
+            UpdateShownBooks();
+        // Костыль. В следующей версии всё будет совсем по-другому.
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null)
+            bookInfoWindow.UpdateBook();
+    }
+
+    #endregion
+
+    #region Обработчики команд справки.
 
     private void About_Executed(object sender, ExecutedRoutedEventArgs e)
     {
