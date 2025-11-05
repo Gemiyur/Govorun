@@ -37,7 +37,7 @@ public partial class BookInfoDialog : Window
         set
         {
             book = value;
-            LoadBook();
+            UpdateBook();
         }
     }
 
@@ -50,16 +50,55 @@ public partial class BookInfoDialog : Window
         InitializeComponent();
         this.book = book;
         TitleTextBlock.FontSize = FontSize + 2;
-        LoadBook();
+        UpdateBook();
     }
 
     /// <summary>
-    /// Загружает книгу.
+    /// Обновляет данные книги.
     /// </summary>
-    private void LoadBook()
+    public void UpdateBook()
+    {
+        UpdateAuthors();
+        UpdateTitle();
+        UpdateCycle();
+        UpdateDuration();
+        UpdateLector();
+        UpdateTranslator();
+        UpdateGenres();
+        UpdateAnnotation();
+        UpdateFile();
+    }
+
+    /// <summary>
+    /// Обновляет имена авторов книги.
+    /// </summary>
+    public void UpdateAuthors()
     {
         AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
+    }
+
+    /// <summary>
+    /// Обновляет название книги.
+    /// </summary>
+    public void UpdateTitle()
+    {
         TitleTextBlock.Text = book.Title;
+    }
+
+    /// <summary>
+    /// Обновляет имена авторов и название книги.
+    /// </summary>
+    public void UpdateAuthorsAndTitle()
+    {
+        UpdateAuthors();
+        UpdateTitle();
+    }
+
+    /// <summary>
+    /// Обновляет серию книги.
+    /// </summary>
+    private void UpdateCycle()
+    {
         if (book.Cycle != null)
         {
             CycleGrid.Visibility = Visibility.Visible;
@@ -76,8 +115,29 @@ public partial class BookInfoDialog : Window
         {
             CycleGrid.Visibility = Visibility.Collapsed;
         }
-        LectorTextBlock.Text = book.Lector.Length > 0 ? book.Lector : "(не указано)";
+    }
+
+    /// <summary>
+    /// Обновляет продолжительность книги.
+    /// </summary>
+    public void UpdateDuration()
+    {
         DurationTextBlock.Text = book.DurationText;
+    }
+
+    /// <summary>
+    /// Обновляет чтеца книги.
+    /// </summary>
+    public void UpdateLector()
+    {
+        LectorTextBlock.Text = book.Lector.Length > 0 ? book.Lector : "(не указано)";
+    }
+
+    /// <summary>
+    /// Обновляет переводчика книги.
+    /// </summary>
+    public void UpdateTranslator()
+    {
         if (book.Translator.Length > 0)
         {
             TranslatorStackPanel.Visibility = Visibility.Visible;
@@ -87,6 +147,13 @@ public partial class BookInfoDialog : Window
         {
             TranslatorStackPanel.Visibility = Visibility.Collapsed;
         }
+    }
+
+    /// <summary>
+    /// Обновляет жанры книги.
+    /// </summary>
+    public void UpdateGenres()
+    {
         if (book.Genres.Count > 0)
         {
             GenressGrid.Visibility = Visibility.Visible;
@@ -97,16 +164,14 @@ public partial class BookInfoDialog : Window
         {
             GenressGrid.Visibility = Visibility.Collapsed;
         }
-        AnnotationTextBox.Text = book.Annotation;
-        FileTextBox.Text = book.FileName;
     }
 
     /// <summary>
-    /// Обновляет данные книги в окне.
+    /// Обновляет аннотацию к книге.
     /// </summary>
-    public void UpdateBook()
+    public void UpdateAnnotation()
     {
-        LoadBook();
+        AnnotationTextBox.Text = book.Annotation;
     }
 
     /// <summary>
