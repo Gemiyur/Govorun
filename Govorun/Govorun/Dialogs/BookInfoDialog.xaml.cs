@@ -97,7 +97,7 @@ public partial class BookInfoDialog : Window
     /// <summary>
     /// Обновляет серию книги.
     /// </summary>
-    private void UpdateCycle()
+    public void UpdateCycle()
     {
         if (book.Cycle != null)
         {

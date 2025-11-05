@@ -871,7 +871,7 @@ public partial class MainWindow : Window
         // TODO: Костыль. В следующей версии всё будет совсем по-другому.
         var bookInfoWindow = App.FindBookInfoWindow();
         if (bookInfoWindow != null)
-            bookInfoWindow.UpdateBook();
+            bookInfoWindow.UpdateAuthors();
         var bookmarksWindow = App.FindBookmarksWindow();
         if (bookmarksWindow != null)
             bookmarksWindow.UpdateBook();
@@ -917,7 +917,7 @@ public partial class MainWindow : Window
         // TODO: Костыль. В следующей версии всё будет совсем по-другому.
         var bookInfoWindow = App.FindBookInfoWindow();
         if (bookInfoWindow != null)
-            bookInfoWindow.UpdateBook();
+            bookInfoWindow.UpdateCycle();
     }
 
     private void CycleInfo_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -957,7 +957,7 @@ public partial class MainWindow : Window
         // TODO: Костыль. В следующей версии всё будет совсем по-другому.
         var bookInfoWindow = App.FindBookInfoWindow();
         if (bookInfoWindow != null)
-            bookInfoWindow.UpdateBook();
+            bookInfoWindow.UpdateGenres();
     }
 
     private void GenreEdit_Executed(object sender, ExecutedRoutedEventArgs e)
