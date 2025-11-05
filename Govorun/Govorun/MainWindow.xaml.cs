@@ -804,7 +804,15 @@ public partial class MainWindow : Window
         var editor = new BookEditor(book, null) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        App.UpdateBookWindows(book);
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null && bookInfoWindow.Book == book)
+            bookInfoWindow.UpdateBook();
+        var bookmarksWindow = App.FindBookmarksWindow();
+        if (bookmarksWindow != null && bookmarksWindow.Book == book)
+            bookmarksWindow.UpdateAuthorsAndTitle();
+        var chaptersWindow = App.FindChaptersWindow();
+        if (chaptersWindow != null && chaptersWindow.Book == book)
+            chaptersWindow.UpdateAuthorsAndTitle();
         UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.HasNewGenres);
         if (editor.TitleChanged || editor.AuthorsChanged ||
             editor.CycleChanged || editor.CycleNumbersChanged || editor.GenresChanged)
