@@ -83,8 +83,7 @@ public partial class ChaptersDialog : Window
     /// </summary>
     private void LoadBook()
     {
-        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
-        TitleTextBlock.Text = book.Title;
+        UpdateAuthorsAndTitle();
         chapters.ReplaceRange(book.Chapters);
         TitleEditor.Visibility = Visibility.Collapsed;
         if (IsInitialized)
@@ -127,13 +126,29 @@ public partial class ChaptersDialog : Window
     }
 
     /// <summary>
+    /// Обновляет имена авторов книги.
+    /// </summary>
+    public void UpdateAuthors()
+    {
+        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
+    }
+
+    /// <summary>
+    /// Обновляет название книги.
+    /// </summary>
+    public void UpdateTitle()
+    {
+        TitleTextBlock.Text = book.Title;
+    }
+
+    /// <summary>
     /// Обновляет данные книги в окне.
     /// </summary>
     /// <remarks>Обновляет только авторов и название книги.</remarks>
-    public void UpdateBook()
+    public void UpdateAuthorsAndTitle()
     {
-        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
-        TitleTextBlock.Text = book.Title;
+        UpdateAuthors();
+        UpdateTitle();
     }
 
     private void Window_SourceInitialized(object sender, EventArgs e)

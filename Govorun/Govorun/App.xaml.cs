@@ -164,7 +164,7 @@ public partial class App : Application
             bookmarksWindow.UpdateAuthorsAndTitle();
         var chaptersWindow = FindChaptersWindow();
         if (chaptersWindow != null && chaptersWindow.Book == book)
-            chaptersWindow.UpdateBook();
+            chaptersWindow.UpdateAuthorsAndTitle();
     }
 
     #region Получение окон приложения.

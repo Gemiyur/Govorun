@@ -877,7 +877,7 @@ public partial class MainWindow : Window
             bookmarksWindow.UpdateAuthorsAndTitle();
         var chaptersWindow = App.FindChaptersWindow();
         if (chaptersWindow != null)
-            chaptersWindow.UpdateBook();
+            chaptersWindow.UpdateAuthorsAndTitle();
     }
 
     private void AuthorInfo_Executed(object sender, ExecutedRoutedEventArgs e)
