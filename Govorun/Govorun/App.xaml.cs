@@ -161,7 +161,7 @@ public partial class App : Application
             bookInfoWindow.UpdateBook();
         var bookmarksWindow = FindBookmarksWindow();
         if (bookmarksWindow != null && bookmarksWindow.Book == book)
-            bookmarksWindow.UpdateBook();
+            bookmarksWindow.UpdateAuthorsAndTitle();
         var chaptersWindow = FindChaptersWindow();
         if (chaptersWindow != null && chaptersWindow.Book == book)
             chaptersWindow.UpdateBook();

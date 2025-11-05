@@ -874,7 +874,7 @@ public partial class MainWindow : Window
             bookInfoWindow.UpdateAuthors();
         var bookmarksWindow = App.FindBookmarksWindow();
         if (bookmarksWindow != null)
-            bookmarksWindow.UpdateBook();
+            bookmarksWindow.UpdateAuthorsAndTitle();
         var chaptersWindow = App.FindChaptersWindow();
         if (chaptersWindow != null)
             chaptersWindow.UpdateBook();
