@@ -34,7 +34,7 @@ public partial class GenresEditor : Window
     {
         EditButton.IsEnabled = GenresListBox.SelectedIndex >= 0;
         DeleteButton.IsEnabled = GenresListBox.SelectedIndex >= 0 &&
-                                 !Library.GenreHasBook(((Genre)GenresListBox.SelectedItem).GenreId);
+                                 !Library.GenreHasBooks(((Genre)GenresListBox.SelectedItem).GenreId);
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)

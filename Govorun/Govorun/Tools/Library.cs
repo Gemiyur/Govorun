@@ -100,7 +100,7 @@ public static class Library
     /// </summary>
     /// <param name="genreId">Идентификатор тега.</param>
     /// <returns>Имеет ли указанный тег книги.</returns>
-    public static bool GenreHasBook(int genreId) => Books.Any(x => BookHasGenre(x, genreId));
+    public static bool GenreHasBooks(int genreId) => Books.Any(x => BookHasGenre(x, genreId));
 
     /// <summary>
     /// Возвращает является ли указанный автор автором указанной книги.

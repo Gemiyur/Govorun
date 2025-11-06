@@ -982,12 +982,29 @@ public partial class MainWindow : Window
 
     private void GenreDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-
+        e.CanExecute = GenresListBox != null && GenresListBox.SelectedItem != null &&
+                       !Library.GenreHasBooks(((Genre)GenresListBox.SelectedItem).GenreId);
+        if (!IsVisible)
+            return;
+        var bitmap = App.GetBitmapImage(
+            e.CanExecute ? @"Images\Buttons\Enabled\Delete.png" : @"Images\Buttons\Disabled\Delete.png");
+        ((Image)GenreDeleteContextMenuItem.Icon).Source = bitmap;
     }
 
     private void GenreDelete_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-
+        var genre = (Genre)GenresListBox.SelectedItem;
+        if (!App.ConfirmAction($"Удалить жанр \"{genre.Title}\" из библиотеки?", Title))
+        {
+            return;
+        }
+        if (!Library.DeleteGenre(genre))
+        {
+            MessageBox.Show("Не удалось удалить жанр.", Title);
+            return;
+        }
+        Genres.Remove(genre);
+        UpdateNavPanel(false, false, true);
     }
 
     #endregion
