@@ -238,68 +238,6 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Отображает окно информации о книге.
-    /// </summary>
-    /// <param name="book">Книга.</param>
-    public void ShowBookInfo(Book book)
-    {
-        var window = App.FindBookInfoWindow();
-        if (window != null)
-        {
-            if (window.Book != book)
-                window.Book = book;
-            App.RestoreWindow(window);
-            window.Activate();
-        }
-        else
-        {
-            new BookInfoDialog(book).Show();
-        }
-    }
-
-    /// <summary>
-    /// Отображает окно закладок указанной книги.
-    /// </summary>
-    /// <param name="book">Книга.</param>
-    public void ShowBookmarks(Book book)
-    {
-        var window = App.FindBookmarksWindow();
-        if (window != null)
-        {
-            if (window.Book != book)
-                window.Book = book;
-            App.RestoreWindow(window);
-            window.Activate();
-        }
-        else
-        {
-            new BookmarksDialog(book).Show();
-        }
-    }
-
-    /// <summary>
-    /// Отображает окно содержания указанной книги.
-    /// </summary>
-    /// <param name="book">Книга.</param>
-    public void ShowChapters(Book book)
-    {
-        var window = App.FindChaptersWindow();
-        if (window != null)
-        {
-            if (window.Book != book)
-                window.Book = book;
-            else if (window.Book == Player.Book)
-                window.SelectCurrentChapter();
-            App.RestoreWindow(window);
-            window.Activate();
-        }
-        else
-        {
-            new ChaptersDialog(book).Show();
-        }
-    }
-
-    /// <summary>
     /// Обновляет имена авторов указанной книги.
     /// </summary>
     /// <param name="book">Книга.</param>
@@ -559,7 +497,7 @@ public partial class MainWindow : Window
     private void BooksListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if (BooksListBox.SelectedItem != null && (e.OriginalSource is TextBlock || e.OriginalSource is Border))
-            ShowBookInfo((Book)BooksListBox.SelectedItem);
+            App.ShowBookInfo((Book)BooksListBox.SelectedItem);
     }
 
     #endregion
@@ -712,7 +650,7 @@ public partial class MainWindow : Window
 
     private void Info_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        ShowBookInfo((Book)BooksListBox.SelectedItem);
+        App.ShowBookInfo((Book)BooksListBox.SelectedItem);
     }
 
     private void Chapters_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -731,7 +669,7 @@ public partial class MainWindow : Window
     private void Chapters_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         var book = (Book)BooksListBox.SelectedItem;
-        ShowChapters(book);
+        App.ShowChapters(book);
     }
 
     private void Bookmarks_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -749,7 +687,7 @@ public partial class MainWindow : Window
     private void Bookmarks_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         var book = (Book)BooksListBox.SelectedItem;
-        ShowBookmarks(book);
+        App.ShowBookmarks(book);
     }
 
     private void NotListen_CanExecute(object sender, CanExecuteRoutedEventArgs e)

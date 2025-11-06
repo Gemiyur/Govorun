@@ -446,19 +446,19 @@ public partial class PlayerControl : UserControl
     private void InfoButton_Click(object sender, RoutedEventArgs e)
     {
         if (book != null)
-            ((MainWindow)Window.GetWindow(this)).ShowBookInfo(book);
+            App.ShowBookInfo(book);
     }
 
     private void ChaptersButton_Click(object sender, RoutedEventArgs e)
     {
         if (book != null)
-            ((MainWindow)Window.GetWindow(this)).ShowChapters(book);
+            App.ShowChapters(book);
     }
 
     private void BookmarksButton_Click(object sender, RoutedEventArgs e)
     {
         if (book != null)
-            ((MainWindow)Window.GetWindow(this)).ShowBookmarks(book);
+            App.ShowBookmarks(book);
     }
 
     #endregion

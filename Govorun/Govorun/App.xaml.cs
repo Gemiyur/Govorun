@@ -143,6 +143,68 @@ public partial class App : Application
     }
 
     /// <summary>
+    /// Отображает окно информации о книге.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public static void ShowBookInfo(Book book)
+    {
+        var window = FindBookInfoWindow();
+        if (window != null)
+        {
+            if (window.Book != book)
+                window.Book = book;
+            RestoreWindow(window);
+            window.Activate();
+        }
+        else
+        {
+            new BookInfoDialog(book).Show();
+        }
+    }
+
+    /// <summary>
+    /// Отображает окно закладок указанной книги.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public static void ShowBookmarks(Book book)
+    {
+        var window = FindBookmarksWindow();
+        if (window != null)
+        {
+            if (window.Book != book)
+                window.Book = book;
+            RestoreWindow(window);
+            window.Activate();
+        }
+        else
+        {
+            new BookmarksDialog(book).Show();
+        }
+    }
+
+    /// <summary>
+    /// Отображает окно содержания указанной книги.
+    /// </summary>
+    /// <param name="book">Книга.</param>
+    public static void ShowChapters(Book book)
+    {
+        var window = FindChaptersWindow();
+        if (window != null)
+        {
+            if (window.Book != book)
+                window.Book = book;
+            else if (window.Book == GetMainWindow().Player.Book)
+                window.SelectCurrentChapter();
+            RestoreWindow(window);
+            window.Activate();
+        }
+        else
+        {
+            new ChaptersDialog(book).Show();
+        }
+    }
+
+    /// <summary>
     /// Возвращает задан ли указанный размер.
     /// </summary>
     /// <remarks>Возвращает true если высота и ширина больше нуля.</remarks>

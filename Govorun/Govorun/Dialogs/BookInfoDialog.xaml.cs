@@ -216,12 +216,12 @@ public partial class BookInfoDialog : Window
 
     private void ChaptersButton_Click(object sender, RoutedEventArgs e)
     {
-        App.GetMainWindow().ShowChapters(book);
+        App.ShowChapters(book);
     }
 
     private void BookmarksButton_Click(object sender, RoutedEventArgs e)
     {
-        App.GetMainWindow().ShowBookmarks(book);
+        App.ShowBookmarks(book);
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)
