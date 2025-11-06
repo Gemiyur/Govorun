@@ -970,7 +970,14 @@ public partial class MainWindow : Window
 
     private void GenreEdit_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-
+        var genre = (Genre)GenresListBox.SelectedItem;
+        var editor = new GenreEditor(genre) { Owner = this };
+        if (editor.ShowDialog() != true)
+            return;
+        UpdateNavPanel(false, false, true);
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null && Library.BookHasGenre(bookInfoWindow.Book, genre.GenreId))
+            bookInfoWindow.UpdateGenres();
     }
 
     private void GenreDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
