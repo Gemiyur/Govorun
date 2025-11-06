@@ -900,10 +900,6 @@ public partial class MainWindow : Window
         UpdateNavPanel(false, false, true);
         if (selectedItem != null && GenresListBox.SelectedItem == null)
             UpdateShownBooks();
-        // TODO: Костыль. В следующей версии всё будет совсем по-другому.
-        var bookInfoWindow = App.FindBookInfoWindow();
-        if (bookInfoWindow != null)
-            bookInfoWindow.UpdateGenres();
     }
 
     private void GenreEdit_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -913,9 +909,6 @@ public partial class MainWindow : Window
         if (editor.ShowDialog() != true)
             return;
         UpdateNavPanel(false, false, true);
-        var bookInfoWindow = App.FindBookInfoWindow();
-        if (bookInfoWindow != null && Library.BookHasGenre(bookInfoWindow.Book, genre.GenreId))
-            bookInfoWindow.UpdateGenres();
     }
 
     private void GenreDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)

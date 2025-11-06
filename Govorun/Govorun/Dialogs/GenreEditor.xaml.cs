@@ -50,6 +50,10 @@ public partial class GenreEditor : Window
             DialogResult = false;
         }
 
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null && Library.BookHasGenre(bookInfoWindow.Book, genre.GenreId))
+            bookInfoWindow.UpdateGenres();
+
         DialogResult = true;
     }
 
