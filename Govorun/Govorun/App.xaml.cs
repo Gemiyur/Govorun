@@ -212,6 +212,21 @@ public partial class App : Application
     /// <returns>Задан ли указанный размер.</returns>
     public static bool SizeDefined(System.Drawing.Size size) => size.Width > 0 && size.Height > 0;
 
+    #region Редактирование и удаление авторов, серий и жанров.
+
+    public static void EditGenre(Genre genre, Window? editorOwner)
+    {
+        var editor = new GenreEditor(genre) { Owner = editorOwner };
+        if (editor.ShowDialog() != true)
+            return;
+        GetMainWindow().UpdateNavPanel(false, false, true);
+        var bookInfoWindow = FindBookInfoWindow();
+        if (bookInfoWindow != null && Library.BookHasGenre(bookInfoWindow.Book, genre.GenreId))
+            bookInfoWindow.UpdateGenres();
+    }
+
+    #endregion
+
     #region Получение окон приложения.
 
     /// <summary>
