@@ -322,6 +322,7 @@
                                     <ContextMenu>
                                         <MenuItem x:Name="AuthorInfoContextMenuItem"
                                                   Style="{StaticResource MenuItemStyle}"
+                                                  FontWeight="Bold"
                                                   Command="local:AppCommands.AuthorInfo">
                                             <MenuItem.Icon>
                                                 <Image Source="Images\Buttons\Enabled\Info.png" />
@@ -357,6 +358,7 @@
                                     <ContextMenu>
                                         <MenuItem x:Name="CycleInfoContextMenuItem"
                                                   Style="{StaticResource MenuItemStyle}"
+                                                  FontWeight="Bold"
                                                   Command="local:AppCommands.CycleInfo">
                                             <MenuItem.Icon>
                                                 <Image Source="Images\Buttons\Enabled\Info.png" />
