@@ -45,7 +45,7 @@ public partial class CyclesEditor : Window
             return;
         cycles.Add(cycle);
         SortCycles();
-        HasChanges = true;
+        App.GetMainWindow().UpdateNavPanel(false, true, false);
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -55,7 +55,6 @@ public partial class CyclesEditor : Window
         if (editor.ShowDialog() != true || !editor.TitleChanged)
             return;
         SortCycles();
-        HasChanges = true;
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -71,7 +70,7 @@ public partial class CyclesEditor : Window
             return;
         }
         cycles.Remove(cycle);
-        HasChanges = true;
+        App.GetMainWindow().UpdateNavPanel(false, true, false);
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
