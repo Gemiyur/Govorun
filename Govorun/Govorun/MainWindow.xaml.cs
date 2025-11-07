@@ -874,12 +874,29 @@ public partial class MainWindow : Window
 
     private void CycleDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-
+        e.CanExecute = CyclesListBox != null && CyclesListBox.SelectedItem != null &&
+                       !Library.CycleHasBooks(((Cycle)CyclesListBox.SelectedItem).CycleId);
+        if (!IsVisible)
+            return;
+        var bitmap = App.GetBitmapImage(
+            e.CanExecute ? @"Images\Buttons\Enabled\Delete.png" : @"Images\Buttons\Disabled\Delete.png");
+        ((Image)CycleDeleteContextMenuItem.Icon).Source = bitmap;
     }
 
     private void CycleDelete_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-
+        var cycle = (Cycle)CyclesListBox.SelectedItem;
+        if (!App.ConfirmAction($"Удалить серию \"{cycle.Title}\" из библиотеки?", Title))
+        {
+            return;
+        }
+        if (!Library.DeleteCycle(cycle))
+        {
+            MessageBox.Show("Не удалось удалить серию.", Title);
+            return;
+        }
+        Cycles.Remove(cycle);
+        UpdateNavPanel(false, true, false);
     }
 
     #endregion
