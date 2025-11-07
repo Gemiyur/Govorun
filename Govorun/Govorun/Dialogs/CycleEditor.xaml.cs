@@ -29,7 +29,7 @@ public partial class CycleEditor : Window
         InitializeComponent();
         this.cycle = cycle;
         TitleTextBox.Text = cycle.Title;
-        //AnnotationTextBox.Text = cycle.Annotation;
+        AnnotationTextBox.Text = cycle.Annotation;
     }
 
     /// <summary>
@@ -39,8 +39,7 @@ public partial class CycleEditor : Window
     {
         var titleEmpty = string.IsNullOrWhiteSpace(TitleTextBox.Text);
         TitleChanged = TitleTextBox.Text.Trim() != cycle.Title;
-        SaveButton.IsEnabled = !titleEmpty && TitleChanged;
-        //SaveButton.IsEnabled = !titleEmpty && (TitleChanged || AnnotationTextBox.Text.Trim() != cycle.Annotation);
+        SaveButton.IsEnabled = !titleEmpty && (TitleChanged || AnnotationTextBox.Text.Trim() != cycle.Annotation);
     }
 
     private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckSaveButton();
@@ -50,7 +49,7 @@ public partial class CycleEditor : Window
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         var title = TitleTextBox.Text.Trim();
-        //var annotation = AnnotationTextBox.Text.Trim();
+        var annotation = AnnotationTextBox.Text.Trim();
 
         var foundCycle = Library.Cycles.Find(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase));
         if (foundCycle != null && foundCycle.CycleId != cycle.CycleId)
@@ -63,7 +62,7 @@ public partial class CycleEditor : Window
         var origAnnotation = cycle.Annotation;
 
         cycle.Title = title;
-        //cycle.Annotation = annotation;
+        cycle.Annotation = annotation;
 
         var saved = cycle.CycleId > 0 ? Library.UpdateCycle(cycle) : Library.AddCycle(cycle);
         if (!saved)
@@ -73,6 +72,10 @@ public partial class CycleEditor : Window
             cycle.Annotation = origAnnotation;
             DialogResult = false;
         }
+
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null && Library.BookInCycle(bookInfoWindow.Book, cycle.CycleId))
+            bookInfoWindow.UpdateCycle();
 
         DialogResult = true;
     }
