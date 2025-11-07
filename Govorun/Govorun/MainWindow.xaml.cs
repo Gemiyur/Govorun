@@ -448,7 +448,7 @@ public partial class MainWindow : Window
     private void AuthorsListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         var author = (Author)AuthorsListBox.SelectedItem;
-        //new AuthorInfoDialog(author) { Owner = this }.ShowDialog();
+        new AuthorInfoDialog(author) { Owner = this }.ShowDialog();
     }
 
     private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -843,7 +843,7 @@ public partial class MainWindow : Window
     private void AuthorInfo_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         var author = (Author)AuthorsListBox.SelectedItem;
-        //new AuthorInfoDialog(author) { Owner = this }.ShowDialog();
+        new AuthorInfoDialog(author) { Owner = this }.ShowDialog();
     }
 
     private void AuthorEdit_Executed(object sender, ExecutedRoutedEventArgs e)
