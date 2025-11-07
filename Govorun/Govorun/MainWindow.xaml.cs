@@ -865,7 +865,11 @@ public partial class MainWindow : Window
 
     private void CycleEdit_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-
+        var cycle = (Cycle)CyclesListBox.SelectedItem;
+        var editor = new CycleEditor(cycle) { Owner = this };
+        if (editor.ShowDialog() != true || !editor.TitleChanged)
+            return;
+        UpdateNavPanel(false, true, false);
     }
 
     private void CycleDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
