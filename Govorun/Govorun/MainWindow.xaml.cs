@@ -255,7 +255,7 @@ public partial class MainWindow : Window
     /// <param name="authors">Обновить список авторов.</param>
     /// <param name="cycles">Обновить список серий.</param>
     /// <param name="genres">Обновить список жанров.</param>
-    private void UpdateNavPanel(bool authors, bool cycles, bool genres)
+    public void UpdateNavPanel(bool authors, bool cycles, bool genres)
     {
         LockNavHandlers();
         if (authors)
@@ -294,9 +294,11 @@ public partial class MainWindow : Window
         if (AuthorsListBox.SelectedItem == null &&
             CyclesListBox.SelectedItem == null &&
             GenresListBox.SelectedItem == null &&
-            ListeningBooksToggleButton.IsChecked != true)
+            ListeningBooksToggleButton.IsChecked != true &&
+            AllBooksToggleButton.IsChecked != true)
         {
             AllBooksToggleButton.IsChecked = true;
+            UpdateShownBooks();
         }
         UnlockNavHandlers();
     }
@@ -894,12 +896,6 @@ public partial class MainWindow : Window
     {
         var editor = new GenresEditor() { Owner = this };
         editor.ShowDialog();
-        if (!editor.HasChanges)
-            return;
-        var selectedItem = GenresListBox.SelectedItem;
-        UpdateNavPanel(false, false, true);
-        if (selectedItem != null && GenresListBox.SelectedItem == null)
-            UpdateShownBooks();
     }
 
     private void GenreEdit_Executed(object sender, ExecutedRoutedEventArgs e)
