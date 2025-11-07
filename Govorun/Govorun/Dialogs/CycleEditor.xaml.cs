@@ -45,7 +45,7 @@ public partial class CycleEditor : Window
 
     private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckSaveButton();
 
-    //private void AnnotationTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckSaveButton();
+    private void AnnotationTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckSaveButton();
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
