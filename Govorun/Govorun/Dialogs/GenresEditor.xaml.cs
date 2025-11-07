@@ -50,6 +50,7 @@ public partial class GenresEditor : Window
         if (editor.ShowDialog() != true)
             return;
         SortGenres();
+        App.GetMainWindow().UpdateNavPanel(false, false, true);
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)

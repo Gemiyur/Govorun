@@ -12,11 +12,6 @@ namespace Govorun.Dialogs;
 public partial class CyclesEditor : Window
 {
     /// <summary>
-    /// Были ли изменения в коллекции серий.
-    /// </summary>
-    public bool HasChanges;
-
-    /// <summary>
     /// Коллекция серий.
     /// </summary>
     private readonly ObservableCollectionEx<Cycle> cycles = [];
@@ -55,6 +50,8 @@ public partial class CyclesEditor : Window
         if (editor.ShowDialog() != true || !editor.TitleChanged)
             return;
         SortCycles();
+        if (editor.TitleChanged)
+            App.GetMainWindow().UpdateNavPanel(false, true, false);
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
