@@ -73,9 +73,12 @@ public partial class CycleEditor : Window
             DialogResult = false;
         }
 
-        var bookInfoWindow = App.FindBookInfoWindow();
-        if (bookInfoWindow != null && Library.BookInCycle(bookInfoWindow.Book, cycle.CycleId))
-            bookInfoWindow.UpdateCycle();
+        if (TitleChanged)
+        {
+            var bookInfoWindow = App.FindBookInfoWindow();
+            if (bookInfoWindow != null && Library.BookInCycle(bookInfoWindow.Book, cycle.CycleId))
+                bookInfoWindow.UpdateCycle();
+        }
 
         DialogResult = true;
     }
