@@ -836,7 +836,6 @@ public partial class MainWindow : Window
         if (editor.ShowDialog() != true || !editor.NameChanged)
             return;
         UpdateNavPanel(true, false, false);
-        //UpdateShownBooksAuthors();
     }
 
     private void AuthorDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
