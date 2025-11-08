@@ -31,7 +31,7 @@ public partial class AuthorEditor : Window
         LastNameTextBox.Text = author.LastName;
         FirstNameTextBox.Text = author.FirstName;
         MiddleNameTextBox.Text = author.MiddleName;
-        //AboutTextBox.Text = author.About;
+        AboutTextBox.Text = author.About;
     }
 
     private void CheckSaveButton()
@@ -46,8 +46,7 @@ public partial class AuthorEditor : Window
             FirstNameTextBox.Text.Trim() != author.FirstName ||
             MiddleNameTextBox.Text.Trim() != author.MiddleName;
 
-        SaveButton.IsEnabled = !nameEmpty && NameChanged;
-        //SaveButton.IsEnabled = !nameEmpty && (NameChanged || AboutTextBox.Text.Trim() != author.About);
+        SaveButton.IsEnabled = !nameEmpty && (NameChanged || AboutTextBox.Text.Trim() != author.About);
     }
 
     private void LastNameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckSaveButton();
@@ -56,14 +55,14 @@ public partial class AuthorEditor : Window
 
     private void MiddleNameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckSaveButton();
 
-    //private void AboutTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckSaveButton();
+    private void AboutTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckSaveButton();
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         var lastName = LastNameTextBox.Text.Trim();
         var firstName = FirstNameTextBox.Text.Trim();
         var middleName = MiddleNameTextBox.Text.Trim();
-        //var about = AboutTextBox.Text.Trim();
+        var about = AboutTextBox.Text.Trim();
 
         var fio = Author.ConcatNames(lastName, firstName, middleName);
         var foundAuthor = Library.Authors.Find(x => x.NameLastFirstMiddle.Equals(fio, StringComparison.CurrentCultureIgnoreCase));
@@ -81,7 +80,7 @@ public partial class AuthorEditor : Window
         author.LastName = lastName;
         author.FirstName = firstName;
         author.MiddleName = middleName;
-        //author.About = about;
+        author.About = about;
 
         var saved = author.AuthorId > 0 ? Library.UpdateAuthor(author) : Library.AddAuthor(author);
         if (!saved)
@@ -92,6 +91,20 @@ public partial class AuthorEditor : Window
             author.MiddleName = origMiddleName;
             author.About = origAbout;
             DialogResult = false;
+        }
+
+        if (NameChanged)
+        {
+            App.GetMainWindow().UpdateShownBooksAuthors();
+            var bookInfoWindow = App.FindBookInfoWindow();
+            if (bookInfoWindow != null && Library.BookHasAuthor(bookInfoWindow.Book, author.AuthorId))
+                bookInfoWindow.UpdateAuthors();
+            var bookmarksWindow = App.FindBookmarksWindow();
+            if (bookmarksWindow != null && Library.BookHasAuthor(bookmarksWindow.Book, author.AuthorId))
+                bookmarksWindow.UpdateAuthors();
+            var chaptersWindow = App.FindChaptersWindow();
+            if (chaptersWindow != null && Library.BookHasAuthor(chaptersWindow.Book, author.AuthorId))
+                chaptersWindow.UpdateAuthors();
         }
 
         DialogResult = true;

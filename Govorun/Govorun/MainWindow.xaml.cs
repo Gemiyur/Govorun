@@ -350,7 +350,7 @@ public partial class MainWindow : Window
     /// <summary>
     /// Обновляет имена авторов в списке отображаемых книг.
     /// </summary>
-    private void UpdateShownBooksAuthors()
+    public void UpdateShownBooksAuthors()
     {
         foreach (var book in ShownBooks)
         {
@@ -848,7 +848,12 @@ public partial class MainWindow : Window
 
     private void AuthorEdit_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-
+        var author = (Author)AuthorsListBox.SelectedItem;
+        var editor = new AuthorEditor(author) { Owner = this };
+        if (editor.ShowDialog() != true || !editor.NameChanged)
+            return;
+        UpdateNavPanel(true, false, false);
+        //UpdateShownBooksAuthors();
     }
 
     private void AuthorDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Автор"
-        Width="400" Height="180" ResizeMode="NoResize"
+        Width="400" Height="400" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -26,6 +26,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -50,8 +51,21 @@
             <TextBox Grid.Row="4" Grid.Column="1" x:Name="MiddleNameTextBox"
                      TextChanged="MiddleNameTextBox_TextChanged" />
         </Grid>
-        
-        <StackPanel Grid.Row="1" Orientation="Horizontal"
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Об авторе" Margin="0,10,0,4" />
+            <TextBox Grid.Row="1" x:Name="AboutTextBox"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto"
+                     TextChanged="AboutTextBox_TextChanged" />
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Margin="0,10,0,0">
