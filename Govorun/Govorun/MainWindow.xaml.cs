@@ -821,23 +821,6 @@ public partial class MainWindow : Window
     {
         var editor = new AuthorsEditor() { Owner = this };
         editor.ShowDialog();
-        if (!editor.HasChanges)
-            return;
-        var selectedItem = AuthorsListBox.SelectedItem;
-        UpdateNavPanel(true, false, false);
-        if (selectedItem != null && AuthorsListBox.SelectedItem == null)
-            UpdateShownBooks();
-        UpdateShownBooksAuthors();
-        // TODO: Костыль. В следующей версии всё будет совсем по-другому.
-        var bookInfoWindow = App.FindBookInfoWindow();
-        if (bookInfoWindow != null)
-            bookInfoWindow.UpdateAuthors();
-        var bookmarksWindow = App.FindBookmarksWindow();
-        if (bookmarksWindow != null)
-            bookmarksWindow.UpdateAuthorsAndTitle();
-        var chaptersWindow = App.FindChaptersWindow();
-        if (chaptersWindow != null)
-            chaptersWindow.UpdateAuthorsAndTitle();
     }
 
     private void AuthorInfo_Executed(object sender, ExecutedRoutedEventArgs e)

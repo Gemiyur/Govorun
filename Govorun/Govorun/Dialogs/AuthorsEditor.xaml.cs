@@ -12,11 +12,6 @@ namespace Govorun.Dialogs;
 public partial class AuthorsEditor : Window
 {
     /// <summary>
-    /// Были ли изменения в коллекции авторов.
-    /// </summary>
-    public bool HasChanges;
-
-    /// <summary>
     /// Коллекция авторов.
     /// </summary>
     private readonly ObservableCollectionEx<Author> authors = [];
@@ -48,7 +43,7 @@ public partial class AuthorsEditor : Window
             return;
         authors.Add(author);
         SortAuthors();
-        HasChanges = true;
+        App.GetMainWindow().UpdateNavPanel(true, false, false);
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -58,7 +53,7 @@ public partial class AuthorsEditor : Window
         if (editor.ShowDialog() != true || !editor.NameChanged)
             return;
         SortAuthors();
-        HasChanges = true;
+        App.GetMainWindow().UpdateNavPanel(true, false, false);
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -74,7 +69,7 @@ public partial class AuthorsEditor : Window
             return;
         }
         authors.Remove(author);
-        HasChanges = true;
+        App.GetMainWindow().UpdateNavPanel(true, false, false);
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();

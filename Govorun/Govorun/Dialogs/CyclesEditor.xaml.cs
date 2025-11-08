@@ -50,8 +50,7 @@ public partial class CyclesEditor : Window
         if (editor.ShowDialog() != true || !editor.TitleChanged)
             return;
         SortCycles();
-        if (editor.TitleChanged)
-            App.GetMainWindow().UpdateNavPanel(false, true, false);
+        App.GetMainWindow().UpdateNavPanel(false, true, false);
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
