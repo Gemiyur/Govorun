@@ -841,12 +841,29 @@ public partial class MainWindow : Window
 
     private void AuthorDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-
+        e.CanExecute = AuthorsListBox != null && AuthorsListBox.SelectedItem != null &&
+                       !Library.AuthorHasBooks(((Author)AuthorsListBox.SelectedItem).AuthorId);
+        if (!IsVisible)
+            return;
+        var bitmap = App.GetBitmapImage(
+            e.CanExecute ? @"Images\Buttons\Enabled\Delete.png" : @"Images\Buttons\Disabled\Delete.png");
+        ((Image)AuthorDeleteContextMenuItem.Icon).Source = bitmap;
     }
 
     private void AuthorDelete_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-
+        var author = (Author)AuthorsListBox.SelectedItem;
+        if (!App.ConfirmAction($"Удалить автора \"{author.NameLastFirstMiddle}\" из библиотеки?", Title))
+        {
+            return;
+        }
+        if (!Library.DeleteAuthor(author))
+        {
+            MessageBox.Show("Не удалось удалить автора.", Title);
+            return;
+        }
+        Authors.Remove(author);
+        UpdateNavPanel(true, false, false);
     }
 
     #endregion
