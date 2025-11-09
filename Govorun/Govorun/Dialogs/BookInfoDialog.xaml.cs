@@ -75,6 +75,7 @@ public partial class BookInfoDialog : Window
     /// </summary>
     public void UpdateAuthors()
     {
+        AuthorsTextBlock.Inlines.Clear();
         for (int i = 0; i < book.Authors.Count; i++)
         {
             var run = new Run(book.Authors[i].NameFirstLast);
@@ -113,6 +114,7 @@ public partial class BookInfoDialog : Window
     /// </summary>
     public void UpdateCycle()
     {
+        CycleTitleTextBlock.Inlines.Clear();
         if (book.Cycle != null)
         {
             CycleGrid.Visibility = Visibility.Visible;
