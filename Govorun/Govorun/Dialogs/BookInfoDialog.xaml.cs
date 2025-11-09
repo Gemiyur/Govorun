@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Interop;
 using Govorun.Models;
 
@@ -74,7 +75,20 @@ public partial class BookInfoDialog : Window
     /// </summary>
     public void UpdateAuthors()
     {
-        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
+        for (int i = 0; i < book.Authors.Count; i++)
+        {
+            var run = new Run(book.Authors[i].NameFirstLast);
+            //var run = Properties.Settings.Default.BookInfoAuthorFullName
+            //    ? new Run(book.Authors[i].NameFirstMiddleLast)
+            //    : new Run(book.Authors[i].NameFirstLast);
+            var link = new Hyperlink(run);
+            link.Tag = book.Authors[i];
+            link.Style = (Style)FindResource("HyperlinkStyle");
+            link.Click += AuthorLink_Click;
+            AuthorsTextBlock.Inlines.Add(link);
+            if (i < book.Authors.Count - 1)
+                AuthorsTextBlock.Inlines.Add(new Run(", "));
+        }
     }
 
     /// <summary>
@@ -102,7 +116,11 @@ public partial class BookInfoDialog : Window
         if (book.Cycle != null)
         {
             CycleGrid.Visibility = Visibility.Visible;
-            CycleTitleTextBlock.Text = book.Cycle.Title;
+            var link = new Hyperlink(new Run(book.Cycle.Title));
+            link.Tag = book.Cycle;
+            link.Style = (Style)FindResource("HyperlinkStyle");
+            link.Click += CycleLink_Click;
+            CycleTitleTextBlock.Inlines.Add(link);
             if (book.CycleNumbers.Length > 0)
             {
                 CycleNumbersStackPanel.Visibility = Visibility.Visible;
@@ -207,6 +225,22 @@ public partial class BookInfoDialog : Window
             Properties.Settings.Default.BookInfoPos = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.BookInfoSize = new System.Drawing.Size((int)Width, (int)Height);
         }
+    }
+
+    private void AuthorLink_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Hyperlink)
+            return;
+        var author = (Author)((Hyperlink)sender).Tag;
+        new AuthorInfoDialog(author) { Owner = this }.ShowDialog();
+    }
+
+    private void CycleLink_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Hyperlink)
+            return;
+        var cycle = (Cycle)((Hyperlink)sender).Tag;
+        new CycleInfoDialog(cycle) { Owner = this }.ShowDialog();
     }
 
     private void PlayButton_Click(object sender, RoutedEventArgs e)
