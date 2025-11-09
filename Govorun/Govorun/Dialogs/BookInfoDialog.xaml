@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="О книге"
-        Width="500" Height="450" ResizeMode="CanResizeWithGrip"
-        MinWidth="500" MinHeight="450"
-        d:Width="500" d:Height="450"
+        Width="500" Height="500" ResizeMode="CanResizeWithGrip"
+        MinWidth="500" MinHeight="500"
+        d:Width="500" d:Height="500"
         SourceInitialized="Window_SourceInitialized"
         Loaded="Window_Loaded"
         Closed="Window_Closed">
@@ -19,6 +19,16 @@
                 <Setter Property="Width" Value="90" />
                 <Setter Property="Height" Value="25" />
             </Style>
+
+            <Style x:Key="HyperlinkStyle" TargetType="Hyperlink">
+                <Setter Property="TextDecorations" Value="None" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="TextDecorations" Value="Underline" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
                 <Setter Property="IsReadOnly" Value="True" />
                 <Setter Property="Margin" Value="0,4,0,0" />
@@ -39,13 +49,15 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Авторы и название -->
-        <TextBlock Grid.Row="0" x:Name="AuthorsTextBlock" Text="Авторы"
+        <!-- Авторы -->
+        <TextBlock Grid.Row="0" x:Name="AuthorsTextBlock"
                    TextWrapping="Wrap"
                    HorizontalAlignment="Center"
                    TextAlignment="Center"
                    Margin="8,0,8,0" />
-        <TextBlock Grid.Row="1" x:Name="TitleTextBlock" Text="Название"
+
+        <!-- Название -->
+        <TextBlock Grid.Row="1" x:Name="TitleTextBlock"
                    TextWrapping="Wrap"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
@@ -64,48 +76,48 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Читает:" Margin="0,0,5,0" />
-                <TextBlock Grid.Column="1" x:Name="LectorTextBlock" TextWrapping="Wrap" Text="Список чтецов" />
+                <TextBlock Grid.Column="1" x:Name="LectorTextBlock" TextWrapping="Wrap" />
             </Grid>
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Время:" Margin="25,0,5,0" />
-                <TextBlock x:Name="DurationTextBlock" Text="000:00:00" />
+                <TextBlock x:Name="DurationTextBlock" />
             </StackPanel>
         </Grid>
 
         <!-- Серия и номер -->
-        <Grid Grid.Row="3" x:Name="CycleGrid" Margin="8,4,8,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
+        <Grid Grid.Row="3" x:Name="CycleGrid" Margin="8,8,8,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Серия:" Margin="0,0,5,0" />
-                <TextBlock Grid.Column="1" x:Name="CycleTitleTextBlock" TextWrapping="Wrap" Text="Название серии" />
+                <TextBlock Grid.Column="1" x:Name="CycleTitleTextBlock" TextWrapping="Wrap" />
             </Grid>
-            <StackPanel Grid.Column="1" x:Name="CycleNumbersStackPanel" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Номера в серии:" Margin="25,0,5,0" />
-                <TextBlock x:Name="CycleNumbersTextBlock" Text="000" />
+            <StackPanel Grid.Row="1" x:Name="CycleNumbersStackPanel" Orientation="Horizontal">
+                <TextBlock Text="Номера в серии:" Margin="0,0,5,0" />
+                <TextBlock x:Name="CycleNumbersTextBlock" />
             </StackPanel>
         </Grid>
 
         <!-- Перевод -->
         <StackPanel Grid.Row="4" x:Name="TranslatorStackPanel" Orientation="Horizontal" Margin="8,4,8,0">
             <TextBlock Text="Перевод:" Margin="0,0,5,0" />
-            <TextBlock x:Name="TranslatorTextBlock" Text="Список переводчиков" />
+            <TextBlock x:Name="TranslatorTextBlock" />
         </StackPanel>
 
-        <!-- Теги -->
+        <!-- Жанры -->
         <Grid Grid.Row="5" x:Name="GenressGrid" Margin="8,4,8,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Жанры:" Margin="0,0,5,0" />
-            <TextBlock Grid.Column="1" x:Name="GenresTextBlock" TextWrapping="Wrap" Text="Список жанров" />
+            <TextBlock Grid.Column="1" x:Name="GenresTextBlock" TextWrapping="Wrap" />
         </Grid>
 
         <!-- Аннотация -->
