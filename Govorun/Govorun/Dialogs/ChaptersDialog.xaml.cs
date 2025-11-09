@@ -1,10 +1,11 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Interop;
-using Gemiyur.Collections;
+﻿using Gemiyur.Collections;
 using Govorun.Models;
 using Govorun.Tools;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Interop;
 
 namespace Govorun.Dialogs;
 
@@ -130,7 +131,21 @@ public partial class ChaptersDialog : Window
     /// </summary>
     public void UpdateAuthors()
     {
-        AuthorsTextBlock.Text = book.AuthorNamesFirstLast;
+        AuthorsTextBlock.Inlines.Clear();
+        for (int i = 0; i < book.Authors.Count; i++)
+        {
+            var run = new Run(book.Authors[i].NameFirstLast);
+            //var run = Properties.Settings.Default.BookInfoAuthorFullName
+            //    ? new Run(book.Authors[i].NameFirstMiddleLast)
+            //    : new Run(book.Authors[i].NameFirstLast);
+            var link = new Hyperlink(run);
+            link.Tag = book.Authors[i];
+            link.Style = (Style)FindResource("HyperlinkStyle");
+            link.Click += AuthorLink_Click;
+            AuthorsTextBlock.Inlines.Add(link);
+            if (i < book.Authors.Count - 1)
+                AuthorsTextBlock.Inlines.Add(new Run(", "));
+        }
     }
 
     /// <summary>
@@ -178,6 +193,14 @@ public partial class ChaptersDialog : Window
             Properties.Settings.Default.ChaptersPos = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.ChaptersSize = new System.Drawing.Size((int)Width, (int)Height);
         }
+    }
+
+    private void AuthorLink_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Hyperlink)
+            return;
+        var author = (Author)((Hyperlink)sender).Tag;
+        new AuthorInfoDialog(author) { Owner = this }.ShowDialog();
     }
 
     private void ChaptersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -20,6 +20,14 @@
                 <Setter Property="Width" Value="90" />
                 <Setter Property="Height" Value="25" />
             </Style>
+            <Style x:Key="HyperlinkStyle" TargetType="Hyperlink">
+                <Setter Property="TextDecorations" Value="None" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="TextDecorations" Value="Underline" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
 
