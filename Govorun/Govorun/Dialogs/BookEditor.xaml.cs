@@ -265,16 +265,16 @@ public partial class BookEditor : Window
         }
 
         // Чтец.
-        if (book.Lector != LectorTextBox.Text)
+        if (book.Lector != LectorTextBox.Text.Trim())
         {
-            book.Lector = LectorTextBox.Text;
+            book.Lector = LectorTextBox.Text.Trim();
             changed = true;
         }
 
         // Переводчик.
-        if (book.Translator != TranslatorTextBox.Text)
+        if (book.Translator != TranslatorTextBox.Text.Trim())
         {
-            book.Translator = TranslatorTextBox.Text;
+            book.Translator = TranslatorTextBox.Text.Trim();
             changed = true;
         }
 
