@@ -125,6 +125,14 @@ public static class Db
             .Include(x => x.Genres)
             .FindById(bookId);
 
+    public static Book GetBookOnly(int bookId)
+    {
+        using var db = GetDatabase();
+        return GetBookOnly(bookId, db);
+    }
+
+    public static Book GetBookOnly(int bookId, LiteDatabase db) => GetBooksCollection(db).FindById(bookId);
+
     public static List<Book> GetBooks()
     {
         using var db = GetDatabase();
@@ -138,6 +146,15 @@ public static class Db
             .Include(x => x.Genres)
             .FindAll()
             .OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
+
+    public static List<Book> GetBooksOnly()
+    {
+        using var db = GetDatabase();
+        return GetBooksOnly(db);
+    }
+
+    public static List<Book> GetBooksOnly(LiteDatabase db) =>
+        [.. GetBooksCollection(db).FindAll().OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase)];
 
     public static int InsertBook(Book book)
     {
