@@ -25,10 +25,7 @@ public class Author : BaseModel
         {
             firstName = value ?? string.Empty;
             OnPropertyChanged("FirstName");
-            OnPropertyChanged("NameFirstLast");
-            OnPropertyChanged("NameFirstMiddleLast");
-            OnPropertyChanged("NameLastFirst");
-            OnPropertyChanged("NameLastFirstMiddle");
+            OnNamePropertyChanged();
         }
     }
 
@@ -44,10 +41,7 @@ public class Author : BaseModel
         {
             middleName = value ?? string.Empty;
             OnPropertyChanged("MiddleName");
-            OnPropertyChanged("NameFirstLast");
-            OnPropertyChanged("NameFirstMiddleLast");
-            OnPropertyChanged("NameLastFirst");
-            OnPropertyChanged("NameLastFirstMiddle");
+            OnNamePropertyChanged();
         }
     }
 
@@ -63,10 +57,7 @@ public class Author : BaseModel
         {
             lastName = value ?? string.Empty;
             OnPropertyChanged("LastName");
-            OnPropertyChanged("NameFirstLast");
-            OnPropertyChanged("NameFirstMiddleLast");
-            OnPropertyChanged("NameLastFirst");
-            OnPropertyChanged("NameLastFirstMiddle");
+            OnNamePropertyChanged();
         }
     }
 
@@ -126,5 +117,16 @@ public class Author : BaseModel
             sb.Append(' ');
         sb.Append(name3);
         return sb.ToString();
+    }
+
+    /// <summary>
+    /// Вызывает изменение свойств, зависящих от любой составляющей имени.
+    /// </summary>
+    public void OnNamePropertyChanged()
+    {
+        OnPropertyChanged("NameFirstLast");
+        OnPropertyChanged("NameFirstMiddleLast");
+        OnPropertyChanged("NameLastFirst");
+        OnPropertyChanged("NameLastFirstMiddle");
     }
 }
