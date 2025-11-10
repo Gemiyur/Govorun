@@ -63,22 +63,29 @@ public static class Library
     /// </summary>
     static Library()
     {
-        Books = Db.GetBooks();
+        using var db = Db.GetDatabase();
 
-        var authors = Books.SelectMany(x => x.Authors).Cast<Author>();
-        Authors.AddRange(authors.Where(x => !Authors.Exists(a => a.AuthorId == x.AuthorId)));
-        Authors.AddRange(Db.GetAuthors().Where(x => !Authors.Exists(a => a.AuthorId == x.AuthorId)));
-        SortAuthors();
+        Books = Db.GetBooksOnly(db);
+        Authors = Db.GetAuthors(db);
+        Cycles = Db.GetCycles(db);
+        Genres = Db.GetGenres(db);
 
-        var cycles = Books.Select(x => x.Cycle).Cast<Cycle>().Where(x => x != null);
-        Cycles.AddRange(cycles.Where(x => !Cycles.Exists(c => c.CycleId == x.CycleId)));
-        Cycles.AddRange(Db.GetCycles().Where(x => !Cycles.Exists(c => c.CycleId == x.CycleId)));
-        SortCycles();
+        foreach (var book in Books)
+        {
+            var authors = Authors.FindAll(x => book.Authors.Exists(a => a.AuthorId == x.AuthorId));
+            book.Authors.Clear();
+            book.Authors.AddRange(authors);
 
-        var genres = Books.SelectMany(x => x.Genres).Cast<Genre>();
-        Genres.AddRange(genres.Where(x => !Genres.Exists(g => g.GenreId == x.GenreId)));
-        Genres.AddRange(Db.GetGenres().Where(x => !Genres.Exists(g => g.GenreId == x.GenreId)));
-        SortGenres();
+            if (book.Cycle != null)
+            {
+                var cycle = Cycles.Find(x => x.CycleId == book.Cycle.CycleId);
+                book.Cycle = cycle;
+            }
+
+            var genres = Genres.FindAll(x => book.Genres.Exists(g => g.GenreId == x.GenreId));
+            book.Genres.Clear();
+            book.Genres.AddRange(genres);
+        }
     }
 
     /// <summary>
