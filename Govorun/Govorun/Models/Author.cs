@@ -25,7 +25,7 @@ public class Author : BaseModel
         {
             firstName = value ?? string.Empty;
             OnPropertyChanged("FirstName");
-            OnNamePropertyChanged();
+            NameChanged();
         }
     }
 
@@ -41,7 +41,7 @@ public class Author : BaseModel
         {
             middleName = value ?? string.Empty;
             OnPropertyChanged("MiddleName");
-            OnNamePropertyChanged();
+            NameChanged();
         }
     }
 
@@ -57,7 +57,7 @@ public class Author : BaseModel
         {
             lastName = value ?? string.Empty;
             OnPropertyChanged("LastName");
-            OnNamePropertyChanged();
+            NameChanged();
         }
     }
 
@@ -122,7 +122,7 @@ public class Author : BaseModel
     /// <summary>
     /// Вызывает изменение свойств, зависящих от любой составляющей имени.
     /// </summary>
-    public void OnNamePropertyChanged()
+    public void NameChanged()
     {
         OnPropertyChanged("NameFirstLast");
         OnPropertyChanged("NameFirstMiddleLast");
