@@ -75,19 +75,20 @@ public partial class BookInfoDialog : Window
     /// </summary>
     public void UpdateAuthors()
     {
+        var authors = book.Authors.OrderBy(x => x.NameLastFirstMiddle).Cast<Author>().ToList();
         AuthorsTextBlock.Inlines.Clear();
-        for (int i = 0; i < book.Authors.Count; i++)
+        for (int i = 0; i < authors.Count; i++)
         {
-            var run = new Run(book.Authors[i].NameFirstLast);
+            var run = new Run(authors[i].NameFirstLast);
             //var run = Properties.Settings.Default.BookInfoAuthorFullName
-            //    ? new Run(book.Authors[i].NameFirstMiddleLast)
-            //    : new Run(book.Authors[i].NameFirstLast);
+            //    ? new Run(authors[i].NameFirstMiddleLast)
+            //    : new Run(authors[i].NameFirstLast);
             var link = new Hyperlink(run);
-            link.Tag = book.Authors[i];
+            link.Tag = authors[i];
             link.Style = (Style)FindResource("HyperlinkStyle");
             link.Click += AuthorLink_Click;
             AuthorsTextBlock.Inlines.Add(link);
-            if (i < book.Authors.Count - 1)
+            if (i < authors.Count - 1)
                 AuthorsTextBlock.Inlines.Add(new Run(", "));
         }
     }
