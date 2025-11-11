@@ -238,18 +238,6 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Обновляет имена авторов указанной книги.
-    /// </summary>
-    /// <param name="book">Книга.</param>
-    private void UpdateBookAuthors(Book book)
-    {
-        book.OnPropertyChanged("AuthorNamesFirstLast");
-        book.OnPropertyChanged("AuthorNamesFirstMiddleLast");
-        book.OnPropertyChanged("AuthorNamesLastFirst");
-        book.OnPropertyChanged("AuthorNamesLastFirstMiddle");
-    }
-
-    /// <summary>
     /// Обновляет списки панели навигации.
     /// </summary>
     /// <param name="authors">Обновить список авторов.</param>
@@ -354,7 +342,7 @@ public partial class MainWindow : Window
     {
         foreach (var book in ShownBooks)
         {
-            UpdateBookAuthors(book);
+            book.AuthorsChanged();
         }
     }
 
@@ -779,7 +767,7 @@ public partial class MainWindow : Window
             Player.PlayOnLoad = false;
             Player.Book = book;
         }
-        UpdateBookAuthors(book);
+        book.AuthorsChanged();
     }
 
     private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)

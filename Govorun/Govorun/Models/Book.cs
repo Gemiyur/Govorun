@@ -226,4 +226,15 @@ public class Book : BaseModel
     /// Список закладок книги.
     /// </summary>
     public List<Bookmark> Bookmarks { get; set; } = [];
+
+    /// <summary>
+    /// Вызывает изменение свойств, зависящих от авторов книги.
+    /// </summary>
+    public void AuthorsChanged()
+    {
+        OnPropertyChanged("AuthorNamesFirstLast");
+        OnPropertyChanged("AuthorNamesFirstMiddleLast");
+        OnPropertyChanged("AuthorNamesLastFirst");
+        OnPropertyChanged("AuthorNamesLastFirstMiddle");
+    }
 }
