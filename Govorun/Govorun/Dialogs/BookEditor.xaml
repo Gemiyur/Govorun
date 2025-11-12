@@ -199,6 +199,16 @@
                     </Grid>
                 </TabItem>
 
+                <TabItem Header="Аннотация">
+                    <GroupBox Header="Аннотация" Style="{StaticResource EditorGroupBoxStyle}">
+                        <TextBox x:Name="AnnotationTextBox"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Margin="0,4,0,0" />
+                    </GroupBox>
+                </TabItem>
+
                 <TabItem Header="Жанры">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -239,16 +249,6 @@
                             </Grid>
                         </GroupBox>
                     </Grid>
-                </TabItem>
-
-                <TabItem Header="Аннотация">
-                    <GroupBox Header="Аннотация" Style="{StaticResource EditorGroupBoxStyle}">
-                        <TextBox x:Name="AnnotationTextBox"
-                                 AcceptsReturn="True"
-                                 TextWrapping="Wrap"
-                                 VerticalScrollBarVisibility="Auto"
-                                 Margin="0,4,0,0" />
-                    </GroupBox>
                 </TabItem>
             </TabControl>
         </Grid>
