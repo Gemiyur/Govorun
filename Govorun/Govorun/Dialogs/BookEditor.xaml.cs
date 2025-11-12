@@ -274,12 +274,16 @@ public partial class BookEditor : Window
     /// </summary>
     private void SortGenres() => genres.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
 
-    #region Обработчики событий элементов управления.
+    #region Обработчики событий элементов названия книги.
 
     private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
         SaveButton.IsEnabled = !string.IsNullOrWhiteSpace(TitleTextBox.Text);
     }
+
+    #endregion
+
+    #region Обработчики событий элементов авторов.
 
     private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -300,21 +304,9 @@ public partial class BookEditor : Window
         authors.RemoveRange(AuthorsListBox.SelectedItems.Cast<Author>());
     }
 
-    private void PickLectorButton_Click(object sender, RoutedEventArgs e)
-    {
-        var picker = new LectorPicker() { Owner = this };
-        if (picker.ShowDialog() != true)
-            return;
-        LectorTextBox.Text = picker.PickedLector;
-    }
+    #endregion
 
-    private void PickTranslatorButton_Click(object sender, RoutedEventArgs e)
-    {
-        var picker = new TranslatorPicker() { Owner = this };
-        if (picker.ShowDialog() != true)
-            return;
-        TranslatorTextBox.Text = picker.PickedTranslator;
-    }
+    #region Обработчики событий элементов серии.
 
     private void CycleTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
@@ -397,6 +389,30 @@ public partial class BookEditor : Window
         }
     }
 
+    #endregion
+
+    #region Обработчики событий элементов чтеца и переводчика.
+
+    private void PickLectorButton_Click(object sender, RoutedEventArgs e)
+    {
+        var picker = new LectorPicker() { Owner = this };
+        if (picker.ShowDialog() != true)
+            return;
+        LectorTextBox.Text = picker.PickedLector;
+    }
+
+    private void PickTranslatorButton_Click(object sender, RoutedEventArgs e)
+    {
+        var picker = new TranslatorPicker() { Owner = this };
+        if (picker.ShowDialog() != true)
+            return;
+        TranslatorTextBox.Text = picker.PickedTranslator;
+    }
+
+    #endregion
+
+    #region Обработчики событий элементов жанров.
+
     private void GenresListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         RemoveGenresButton.IsEnabled = GenresListBox.SelectedItems.Count > 0;
@@ -415,6 +431,8 @@ public partial class BookEditor : Window
     {
         genres.RemoveRange(GenresListBox.SelectedItems.Cast<Genre>());
     }
+
+    #endregion
 
     private void FileButton_Click(object sender, RoutedEventArgs e)
     {
@@ -458,6 +476,4 @@ public partial class BookEditor : Window
     {
         DialogResult = false;
     }
-
-    #endregion
 }
