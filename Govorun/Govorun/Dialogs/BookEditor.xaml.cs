@@ -127,28 +127,6 @@ public partial class BookEditor : Window
     }
 
     /// <summary>
-    /// Устанавливает доступность кнопки добавления нового автора.
-    /// </summary>
-    private void CheckNewAuthorButtons()
-    {
-        AddNewAuthorButton.IsEnabled =
-            !string.IsNullOrWhiteSpace(NewAuthorLastNameTextBox.Text) ||
-            !string.IsNullOrWhiteSpace(NewAuthorFirstNameTextBox.Text) ||
-            !string.IsNullOrWhiteSpace(NewAuthorMiddleNameTextBox.Text);
-        ClearNewAuthorButton.IsEnabled = AddNewAuthorButton.IsEnabled;
-    }
-
-    /// <summary>
-    /// Очищает поля ввода имени и фамилии нового автора.
-    /// </summary>
-    private void ClearNewAuthor()
-    {
-        NewAuthorLastNameTextBox.Text = string.Empty;
-        NewAuthorFirstNameTextBox.Text = string.Empty;
-        NewAuthorMiddleNameTextBox.Text = string.Empty;
-    }
-
-    /// <summary>
     /// Загружает книгу в редактор.
     /// </summary>
     private void LoadBook()
@@ -302,24 +280,6 @@ public partial class BookEditor : Window
     }
 
     /// <summary>
-    /// Сохраняет новых авторов и присваивает им идентификаторы.
-    /// </summary>
-    /// <returns>Были ли новые авторы сохранены успешно.</returns>
-    private bool SaveNewAuthors()
-    {
-        var newAuthors = authors.ToList().FindAll(x => x.AuthorId == 0);
-        if (newAuthors.Count == 0)
-            return true;
-        HasNewAuthors = true;
-        foreach (var author in newAuthors)
-        {
-            if (!Library.AddAuthor(author))
-                return false;
-        }
-        return true;
-    }
-
-    /// <summary>
     /// Сохраняет новую серию и присваивает ей идентификатор.
     /// </summary>
     /// <returns>Была ли новая серия сохранена успешно.</returns>
@@ -383,67 +343,6 @@ public partial class BookEditor : Window
     private void RemoveAuthorsButton_Click(object sender, RoutedEventArgs e)
     {
         authors.RemoveRange(AuthorsListBox.SelectedItems.Cast<Author>());
-    }
-
-    private void NewAuthorLastNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        CheckNewAuthorButtons();
-    }
-
-    private void NewAuthorFirstNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        CheckNewAuthorButtons();
-    }
-
-    private void NewAuthorMiddleNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        CheckNewAuthorButtons();
-    }
-
-    private void AddNewAuthorButton_Click(object sender, RoutedEventArgs e)
-    {
-        var lastName = NewAuthorLastNameTextBox.Text.Trim();
-        var firstName = NewAuthorFirstNameTextBox.Text.Trim();
-        var middleName = NewAuthorMiddleNameTextBox.Text.Trim();
-
-        var author = allAuthors.Find(x => x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase) &&
-                                          x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
-                                          x.MiddleName.Equals(middleName, StringComparison.CurrentCultureIgnoreCase));
-        if (author != null)
-        {
-            if (authors.Any(x => x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase) &&
-                                 x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
-                                 x.MiddleName.Equals(middleName, StringComparison.CurrentCultureIgnoreCase)))
-            {
-                ClearNewAuthor();
-                return;
-            }
-            else
-            {
-                authors.Add(author);
-            }
-        }
-        else
-        {
-            if (authors.Any(x => x.LastName.Equals(lastName, StringComparison.CurrentCultureIgnoreCase) &&
-                                 x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase) &&
-                                 x.MiddleName.Equals(middleName, StringComparison.CurrentCultureIgnoreCase)))
-            {
-                ClearNewAuthor();
-                return;
-            }
-            else
-            {
-                authors.Add(new Author() { LastName = lastName, FirstName = firstName, MiddleName = middleName });
-            }
-        }
-        SortAuthors();
-        ClearNewAuthor();
-    }
-
-    private void ClearNewAuthorButton_Click(object sender, RoutedEventArgs e)
-    {
-        ClearNewAuthor();
     }
 
     private void PickLectorButton_Click(object sender, RoutedEventArgs e)
@@ -630,11 +529,6 @@ public partial class BookEditor : Window
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        if (!SaveNewAuthors())
-        {
-            MessageBox.Show("Не удалось сохранить новых авторов.", Title);
-            return;
-        }
         if (!SaveNewCycle())
         {
             MessageBox.Show("Не удалось сохранить новую серию.", Title);

@@ -23,16 +23,6 @@
             <Style x:Key="EditorGroupBoxStyle" TargetType="GroupBox">
                 <Setter Property="Margin" Value="0,10,0,0" />
             </Style>
-            <Style x:Key="NewAuthorButtonStyle" BasedOn="{StaticResource EditorButtonStyle}" TargetType="Button">
-                <Setter Property="Margin" Value="10,10,0,0" />
-            </Style>
-            <Style x:Key="NewAuthorNameLabelStyle" TargetType="TextBlock">
-                <Setter Property="Margin" Value="0,10,10,0" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-            </Style>
-            <Style x:Key="NewAuthorNameTextBoxStyle" TargetType="TextBox">
-                <Setter Property="Margin" Value="0,10,0,0" />
-            </Style>
             <Style x:Key="TrackGroupBoxStyle" TargetType="GroupBox">
                 <Setter Property="Margin" Value="0,4,0,0" />
             </Style>
@@ -137,44 +127,8 @@
                                 </Grid>
                             </Grid>
                         </GroupBox>
-                        <!-- Новый автор -->
-                        <GroupBox Grid.Row="1" Header="Новый автор" Style="{StaticResource EditorGroupBoxStyle}">
-                            <Grid Margin="0,4,0,0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Фамилия"
-                                           Style="{StaticResource NewAuthorNameLabelStyle}" />
-                                <TextBox Grid.Row="0" Grid.Column="1" x:Name="NewAuthorLastNameTextBox"
-                                         Style="{StaticResource NewAuthorNameTextBoxStyle}"
-                                         TextChanged="NewAuthorLastNameTextBox_TextChanged" />
-                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Имя"
-                                           Style="{StaticResource NewAuthorNameLabelStyle}" />
-                                <TextBox Grid.Row="1" Grid.Column="1" x:Name="NewAuthorFirstNameTextBox"
-                                         Style="{StaticResource NewAuthorNameTextBoxStyle}"
-                                         TextChanged="NewAuthorFirstNameTextBox_TextChanged" />
-                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Отчество"
-                                           Style="{StaticResource NewAuthorNameLabelStyle}"/>
-                                <TextBox Grid.Row="2" Grid.Column="1" x:Name="NewAuthorMiddleNameTextBox"
-                                         Style="{StaticResource NewAuthorNameTextBoxStyle}"
-                                         TextChanged="NewAuthorMiddleNameTextBox_TextChanged" />
-                                <Button Grid.Row="0" Grid.Column="2" x:Name="AddNewAuthorButton" Content="Добавить"
-                                        Style="{StaticResource NewAuthorButtonStyle}"
-                                        IsEnabled="False"
-                                        Click="AddNewAuthorButton_Click" />
-                                <Button Grid.Row="2" Grid.Column="2" x:Name="ClearNewAuthorButton" Content="Очистить"
-                                        Style="{StaticResource NewAuthorButtonStyle}"
-                                        IsEnabled="False"
-                                        Click="ClearNewAuthorButton_Click" />
-                            </Grid>
-                        </GroupBox>
+                        <!-- Тут будет блок Серия вместо блока Новый автор -->
+
                         <!-- Читает -->
                         <GroupBox Grid.Row="2" Header="Читает" Style="{StaticResource EditorGroupBoxStyle}">
                             <Grid Margin="0,4,0,0">
