@@ -64,10 +64,10 @@ public partial class AddBooksDialog : Window
                 addedFilesCount--;
                 continue;
             }
-            if (!HasNewAuthors && editor.HasNewAuthors)
-                HasNewAuthors = true;
-            if (!HasNewCycle && editor.HasNewCycle)
-                HasNewCycle = true;
+            //if (!HasNewAuthors && editor.HasNewAuthors)
+            //    HasNewAuthors = true;
+            //if (!HasNewCycle && editor.HasNewCycle)
+            //    HasNewCycle = true;
             if (!GenresChanged && editor.GenresChanged)
                 GenresChanged = true;
             addedFilesCount--;

@@ -34,21 +34,6 @@ public partial class BookEditor : Window
     public bool FileChanged;
 
     /// <summary>
-    /// Были ли добавлены новые авторы книг.
-    /// </summary>
-    public bool HasNewAuthors;
-
-    /// <summary>
-    /// Была ли добавлена новая серия книг.
-    /// </summary>
-    public bool HasNewCycle;
-
-    /// <summary>
-    /// Были ли добавлены новые жанры книг.
-    /// </summary>
-    public bool HasNewGenres;
-
-    /// <summary>
     /// Были ли изменения в жанрах книги.
     /// </summary>
     public bool GenresChanged;
