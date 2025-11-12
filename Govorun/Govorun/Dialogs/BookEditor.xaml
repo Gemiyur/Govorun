@@ -207,21 +207,6 @@
                                         Click="RemoveCycleButton_Click" />
                             </Grid>
                         </GroupBox>
-                        <GroupBox Grid.Row="1" Header="Новая серия" Style="{StaticResource EditorGroupBoxStyle}">
-                            <Grid Margin="0,4,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" x:Name="NewCycleTextBox"
-                                         TextChanged="NewCycleTextBox_TextChanged" />
-                                <Button Grid.Column="1" x:Name="AddNewCycleButton" Content="Добавить"
-                                        Style="{StaticResource EditorButtonStyle}"
-                                        Margin="10,0,0,0"
-                                        IsEnabled="False"
-                                        Click="AddNewCycleButton_Click" />
-                            </Grid>
-                        </GroupBox>
                         <GroupBox Grid.Row="2" Header="Жанры" Style="{StaticResource EditorGroupBoxStyle}">
                             <Grid Margin="0,4,0,0">
                                 <Grid.RowDefinitions>

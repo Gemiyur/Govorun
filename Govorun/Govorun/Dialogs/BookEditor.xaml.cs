@@ -280,18 +280,6 @@ public partial class BookEditor : Window
     }
 
     /// <summary>
-    /// Сохраняет новую серию и присваивает ей идентификатор.
-    /// </summary>
-    /// <returns>Была ли новая серия сохранена успешно.</returns>
-    private bool SaveNewCycle()
-    {
-        if (cycle == null || cycle.CycleId > 0)
-            return true;
-        HasNewCycle = true;
-        return Library.AddCycle(cycle);
-    }
-
-    /// <summary>
     /// Сохраняет новые жанры и присваивает им идентификаторы.
     /// </summary>
     /// <returns>Были ли новые жанры сохранены успешно.</returns>
@@ -442,23 +430,6 @@ public partial class BookEditor : Window
         }
     }
 
-    private void NewCycleTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        AddNewCycleButton.IsEnabled = !string.IsNullOrWhiteSpace(NewCycleTextBox.Text);
-    }
-
-    private void AddNewCycleButton_Click(object sender, RoutedEventArgs e)
-    {
-        var title = NewCycleTextBox.Text.Trim();
-        var dbCycle = allCycles.Find(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase));
-        if (dbCycle != null && cycle != null && cycle.CycleId == dbCycle.CycleId)
-            return;
-        cycle = dbCycle ?? new Cycle() { Title = title };
-        CycleTextBox.Text = cycle.Title;
-        CycleNumbersTextBox.Text = string.Empty;
-        NewCycleTextBox.Text = string.Empty;
-    }
-
     private void GenresListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         RemoveGenresButton.IsEnabled = GenresListBox.SelectedItems.Count > 0;
@@ -529,11 +500,6 @@ public partial class BookEditor : Window
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        if (!SaveNewCycle())
-        {
-            MessageBox.Show("Не удалось сохранить новую серию.", Title);
-            return;
-        }
         if (!SaveNewGenres())
         {
             MessageBox.Show("Не удалось сохранить новые теги.", Title);
