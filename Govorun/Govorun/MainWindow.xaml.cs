@@ -616,7 +616,7 @@ public partial class MainWindow : Window
         ActionStatusBarItem.Visibility = Visibility.Collapsed;
         var dialog = new AddBooksDialog(files) { Owner = this };
         dialog.ShowDialog();
-        UpdateNavPanel(dialog.HasNewAuthors, dialog.HasNewCycle, dialog.GenresChanged);
+        //UpdateNavPanel(dialog.HasNewAuthors, dialog.HasNewCycle, dialog.GenresChanged);
         UpdateShownBooks();
     }
 

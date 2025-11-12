@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using Gemiyur.Collections;
 using Govorun.Media;
-using Govorun.Models;
 
 namespace Govorun.Dialogs;
 
@@ -11,21 +10,6 @@ namespace Govorun.Dialogs;
 /// </summary>
 public partial class AddBooksDialog : Window
 {
-    /// <summary>
-    /// Были ли добавлены новые авторы книг в библиотеку.
-    /// </summary>
-    public bool HasNewAuthors;
-
-    /// <summary>
-    /// Была ли добавлена новая серия книг.
-    /// </summary>
-    public bool HasNewCycle;
-
-    /// <summary>
-    /// Были ли изменения в жанрах книг.
-    /// </summary>
-    public bool GenresChanged;
-
     /// <summary>
     /// Коллекция имён файлов книг с полным путём.
     /// </summary>
@@ -64,12 +48,6 @@ public partial class AddBooksDialog : Window
                 addedFilesCount--;
                 continue;
             }
-            //if (!HasNewAuthors && editor.HasNewAuthors)
-            //    HasNewAuthors = true;
-            //if (!HasNewCycle && editor.HasNewCycle)
-            //    HasNewCycle = true;
-            if (!GenresChanged && editor.GenresChanged)
-                GenresChanged = true;
             addedFilesCount--;
             files.Remove(file);
         }
