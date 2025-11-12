@@ -127,47 +127,8 @@
                                 </Grid>
                             </Grid>
                         </GroupBox>
-                        <!-- Тут будет блок Серия вместо блока Новый автор -->
-
-                        <!-- Читает -->
-                        <GroupBox Grid.Row="2" Header="Читает" Style="{StaticResource EditorGroupBoxStyle}">
-                            <Grid Margin="0,4,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" x:Name="LectorTextBox" />
-                                <Button Grid.Column="1" x:Name="PickLectorButton" Content="Выбрать"
-                                        Style="{StaticResource EditorButtonStyle}"
-                                        Margin="10,0,0,0"
-                                        Click="PickLectorButton_Click" />
-                            </Grid>
-                        </GroupBox>
-                        <!-- Перевод -->
-                        <GroupBox Grid.Row="3" Header="Перевод" Style="{StaticResource EditorGroupBoxStyle}">
-                            <Grid Margin="0,4,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" x:Name="TranslatorTextBox" />
-                                <Button Grid.Column="1" x:Name="PickTranslatorButton" Content="Выбрать"
-                                        Style="{StaticResource EditorButtonStyle}"
-                                        Margin="10,0,0,0"
-                                        Click="PickTranslatorButton_Click" />
-                            </Grid>
-                        </GroupBox>
-                    </Grid>
-                </TabItem>
-
-                <TabItem Header="Серия и жанры">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <GroupBox Grid.Row="0" Header="Серия" Style="{StaticResource EditorGroupBoxStyle}">
+                        <!-- Серия -->
+                        <GroupBox Grid.Row="1" Header="Серия" Style="{StaticResource EditorGroupBoxStyle}">
                             <Grid Margin="0,4,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -207,6 +168,44 @@
                                         Click="RemoveCycleButton_Click" />
                             </Grid>
                         </GroupBox>
+                        <!-- Читает -->
+                        <GroupBox Grid.Row="2" Header="Читает" Style="{StaticResource EditorGroupBoxStyle}">
+                            <Grid Margin="0,4,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" x:Name="LectorTextBox" />
+                                <Button Grid.Column="1" x:Name="PickLectorButton" Content="Выбрать"
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        Margin="10,0,0,0"
+                                        Click="PickLectorButton_Click" />
+                            </Grid>
+                        </GroupBox>
+                        <!-- Перевод -->
+                        <GroupBox Grid.Row="3" Header="Перевод" Style="{StaticResource EditorGroupBoxStyle}">
+                            <Grid Margin="0,4,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" x:Name="TranslatorTextBox" />
+                                <Button Grid.Column="1" x:Name="PickTranslatorButton" Content="Выбрать"
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        Margin="10,0,0,0"
+                                        Click="PickTranslatorButton_Click" />
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Жанры">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
                         <GroupBox Grid.Row="2" Header="Жанры" Style="{StaticResource EditorGroupBoxStyle}">
                             <Grid Margin="0,4,0,0">
                                 <Grid.RowDefinitions>
