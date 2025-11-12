@@ -280,24 +280,6 @@ public partial class BookEditor : Window
     }
 
     /// <summary>
-    /// Сохраняет новые жанры и присваивает им идентификаторы.
-    /// </summary>
-    /// <returns>Были ли новые жанры сохранены успешно.</returns>
-    private bool SaveNewGenres()
-    {
-        var newGenres = genres.ToList().FindAll(x => x.GenreId == 0);
-        if (newGenres.Count == 0)
-            return true;
-        HasNewGenres = true;
-        foreach (var genre in newGenres)
-        {
-            if (!Library.AddGenre(genre))
-                return false;
-        }
-        return true;
-    }
-
-    /// <summary>
     /// Сортирует список авторов книги по фамилии, имени и отчеству.
     /// </summary>
     private void SortAuthors() => authors.Sort(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase);
@@ -449,43 +431,6 @@ public partial class BookEditor : Window
         genres.RemoveRange(GenresListBox.SelectedItems.Cast<Genre>());
     }
 
-    private void NewGenreTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        AddNewGenreButton.IsEnabled = !string.IsNullOrWhiteSpace(NewGenreTextBox.Text);
-    }
-
-    private void AddNewGenreButton_Click(object sender, RoutedEventArgs e)
-    {
-        var title = NewGenreTextBox.Text.Trim();
-        var genre = allGenres.Find(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase));
-        if (genre != null)
-        {
-            if (genres.Any(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)))
-            {
-                NewGenreTextBox.Text = string.Empty;
-                return;
-            }
-            else
-            {
-                genres.Add(genre);
-            }
-        }
-        else
-        {
-            if (genres.Any(x => x.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase)))
-            {
-                NewGenreTextBox.Text = string.Empty;
-                return;
-            }
-            else
-            {
-                genres.Add(new Genre() { Title = title });
-            }
-        }
-        SortGenres();
-        NewGenreTextBox.Text = string.Empty;
-    }
-
     private void FileButton_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new BookFileDialog(book) { Owner = this };
@@ -500,11 +445,6 @@ public partial class BookEditor : Window
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        if (!SaveNewGenres())
-        {
-            MessageBox.Show("Не удалось сохранить новые теги.", Title);
-            return;
-        }
         if (!SaveBook())
         {
             DialogResult = false;
