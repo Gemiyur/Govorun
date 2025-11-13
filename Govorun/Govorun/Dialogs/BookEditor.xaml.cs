@@ -287,6 +287,7 @@ public partial class BookEditor : Window
 
     private void AuthorsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        EditAuthorButton.IsEnabled = AuthorsListBox.SelectedItems.Count == 1;
         RemoveAuthorsButton.IsEnabled = AuthorsListBox.SelectedItems.Count > 0;
     }
 
@@ -297,6 +298,16 @@ public partial class BookEditor : Window
             return;
         authors.AddRange(picker.PickedAuthors.Where(x => !authors.Any(a => a.AuthorId == x.AuthorId)));
         SortAuthors();
+    }
+
+    private void NewAuthorButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void EditAuthorButton_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 
     private void RemoveAuthorsButton_Click(object sender, RoutedEventArgs e)
