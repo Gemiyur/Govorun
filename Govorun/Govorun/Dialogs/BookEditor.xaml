@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Книга"
-        Width="800" Height="600" ResizeMode="NoResize"
+        Width="800" Height="660" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -148,20 +148,20 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="10" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="10" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="10" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <TextBox Grid.Row="0" Grid.Column="0" x:Name="CycleTextBox"
-                                         IsReadOnly="True"
-                                         IsReadOnlyCaretVisible="True"
-                                         Background="{StaticResource TextBoxReadOnlyBackgroundBrush}"
-                                         TextChanged="CycleTextBox_TextChanged" />
-                                <Button Grid.Row="0" Grid.Column="1" x:Name="PickCycleButton" Content="Выбрать"
-                                        Style="{StaticResource EditorButtonStyle}"
-                                        Margin="10,0,0,0"
-                                        Click="PickCycleButton_Click" />
+                                     IsReadOnly="True"
+                                     IsReadOnlyCaretVisible="True"
+                                     Background="{StaticResource TextBoxReadOnlyBackgroundBrush}"
+                                     TextChanged="CycleTextBox_TextChanged" />
                                 <Grid Grid.Row="2" Grid.Column="0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -175,11 +175,27 @@
                                          LostFocus="CycleNumbersTextBox_LostFocus"
                                          TextChanged="CycleNumbersTextBox_TextChanged" />
                                 </Grid>
-                                <Button Grid.Row="2" Grid.Column="2" x:Name="RemoveCycleButton" Content="Удалить"
-                                        Style="{StaticResource EditorButtonStyle}"
-                                        Margin="10,0,0,0"
-                                        IsEnabled="False"
-                                        Click="RemoveCycleButton_Click" />
+                                <TextBlock Grid.Row="4" Grid.Column="0"
+                                       Text="* Номера в серии вводятся через запятую и/или пробел."
+                                       VerticalAlignment="Center" />
+                                <Button Grid.Row="0" Grid.Column="1" x:Name="PickCycleButton" Content="Выбрать"
+                                    Style="{StaticResource EditorButtonStyle}"
+                                    Margin="10,0,0,0"
+                                    Click="PickCycleButton_Click" />
+                                <Button Grid.Row="2" Grid.Column="2" x:Name="NewCycleButton" Content="Новая"
+                                    Style="{StaticResource EditorButtonStyle}"
+                                    Margin="10,0,0,0"
+                                    Click="NewCycleButton_Click" />
+                                <Button Grid.Row="4" Grid.Column="2" x:Name="EditCycleButton" Content="Изменить"
+                                    Style="{StaticResource EditorButtonStyle}"
+                                    Margin="10,0,0,0"
+                                    IsEnabled="False"
+                                    Click="EditCycleButton_Click" />
+                                <Button Grid.Row="6" Grid.Column="2" x:Name="RemoveCycleButton" Content="Удалить"
+                                    Style="{StaticResource EditorButtonStyle}"
+                                    Margin="10,0,0,0"
+                                    IsEnabled="False"
+                                    Click="RemoveCycleButton_Click" />
                             </Grid>
                         </GroupBox>
                         <!-- Читает -->

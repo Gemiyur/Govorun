@@ -321,6 +321,7 @@ public partial class BookEditor : Window
 
     private void CycleTextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
+        EditCycleButton.IsEnabled = CycleTextBox.Text.Length > 0;
         RemoveCycleButton.IsEnabled = !string.IsNullOrWhiteSpace(CycleTextBox.Text);
     }
 
@@ -334,6 +335,16 @@ public partial class BookEditor : Window
         cycle = picker.PickedCycle;
         CycleTextBox.Text = cycle.Title;
         CycleNumbersTextBox.Text = string.Empty;
+    }
+
+    private void NewCycleButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void EditCycleButton_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 
     private void RemoveCycleButton_Click(object sender, RoutedEventArgs e)
