@@ -103,12 +103,12 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <ListBox Grid.Column="0" x:Name="AuthorsListBox"
-                                     ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                                     ItemTemplate="{StaticResource AuthorFullNameDataTemplate}"
-                                     Height="110"
-                                     Margin="0,0,10,0"
-                                     SelectionMode="Extended"
-                                     SelectionChanged="AuthorsListBox_SelectionChanged">
+                                         ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+                                         ItemTemplate="{StaticResource AuthorFullNameDataTemplate}"
+                                         Height="110"
+                                         Margin="0,0,10,0"
+                                         SelectionMode="Extended"
+                                         SelectionChanged="AuthorsListBox_SelectionChanged">
                                 </ListBox>
                                 <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
@@ -118,26 +118,26 @@
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <Button Grid.Row="0" x:Name="PickAuthorsButton" Content="Выбрать"
-                                        Style="{StaticResource EditorButtonStyle}"
-                                        VerticalAlignment="Top"
-                                        Margin="0,0,0,10" 
-                                        Click="PickAuthorsButton_Click" />
+                                            Style="{StaticResource EditorButtonStyle}"
+                                            VerticalAlignment="Top"
+                                            Margin="0,0,0,10" 
+                                            Click="PickAuthorsButton_Click" />
                                     <Button Grid.Row="1" x:Name="NewAuthorButton" Content="Новый"
-                                        Style="{StaticResource EditorButtonStyle}"
-                                        VerticalAlignment="Top"
-                                        Margin="0,0,0,10" 
-                                        Click="NewAuthorButton_Click" />
+                                            Style="{StaticResource EditorButtonStyle}"
+                                            VerticalAlignment="Top"
+                                            Margin="0,0,0,10" 
+                                            Click="NewAuthorButton_Click" />
                                     <Button Grid.Row="2" x:Name="EditAuthorButton" Content="Изменить"
-                                        Style="{StaticResource EditorButtonStyle}"
-                                        IsEnabled="False"
-                                        VerticalAlignment="Top"
-                                        Margin="0,0,0,10" 
-                                        Click="EditAuthorButton_Click" />
+                                            Style="{StaticResource EditorButtonStyle}"
+                                            IsEnabled="False"
+                                            VerticalAlignment="Top"
+                                            Margin="0,0,0,10" 
+                                            Click="EditAuthorButton_Click" />
                                     <Button Grid.Row="3" x:Name="RemoveAuthorsButton" Content="Удалить"
-                                        Style="{StaticResource EditorButtonStyle}"
-                                        IsEnabled="False"
-                                        VerticalAlignment="Bottom"
-                                        Click="RemoveAuthorsButton_Click" />
+                                            Style="{StaticResource EditorButtonStyle}"
+                                            IsEnabled="False"
+                                            VerticalAlignment="Bottom"
+                                            Click="RemoveAuthorsButton_Click" />
                                 </Grid>
                             </Grid>
                         </GroupBox>
@@ -158,10 +158,10 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <TextBox Grid.Row="0" Grid.Column="0" x:Name="CycleTextBox"
-                                     IsReadOnly="True"
-                                     IsReadOnlyCaretVisible="True"
-                                     Background="{StaticResource TextBoxReadOnlyBackgroundBrush}"
-                                     TextChanged="CycleTextBox_TextChanged" />
+                                         IsReadOnly="True"
+                                         IsReadOnlyCaretVisible="True"
+                                         Background="{StaticResource TextBoxReadOnlyBackgroundBrush}"
+                                         TextChanged="CycleTextBox_TextChanged" />
                                 <Grid Grid.Row="2" Grid.Column="0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -169,33 +169,33 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="Номера в серии" VerticalAlignment="Center" />
                                     <TextBox Grid.Column="1" x:Name="CycleNumbersTextBox"
-                                         Margin="10,0,0,0"
-                                         Padding="2,0,2,0"
-                                         VerticalAlignment="Center"
-                                         LostFocus="CycleNumbersTextBox_LostFocus"
-                                         TextChanged="CycleNumbersTextBox_TextChanged" />
+                                             Margin="10,0,0,0"
+                                             Padding="2,0,2,0"
+                                             VerticalAlignment="Center"
+                                             LostFocus="CycleNumbersTextBox_LostFocus"
+                                             TextChanged="CycleNumbersTextBox_TextChanged" />
                                 </Grid>
                                 <TextBlock Grid.Row="4" Grid.Column="0"
-                                       Text="* Номера в серии вводятся через запятую и/или пробел."
-                                       VerticalAlignment="Center" />
+                                           Text="* Номера в серии вводятся через запятую и/или пробел."
+                                           VerticalAlignment="Center" />
                                 <Button Grid.Row="0" Grid.Column="1" x:Name="PickCycleButton" Content="Выбрать"
-                                    Style="{StaticResource EditorButtonStyle}"
-                                    Margin="10,0,0,0"
-                                    Click="PickCycleButton_Click" />
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        Margin="10,0,0,0"
+                                        Click="PickCycleButton_Click" />
                                 <Button Grid.Row="2" Grid.Column="2" x:Name="NewCycleButton" Content="Новая"
-                                    Style="{StaticResource EditorButtonStyle}"
-                                    Margin="10,0,0,0"
-                                    Click="NewCycleButton_Click" />
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        Margin="10,0,0,0"
+                                        Click="NewCycleButton_Click" />
                                 <Button Grid.Row="4" Grid.Column="2" x:Name="EditCycleButton" Content="Изменить"
-                                    Style="{StaticResource EditorButtonStyle}"
-                                    Margin="10,0,0,0"
-                                    IsEnabled="False"
-                                    Click="EditCycleButton_Click" />
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        Margin="10,0,0,0"
+                                        IsEnabled="False"
+                                        Click="EditCycleButton_Click" />
                                 <Button Grid.Row="6" Grid.Column="2" x:Name="RemoveCycleButton" Content="Удалить"
-                                    Style="{StaticResource EditorButtonStyle}"
-                                    Margin="10,0,0,0"
-                                    IsEnabled="False"
-                                    Click="RemoveCycleButton_Click" />
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        Margin="10,0,0,0"
+                                        IsEnabled="False"
+                                        Click="RemoveCycleButton_Click" />
                             </Grid>
                         </GroupBox>
                         <!-- Читает -->
@@ -231,51 +231,53 @@
 
                 <TabItem Header="Аннотация">
                     <TextBox x:Name="AnnotationTextBox"
-                         AcceptsReturn="True"
-                         TextWrapping="Wrap"
-                         VerticalScrollBarVisibility="Auto"
-                         Margin="4,4,4,2" />
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"
+                             Margin="4,4,4,2" />
                 </TabItem>
 
                 <TabItem Header="Жанры">
-                    <Grid>
+                    <Grid Margin="4,4,4,2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
                             <RowDefinition />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <GroupBox Grid.Row="2" Header="Жанры" Style="{StaticResource EditorGroupBoxStyle}">
-                            <Grid Margin="0,4,0,0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <ListBox Grid.Column="0" x:Name="GenresListBox"
-                                             ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                                             ItemTemplate="{StaticResource GenreDataTemplate}"
-                                             Margin="0,0,10,0"
-                                             SelectionMode="Extended"
-                                             SelectionChanged="GenresListBox_SelectionChanged" />
-                                    <StackPanel Grid.Column="1" Orientation="Vertical">
-                                        <Button x:Name="PickGenresButton" Content="Выбрать"
-                                                Style="{StaticResource EditorButtonStyle}"
-                                                VerticalAlignment="Top"
-                                                Click="PickGenresButton_Click" />
-                                        <Button x:Name="RemoveGenresButton" Content="Удалить"
-                                                Style="{StaticResource EditorButtonStyle}"
-                                                VerticalAlignment="Top"
-                                                Margin="0,10,0,0"
-                                                IsEnabled="False"
-                                                Click="RemoveGenresButton_Click" />
-                                    </StackPanel>
-                                </Grid>
-                            </Grid>
-                        </GroupBox>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ListBox Grid.Column="0" x:Name="GenresListBox"
+                                     ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+                                     ItemTemplate="{StaticResource GenreDataTemplate}"
+                                     Margin="0,0,10,0"
+                                     SelectionMode="Extended"
+                                     SelectionChanged="GenresListBox_SelectionChanged" />
+                            <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <Button x:Name="PickGenresButton" Content="Выбрать"
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        VerticalAlignment="Top"
+                                        Click="PickGenresButton_Click" />
+                                <Button x:Name="NewGenreButton" Content="Новый"
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        VerticalAlignment="Top"
+                                        Margin="0,10,0,0"
+                                        Click="NewGenreButton_Click" />
+                                <Button x:Name="EditGenreButton" Content="Изменить"
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        VerticalAlignment="Top"
+                                        Margin="0,10,4,0"
+                                        IsEnabled="False"
+                                        Click="EditGenreButton_Click" />
+                                <Button x:Name="RemoveGenresButton" Content="Удалить"
+                                        Style="{StaticResource EditorButtonStyle}"
+                                        VerticalAlignment="Top"
+                                        Margin="0,10,0,0"
+                                        IsEnabled="False"
+                                        Click="RemoveGenresButton_Click" />
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </TabItem>
             </TabControl>

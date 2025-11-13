@@ -437,6 +437,7 @@ public partial class BookEditor : Window
 
     private void GenresListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        EditGenreButton.IsEnabled = GenresListBox.SelectedItems.Count == 1;
         RemoveGenresButton.IsEnabled = GenresListBox.SelectedItems.Count > 0;
     }
 
@@ -447,6 +448,16 @@ public partial class BookEditor : Window
             return;
         genres.AddRange(picker.PickedGenres.Where(x => !genres.Any(g => g == x)));
         SortGenres();
+    }
+
+    private void NewGenreButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void EditGenreButton_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 
     private void RemoveGenresButton_Click(object sender, RoutedEventArgs e)
