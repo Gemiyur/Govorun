@@ -287,12 +287,23 @@ public partial class BookEditor : Window
 
     private void NewAuthorButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var author = new Author();
+        var editor = new AuthorEditor(author) { Owner = this };
+        if (editor.ShowDialog() != true)
+            return;
+        authors.Add(author);
+        SortAuthors();
+        App.GetMainWindow().UpdateNavPanel(true, false, false);
     }
 
     private void EditAuthorButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var author = (Author)AuthorsListBox.SelectedItem;
+        var editor = new AuthorEditor(author) { Owner = this };
+        if (editor.ShowDialog() != true)
+            return;
+        if (editor.NameChanged)
+            SortAuthors();
     }
 
     private void RemoveAuthorsButton_Click(object sender, RoutedEventArgs e)
