@@ -300,10 +300,10 @@ public partial class BookEditor : Window
     {
         var author = (Author)AuthorsListBox.SelectedItem;
         var editor = new AuthorEditor(author) { Owner = this };
-        if (editor.ShowDialog() != true)
+        if (editor.ShowDialog() != true || !editor.NameChanged)
             return;
-        if (editor.NameChanged)
-            SortAuthors();
+        SortAuthors();
+        App.GetMainWindow().UpdateNavPanel(true, false, false);
     }
 
     private void RemoveAuthorsButton_Click(object sender, RoutedEventArgs e)
@@ -448,12 +448,23 @@ public partial class BookEditor : Window
 
     private void NewGenreButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var genre = new Genre();
+        var editor = new GenreEditor(genre);
+        if (editor.ShowDialog() != true)
+            return;
+        genres.Add(genre);
+        SortGenres();
+        App.GetMainWindow().UpdateNavPanel(false, false, true);
     }
 
     private void EditGenreButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var genre = (Genre)GenresListBox.SelectedItem;
+        var editor = new GenreEditor(genre);
+        if (editor.ShowDialog() != true)
+            return;
+        SortGenres();
+        App.GetMainWindow().UpdateNavPanel(false, false, true);
     }
 
     private void RemoveGenresButton_Click(object sender, RoutedEventArgs e)
