@@ -64,29 +64,14 @@ public partial class BookEditor : Window
     private readonly ObservableCollectionEx<Author> authors = [];
 
     /// <summary>
-    /// Список всех авторов в библиотеке.
-    /// </summary>
-    private readonly List<Author> allAuthors = Library.Authors;
-
-    /// <summary>
     /// Серия книги.
     /// </summary>
     private Cycle? cycle;
 
     /// <summary>
-    /// Список всех серий в библиотеке.
-    /// </summary>
-    private readonly List<Cycle> allCycles = Library.Cycles;
-
-    /// <summary>
     /// Список жанров книги.
     /// </summary>
     private readonly ObservableCollectionEx<Genre> genres = [];
-
-    /// <summary>
-    /// Список всех жанров в библиотеке.
-    /// </summary>
-    private readonly List<Genre> allGenres = Library.Genres;
 
     /// <summary>
     /// Инициализирует новый экземпляр класса.
