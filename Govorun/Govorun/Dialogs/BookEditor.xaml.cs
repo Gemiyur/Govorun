@@ -509,21 +509,12 @@ public partial class BookEditor : Window
             DialogResult = false;
             return;
         }
-        if (book.BookId > 0)
+        var saved = book.BookId > 0 ? Library.UpdateBook(book) : Library.AddBook(book);
+        if (!saved)
         {
-            if (!Library.UpdateBook(book))
-            {
-                MessageBox.Show("Не удалось сохранить книгу.", Title);
-                return;
-            }
-        }
-        else
-        {
-            if (!Library.AddBook(book))
-            {
-                MessageBox.Show("Не удалось добавить книгу.", Title);
-                return;
-            }
+            MessageBox.Show("Не удалось сохранить книгу.", Title);
+            DialogResult = false;
+            return;
         }
         DialogResult = true;
     }
