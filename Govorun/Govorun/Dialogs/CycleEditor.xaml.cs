@@ -71,6 +71,7 @@ public partial class CycleEditor : Window
             cycle.Title = origTitle;
             cycle.Annotation = origAnnotation;
             DialogResult = false;
+            return;
         }
 
         if (TitleChanged)
