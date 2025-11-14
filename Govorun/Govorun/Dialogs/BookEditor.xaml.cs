@@ -335,12 +335,23 @@ public partial class BookEditor : Window
 
     private void NewCycleButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var newCycle = new Cycle();
+        var editor = new CycleEditor(newCycle) { Owner = this };
+        if (editor.ShowDialog() != true)
+            return;
+        cycle = newCycle;
+        CycleTextBox.Text = cycle.Title;
+        CycleNumbersTextBox.Text = string.Empty;
+        App.GetMainWindow().UpdateNavPanel(false, true, false);
     }
 
     private void EditCycleButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var editor = new CycleEditor(cycle) { Owner = this };
+        if (editor.ShowDialog() != true || !editor.TitleChanged)
+            return;
+        CycleTextBox.Text = cycle.Title;
+        App.GetMainWindow().UpdateNavPanel(false, true, false);
     }
 
     private void RemoveCycleButton_Click(object sender, RoutedEventArgs e)
@@ -449,7 +460,7 @@ public partial class BookEditor : Window
     private void NewGenreButton_Click(object sender, RoutedEventArgs e)
     {
         var genre = new Genre();
-        var editor = new GenreEditor(genre);
+        var editor = new GenreEditor(genre) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
         genres.Add(genre);
@@ -460,7 +471,7 @@ public partial class BookEditor : Window
     private void EditGenreButton_Click(object sender, RoutedEventArgs e)
     {
         var genre = (Genre)GenresListBox.SelectedItem;
-        var editor = new GenreEditor(genre);
+        var editor = new GenreEditor(genre) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
         SortGenres();
