@@ -589,7 +589,6 @@ public partial class MainWindow : Window
         var editor = new BookEditor(book, trackData) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        //UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.GenresChanged);
         UpdateShownBooks();
         SelectBookInShownBooks(book);
     }
@@ -753,7 +752,6 @@ public partial class MainWindow : Window
         var chaptersWindow = App.FindChaptersWindow();
         if (chaptersWindow != null && chaptersWindow.Book == book)
             chaptersWindow.UpdateAuthorsAndTitle();
-        //UpdateNavPanel(editor.HasNewAuthors, editor.HasNewCycle, editor.HasNewGenres);
         if (editor.TitleChanged || editor.AuthorsChanged ||
             editor.CycleChanged || editor.CycleNumbersChanged || editor.GenresChanged)
         {
