@@ -48,6 +48,7 @@ public partial class GenreEditor : Window
             MessageBox.Show("Не удалось сохранить жанр.", Title);
             genre.Title = origTitle;
             DialogResult = false;
+            return;
         }
 
         var bookInfoWindow = App.FindBookInfoWindow();
