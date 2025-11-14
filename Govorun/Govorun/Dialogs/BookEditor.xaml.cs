@@ -107,8 +107,7 @@ public partial class BookEditor : Window
         AuthorsListBox.ItemsSource = authors;
         FileNameTextBox.Text = book.FileName;
         AnnotationTextBox.Text = book.Annotation;
-        cycle = book.Cycle;
-        CycleTextBox.Text = cycle != null ? cycle.Title : string.Empty;
+        SetCycle(book.Cycle);
         CycleNumbersTextBox.Text = book.CycleNumbers;
         LectorTextBox.Text = book.Lector;
         TranslatorTextBox.Text = book.Translator;
@@ -250,6 +249,19 @@ public partial class BookEditor : Window
     }
 
     /// <summary>
+    /// Устанавливает серию книги.
+    /// </summary>
+    /// <param name="value">Серия книги.</param>
+    private void SetCycle(Cycle? value)
+    {
+        cycle = value;
+        EditCycleButton.IsEnabled = cycle != null;
+        RemoveCycleButton.IsEnabled = cycle != null;
+        CycleNumbersTextBox.IsEnabled = cycle != null;
+        CycleTextBox.Text = cycle != null ? cycle.Title : string.Empty;
+    }
+
+    /// <summary>
     /// Сортирует список авторов книги по фамилии, имени и отчеству.
     /// </summary>
     private void SortAuthors() => authors.Sort(x => x.NameLastFirstMiddle, StringComparer.CurrentCultureIgnoreCase);
@@ -315,12 +327,6 @@ public partial class BookEditor : Window
 
     #region Обработчики событий элементов серии.
 
-    private void CycleTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        EditCycleButton.IsEnabled = CycleTextBox.Text.Length > 0;
-        RemoveCycleButton.IsEnabled = !string.IsNullOrWhiteSpace(CycleTextBox.Text);
-    }
-
     private void PickCycleButton_Click(object sender, RoutedEventArgs e)
     {
         var picker = new CyclePicker() { Owner = this };
@@ -328,8 +334,7 @@ public partial class BookEditor : Window
             return;
         if (cycle != null && picker.PickedCycle.CycleId == cycle.CycleId)
             return;
-        cycle = picker.PickedCycle;
-        CycleTextBox.Text = cycle.Title;
+        SetCycle(picker.PickedCycle);
         CycleNumbersTextBox.Text = string.Empty;
     }
 
@@ -339,14 +344,15 @@ public partial class BookEditor : Window
         var editor = new CycleEditor(newCycle) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        cycle = newCycle;
-        CycleTextBox.Text = cycle.Title;
+        SetCycle(newCycle);
         CycleNumbersTextBox.Text = string.Empty;
         App.GetMainWindow().UpdateNavPanel(false, true, false);
     }
 
     private void EditCycleButton_Click(object sender, RoutedEventArgs e)
     {
+        if (cycle == null)
+            return;
         var editor = new CycleEditor(cycle) { Owner = this };
         if (editor.ShowDialog() != true || !editor.TitleChanged)
             return;
@@ -356,8 +362,7 @@ public partial class BookEditor : Window
 
     private void RemoveCycleButton_Click(object sender, RoutedEventArgs e)
     {
-        cycle = null;
-        CycleTextBox.Text = string.Empty;
+        SetCycle(null);
         CycleNumbersTextBox.Text = string.Empty;
     }
 

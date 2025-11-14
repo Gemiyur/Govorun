@@ -160,8 +160,7 @@
                                 <TextBox Grid.Row="0" Grid.Column="0" x:Name="CycleTextBox"
                                          IsReadOnly="True"
                                          IsReadOnlyCaretVisible="True"
-                                         Background="{StaticResource TextBoxReadOnlyBackgroundBrush}"
-                                         TextChanged="CycleTextBox_TextChanged" />
+                                         Background="{StaticResource TextBoxReadOnlyBackgroundBrush}" />
                                 <Grid Grid.Row="2" Grid.Column="0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
