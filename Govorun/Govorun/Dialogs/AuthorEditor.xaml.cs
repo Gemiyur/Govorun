@@ -91,6 +91,7 @@ public partial class AuthorEditor : Window
             author.MiddleName = origMiddleName;
             author.About = origAbout;
             DialogResult = false;
+            return;
         }
 
         if (NameChanged)
