@@ -19,17 +19,17 @@ public static class Library
     /// <summary>
     /// Список всех авторов.
     /// </summary>
-    public static readonly List<Author> Authors = [];
+    public static readonly List<Author> Authors;
 
     /// <summary>
     /// Список всех серий.
     /// </summary>
-    public static readonly List<Cycle> Cycles = [];
+    public static readonly List<Cycle> Cycles;
 
     /// <summary>
     /// Список всех жанров.
     /// </summary>
-    public static readonly List<Genre> Genres = [];
+    public static readonly List<Genre> Genres;
 
     /// <summary>
     /// Возвращает список слушаемых книг.
