@@ -40,8 +40,6 @@ public partial class ChaptersDialog : Window
         get => book;
         set
         {
-            if (book != value)
-                SaveChanged();
             book = value;
             LoadBook();
         }
@@ -53,9 +51,9 @@ public partial class ChaptersDialog : Window
     private readonly ObservableCollectionEx<Chapter> chapters = [];
 
     /// <summary>
-    /// Были ли изменения в названиях глав книги.
+    /// Глава в редакторе.
     /// </summary>
-    private bool hasChanges = false;
+    private Chapter? chapter;
 
     /// <summary>
     /// Возвращает выбранную главу в списке глав.
@@ -89,18 +87,6 @@ public partial class ChaptersDialog : Window
         TitleEditor.Visibility = Visibility.Collapsed;
         if (IsInitialized)
             SelectCurrentChapter();
-    }
-
-    /// <summary>
-    /// Сохраняет изменения в базе данных, если они были.
-    /// </summary>
-    private void SaveChanged()
-    {
-        if (hasChanges)
-        {
-            Library.UpdateBook(book);
-            hasChanges = false;
-        }
     }
 
     /// <summary>
@@ -188,7 +174,6 @@ public partial class ChaptersDialog : Window
 
     private void Window_Closed(object sender, EventArgs e)
     {
-        SaveChanged();
         if (Properties.Settings.Default.SaveBookWindowsLocation)
         {
             Properties.Settings.Default.ChaptersPos = new System.Drawing.Point((int)Left, (int)Top);
@@ -232,7 +217,8 @@ public partial class ChaptersDialog : Window
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
-        TitleEditor.Text = SelectedChapter.Title;
+        chapter = SelectedChapter;
+        TitleEditor.Text = chapter.Title;
         TitleEditor.Visibility = Visibility.Visible;
         MainGrid.IsEnabled = false;
     }
@@ -251,11 +237,19 @@ public partial class ChaptersDialog : Window
     {
         if (TitleEditor.Visibility != Visibility.Collapsed)
             return;
-        if (TitleEditor.Result)
+        if (!TitleEditor.Result || chapter == null)
         {
-            SelectedChapter.Title = TitleEditor.Text;
-            hasChanges = true;
+            MainGrid.IsEnabled = true;
+            return;
         }
+        var oldTitle = chapter.Title;
+        chapter.Title = TitleEditor.Text;
+        if (!Library.UpdateBook(book))
+        {
+            MessageBox.Show("Не удалось сохранить название главы.", Title);
+            chapter.Title = oldTitle;
+        }
+        chapter = null;
         MainGrid.IsEnabled = true;
     }
 }
