@@ -40,8 +40,6 @@ public partial class BookmarksDialog : Window
         get => book;
         set
         {
-            if (book != value)
-                SaveChanged();
             book = value;
             LoadBook();
         }
@@ -53,9 +51,9 @@ public partial class BookmarksDialog : Window
     private readonly ObservableCollectionEx<Bookmark> bookmarks = [];
 
     /// <summary>
-    /// Были ли изменения в закладках книги.
+    /// Закладка в редакторе.
     /// </summary>
-    private bool hasChanges = false;
+    private Bookmark? bookmark;
 
     /// <summary>
     /// В редакторе новая закладка?
@@ -112,20 +110,6 @@ public partial class BookmarksDialog : Window
         bookmarks.Sort(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
     }
     
-    /// <summary>
-    /// Сохраняет изменения в базе данных, если они были.
-    /// </summary>
-    private void SaveChanged()
-    {
-        if (hasChanges)
-        {
-            book.Bookmarks.Clear();
-            book.Bookmarks.AddRange(bookmarks);
-            Library.UpdateBook(book);
-            hasChanges = false;
-        }
-    }
-
     /// <summary>
     /// Обновляет имена авторов книги.
     /// </summary>
@@ -187,7 +171,6 @@ public partial class BookmarksDialog : Window
 
     private void Window_Closed(object sender, EventArgs e)
     {
-        SaveChanged();
         if (Properties.Settings.Default.SaveBookWindowsLocation)
         {
             Properties.Settings.Default.BookmarksPos = new System.Drawing.Point((int)Left, (int)Top);
@@ -218,25 +201,39 @@ public partial class BookmarksDialog : Window
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
         isNewBookmark = true;
-        var bookmark = new Bookmark() { Position = App.GetMainWindow().Player.PlayPosition };
-        bookmarks.Add(bookmark);
-        BookmarksListBox.SelectedItem = bookmark;
-        TitleEditor.Text = SelectedBookmark.Title;
+        bookmark = new Bookmark() { Position = App.GetMainWindow().Player.PlayPosition };
+        TitleEditor.Text = string.Empty;
         TitleEditor.Visibility = Visibility.Visible;
         MainGrid.IsEnabled = false;
     }
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
-        TitleEditor.Text = SelectedBookmark.Title;
+        isNewBookmark = false;
+        bookmark = SelectedBookmark;
+        TitleEditor.Text = bookmark.Title;
         TitleEditor.Visibility = Visibility.Visible;
         MainGrid.IsEnabled = false;
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        bookmarks.RemoveRange(BookmarksListBox.SelectedItems.Cast<Bookmark>());
-        hasChanges = true;
+        if (!App.ConfirmAction("Удалить выбранные закладки?", Title))
+            return;
+        var removed = BookmarksListBox.SelectedItems.Cast<Bookmark>();
+        foreach (var item in removed)
+        {
+            book.Bookmarks.Remove(item);
+        }
+        if (Library.UpdateBook(book))
+        {
+            bookmarks.RemoveRange(removed);
+        }
+        else
+        {
+            MessageBox.Show("Не удалось удалить закладки.", Title);
+            book.Bookmarks.AddRange(removed);
+        }
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -248,17 +245,44 @@ public partial class BookmarksDialog : Window
     {
         if (TitleEditor.Visibility != Visibility.Collapsed)
             return;
-        if (TitleEditor.Result)
+        if (!TitleEditor.Result || bookmark == null)
         {
-            SelectedBookmark.Title = TitleEditor.Text;
-            SortBookmarks();
-            hasChanges = true;
+            MainGrid.IsEnabled = true;
+            return;
         }
-        else if (isNewBookmark)
+        if (isNewBookmark)
         {
-            bookmarks.Remove(SelectedBookmark);
+            bookmark.Title = TitleEditor.Text;
+            book.Bookmarks.Add(bookmark);
+            if (Library.UpdateBook(book))
+            {
+                bookmarks.Add(bookmark);
+                SortBookmarks();
+                BookmarksListBox.SelectedItem = bookmark;
+            }
+            else
+            {
+                MessageBox.Show("Не удалось добавить закладку.", Title);
+                book.Bookmarks.Remove(bookmark);
+            }
             isNewBookmark = false;
         }
+        else
+        {
+            var oldTitle = bookmark.Title;
+            bookmark.Title = TitleEditor.Text;
+            if (Library.UpdateBook(book))
+            {
+                SortBookmarks();
+                BookmarksListBox.SelectedItem = bookmark;
+            }
+            else
+            {
+                MessageBox.Show("Не удалось сохранить закладку.", Title);
+                bookmark.Title = oldTitle;
+            }
+        }
+        bookmark = null;
         MainGrid.IsEnabled = true;
     }
 }
