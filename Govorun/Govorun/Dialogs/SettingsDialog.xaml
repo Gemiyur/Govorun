@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Настройки"
-        Width="500" Height="400" ResizeMode="NoResize"
+        Width="500" Height="410" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -48,11 +48,35 @@
                     <CheckBox x:Name="NavAuthorFullNameCheckBox"
                               Content="В панели навигации отображать полные имена авторов"
                               Style="{StaticResource ParamCheckBoxStyle}" />
-                    <CheckBox x:Name="SaveBookWindowsLocationCheckBox"
-                              Content="Сохранять положение и размеры окон книги"
+                    <CheckBox x:Name="BookListAuthorFullNameCheckBox"
+                              Content="В списке книг отображать полные имена авторов"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
+                    <CheckBox x:Name="BookInfoAuthorFullNameCheckBox"
+                              Content="В окне «О книге» отображать полные имена авторов"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
+                    <CheckBox x:Name="ChaptersAuthorFullNameCheckBox"
+                              Content="В окне «Содержание» отображать полные имена авторов"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
+                    <CheckBox x:Name="BookmarksAuthorFullNameCheckBox"
+                              Content="В окне «Закладки» отображать полные имена авторов"
                               Style="{StaticResource ParamCheckBoxStyle}" />
                     <CheckBox x:Name="SaveMainWindowLocationCheckBox"
                               Content="Сохранять положение и размер окна приложения"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
+                    <CheckBox x:Name="SaveBookInfoWindowLocationCheckBox"
+                              Content="Сохранять положение и размер окна «О книге»"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
+                    <CheckBox x:Name="SaveChaptersWindowLocationCheckBox"
+                              Content="Сохранять положение и размер окна «Содержание»"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
+                    <CheckBox x:Name="SaveBookmarksWindowLocationCheckBox"
+                              Content="Сохранять положение и размер окна «Закладки»"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
+                    <CheckBox x:Name="SaveAuthorWindowLocationCheckBox"
+                              Content="Сохранять положение и размер окна «Об авторе»"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
+                    <CheckBox x:Name="SaveCycleWindowLocationCheckBox"
+                              Content="Сохранять положение и размер окна «О серии»"
                               Style="{StaticResource ParamCheckBoxStyle}" />
                 </StackPanel>
             </TabItem>
