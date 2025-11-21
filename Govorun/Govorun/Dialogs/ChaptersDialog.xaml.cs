@@ -161,7 +161,7 @@ public partial class ChaptersDialog : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        if (Properties.Settings.Default.SaveBookWindowsLocation &&
+        if (Properties.Settings.Default.SaveChaptersWindowLocation &&
             App.SizeDefined(Properties.Settings.Default.ChaptersSize))
         {
             Left = Properties.Settings.Default.ChaptersPos.X;
@@ -174,7 +174,7 @@ public partial class ChaptersDialog : Window
 
     private void Window_Closed(object sender, EventArgs e)
     {
-        if (Properties.Settings.Default.SaveBookWindowsLocation)
+        if (Properties.Settings.Default.SaveChaptersWindowLocation)
         {
             Properties.Settings.Default.ChaptersPos = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.ChaptersSize = new System.Drawing.Size((int)Width, (int)Height);

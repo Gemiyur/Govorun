@@ -17,7 +17,7 @@ public partial class SettingsDialog : Window
         InitializeComponent();
         LoadLastBookCheckBox.IsChecked = Properties.Settings.Default.LoadLastBook;
         NavAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.NavAuthorFullName;
-        SaveBookWindowsLocationCheckBox.IsChecked = Properties.Settings.Default.SaveBookWindowsLocation;
+        //SaveBookWindowsLocationCheckBox.IsChecked = Properties.Settings.Default.SaveBookWindowsLocation;
         SaveMainWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveMainWindowLocation;
 #if DEBUG
         DbNameTextBox.Text = Properties.Settings.Default.DebugDbName;
@@ -78,16 +78,16 @@ public partial class SettingsDialog : Window
         Properties.Settings.Default.LoadLastBook = LoadLastBookCheckBox.IsChecked == true;
         Properties.Settings.Default.NavAuthorFullName = NavAuthorFullNameCheckBox.IsChecked == true;
         App.GetMainWindow().CheckAuthorsNameFormat();
-        Properties.Settings.Default.SaveBookWindowsLocation = SaveBookWindowsLocationCheckBox.IsChecked == true;
-        if (!Properties.Settings.Default.SaveBookWindowsLocation)
-        {
-            Properties.Settings.Default.BookInfoPos = new System.Drawing.Point(0, 0);
-            Properties.Settings.Default.BookInfoSize = new System.Drawing.Size(0, 0);
-            Properties.Settings.Default.BookmarksPos = new System.Drawing.Point(0, 0);
-            Properties.Settings.Default.BookmarksSize = new System.Drawing.Size(0, 0);
-            Properties.Settings.Default.ChaptersPos = new System.Drawing.Point(0, 0);
-            Properties.Settings.Default.ChaptersSize = new System.Drawing.Size(0, 0);
-        }
+        //Properties.Settings.Default.SaveBookWindowsLocation = SaveBookWindowsLocationCheckBox.IsChecked == true;
+        //if (!Properties.Settings.Default.SaveBookWindowsLocation)
+        //{
+        //    Properties.Settings.Default.BookInfoPos = new System.Drawing.Point(0, 0);
+        //    Properties.Settings.Default.BookInfoSize = new System.Drawing.Size(0, 0);
+        //    Properties.Settings.Default.BookmarksPos = new System.Drawing.Point(0, 0);
+        //    Properties.Settings.Default.BookmarksSize = new System.Drawing.Size(0, 0);
+        //    Properties.Settings.Default.ChaptersPos = new System.Drawing.Point(0, 0);
+        //    Properties.Settings.Default.ChaptersSize = new System.Drawing.Size(0, 0);
+        //}
         Properties.Settings.Default.SaveMainWindowLocation = SaveMainWindowLocationCheckBox.IsChecked == true;
         if (!Properties.Settings.Default.SaveMainWindowLocation)
         {

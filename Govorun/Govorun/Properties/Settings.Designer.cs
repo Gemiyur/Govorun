@@ -182,18 +182,6 @@ namespace Govorun.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SaveBookWindowsLocation {
-            get {
-                return ((bool)(this["SaveBookWindowsLocation"]));
-            }
-            set {
-                this["SaveBookWindowsLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool SaveBookInfoWindowLocation {
             get {
                 return ((bool)(this["SaveBookInfoWindowLocation"]));

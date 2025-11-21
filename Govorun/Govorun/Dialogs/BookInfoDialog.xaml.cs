@@ -211,7 +211,7 @@ public partial class BookInfoDialog : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        if (Properties.Settings.Default.SaveBookWindowsLocation &&
+        if (Properties.Settings.Default.SaveBookInfoWindowLocation &&
             App.SizeDefined(Properties.Settings.Default.BookInfoSize))
         {
             Left = Properties.Settings.Default.BookInfoPos.X;
@@ -223,7 +223,7 @@ public partial class BookInfoDialog : Window
 
     private void Window_Closed(object sender, EventArgs e)
     {
-        if (Properties.Settings.Default.SaveBookWindowsLocation)
+        if (Properties.Settings.Default.SaveBookInfoWindowLocation)
         {
             Properties.Settings.Default.BookInfoPos = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.BookInfoSize = new System.Drawing.Size((int)Width, (int)Height);
