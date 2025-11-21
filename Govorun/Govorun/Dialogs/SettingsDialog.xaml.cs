@@ -83,7 +83,7 @@ public partial class SettingsDialog : Window
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
-        NavPanelAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetNavAuthorFullName;
+        NavPanelAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetNavPanelAuthorFullName;
         BookListAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookListAuthorFullName;
         BookInfoAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookInfoAuthorFullName;
         ChaptersAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetChaptersAuthorFullName;

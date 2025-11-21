@@ -89,7 +89,7 @@
     <Setting Name="PresetLoadLastBook" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="PresetNavAuthorFullName" Type="System.Boolean" Scope="Application">
+    <Setting Name="PresetNavPanelAuthorFullName" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PresetBookListAuthorFullName" Type="System.Boolean" Scope="Application">

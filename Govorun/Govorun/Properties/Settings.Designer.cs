@@ -371,9 +371,9 @@ namespace Govorun.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool PresetNavAuthorFullName {
+        public bool PresetNavPanelAuthorFullName {
             get {
-                return ((bool)(this["PresetNavAuthorFullName"]));
+                return ((bool)(this["PresetNavPanelAuthorFullName"]));
             }
         }
         
