@@ -83,7 +83,17 @@ public partial class SettingsDialog : Window
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
-
+        NavAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetNavAuthorFullName;
+        BookListAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookListAuthorFullName;
+        BookInfoAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookInfoAuthorFullName;
+        ChaptersAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetChaptersAuthorFullName;
+        BookmarksAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookmarksAuthorFullName;
+        SaveMainWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveMainWindowLocation;
+        SaveBookInfoWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveBookInfoWindowLocation;
+        SaveChaptersWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveChaptersWindowLocation;
+        SaveBookmarksWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveBookmarksWindowLocation;
+        SaveAuthorWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveAuthorWindowLocation;
+        SaveCycleWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveCycleWindowLocation;
     }
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
