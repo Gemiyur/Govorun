@@ -214,5 +214,161 @@ namespace Govorun.Properties {
                 this["MainWindowSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BookListAuthorFullName {
+            get {
+                return ((bool)(this["BookListAuthorFullName"]));
+            }
+            set {
+                this["BookListAuthorFullName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BookInfoAuthorFullName {
+            get {
+                return ((bool)(this["BookInfoAuthorFullName"]));
+            }
+            set {
+                this["BookInfoAuthorFullName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ChaptersAuthorFullName {
+            get {
+                return ((bool)(this["ChaptersAuthorFullName"]));
+            }
+            set {
+                this["ChaptersAuthorFullName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BookmarksAuthorFullName {
+            get {
+                return ((bool)(this["BookmarksAuthorFullName"]));
+            }
+            set {
+                this["BookmarksAuthorFullName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SaveBookInfoWindowLocation {
+            get {
+                return ((bool)(this["SaveBookInfoWindowLocation"]));
+            }
+            set {
+                this["SaveBookInfoWindowLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SaveChaptersWindowLocation {
+            get {
+                return ((bool)(this["SaveChaptersWindowLocation"]));
+            }
+            set {
+                this["SaveChaptersWindowLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SaveBookmarksWindowLocation {
+            get {
+                return ((bool)(this["SaveBookmarksWindowLocation"]));
+            }
+            set {
+                this["SaveBookmarksWindowLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SaveAuthorWindowLocation {
+            get {
+                return ((bool)(this["SaveAuthorWindowLocation"]));
+            }
+            set {
+                this["SaveAuthorWindowLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point AuthorPos {
+            get {
+                return ((global::System.Drawing.Point)(this["AuthorPos"]));
+            }
+            set {
+                this["AuthorPos"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size AuthorSize {
+            get {
+                return ((global::System.Drawing.Size)(this["AuthorSize"]));
+            }
+            set {
+                this["AuthorSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SaveCycleWindowLocation {
+            get {
+                return ((bool)(this["SaveCycleWindowLocation"]));
+            }
+            set {
+                this["SaveCycleWindowLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point CyclePos {
+            get {
+                return ((global::System.Drawing.Point)(this["CyclePos"]));
+            }
+            set {
+                this["CyclePos"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size CycleSize {
+            get {
+                return ((global::System.Drawing.Size)(this["CycleSize"]));
+            }
+            set {
+                this["CycleSize"] = value;
+            }
+        }
     }
 }
