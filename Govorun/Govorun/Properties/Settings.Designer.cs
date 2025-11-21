@@ -86,12 +86,12 @@ namespace Govorun.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool NavAuthorFullName {
+        public bool NavPanelAuthorFullName {
             get {
-                return ((bool)(this["NavAuthorFullName"]));
+                return ((bool)(this["NavPanelAuthorFullName"]));
             }
             set {
-                this["NavAuthorFullName"] = value;
+                this["NavPanelAuthorFullName"] = value;
             }
         }
         

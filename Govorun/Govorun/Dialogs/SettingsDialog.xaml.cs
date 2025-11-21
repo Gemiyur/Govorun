@@ -16,7 +16,7 @@ public partial class SettingsDialog : Window
     {
         InitializeComponent();
         LoadLastBookCheckBox.IsChecked = Properties.Settings.Default.LoadLastBook;
-        NavAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.NavAuthorFullName;
+        NavPanelAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.NavPanelAuthorFullName;
         BookListAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BookListAuthorFullName;
         BookInfoAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BookInfoAuthorFullName;
         ChaptersAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.ChaptersAuthorFullName;
@@ -83,7 +83,7 @@ public partial class SettingsDialog : Window
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
-        NavAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetNavAuthorFullName;
+        NavPanelAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetNavAuthorFullName;
         BookListAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookListAuthorFullName;
         BookInfoAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookInfoAuthorFullName;
         ChaptersAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetChaptersAuthorFullName;
@@ -99,7 +99,7 @@ public partial class SettingsDialog : Window
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         Properties.Settings.Default.LoadLastBook = LoadLastBookCheckBox.IsChecked == true;
-        Properties.Settings.Default.NavAuthorFullName = NavAuthorFullNameCheckBox.IsChecked == true;
+        Properties.Settings.Default.NavPanelAuthorFullName = NavPanelAuthorFullNameCheckBox.IsChecked == true;
         App.GetMainWindow().CheckAuthorsNameFormat();
 
         Properties.Settings.Default.SaveMainWindowLocation = SaveMainWindowLocationCheckBox.IsChecked == true;

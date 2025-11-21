@@ -45,7 +45,7 @@
                     <CheckBox x:Name="LoadLastBookCheckBox"
                               Content="При запуске загружать в проигрыватель последнюю книгу"
                               Style="{StaticResource ParamCheckBoxStyle}" />
-                    <CheckBox x:Name="NavAuthorFullNameCheckBox"
+                    <CheckBox x:Name="NavPanelAuthorFullNameCheckBox"
                               Content="В панели навигации отображать полные имена авторов"
                               Style="{StaticResource ParamCheckBoxStyle}" />
                     <CheckBox x:Name="BookListAuthorFullNameCheckBox"

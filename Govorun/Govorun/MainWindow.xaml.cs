@@ -88,7 +88,7 @@ public partial class MainWindow : Window
     /// </summary>
     public void CheckAuthorsNameFormat()
     {
-        AuthorsListBox.ItemTemplate = Properties.Settings.Default.NavAuthorFullName
+        AuthorsListBox.ItemTemplate = Properties.Settings.Default.NavPanelAuthorFullName
             ? (DataTemplate)FindResource("AuthorFullNameDataTemplate")
             : (DataTemplate)FindResource("AuthorShortNameDataTemplate");
     }
