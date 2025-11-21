@@ -100,7 +100,7 @@ public partial class SettingsDialog : Window
     {
         Properties.Settings.Default.LoadLastBook = LoadLastBookCheckBox.IsChecked == true;
         Properties.Settings.Default.NavPanelAuthorFullName = NavPanelAuthorFullNameCheckBox.IsChecked == true;
-        App.GetMainWindow().CheckAuthorsNameFormat();
+        App.GetMainWindow().CheckNavPanelAuthorsNameFormat();
 
         Properties.Settings.Default.SaveMainWindowLocation = SaveMainWindowLocationCheckBox.IsChecked == true;
         if (!Properties.Settings.Default.SaveMainWindowLocation)

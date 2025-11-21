@@ -67,7 +67,7 @@ public partial class MainWindow : Window
         }
         Authors.AddRange(Library.Authors);
         AuthorsListBox.ItemsSource = Authors;
-        CheckAuthorsNameFormat();
+        CheckNavPanelAuthorsNameFormat();
         Cycles.AddRange(Library.Cycles);
         CyclesListBox.ItemsSource = Cycles;
         Genres.AddRange(Library.Genres);
@@ -86,7 +86,7 @@ public partial class MainWindow : Window
     /// <summary>
     /// Устанавливает формат отображения имён авторов в панели навигации.
     /// </summary>
-    public void CheckAuthorsNameFormat()
+    public void CheckNavPanelAuthorsNameFormat()
     {
         AuthorsListBox.ItemTemplate = Properties.Settings.Default.NavPanelAuthorFullName
             ? (DataTemplate)FindResource("AuthorFullNameDataTemplate")
