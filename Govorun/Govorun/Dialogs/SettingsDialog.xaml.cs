@@ -17,8 +17,16 @@ public partial class SettingsDialog : Window
         InitializeComponent();
         LoadLastBookCheckBox.IsChecked = Properties.Settings.Default.LoadLastBook;
         NavAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.NavAuthorFullName;
-        //SaveBookWindowsLocationCheckBox.IsChecked = Properties.Settings.Default.SaveBookWindowsLocation;
+        BookListAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BookListAuthorFullName;
+        BookInfoAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BookInfoAuthorFullName;
+        ChaptersAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.ChaptersAuthorFullName;
+        BookmarksAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BookmarksAuthorFullName;
         SaveMainWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveMainWindowLocation;
+        SaveBookInfoWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveBookInfoWindowLocation;
+        SaveChaptersWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveChaptersWindowLocation;
+        SaveBookmarksWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveBookmarksWindowLocation;
+        SaveAuthorWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveAuthorWindowLocation;
+        SaveCycleWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveCycleWindowLocation;
 #if DEBUG
         DbNameTextBox.Text = Properties.Settings.Default.DebugDbName;
 #else
@@ -37,6 +45,11 @@ public partial class SettingsDialog : Window
     private void SettingsTabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
         ResetButton.IsEnabled = SettingsTabControl.SelectedItem == InterfaceTabItem;
+    }
+
+    private void CheckLibraryButton_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 
     private void DbShrinkButton_Click(object sender, RoutedEventArgs e)
@@ -105,10 +118,5 @@ public partial class SettingsDialog : Window
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     {
         DialogResult = false;
-    }
-
-    private void CheckLibraryButton_Click(object sender, RoutedEventArgs e)
-    {
-
     }
 }
