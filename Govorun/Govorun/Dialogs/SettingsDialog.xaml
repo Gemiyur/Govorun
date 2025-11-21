@@ -35,85 +35,101 @@
 
     <Grid Margin="10,10,10,10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" Header="Параметры">
-            <StackPanel>
-                <CheckBox x:Name="LoadLastBookCheckBox"
-                      Content="При запуске загружать в проигрыватель последнюю книгу"
-                      Style="{StaticResource ParamCheckBoxStyle}" />
-                <CheckBox x:Name="NavAuthorFullNameCheckBox"
-                      Content="В панеле навигации отображать полные имена авторов"
-                      Style="{StaticResource ParamCheckBoxStyle}" />
-                <CheckBox x:Name="SaveBookWindowsLocationCheckBox"
-                      Content="Сохранять положение и размеры окон книги"
-                      Style="{StaticResource ParamCheckBoxStyle}" />
-                <CheckBox x:Name="SaveMainWindowLocationCheckBox"
-                      Content="Сохранять положение и размер окна приложения"
-                      Style="{StaticResource ParamCheckBoxStyle}" />
+        <TabControl Grid.Row="0" x:Name="SettingsTabControl" SelectionChanged="SettingsTabControl_SelectionChanged">
+            <TabItem x:Name="InterfaceTabItem" Header="Интерфейс">
+                <StackPanel Margin="10,0,0,0">
+                    <CheckBox x:Name="LoadLastBookCheckBox"
+                              Content="При запуске загружать в проигрыватель последнюю книгу"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
+                    <CheckBox x:Name="NavAuthorFullNameCheckBox"
+                              Content="В панели навигации отображать полные имена авторов"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
+                    <CheckBox x:Name="SaveBookWindowsLocationCheckBox"
+                              Content="Сохранять положение и размеры окон книги"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
+                    <CheckBox x:Name="SaveMainWindowLocationCheckBox"
+                              Content="Сохранять положение и размер окна приложения"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Библиотека">
+                <StackPanel Margin="4,0,4,0">
+                    <GroupBox Header="Сжатие базы данных" Margin="0,10,0,0">
+                        <Grid Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Сжатие удалит неиспользуемое пространство из базы данных." />
+                            <Button Grid.Column="1" x:Name="DbShrinkButton" Content="Сжать"
+                                    Style="{StaticResource DbButtonStyle}"
+                                    Margin="8,0,0,4"
+                                    Click="DbShrinkButton_Click" />
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Файл базы данных" Margin="0,10,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" x:Name="DbNameTextBox"
+                                         Style="{StaticResource ReadOnlyTextBoxStyle}" />
+                                <Button Grid.Column="1" x:Name="DbNameButton" Content="Изменить"
+                                        Style="{StaticResource DbButtonStyle}"
+                                        Margin="8,0,0,0"
+                                        Click="DbNameButton_Click" />
+                            </Grid>
+                            <StackPanel Grid.Row="1" Grid.Column="0" x:Name="DbChangedStackPanel"
+                                        Style="{StaticResource DbChangedStackPanelStyle}"
+                                        Visibility="Collapsed">
+                                <TextBlock Text="Файл базы данных был изменён." Foreground="Red" FontWeight="Bold" />
+                                <TextBlock Text="Изменение вступит в силу при следующем запуске приложения." />
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="0" x:Name="DbNotChangedStackPanel"
+                                        Style="{StaticResource DbChangedStackPanelStyle}">
+                                <TextBlock Text="Важно!" />
+                                <TextBlock Text="При изменении файла базы данных надо будет перезапустить приложение." />
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" x:Name="ResetButton" Content="Сброс"
+                    Style="{StaticResource ButtonStyle}"
+                    HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                    ToolTip="Установить настройки по-умолчанию (текущая вкладка)"
+                    Click="ResetButton_Click" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal"
+                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                        Margin="0,10,0,0">
+                <Button x:Name="SaveButton" Content="Сохранить"
+                        Style="{StaticResource ButtonStyle}"
+                        Click="SaveButton_Click" />
+                <Button x:Name="CancelButton" Content="Отмена"
+                        Style="{StaticResource ButtonStyle}"
+                        Margin="10,0,0,0"
+                        Click="CancelButton_Click" />
             </StackPanel>
-        </GroupBox>
-
-        <GroupBox Grid.Row="1" Header="Сжатие базы данных" Margin="0,10,0,0">
-            <Grid Grid.Row="0" Margin="0,8,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Сжатие удалит неиспользуемое пространство из базы данных." />
-                <Button Grid.Column="1" x:Name="DbShrinkButton" Content="Сжать"
-                        Style="{StaticResource DbButtonStyle}"
-                        Margin="8,0,0,4"
-                        Click="DbShrinkButton_Click" />
-            </Grid>
-        </GroupBox>
-
-        <GroupBox Grid.Row="2" Header="Файл базы данных" Margin="0,10,0,0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Margin="0,8,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" x:Name="DbNameTextBox"
-                             Style="{StaticResource ReadOnlyTextBoxStyle}" />
-                    <Button Grid.Column="1" x:Name="DbNameButton" Content="Изменить"
-                            Style="{StaticResource DbButtonStyle}"
-                            Margin="8,0,0,0"
-                            Click="DbNameButton_Click" />
-                </Grid>
-                <StackPanel Grid.Row="1" Grid.Column="0" x:Name="DbChangedStackPanel"
-                            Style="{StaticResource DbChangedStackPanelStyle}"
-                            Visibility="Collapsed">
-                    <TextBlock Text="Файл базы данных был изменён." Foreground="Red" FontWeight="Bold" />
-                    <TextBlock Text="Изменение вступит в силу при следующем запуске приложения." />
-                </StackPanel>
-                <StackPanel Grid.Row="2" Grid.Column="0" x:Name="DbNotChangedStackPanel"
-                            Style="{StaticResource DbChangedStackPanelStyle}">
-                    <TextBlock Text="Важно!" />
-                    <TextBlock Text="При изменении файла базы данных надо будет перезапустить приложение." />
-                </StackPanel>
-            </Grid>
-        </GroupBox>
-
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button x:Name="SaveButton" Content="Сохранить"
-                    Style="{StaticResource ButtonStyle}"
-                    Click="SaveButton_Click" />
-            <Button x:Name="CancelButton" Content="Отмена"
-                    Style="{StaticResource ButtonStyle}"
-                    IsCancel="True"
-                    Margin="10,0,0,0"
-                    Click="CancelButton_Click" />
-        </StackPanel>
+        </Grid>
     </Grid>
 </Window>

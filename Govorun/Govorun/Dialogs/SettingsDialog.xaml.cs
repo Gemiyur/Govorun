@@ -34,6 +34,11 @@ public partial class SettingsDialog : Window
         DbShrinkButton.IsEnabled = !DbNameChanged;
     }
 
+    private void SettingsTabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+        ResetButton.IsEnabled = SettingsTabControl.SelectedItem == InterfaceTabItem;
+    }
+
     private void DbShrinkButton_Click(object sender, RoutedEventArgs e)
     {
         if (MessageBox.Show("Сжать базу данных библиотеки,", Title, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
@@ -61,6 +66,11 @@ public partial class SettingsDialog : Window
         }
         DbNameTextBox.Text = dbName;
         CheckDbNameChanged();
+    }
+
+    private void ResetButton_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
