@@ -106,4 +106,9 @@ public partial class SettingsDialog : Window
     {
         DialogResult = false;
     }
+
+    private void CheckLibraryButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
 }

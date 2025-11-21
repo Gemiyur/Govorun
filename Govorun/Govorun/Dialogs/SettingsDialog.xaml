@@ -17,7 +17,7 @@
                 <Setter Property="Height" Value="25" />
             </Style>
             <Style x:Key="DbButtonStyle" TargetType="Button">
-                <Setter Property="Width" Value="70" />
+                <Setter Property="Width" Value="75" />
             </Style>
             <Style x:Key="DbChangedStackPanelStyle" TargetType="StackPanel">
                 <Setter Property="Margin" Value="0,4,0,0" />
@@ -83,7 +83,21 @@
 
             <TabItem Header="Библиотека">
                 <StackPanel Margin="4,0,4,0">
-                    <GroupBox Header="Сжатие базы данных" Margin="0,10,0,0">
+                    <GroupBox Header="Проверка библиотеки" Margin="0,10,0,0">
+                        <Grid Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Поиск книг в библиотеке, у которых не найден файл." />
+                            <Button Grid.Column="1" x:Name="CheckLibraryButton" Content="Проверить"
+                                    Style="{StaticResource DbButtonStyle}"
+                                    Margin="8,0,0,4"
+                                    Click="CheckLibraryButton_Click" />
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Сжатие базы данных" Margin="0,25,0,0">
                         <Grid Margin="0,8,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -97,7 +111,7 @@
                         </Grid>
                     </GroupBox>
 
-                    <GroupBox Header="Файл базы данных" Margin="0,10,0,0">
+                    <GroupBox Header="Файл базы данных" Margin="0,25,0,0">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition />
