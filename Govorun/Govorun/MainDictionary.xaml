@@ -52,14 +52,29 @@
         <Setter Property="BorderThickness" Value="0" />
     </Style>
 
-    <DataTemplate x:Key="BookDataTemplate">
+    <DataTemplate x:Key="BookAuthorsFullNameDataTemplate">
+        <StackPanel>
+            <TextBlock Text="{Binding Title}" FontWeight="Bold" Padding="5,0,0,0" />
+            <TextBlock Text="{Binding AuthorNamesFirstMiddleLast}" Padding="25,0,0,0" FontStyle="Italic" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BookCycleAuthorsFullNameDataTemplate">
+        <StackPanel>
+            <TextBlock Text="{Binding Title}" FontWeight="Bold" Padding="5,0,0,0" />
+            <TextBlock Text="{Binding AuthorNamesFirstMiddleLast}" Padding="25,0,0,0" FontStyle="Italic" />
+            <TextBlock Text="{Binding CycleNumbersText}" Padding="25,0,0,0" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BookAuthorsShortNameDataTemplate">
         <StackPanel>
             <TextBlock Text="{Binding Title}" FontWeight="Bold" Padding="5,0,0,0" />
             <TextBlock Text="{Binding AuthorNamesFirstLast}" Padding="25,0,0,0" FontStyle="Italic" />
         </StackPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="BookCycleDataTemplate">
+    <DataTemplate x:Key="BookCycleAuthorsShortNameDataTemplate">
         <StackPanel>
             <TextBlock Text="{Binding Title}" FontWeight="Bold" Padding="5,0,0,0" />
             <TextBlock Text="{Binding AuthorNamesFirstLast}" Padding="25,0,0,0" FontStyle="Italic" />

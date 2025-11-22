@@ -418,7 +418,7 @@
             <!-- Список книг -->
             <ListBox Grid.Row="1" Grid.Column="2" x:Name="BooksListBox"
                      ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-                     ItemTemplate="{StaticResource BookDataTemplate}"
+                     ItemTemplate="{StaticResource BookAuthorsShortNameDataTemplate}"
                      ContextMenuOpening="BooksListBox_ContextMenuOpening"
                      MouseDoubleClick="BooksListBox_MouseDoubleClick">
                 <ListBox.ContextMenu>
