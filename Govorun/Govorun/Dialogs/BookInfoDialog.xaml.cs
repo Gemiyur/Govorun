@@ -79,10 +79,9 @@ public partial class BookInfoDialog : Window
         AuthorsTextBlock.Inlines.Clear();
         for (int i = 0; i < authors.Count; i++)
         {
-            var run = new Run(authors[i].NameFirstLast);
-            //var run = Properties.Settings.Default.BookInfoAuthorFullName
-            //    ? new Run(authors[i].NameFirstMiddleLast)
-            //    : new Run(authors[i].NameFirstLast);
+            var run = Properties.Settings.Default.BookInfoAuthorFullName
+                ? new Run(authors[i].NameFirstMiddleLast)
+                : new Run(authors[i].NameFirstLast);
             var link = new Hyperlink(run);
             link.Tag = authors[i];
             link.Style = (Style)FindResource("HyperlinkStyle");

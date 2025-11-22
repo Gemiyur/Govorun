@@ -103,6 +103,10 @@ public partial class SettingsDialog : Window
         App.GetMainWindow().CheckNavPanelAuthorsNameFormat();
         Properties.Settings.Default.BookListAuthorFullName = BookListAuthorFullNameCheckBox.IsChecked == true;
         App.GetMainWindow().UpdateShownBooks();
+        Properties.Settings.Default.BookInfoAuthorFullName = BookInfoAuthorFullNameCheckBox.IsChecked == true;
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null)
+            bookInfoWindow.UpdateAuthors();
 
         Properties.Settings.Default.SaveMainWindowLocation = SaveMainWindowLocationCheckBox.IsChecked == true;
         if (!Properties.Settings.Default.SaveMainWindowLocation)
