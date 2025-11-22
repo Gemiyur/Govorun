@@ -32,6 +32,7 @@
 
         <ListView Grid.Row="1" x:Name="BooksListView"
                   ItemContainerStyle="{StaticResource ListViewItemStyle}"
+                  SelectionMode="Single"
                   SelectionChanged="BooksListView_SelectionChanged"
                   SizeChanged="BooksListView_SizeChanged">
             <ListView.View>

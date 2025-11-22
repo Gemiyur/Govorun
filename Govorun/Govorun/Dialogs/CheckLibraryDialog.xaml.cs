@@ -1,7 +1,8 @@
-﻿using System.Windows;
+﻿using Gemiyur.Collections;
+using System.Windows;
 using System.Windows.Controls;
-using Gemiyur.Collections;
 using Govorun.Models;
+using Govorun.Tools;
 
 namespace Govorun.Dialogs;
 
@@ -10,16 +11,6 @@ namespace Govorun.Dialogs;
 /// </summary>
 public partial class CheckLibraryDialog : Window
 {
-    /// <summary>
-    /// Список удалённых книг.
-    /// </summary>
-    public readonly List<Book> ChangedBooks = [];
-
-    /// <summary>
-    /// Список книг с изменённым файлом.
-    /// </summary>
-    public readonly List<Book> DeletedBooks = [];
-
     /// <summary>
     /// Коллекция книг у которых не найден файл.
     /// </summary>
@@ -34,8 +25,8 @@ public partial class CheckLibraryDialog : Window
 
     private void BooksListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        FileButton.IsEnabled = BooksListView.SelectedItems.Count == 1;
-        DeleteButton.IsEnabled = BooksListView.SelectedItems.Count > 0;
+        FileButton.IsEnabled = BooksListView.SelectedItem != null;
+        DeleteButton.IsEnabled = BooksListView.SelectedItem != null;
     }
 
     private void BooksListView_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -57,16 +48,43 @@ public partial class CheckLibraryDialog : Window
         var dialog = new BookFileDialog(book) { Owner = this };
         if (dialog.ShowDialog() != true)
             return;
+        var origFileName = book.FileName;
         book.FileName = dialog.FileName;
-        ChangedBooks.Add(book);
+        if (!Library.UpdateBook(book))
+        {
+            MessageBox.Show("Не удалась обновить файл книги.", Title);
+            book.FileName = origFileName;
+            return;
+        }
         books.Remove(book);
+
+        var player = App.GetMainWindow().Player;
+        if (player.Book == book)
+        {
+            player.PlayOnLoad = false;
+            player.Book = book;
+        }
+
+        // TODO: Если открыто окно о книге, то надо обновить файл.
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        var deletedBooks = BooksListView.SelectedItems.Cast<Book>();
-        DeletedBooks.AddRange(deletedBooks);
-        books.RemoveRange(deletedBooks);
+        var book = (Book)BooksListView.SelectedItem;
+        if (!Library.DeleteBook(book))
+        {
+            MessageBox.Show("Не удалась удалить книгу из библиотеки.", Title);
+            return;
+        }
+        books.Remove(book);
+        var mainWindow = App.GetMainWindow();
+        mainWindow.UpdateShownBooks();
+        if (mainWindow.Player.Book == book)
+            mainWindow.Player.Book = null;
+        // TODO: Если книга удалена, то надо закрыть открытые окна книги.
+
+        // TODO: На кой хрен обновлять панель навигации?
+        //mainWindow.UpdateNavPanel(false, false, true);
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)
