@@ -529,44 +529,6 @@ public partial class MainWindow : Window
         }
         var dialog = new CheckLibraryDialog(books) { Owner = this };
         dialog.ShowDialog();
-        //if (dialog.DeletedBooks.Count > 0)
-        //{
-        //    var deletedBooks = Library.DeleteBooks(dialog.DeletedBooks);
-        //    if (deletedBooks.Count == 0)
-        //    {
-        //        MessageBox.Show("Не удалось удалить выбранные книги из библиотеки.", Title);
-        //        return;
-        //    }
-        //    if (deletedBooks.Count != dialog.DeletedBooks.Count)
-        //    {
-        //        MessageBox.Show("Не удалось удалить некоторые книги из библиотеки.", Title);
-        //    }
-        //    if (Player.Book != null && deletedBooks.Contains(Player.Book))
-        //        Player.Book = null;
-        //    UpdateNavPanel(false, false, true);
-        //    UpdateShownBooks();
-        //}
-        //if (dialog.ChangedBooks.Count > 0)
-        //{
-        //    var updatedBooks = Library.UpdateBooks(dialog.ChangedBooks);
-        //    if (updatedBooks.Count == 0)
-        //    {
-        //        MessageBox.Show("Не удалось обновить файлы у выбранных книг.", Title);
-        //        return;
-        //    }
-        //    if (updatedBooks.Count != dialog.ChangedBooks.Count)
-        //    {
-        //        MessageBox.Show("Не удалось обновить файлы у некоторых книг.", Title);
-        //    }
-        //    if (Player.Book == null)
-        //        return;
-        //    var book = updatedBooks.Find(x => x == Player.Book);
-        //    if (book != null)
-        //    {
-        //        Player.PlayOnLoad = false;
-        //        Player.Book = book;
-        //    }
-        //}
     }
 
     private void Settings_Executed(object sender, ExecutedRoutedEventArgs e)
