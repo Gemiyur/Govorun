@@ -112,6 +112,9 @@ public partial class SettingsDialog : Window
         Properties.Settings.Default.ChaptersAuthorFullName = ChaptersAuthorFullNameCheckBox.IsChecked == true;
         App.FindChaptersWindow()?.UpdateAuthors();
 
+        Properties.Settings.Default.BookmarksAuthorFullName = BookmarksAuthorFullNameCheckBox.IsChecked == true;
+        App.FindBookmarksWindow()?.UpdateAuthors();
+
         Properties.Settings.Default.SaveMainWindowLocation = SaveMainWindowLocationCheckBox.IsChecked == true;
         if (!Properties.Settings.Default.SaveMainWindowLocation)
         {
