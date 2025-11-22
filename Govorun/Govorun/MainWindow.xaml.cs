@@ -74,10 +74,9 @@ public partial class MainWindow : Window
         GenresListBox.ItemsSource = Genres;
         ShownBooks.AddRange(Library.Books);
         BooksListBox.ItemsSource = ShownBooks;
-        // TODO: Настройка отображения полного или краткого имени в списке книг. Так в Крокотеке.
-        //BooksListViewTitleColumn.CellTemplate = Properties.Settings.Default.BookListAuthorFullName
-        //    ? (DataTemplate)FindResource("BookAuthorsFullNameDataTemplate")
-        //    : (DataTemplate)FindResource("BookAuthorsShortNameDataTemplate");
+        BooksListBox.ItemTemplate = Properties.Settings.Default.BookListAuthorFullName
+            ? (DataTemplate)FindResource("BookAuthorsFullNameDataTemplate")
+            : (DataTemplate)FindResource("BookAuthorsShortNameDataTemplate");
         UpdateStatusBarBooksCount();
         Player.IsEnabled = false;
         LoadLastBook();
@@ -294,7 +293,7 @@ public partial class MainWindow : Window
     /// <summary>
     /// Обновляет список отображаемых книг.
     /// </summary>
-    private void UpdateShownBooks()
+    public void UpdateShownBooks()
     {
         if (AllBooksToggleButton.IsChecked == true)
         {
