@@ -10,7 +10,8 @@
         MinWidth="500" MinHeight="300"
         d:Width="700" d:Height="350"
         WindowStartupLocation="CenterOwner"
-        ShowInTaskbar="False">
+        ShowInTaskbar="False"
+        SourceInitialized="Window_SourceInitialized">
 
     <Window.Resources>
         <ResourceDictionary>

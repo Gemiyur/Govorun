@@ -1,8 +1,10 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using Gemiyur.Collections;
+﻿using Gemiyur.Collections;
 using Govorun.Models;
 using Govorun.Tools;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Interop;
 
 namespace Govorun.Dialogs;
 
@@ -11,6 +13,20 @@ namespace Govorun.Dialogs;
 /// </summary>
 public partial class CheckLibraryDialog : Window
 {
+    #region Для запрета сворачивания и разворачивания окна на весь экран.
+
+    [DllImport("user32.dll")]
+    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+    [DllImport("user32.dll")]
+    private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+    private const int GWL_STYLE = -16;
+    private const int WS_MAXIMIZEBOX = 0x10000;
+    private const int WS_MINIMIZEBOX = 0x20000;
+
+    #endregion
+
     /// <summary>
     /// Коллекция книг у которых не найден файл.
     /// </summary>
@@ -21,6 +37,13 @@ public partial class CheckLibraryDialog : Window
         InitializeComponent();
         this.books.AddRange(books);
         BooksListView.ItemsSource = books;
+    }
+
+    private void Window_SourceInitialized(object sender, EventArgs e)
+    {
+        IntPtr handle = new WindowInteropHelper(this).Handle;
+        _ = SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_MINIMIZEBOX);
+        _ = SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_MAXIMIZEBOX);
     }
 
     private void BooksListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
