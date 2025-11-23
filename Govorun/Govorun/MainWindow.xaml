@@ -23,8 +23,6 @@
 
     <Window.CommandBindings>
         <!-- Команды библиотеки" -->
-        <CommandBinding Command="local:AppCommands.CheckLibrary"
-                        Executed="CheckLibrary_Executed" />
         <CommandBinding Command="local:AppCommands.Settings"
                         Executed="Settings_Executed" />
         <CommandBinding Command="local:AppCommands.Exit"
@@ -132,13 +130,6 @@
                 </MenuItem>
                 <Separator />
                 <MenuItem Style="{StaticResource MenuItemStyle}"
-                          Command="local:AppCommands.CheckLibrary">
-                    <MenuItem.Icon>
-                        <Image Source="Images\Buttons\Enabled\CheckLibrary.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <Separator />
-                <MenuItem Style="{StaticResource MenuItemStyle}"
                           Command="local:AppCommands.Settings">
                     <MenuItem.Icon>
                         <Image Source="Images\Buttons\Enabled\Settings.png" />
@@ -228,11 +219,6 @@
                 <Button Style="{StaticResource ToolBarButtonStyle}"
                         Command="local:AppCommands.Genres">
                     <Image Source="Images\Buttons\Enabled\Genres.png" Style="{StaticResource ToolBarIconStyle}" />
-                </Button>
-                <Separator />
-                <Button Style="{StaticResource ToolBarButtonStyle}"
-                        Command="local:AppCommands.CheckLibrary">
-                    <Image Source="Images\Buttons\Enabled\CheckLibrary.png" Style="{StaticResource ToolBarIconStyle}" />
                 </Button>
                 <Separator />
                 <Button Style="{StaticResource ToolBarButtonStyle}"

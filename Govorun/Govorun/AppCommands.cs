@@ -10,11 +10,6 @@ public static class AppCommands
     #region Команды библиотеки.
 
     /// <summary>
-    /// Команда проверки библиотеки на наличие файлов книг.
-    /// </summary>
-    public static RoutedUICommand CheckLibrary { get; private set; }
-
-    /// <summary>
     /// Команда настроек приложения.
     /// </summary>
     public static RoutedUICommand Settings { get; private set; }
@@ -157,7 +152,6 @@ public static class AppCommands
     static AppCommands()
     {
         // Команды библиотеки".
-        CheckLibrary = new RoutedUICommand("Проверить библиотеку...", "CheckLibrary", typeof(AppCommands));
         Settings = new RoutedUICommand("Настройки...", "Settings", typeof(AppCommands));
         Exit = new RoutedUICommand("Выход", "Exit", typeof(AppCommands));
 
