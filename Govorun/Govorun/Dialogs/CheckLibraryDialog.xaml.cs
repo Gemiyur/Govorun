@@ -1,6 +1,6 @@
-﻿using Gemiyur.Collections;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using Gemiyur.Collections;
 using Govorun.Models;
 using Govorun.Tools;
 
@@ -57,15 +57,15 @@ public partial class CheckLibraryDialog : Window
             return;
         }
         books.Remove(book);
-
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null && bookInfoWindow.Book == book)
+            bookInfoWindow.UpdateFile();
         var player = App.GetMainWindow().Player;
         if (player.Book == book)
         {
             player.PlayOnLoad = false;
             player.Book = book;
         }
-
-        // TODO: Если открыто окно о книге, то надо обновить файл.
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
