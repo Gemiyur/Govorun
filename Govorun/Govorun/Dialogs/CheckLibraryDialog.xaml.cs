@@ -1,10 +1,10 @@
-﻿using Gemiyur.Collections;
-using Govorun.Models;
-using Govorun.Tools;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using Gemiyur.Collections;
+using Govorun.Models;
+using Govorun.Tools;
 
 namespace Govorun.Dialogs;
 
@@ -113,9 +113,6 @@ public partial class CheckLibraryDialog : Window
         var bookmarksWindow = App.FindBookmarksWindow();
         if (bookmarksWindow != null && bookmarksWindow.Book == book)
             bookmarksWindow.Close();
-
-        // TODO: На кой хрен обновлять панель навигации?
-        //mainWindow.UpdateNavPanel(false, false, true);
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)

@@ -776,9 +776,6 @@ public partial class MainWindow : Window
         var bookmarksWindow = App.FindBookmarksWindow();
         if (bookmarksWindow != null && bookmarksWindow.Book == book)
             bookmarksWindow.Close();
-
-        // TODO: На кой хрен обновлять панель навигации?
-        //UpdateNavPanel(false, false, true);
     }
 
     #endregion
