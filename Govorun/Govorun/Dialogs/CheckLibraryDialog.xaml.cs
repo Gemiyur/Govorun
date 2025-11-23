@@ -36,7 +36,7 @@ public partial class CheckLibraryDialog : Window
     {
         InitializeComponent();
         this.books.AddRange(books);
-        BooksListView.ItemsSource = books;
+        BooksListView.ItemsSource = this.books;
     }
 
     private void Window_SourceInitialized(object sender, EventArgs e)
