@@ -36,7 +36,7 @@ public partial class CheckLibraryDialog : Window
     {
         InitializeComponent();
         this.books.AddRange(books);
-        BooksListView.ItemsSource = this.books;
+        BooksListBox.ItemsSource = this.books;
     }
 
     private void Window_SourceInitialized(object sender, EventArgs e)
@@ -46,28 +46,15 @@ public partial class CheckLibraryDialog : Window
         _ = SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_MAXIMIZEBOX);
     }
 
-    private void BooksListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void BooksListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        FileButton.IsEnabled = BooksListView.SelectedItem != null;
-        DeleteButton.IsEnabled = BooksListView.SelectedItem != null;
-    }
-
-    private void BooksListView_SizeChanged(object sender, SizeChangedEventArgs e)
-    {
-        var listView = (ListView)sender;
-        var gridView = (GridView)listView.View;
-        var totalWidth = listView.ActualWidth - (SystemParameters.VerticalScrollBarWidth + 10);
-        var usedWidth = 0.0;
-        for (var i = 1; i < gridView.Columns.Count; i++)
-        {
-            usedWidth += gridView.Columns[i].Width;
-        }
-        gridView.Columns[0].Width = totalWidth - usedWidth;
+        FileButton.IsEnabled = BooksListBox.SelectedItem != null;
+        DeleteButton.IsEnabled = BooksListBox.SelectedItem != null;
     }
 
     private void FileButton_Click(object sender, RoutedEventArgs e)
     {
-        var book = (Book)BooksListView.SelectedItem;
+        var book = (Book)BooksListBox.SelectedItem;
         var dialog = new BookFileDialog(book) { Owner = this };
         if (dialog.ShowDialog() != true)
             return;
@@ -93,7 +80,7 @@ public partial class CheckLibraryDialog : Window
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        var book = (Book)BooksListView.SelectedItem;
+        var book = (Book)BooksListBox.SelectedItem;
         if (!Library.DeleteBook(book))
         {
             MessageBox.Show("Не удалась удалить книгу из библиотеки.", Title);

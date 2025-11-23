@@ -31,40 +31,25 @@
 
         <TextBlock Grid.Row="0" Text="Книги, у которых не найден файл" Margin="2,0,0,4" />
 
-        <ListView Grid.Row="1" x:Name="BooksListView"
-                  ItemContainerStyle="{StaticResource ListViewItemStyle}"
-                  SelectionMode="Single"
-                  SelectionChanged="BooksListView_SelectionChanged"
-                  SizeChanged="BooksListView_SizeChanged">
-            <ListView.View>
-                <GridView>
-                    <GridView.ColumnHeaderContainerStyle>
-                        <Style TargetType="GridViewColumnHeader">
-                            <Setter Property="IsEnabled" Value="False"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="TextElement.Foreground" Value="Black" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </GridView.ColumnHeaderContainerStyle>
-                    <GridViewColumn Header="Название">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Title}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Автор" Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding AuthorNamesLastFirst}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <ListBox Grid.Row="1" x:Name="BooksListBox"
+                 ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 SelectionChanged="BooksListBox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Title}"
+                                   FontWeight="Bold"
+                                   Padding="5,0,0,0"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding AuthorNamesFirstLast}"
+                                   FontStyle="Italic"
+                                   Padding="25,0,0,0"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <Grid Grid.Row="2" Margin="0,10,0,0">
             <Grid.ColumnDefinitions>
