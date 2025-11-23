@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Проверка библиотеки"
-        Width="700" Height="350" ResizeMode="CanResizeWithGrip"
+        Width="600" Height="350" ResizeMode="CanResizeWithGrip"
         MinWidth="500" MinHeight="300"
-        d:Width="700" d:Height="350"
+        d:Width="500" d:Height="300"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
         SourceInitialized="Window_SourceInitialized">
