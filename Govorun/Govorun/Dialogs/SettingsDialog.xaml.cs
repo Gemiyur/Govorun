@@ -49,7 +49,18 @@ public partial class SettingsDialog : Window
 
     private void CheckLibraryButton_Click(object sender, RoutedEventArgs e)
     {
-
+        //ActionTextBlock.Text = "Проверка библиотеки...";
+        //ActionStatusBarItem.Visibility = Visibility.Visible;
+        var books = Library.Books.FindAll(
+            x => !x.FileExists).OrderBy(x => x.Title, StringComparer.CurrentCultureIgnoreCase);
+        //ActionStatusBarItem.Visibility = Visibility.Collapsed;
+        if (!books.Any())
+        {
+            MessageBox.Show("Проверка библиотеки выполнена.\nПроблем не обнаружено.", Title);
+            return;
+        }
+        var dialog = new CheckLibraryDialog(books) { Owner = this };
+        dialog.ShowDialog();
     }
 
     private void DbShrinkButton_Click(object sender, RoutedEventArgs e)
