@@ -81,7 +81,15 @@ public partial class CheckLibraryDialog : Window
         mainWindow.UpdateShownBooks();
         if (mainWindow.Player.Book == book)
             mainWindow.Player.Book = null;
-        // TODO: Если книга удалена, то надо закрыть открытые окна книги.
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null && bookInfoWindow.Book == book)
+            bookInfoWindow.Close();
+        var chaptersWindow = App.FindChaptersWindow();
+        if (chaptersWindow != null && chaptersWindow.Book == book)
+            chaptersWindow.Close();
+        var bookmarksWindow = App.FindBookmarksWindow();
+        if (bookmarksWindow != null && bookmarksWindow.Book == book)
+            bookmarksWindow.Close();
 
         // TODO: На кой хрен обновлять панель навигации?
         //mainWindow.UpdateNavPanel(false, false, true);

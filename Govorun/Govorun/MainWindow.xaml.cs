@@ -766,10 +766,19 @@ public partial class MainWindow : Window
         }
         if (Player.Book == book)
             Player.Book = null;
+        UpdateShownBooks();
+        var bookInfoWindow = App.FindBookInfoWindow();
+        if (bookInfoWindow != null && bookInfoWindow.Book == book)
+            bookInfoWindow.Close();
+        var chaptersWindow = App.FindChaptersWindow();
+        if (chaptersWindow != null && chaptersWindow.Book == book)
+            chaptersWindow.Close();
+        var bookmarksWindow = App.FindBookmarksWindow();
+        if (bookmarksWindow != null && bookmarksWindow.Book == book)
+            bookmarksWindow.Close();
+
         // TODO: На кой хрен обновлять панель навигации?
         //UpdateNavPanel(false, false, true);
-        UpdateShownBooks();
-        // TODO: Если книга удалена, то надо закрыть открытые окна книги.
     }
 
     #endregion
