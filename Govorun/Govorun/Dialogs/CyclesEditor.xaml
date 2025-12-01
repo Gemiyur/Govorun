@@ -32,12 +32,7 @@
                  SelectionChanged="CyclesListBox_SelectionChanged" />
 
         <Grid Grid.Column="1" Margin="10,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            
-            <StackPanel Grid.Row="0" Orientation="Vertical">
+            <StackPanel Orientation="Vertical">
                 <Button x:Name="AddButton" Content="Добавить"
                         Style="{StaticResource ButtonStyle}"
                         Click="AddButton_Click" />
