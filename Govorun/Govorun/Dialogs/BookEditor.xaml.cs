@@ -504,6 +504,7 @@ public partial class BookEditor : Window
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
+        var origBook = book.Clone();
         if (!SaveBook())
         {
             DialogResult = false;
@@ -513,6 +514,7 @@ public partial class BookEditor : Window
         if (!saved)
         {
             MessageBox.Show("Не удалось сохранить книгу.", Title);
+            origBook.CopyTo(book);
             DialogResult = false;
             return;
         }
