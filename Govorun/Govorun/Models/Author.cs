@@ -129,4 +129,33 @@ public class Author : BaseModel
         OnPropertyChanged("NameLastFirst");
         OnPropertyChanged("NameLastFirstMiddle");
     }
+
+    /// <summary>
+    /// Копирует данные автора в указанного автора.
+    /// </summary>
+    /// <param name="author">Автор, в которого копируются данные автора.</param>
+    /// <remarks>
+    /// Копируются все данные автора кроме идентификатора.
+    /// </remarks>
+    public void CopyTo(Author author)
+    {
+        author.FirstName = FirstName;
+        author.MiddleName = MiddleName;
+        author.LastName = LastName;
+        author.About = About;
+    }
+
+    /// <summary>
+    /// Создаёт и возвращает неполную копию автора.
+    /// </summary>
+    /// <returns>Неполная копия автора.</returns>
+    /// <remarks>
+    /// Копия содержит все данные автора кроме идентификатора.
+    /// </remarks>
+    public Author Clone()
+    {
+        var author = new Author();
+        CopyTo(author);
+        return author;
+    }
 }
