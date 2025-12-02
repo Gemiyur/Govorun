@@ -58,8 +58,7 @@ public partial class CycleEditor : Window
             return;
         }
 
-        var origTitle = cycle.Title;
-        var origAnnotation = cycle.Annotation;
+        var origCycle = cycle.Clone();
 
         cycle.Title = title;
         cycle.Annotation = annotation;
@@ -68,8 +67,7 @@ public partial class CycleEditor : Window
         if (!saved)
         {
             MessageBox.Show("Не удалось сохранить серию.", Title);
-            cycle.Title = origTitle;
-            cycle.Annotation = origAnnotation;
+            origCycle.CopyTo(cycle);
             DialogResult = false;
             return;
         }
