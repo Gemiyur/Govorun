@@ -237,4 +237,47 @@ public class Book : BaseModel
         OnPropertyChanged("AuthorNamesLastFirst");
         OnPropertyChanged("AuthorNamesLastFirstMiddle");
     }
+
+    /// <summary>
+    /// Копирует данные книги в указанную книгу.
+    /// </summary>
+    /// <param name="book">Книга, в которую копируются данные книги.</param>
+    /// <remarks>
+    /// Копируются все данные книги кроме идентификатора.
+    /// </remarks>
+    public void CopyTo(Book book)
+    {
+        book.Title = Title;
+        book.Authors.Clear();
+        book.Authors.AddRange(Authors);
+        book.Annotation = Annotation;
+        book.Cycle = Cycle;
+        book.CycleNumbers = CycleNumbers;
+        book.Lector = Lector;
+        book.Translator = Translator;
+        book.Genres.Clear();
+        book.Genres.AddRange(Genres);
+        book.FileName = FileName;
+        book.FileSize = FileSize;
+        book.Duration = Duration;
+        book.PlayPosition = PlayPosition;
+        book.Chapters.Clear();
+        book.Chapters.AddRange(Chapters);
+        book.Bookmarks.Clear();
+        book.Bookmarks.AddRange(Bookmarks);
+    }
+    
+    /// <summary>
+    /// Создаёт и возвращает неполную копию книги.
+    /// </summary>
+    /// <returns>Неполная копия книги.</returns>
+    /// <remarks>
+    /// Копия содержит все данные книги кроме идентификатора.
+    /// </remarks>
+    public Book Clone()
+    {
+        var book = new Book();
+        CopyTo(book);
+        return book;
+    }
 }
