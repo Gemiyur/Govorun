@@ -39,4 +39,31 @@ public class Cycle : BaseModel
             OnPropertyChanged("Annotation");
         }
     }
+
+    /// <summary>
+    /// Копирует данные серии в указанную серию.
+    /// </summary>
+    /// <param name="cycle">Серия, в которую копируются данные серии.</param>
+    /// <remarks>
+    /// Копируются все данные серии кроме идентификатора.
+    /// </remarks>
+    public void CopyTo(Cycle cycle)
+    {
+        cycle.Title = Title;
+        cycle.Annotation = Annotation;
+    }
+
+    /// <summary>
+    /// Создаёт и возвращает неполную копию серии.
+    /// </summary>
+    /// <returns>Неполная копия серии.</returns>
+    /// <remarks>
+    /// Копия содержит все данные серии кроме идентификатора.
+    /// </remarks>
+    public Cycle Clone()
+    {
+        var cycle = new Cycle();
+        CopyTo(cycle);
+        return cycle;
+    }
 }
