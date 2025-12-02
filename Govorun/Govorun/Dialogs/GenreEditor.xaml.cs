@@ -40,13 +40,15 @@ public partial class GenreEditor : Window
             return;
         }
 
-        var origTitle = genre.Title;
+        var origGenre = genre.Clone();
+
         genre.Title = title;
+
         var saved = genre.GenreId > 0 ? Library.UpdateGenre(genre) : Library.AddGenre(genre);
         if (!saved)
         {
             MessageBox.Show("Не удалось сохранить жанр.", Title);
-            genre.Title = origTitle;
+            origGenre.CopyTo(genre);
             DialogResult = false;
             return;
         }
