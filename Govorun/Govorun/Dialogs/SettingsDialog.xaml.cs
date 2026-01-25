@@ -82,7 +82,7 @@ public partial class SettingsDialog : Window
         var dbName = Db.EnsureDbExtension(dialog.FileName);
         if (!Db.ValidateDb(dbName))
         {
-            MessageBox.Show("Файл не является базой данных LiteDB или повреждён.", Title);
+            MessageBox.Show("Файл не является базой данных Говоруна или повреждён.", Title);
             return;
         }
         DbNameTextBox.Text = dbName;
@@ -165,17 +165,21 @@ public partial class SettingsDialog : Window
             Properties.Settings.Default.CycleSize = new System.Drawing.Size(0, 0);
         }
 
+        if (DbNameChanged)
+        {
 #if DEBUG
-        Properties.Settings.Default.DebugDbName = DbNameTextBox.Text;
+            Properties.Settings.Default.DebugDbName = DbNameTextBox.Text;
 #else
-        Properties.Settings.Default.DbName = DbNameTextBox.Text;
+            Properties.Settings.Default.DbName = DbNameTextBox.Text;
 #endif
+            var newDb = !File.Exists(DbNameTextBox.Text);
+            using var db = Db.GetDatabase(DbNameTextBox.Text);
+            if (newDb)
+                Db.InitializeCollections(db);
+        }
 
         DialogResult = true;
     }
 
-    private void CancelButton_Click(object sender, RoutedEventArgs e)
-    {
-        DialogResult = false;
-    }
+    private void CancelButton_Click(object sender, RoutedEventArgs e) => DialogResult = false;
 }
