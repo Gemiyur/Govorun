@@ -41,11 +41,15 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
+        // Имя файла базы из параметров приложения.
 #if DEBUG
         App.DbName = Properties.Settings.Default.DebugDbName;
 #else
         App.DbName = Properties.Settings.Default.DbName;
 #endif
+
+        // Проверяем файл базы данных.
         if (!File.Exists(App.DbName))
         {
             MessageBox.Show("Файл базы данных не найден.\nУкажите имя существующего или нового файла.", Title);
@@ -58,13 +62,27 @@ public partial class MainWindow : Window
         else if (!Db.ValidateDb(App.DbName))
         {
             MessageBox.Show(
-                "Файл не является базой данных LiteDB или повреждён.\nУкажите имя существующего или нового файла.", Title);
+                "Файл не является базой данных Говоруна или повреждён.\nУкажите имя существующего или нового файла.", Title);
             if (!PickDbFile(App.DbName))
             {
                 Close();
                 return;
             }
         }
+
+        // Новая база данных. Инициализируем.
+        if (!File.Exists(App.DbName))
+            Db.InitializeCollections();
+
+        // Такого не должно быть. Где-то косяк.
+        if (Db.DbInfo == null)
+        {
+            MessageBox.Show("Непредвиденная ошибка: Db.DbInfo == null.\nПриложение закроется.", Title);
+            Close();
+            return;
+        }
+
+        // Загружаем данные приложения.
         Authors.AddRange(Library.Authors);
         AuthorsListBox.ItemsSource = Authors;
         CheckNavPanelAuthorsNameFormat();
@@ -131,7 +149,7 @@ public partial class MainWindow : Window
             dbName = Db.EnsureDbExtension(dialog.FileName);
             if (Db.ValidateDb(dbName))
                 break;
-            MessageBox.Show("Файл не является базой данных LiteDB или повреждён.", Title);
+            MessageBox.Show("Файл не является базой данных Говоруна или повреждён.", Title);
         }
         App.DbName = dbName;
 #if DEBUG

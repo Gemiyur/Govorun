@@ -16,15 +16,32 @@ namespace Govorun.Tools;
 public static class Db
 {
     /// <summary>
+    /// Имя приложения базы данных.
+    /// </summary>
+    public const string AppName = "Govorun";
+
+    /// <summary>
     /// Расширение файла базы данных. Начинается с точки.
     /// </summary>
     public const string DbExtension = ".litedb";
+
+    /// <summary>
+    /// Информация о базе данных.
+    /// </summary>
+    public static DbInfo? DbInfo { get; set; }
 
     /// <summary>
     /// Возвращает объект базы данных.
     /// </summary>
     /// <returns>Объект базы данных.</returns>
     public static LiteDatabase GetDatabase() => new(App.DbName);
+
+    /// <summary>
+    /// Возвращает объект базы данных указанного файла базы данных.
+    /// </summary>
+    /// <param name="filename">Имя файла.</param>
+    /// <returns>Объект базы данных.</returns>
+    public static LiteDatabase GetDatabase(string filename) => new(filename);
 
     /// <summary>
     /// Возвращает указанное имя файла, гарантируя расширение, определённое константой DbExtension.
@@ -74,6 +91,12 @@ public static class Db
                     return false;
             }
             using var db = new LiteDatabase(filename);
+            if (!db.CollectionExists("Params"))
+                return false;
+            var dbInfo = GetDbInfo(db);
+            if (dbInfo == null || dbInfo.Name != AppName)
+                return false;
+            DbInfo = dbInfo;
             return true;
         }
         catch
@@ -100,6 +123,8 @@ public static class Db
 
     #region Получение коллекций.
 
+    public static ILiteCollection<DbInfo> GetParamsCollection(LiteDatabase db) => db.GetCollection<DbInfo>("Params");
+
     public static ILiteCollection<Book> GetBooksCollection(LiteDatabase db) => db.GetCollection<Book>("Books");
 
     public static ILiteCollection<Author> GetAuthorsCollection(LiteDatabase db) => db.GetCollection<Author>("Authors");
@@ -107,6 +132,56 @@ public static class Db
     public static ILiteCollection<Cycle> GetCyclesCollection(LiteDatabase db) => db.GetCollection<Cycle>("Cycles");
 
     public static ILiteCollection<Genre> GetGenresCollection(LiteDatabase db) => db.GetCollection<Genre>("Genres");
+
+    #endregion
+
+    #region Инициализация коллекций при создании базы данных.
+
+    public static void InitializeCollections()
+    {
+        using var db = GetDatabase();
+        InitializeCollections(db);
+    }
+
+    public static void InitializeCollections(LiteDatabase db)
+    {
+        InitializeDbInfo(db);
+    }
+
+    private static void InitializeDbInfo(LiteDatabase db)
+    {
+        var dbInfo = new DbInfo() { Name = AppName };
+        dbInfo.DbInfoId = GetParamsCollection(db).Insert(dbInfo);
+        DbInfo = dbInfo;
+    }
+
+    #endregion
+
+    #region Информация о базе данных (DbInfo).
+
+    public static DbInfo? GetDbInfo()
+    {
+        using var db = GetDatabase();
+        return GetDbInfo(db);
+    }
+
+    public static DbInfo? GetDbInfo(LiteDatabase db) => GetParamsCollection(db).FindAll().FirstOrDefault();
+
+    public static DbInfo? GetDbInfo(string filename)
+    {
+        if (!File.Exists(filename))
+            return null;
+        using var db = GetDatabase(filename);
+        return GetDbInfo(db);
+    }
+
+    public static bool UpdateDbInfo(DbInfo dbInfo)
+    {
+        using var db = GetDatabase();
+        return UpdateDbInfo(db, dbInfo);
+    }
+
+    public static bool UpdateDbInfo(LiteDatabase db, DbInfo dbInfo) => GetParamsCollection(db).Update(dbInfo);
 
     #endregion
 
