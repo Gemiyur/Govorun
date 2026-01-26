@@ -181,7 +181,7 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool SaveBookInfoWindowLocation {
             get {
                 return ((bool)(this["SaveBookInfoWindowLocation"]));
@@ -217,7 +217,7 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool SaveChaptersWindowLocation {
             get {
                 return ((bool)(this["SaveChaptersWindowLocation"]));
@@ -253,7 +253,7 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool SaveBookmarksWindowLocation {
             get {
                 return ((bool)(this["SaveBookmarksWindowLocation"]));
@@ -424,7 +424,7 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool PresetSaveBookInfoWindowLocation {
             get {
                 return ((bool)(this["PresetSaveBookInfoWindowLocation"]));
@@ -433,7 +433,7 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool PresetSaveChaptersWindowLocation {
             get {
                 return ((bool)(this["PresetSaveChaptersWindowLocation"]));
@@ -442,7 +442,7 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool PresetSaveBookmarksWindowLocation {
             get {
                 return ((bool)(this["PresetSaveBookmarksWindowLocation"]));

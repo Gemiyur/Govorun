@@ -42,7 +42,7 @@
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
     <Setting Name="SaveBookInfoWindowLocation" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="BookInfoPos" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
@@ -51,7 +51,7 @@
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
     <Setting Name="SaveChaptersWindowLocation" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ChaptersPos" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
@@ -60,7 +60,7 @@
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
     <Setting Name="SaveBookmarksWindowLocation" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="BookmarksPos" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
@@ -108,13 +108,13 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="PresetSaveBookInfoWindowLocation" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PresetSaveChaptersWindowLocation" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PresetSaveBookmarksWindowLocation" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PresetSaveAuthorWindowLocation" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
