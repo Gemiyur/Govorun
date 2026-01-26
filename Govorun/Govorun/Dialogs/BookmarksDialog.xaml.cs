@@ -174,6 +174,8 @@ public partial class BookmarksDialog : Window
         {
             Properties.Settings.Default.BookmarksPos = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.BookmarksSize = new System.Drawing.Size((int)Width, (int)Height);
+            if (App.GetMainWindow() == null)
+                Properties.Settings.Default.Save();
         }
     }
 

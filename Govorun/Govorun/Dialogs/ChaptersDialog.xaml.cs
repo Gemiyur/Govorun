@@ -177,6 +177,8 @@ public partial class ChaptersDialog : Window
         {
             Properties.Settings.Default.ChaptersPos = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.ChaptersSize = new System.Drawing.Size((int)Width, (int)Height);
+            if (App.GetMainWindow() == null)
+                Properties.Settings.Default.Save();
         }
     }
 
