@@ -25,8 +25,6 @@ public partial class SettingsDialog : Window
         SaveBookInfoWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveBookInfoWindowLocation;
         SaveChaptersWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveChaptersWindowLocation;
         SaveBookmarksWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveBookmarksWindowLocation;
-        SaveAuthorWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveAuthorWindowLocation;
-        SaveCycleWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveCycleWindowLocation;
 #if DEBUG
         DbNameTextBox.Text = Properties.Settings.Default.DebugDbName;
 #else
@@ -100,8 +98,6 @@ public partial class SettingsDialog : Window
         SaveBookInfoWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveBookInfoWindowLocation;
         SaveChaptersWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveChaptersWindowLocation;
         SaveBookmarksWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveBookmarksWindowLocation;
-        SaveAuthorWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveAuthorWindowLocation;
-        SaveCycleWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveCycleWindowLocation;
     }
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -149,20 +145,6 @@ public partial class SettingsDialog : Window
         {
             Properties.Settings.Default.BookmarksPos = new System.Drawing.Point(0, 0);
             Properties.Settings.Default.BookmarksSize = new System.Drawing.Size(0, 0);
-        }
-
-        Properties.Settings.Default.SaveAuthorWindowLocation = SaveAuthorWindowLocationCheckBox.IsChecked == true;
-        if (!Properties.Settings.Default.SaveAuthorWindowLocation)
-        {
-            Properties.Settings.Default.AuthorPos = new System.Drawing.Point(0, 0);
-            Properties.Settings.Default.AuthorSize = new System.Drawing.Size(0, 0);
-        }
-
-        Properties.Settings.Default.SaveCycleWindowLocation = SaveCycleWindowLocationCheckBox.IsChecked == true;
-        if (!Properties.Settings.Default.SaveCycleWindowLocation)
-        {
-            Properties.Settings.Default.CyclePos = new System.Drawing.Point(0, 0);
-            Properties.Settings.Default.CycleSize = new System.Drawing.Size(0, 0);
         }
 
         if (DbNameChanged)

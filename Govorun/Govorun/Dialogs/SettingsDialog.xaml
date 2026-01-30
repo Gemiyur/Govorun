@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Настройки"
-        Width="500" Height="410" ResizeMode="NoResize"
+        Width="500" Height="360" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -72,12 +72,6 @@
                     <CheckBox x:Name="SaveBookmarksWindowLocationCheckBox"
                               Content="Сохранять положение и размер окна «Закладки»"
                               Style="{StaticResource ParamCheckBoxStyle}" />
-                    <CheckBox x:Name="SaveAuthorWindowLocationCheckBox"
-                              Content="Сохранять положение и размер окна «Об авторе»"
-                              Style="{StaticResource ParamCheckBoxStyle}" />
-                    <CheckBox x:Name="SaveCycleWindowLocationCheckBox"
-                              Content="Сохранять положение и размер окна «О серии»"
-                              Style="{StaticResource ParamCheckBoxStyle}" />
                 </StackPanel>
             </TabItem>
 
@@ -97,7 +91,7 @@
                         </Grid>
                     </GroupBox>
 
-                    <GroupBox Header="Сжатие базы данных" Margin="0,25,0,0">
+                    <GroupBox Header="Сжатие базы данных" Margin="0,15,0,0">
                         <Grid Margin="0,8,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -111,7 +105,7 @@
                         </Grid>
                     </GroupBox>
 
-                    <GroupBox Header="Файл базы данных" Margin="0,25,0,0">
+                    <GroupBox Header="Файл базы данных" Margin="0,15,0,0">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition />

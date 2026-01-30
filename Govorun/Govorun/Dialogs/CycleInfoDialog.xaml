@@ -11,9 +11,7 @@
         d:Width="400" d:Height="350"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
-        SourceInitialized="Window_SourceInitialized"
-        Loaded="Window_Loaded"
-        Closed="Window_Closed">
+        SourceInitialized="Window_SourceInitialized">
 
     <Grid Margin="10,10,10,10">
         <Grid.RowDefinitions>

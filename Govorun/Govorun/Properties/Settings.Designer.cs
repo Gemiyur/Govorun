@@ -287,78 +287,6 @@ namespace Govorun.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SaveAuthorWindowLocation {
-            get {
-                return ((bool)(this["SaveAuthorWindowLocation"]));
-            }
-            set {
-                this["SaveAuthorWindowLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point AuthorPos {
-            get {
-                return ((global::System.Drawing.Point)(this["AuthorPos"]));
-            }
-            set {
-                this["AuthorPos"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Size AuthorSize {
-            get {
-                return ((global::System.Drawing.Size)(this["AuthorSize"]));
-            }
-            set {
-                this["AuthorSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SaveCycleWindowLocation {
-            get {
-                return ((bool)(this["SaveCycleWindowLocation"]));
-            }
-            set {
-                this["SaveCycleWindowLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point CyclePos {
-            get {
-                return ((global::System.Drawing.Point)(this["CyclePos"]));
-            }
-            set {
-                this["CyclePos"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Size CycleSize {
-            get {
-                return ((global::System.Drawing.Size)(this["CycleSize"]));
-            }
-            set {
-                this["CycleSize"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -446,24 +374,6 @@ namespace Govorun.Properties {
         public bool PresetSaveBookmarksWindowLocation {
             get {
                 return ((bool)(this["PresetSaveBookmarksWindowLocation"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PresetSaveAuthorWindowLocation {
-            get {
-                return ((bool)(this["PresetSaveAuthorWindowLocation"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PresetSaveCycleWindowLocation {
-            get {
-                return ((bool)(this["PresetSaveCycleWindowLocation"]));
             }
         }
     }
