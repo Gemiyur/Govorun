@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Говорун"
         Width="800" Height="600" ResizeMode="CanResizeWithGrip"
-        MinWidth="700" MinHeight="500"
-        d:Width="800" d:Height="350"
+        MinWidth="800" MinHeight="500"
+        d:Width="800" d:Height="500"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
         Closed="Window_Closed">
@@ -197,7 +197,7 @@
             </MenuItem>
         </Menu>
 
-        <ToolBarTray Grid.Row="1">
+        <ToolBarTray Grid.Row="1" IsLocked="True">
             <ToolBar x:Name="LibraryToolBar">
                 <Button Style="{StaticResource ToolBarButtonStyle}"
                         Command="local:AppCommands.AddBook">
@@ -268,10 +268,37 @@
             </ToolBar>
         </ToolBarTray>
 
+        <!-- Панель поиска книг -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0">
+            <TextBox x:Name="SearchTextBox"
+                     Width="150"
+                     VerticalContentAlignment="Center"
+                     Margin="0,0,5,0"
+                     TextChanged="SearchTextBox_TextChanged" />
+            <Button x:Name="SearchButton"
+                    Style="{StaticResource SearchButtonStyle}"
+                    ToolTip="Найти"
+                    IsEnabled="False"
+                    Margin="0,0,5,0"
+                    Click="SearchButton_Click">
+                <Image Source="Images\Buttons\Disabled\Search.png" Style="{StaticResource SearchIconStyle}" />
+            </Button>
+            <Button x:Name="ClearButton"
+                    Style="{StaticResource SearchButtonStyle}"
+                    ToolTip="Очистить"
+                    IsEnabled="False"
+                    Click="ClearButton_Click">
+                <Image Source="Images\Buttons\Disabled\Clear.png" Style="{StaticResource SearchIconStyle}" />
+            </Button>
+        </StackPanel>
+
         <!-- Панель навигации и список книг -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="225" MinWidth="150" MaxWidth="300" />
+                <ColumnDefinition Width="225" MinWidth="150" MaxWidth="350" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>

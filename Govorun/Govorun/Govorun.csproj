@@ -35,12 +35,14 @@
     <None Remove="Images\Buttons\Disabled\BookInfo.png" />
     <None Remove="Images\Buttons\Disabled\Bookmarks.png" />
     <None Remove="Images\Buttons\Disabled\Chapters.png" />
+    <None Remove="Images\Buttons\Disabled\Clear.png" />
     <None Remove="Images\Buttons\Disabled\CreateM4B.png" />
     <None Remove="Images\Buttons\Disabled\Delete.png" />
     <None Remove="Images\Buttons\Disabled\Edit.png" />
     <None Remove="Images\Buttons\Disabled\Info.png" />
     <None Remove="Images\Buttons\Disabled\NotListen.png" />
     <None Remove="Images\Buttons\Disabled\Play.png" />
+    <None Remove="Images\Buttons\Disabled\Search.png" />
     <None Remove="Images\Buttons\Disabled\Skip.png" />
     <None Remove="Images\Buttons\Enabled\About.png" />
     <None Remove="Images\Buttons\Enabled\AddBook.png" />
@@ -52,6 +54,7 @@
     <None Remove="Images\Buttons\Enabled\Bookmarks.png" />
     <None Remove="Images\Buttons\Enabled\Chapters.png" />
     <None Remove="Images\Buttons\Enabled\CheckLibrary.png" />
+    <None Remove="Images\Buttons\Enabled\Clear.png" />
     <None Remove="Images\Buttons\Enabled\CreateM4B.png" />
     <None Remove="Images\Buttons\Enabled\Cycles.png" />
     <None Remove="Images\Buttons\Enabled\Decrease.png" />
@@ -66,6 +69,7 @@
     <None Remove="Images\Buttons\Enabled\Pause.png" />
     <None Remove="Images\Buttons\Enabled\Play.png" />
     <None Remove="Images\Buttons\Enabled\Replay.png" />
+    <None Remove="Images\Buttons\Enabled\Search.png" />
     <None Remove="Images\Buttons\Enabled\Settings.png" />
     <None Remove="Images\Buttons\Enabled\Skip.png" />
   </ItemGroup>
@@ -105,6 +109,7 @@
     <Resource Include="Images\Buttons\Disabled\BookInfo.png" />
     <Resource Include="Images\Buttons\Disabled\Bookmarks.png" />
     <Resource Include="Images\Buttons\Disabled\Chapters.png" />
+    <Resource Include="Images\Buttons\Disabled\Clear.png" />
     <Resource Include="Images\Buttons\Disabled\CreateM4B.png" />
     <Resource Include="Images\Buttons\Disabled\Delete.png" />
     <Resource Include="Images\Buttons\Disabled\Edit.png" />
@@ -112,6 +117,7 @@
     <Resource Include="Images\Buttons\Disabled\NotListen.png" />
     <Resource Include="Images\Buttons\Disabled\Play.png" />
     <Resource Include="Controls\PlayerImages\Disabled\Skip.png" />
+    <Resource Include="Images\Buttons\Disabled\Search.png" />
     <Resource Include="Images\Buttons\Enabled\About.png" />
     <Resource Include="Images\Buttons\Enabled\AddBook.png" />
     <Resource Include="Images\Buttons\Enabled\AllBooks.png" />
@@ -122,6 +128,7 @@
     <Resource Include="Images\Buttons\Enabled\Chapters.png" />
     <Resource Include="Images\Buttons\Enabled\CheckLibrary.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Decrease.png" />
+    <Resource Include="Images\Buttons\Enabled\Clear.png" />
     <Resource Include="Images\Buttons\Enabled\CreateM4B.png" />
     <Resource Include="Images\Buttons\Enabled\Cycles.png" />
     <Resource Include="Images\Buttons\Enabled\Delete.png" />
@@ -135,6 +142,7 @@
     <Resource Include="Images\Buttons\Enabled\NotListen.png" />
     <Resource Include="Images\Buttons\Enabled\Play.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Replay.png" />
+    <Resource Include="Images\Buttons\Enabled\Search.png" />
     <Resource Include="Images\Buttons\Enabled\Settings.png" />
     <Resource Include="Controls\PlayerImages\Enabled\Skip.png" />
   </ItemGroup>
