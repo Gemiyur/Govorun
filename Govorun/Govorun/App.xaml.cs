@@ -288,7 +288,6 @@ public partial class App : Application
     public static OpenFolderDialog PickBooksFolderDialog => new()
     {
         AddToRecent = false,
-        Multiselect = true,
         Title = "Выбрать папку с файлами книг",
     };
 
