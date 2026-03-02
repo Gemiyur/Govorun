@@ -91,13 +91,13 @@ public partial class AuthorEditor : Window
         if (NameChanged)
         {
             App.GetMainWindow().UpdateShownBooksAuthors();
-            var bookInfoWindow = App.FindBookInfoWindow();
+            var bookInfoWindow = App.GetBookInfoDialog();
             if (bookInfoWindow != null && Library.BookHasAuthor(bookInfoWindow.Book, author.AuthorId))
                 bookInfoWindow.UpdateAuthors();
-            var bookmarksWindow = App.FindBookmarksWindow();
+            var bookmarksWindow = App.GetBookmarksDialog();
             if (bookmarksWindow != null && Library.BookHasAuthor(bookmarksWindow.Book, author.AuthorId))
                 bookmarksWindow.UpdateAuthors();
-            var chaptersWindow = App.FindChaptersWindow();
+            var chaptersWindow = App.GetChaptersDialog();
             if (chaptersWindow != null && Library.BookHasAuthor(chaptersWindow.Book, author.AuthorId))
                 chaptersWindow.UpdateAuthors();
         }

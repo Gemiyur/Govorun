@@ -60,13 +60,13 @@ public partial class App : Application
     /// <param name="book">Книга.</param>
     public static void CloseBookWindows(Book book)
     {
-        var bookInfoWindow = FindBookInfoWindow();
+        var bookInfoWindow = GetBookInfoDialog();
         if (bookInfoWindow != null && bookInfoWindow.Book == book)
             bookInfoWindow.Close();
-        var bookmarksWindow = FindBookmarksWindow();
+        var bookmarksWindow = GetBookmarksDialog();
         if (bookmarksWindow != null && bookmarksWindow.Book == book)
             bookmarksWindow.Close();
-        var chaptersWindow = FindChaptersWindow();
+        var chaptersWindow = GetChaptersDialog();
         if (chaptersWindow != null && chaptersWindow.Book == book)
             chaptersWindow.Close();
     }
@@ -148,7 +148,7 @@ public partial class App : Application
     /// <param name="book">Книга.</param>
     public static void ShowBookInfo(Book book)
     {
-        var window = FindBookInfoWindow();
+        var window = GetBookInfoDialog();
         if (window != null)
         {
             if (window.Book != book)
@@ -168,7 +168,7 @@ public partial class App : Application
     /// <param name="book">Книга.</param>
     public static void ShowBookmarks(Book book)
     {
-        var window = FindBookmarksWindow();
+        var window = GetBookmarksDialog();
         if (window != null)
         {
             if (window.Book != book)
@@ -188,7 +188,7 @@ public partial class App : Application
     /// <param name="book">Книга.</param>
     public static void ShowChapters(Book book)
     {
-        var window = FindChaptersWindow();
+        var window = GetChaptersDialog();
         if (window != null)
         {
             if (window.Book != book)
@@ -224,11 +224,11 @@ public partial class App : Application
     /// Возвращает окно информации о книге или null, если окна нет.
     /// </summary>
     /// <returns>Окно информации о книге или null, если окна нет.</returns>
-    public static BookInfoDialog? FindBookInfoWindow()
+    public static BookInfoDialog? GetBookInfoDialog()
     {
         foreach (var window in Current.Windows)
-            if (window is BookInfoDialog bookInfoWindow)
-                return bookInfoWindow;
+            if (window is BookInfoDialog bookInfoDialog)
+                return bookInfoDialog;
         return null;
     }
 
@@ -236,11 +236,11 @@ public partial class App : Application
     /// Возвращает окно закладок или null, если окна нет.
     /// </summary>
     /// <returns>Окно закладок или null, если окна нет.</returns>
-    public static BookmarksDialog? FindBookmarksWindow()
+    public static BookmarksDialog? GetBookmarksDialog()
     {
         foreach (var window in Current.Windows)
-            if (window is BookmarksDialog bookmarksWindow)
-                return bookmarksWindow;
+            if (window is BookmarksDialog bookmarksDialog)
+                return bookmarksDialog;
         return null;
     }
 
@@ -248,11 +248,11 @@ public partial class App : Application
     /// Возвращает окно содержания или null, если окна нет.
     /// </summary>
     /// <returns>Окно содержания или null, если окна нет.</returns>
-    public static ChaptersDialog? FindChaptersWindow()
+    public static ChaptersDialog? GetChaptersDialog()
     {
         foreach (var window in Current.Windows)
-            if (window is ChaptersDialog chaptersWindow)
-                return chaptersWindow;
+            if (window is ChaptersDialog chaptersDialog)
+                return chaptersDialog;
         return null;
     }
 

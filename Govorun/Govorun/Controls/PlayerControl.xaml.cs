@@ -43,7 +43,7 @@ public partial class PlayerControl : UserControl
             book = value;
             IsEnabled = book != null;
             FailedTextBlock.Visibility = Visibility.Collapsed;
-            var bookmarksWindow = App.FindBookmarksWindow();
+            var bookmarksWindow = App.GetBookmarksDialog();
             if (bookmarksWindow != null)
                 bookmarksWindow.CheckAddButton();
             if (book == null)
@@ -398,7 +398,7 @@ public partial class PlayerControl : UserControl
             playTimer.Start();
         if (lastSyncChapter == null)
             return;
-        var chaptersWindow = App.FindChaptersWindow();
+        var chaptersWindow = App.GetChaptersDialog();
         if (chaptersWindow != null && chaptersWindow.Book == book && lastSyncChapter != CurrentChapter)
         {
             lastSyncChapter = CurrentChapter;

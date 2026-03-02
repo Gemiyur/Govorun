@@ -290,7 +290,7 @@ public static class Library
         {
             if (collection.Update(book))
             {
-                var bookInfoWindow = App.FindBookInfoWindow();
+                var bookInfoWindow = App.GetBookInfoDialog();
                 if (bookInfoWindow != null && bookInfoWindow.Book == book)
                     bookInfoWindow.UpdateFile();
                 result.Add(book);

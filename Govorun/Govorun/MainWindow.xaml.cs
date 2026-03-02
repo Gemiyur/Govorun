@@ -766,7 +766,7 @@ public partial class MainWindow : Window
         SaveBookPlayPosition(book);
         if (ListeningBooksToggleButton.IsChecked == true)
             UpdateShownBooks();
-        var chaptersWindow = App.FindChaptersWindow();
+        var chaptersWindow = App.GetChaptersDialog();
         if (chaptersWindow != null && chaptersWindow.Book == book)
             chaptersWindow.SetNotListening();
     }
@@ -789,13 +789,13 @@ public partial class MainWindow : Window
         var editor = new BookEditor(book, null) { Owner = this };
         if (editor.ShowDialog() != true)
             return;
-        var bookInfoWindow = App.FindBookInfoWindow();
+        var bookInfoWindow = App.GetBookInfoDialog();
         if (bookInfoWindow != null && bookInfoWindow.Book == book)
             bookInfoWindow.UpdateBook();
-        var bookmarksWindow = App.FindBookmarksWindow();
+        var bookmarksWindow = App.GetBookmarksDialog();
         if (bookmarksWindow != null && bookmarksWindow.Book == book)
             bookmarksWindow.UpdateAuthorsAndTitle();
-        var chaptersWindow = App.FindChaptersWindow();
+        var chaptersWindow = App.GetChaptersDialog();
         if (chaptersWindow != null && chaptersWindow.Book == book)
             chaptersWindow.UpdateAuthorsAndTitle();
         if (editor.TitleChanged || editor.AuthorsChanged ||
@@ -842,13 +842,13 @@ public partial class MainWindow : Window
         if (Player.Book == book)
             Player.Book = null;
         UpdateShownBooks();
-        var bookInfoWindow = App.FindBookInfoWindow();
+        var bookInfoWindow = App.GetBookInfoDialog();
         if (bookInfoWindow != null && bookInfoWindow.Book == book)
             bookInfoWindow.Close();
-        var chaptersWindow = App.FindChaptersWindow();
+        var chaptersWindow = App.GetChaptersDialog();
         if (chaptersWindow != null && chaptersWindow.Book == book)
             chaptersWindow.Close();
-        var bookmarksWindow = App.FindBookmarksWindow();
+        var bookmarksWindow = App.GetBookmarksDialog();
         if (bookmarksWindow != null && bookmarksWindow.Book == book)
             bookmarksWindow.Close();
     }

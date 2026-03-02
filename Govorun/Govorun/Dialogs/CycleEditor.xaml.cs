@@ -74,7 +74,7 @@ public partial class CycleEditor : Window
 
         if (TitleChanged)
         {
-            var bookInfoWindow = App.FindBookInfoWindow();
+            var bookInfoWindow = App.GetBookInfoDialog();
             if (bookInfoWindow != null && Library.BookInCycle(bookInfoWindow.Book, cycle.CycleId))
                 bookInfoWindow.UpdateCycle();
         }

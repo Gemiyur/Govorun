@@ -111,13 +111,13 @@ public partial class SettingsDialog : Window
         App.GetMainWindow().UpdateShownBooks();
 
         Properties.Settings.Default.BookInfoAuthorFullName = BookInfoAuthorFullNameCheckBox.IsChecked == true;
-        App.FindBookInfoWindow()?.UpdateAuthors();
+        App.GetBookInfoDialog()?.UpdateAuthors();
 
         Properties.Settings.Default.ChaptersAuthorFullName = ChaptersAuthorFullNameCheckBox.IsChecked == true;
-        App.FindChaptersWindow()?.UpdateAuthors();
+        App.GetChaptersDialog()?.UpdateAuthors();
 
         Properties.Settings.Default.BookmarksAuthorFullName = BookmarksAuthorFullNameCheckBox.IsChecked == true;
-        App.FindBookmarksWindow()?.UpdateAuthors();
+        App.GetBookmarksDialog()?.UpdateAuthors();
 
         Properties.Settings.Default.SaveMainWindowLocation = SaveMainWindowLocationCheckBox.IsChecked == true;
         if (!Properties.Settings.Default.SaveMainWindowLocation)

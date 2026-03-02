@@ -67,7 +67,7 @@ public partial class CheckLibraryDialog : Window
             return;
         }
         books.Remove(book);
-        var bookInfoWindow = App.FindBookInfoWindow();
+        var bookInfoWindow = App.GetBookInfoDialog();
         if (bookInfoWindow != null && bookInfoWindow.Book == book)
             bookInfoWindow.UpdateFile();
         var player = App.GetMainWindow().Player;
@@ -91,13 +91,13 @@ public partial class CheckLibraryDialog : Window
         mainWindow.UpdateShownBooks();
         if (mainWindow.Player.Book == book)
             mainWindow.Player.Book = null;
-        var bookInfoWindow = App.FindBookInfoWindow();
+        var bookInfoWindow = App.GetBookInfoDialog();
         if (bookInfoWindow != null && bookInfoWindow.Book == book)
             bookInfoWindow.Close();
-        var chaptersWindow = App.FindChaptersWindow();
+        var chaptersWindow = App.GetChaptersDialog();
         if (chaptersWindow != null && chaptersWindow.Book == book)
             chaptersWindow.Close();
-        var bookmarksWindow = App.FindBookmarksWindow();
+        var bookmarksWindow = App.GetBookmarksDialog();
         if (bookmarksWindow != null && bookmarksWindow.Book == book)
             bookmarksWindow.Close();
     }
