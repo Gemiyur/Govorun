@@ -21,4 +21,39 @@ public partial class FindFilesDialog : Window
     {
         InitializeComponent();
     }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void Window_Closed(object sender, EventArgs e)
+    {
+
+    }
+
+    private void FolderButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void FindButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void FilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
+
+    private void BookButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
 }
