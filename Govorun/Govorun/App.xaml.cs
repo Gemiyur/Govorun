@@ -256,18 +256,6 @@ public partial class App : Application
         return null;
     }
 
-    /// <summary>
-    /// Возвращает окно поиска файлов книг или null, если окна нет.
-    /// </summary>
-    /// <returns>Окно поиска файлов книг или null, если окна нет.</returns>
-    public static FindFilesDialog? GetFindFilesDialog()
-    {
-        foreach (var window in Current.Windows)
-            if (window is FindFilesDialog findFilesDialog)
-                return findFilesDialog;
-        return null;
-    }
-
     #endregion
 
     #region Диалоги выбора файла и папки книг.

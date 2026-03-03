@@ -642,16 +642,8 @@ public partial class MainWindow : Window
 
     private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-        var window = App.GetFindFilesDialog();
-        if (window != null)
-        {
-            App.RestoreWindow(window);
-            window.Activate();
-        }
-        else
-        {
-            new FindFilesDialog().Show();
-        }
+        new FindFilesDialog() { Owner = this }.ShowDialog();
+        //UpdateShownBooks();
 
         //var folderDialog = App.PickBooksFolderDialog;
         //if (folderDialog.ShowDialog() != true)

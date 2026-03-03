@@ -9,9 +9,9 @@
         Width="700" Height="500" ResizeMode="CanResizeWithGrip"
         MinWidth="500" MinHeight="300"
         d:Width="500" d:Height="300"
-        WindowStartupLocation="CenterScreen"
-        Loaded="Window_Loaded"
-        Closed="Window_Closed">
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        SourceInitialized="Window_SourceInitialized">
 
     <Window.Resources>
         <ResourceDictionary>
