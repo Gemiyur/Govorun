@@ -643,29 +643,6 @@ public partial class MainWindow : Window
     private void FindBooks_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         new FindFilesDialog() { Owner = this }.ShowDialog();
-        //UpdateShownBooks();
-
-        //var folderDialog = App.PickBooksFolderDialog;
-        //if (folderDialog.ShowDialog() != true)
-        //    return;
-        //ActionTextBlock.Text = "Поиск файлов книг...";
-        //ActionStatusBarItem.Visibility = Visibility.Visible;
-        //var files = new List<string>(); // Новые файлы книг.
-        //var folders = folderDialog.FolderNames;
-        //foreach (var folder in folders)
-        //{
-        //    var folderFiles = Directory.GetFiles(folder, "*.m4b", SearchOption.AllDirectories);
-        //    foreach (var file in folderFiles)
-        //    {
-        //        if (!Library.BookWithFileExists(file))
-        //            files.Add(file);
-        //    }
-        //}
-        //files.Sort(StringComparer.CurrentCultureIgnoreCase);
-        //ActionStatusBarItem.Visibility = Visibility.Collapsed;
-        //var dialog = new AddBooksDialog(files) { Owner = this };
-        //dialog.ShowDialog();
-        //UpdateShownBooks();
     }
 
     private void Play_CanExecute(object sender, CanExecuteRoutedEventArgs e)
