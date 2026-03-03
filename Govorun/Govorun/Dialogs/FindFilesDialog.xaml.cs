@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using Gemiyur.Collections;
+using Govorun.Media;
 using Govorun.Tools;
 
 namespace Govorun.Dialogs;
@@ -133,7 +134,16 @@ public partial class FindFilesDialog : Window
 
     private void BookButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var item = (string)FilesListBox.SelectedItem;
+        var file = FullName(item);
+        var book = App.GetBookFromFile(file, out TrackData trackData);
+        var editor = new BookEditor(book, trackData) { Owner = this };
+        if (editor.ShowDialog() == true)
+        {
+            App.GetMainWindow().UpdateShownBooks();
+            shownFiles.Remove(item);
+            UpdateCount();
+        }
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
