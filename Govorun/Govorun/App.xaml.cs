@@ -35,7 +35,7 @@ public partial class App : Application
             MessageBox.Show("Приложение уже запущено.", "Говорун");
 #endif
             var processName = Process.GetCurrentProcess().ProcessName;
-            var process = Process.GetProcesses().Where(p => p.ProcessName == processName).FirstOrDefault();
+            var process = Process.GetProcesses().FirstOrDefault(p => p.ProcessName == processName);
             if (process != null)
             {
                 IntPtr handle = process.MainWindowHandle;
