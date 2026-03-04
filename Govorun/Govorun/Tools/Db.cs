@@ -83,7 +83,7 @@ public static class Db
             {
                 byte[] bytes = new byte[27];
                 stream.Seek(32, SeekOrigin.Begin);
-                stream.Read(bytes, 0, bytes.Length);
+                stream.ReadExactly(bytes);
                 var sb = new StringBuilder();
                 foreach (var b in bytes)
                     sb.Append((char)b);
