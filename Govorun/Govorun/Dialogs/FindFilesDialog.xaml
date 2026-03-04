@@ -90,7 +90,6 @@
                     Click="BookButton_Click" />
             <Button x:Name="CloseButton" Content="Закрыть"
                     Style="{StaticResource ButtonStyle}"
-                    IsCancel="True"
                     HorizontalAlignment="Right"
                     Click="CloseButton_Click" />
         </Grid>
