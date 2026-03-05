@@ -175,6 +175,8 @@ public static class Db
         return GetDbInfo(db);
     }
 
+    public static bool UpdateDbInfo() => DbInfo != null && UpdateDbInfo(DbInfo);
+
     public static bool UpdateDbInfo(DbInfo dbInfo)
     {
         using var db = GetDatabase();

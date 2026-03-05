@@ -124,7 +124,7 @@ public partial class MainWindow : Window
     {
         if (!Properties.Settings.Default.LoadLastBook)
             return;
-        var lastBookId = Properties.Settings.Default.LastBookId;
+        var lastBookId = Db.DbInfo != null ? Db.DbInfo.LastBookId : 0;
         if (lastBookId == 0)
             return;
         var lastBook = Library.GetBook(lastBookId);
@@ -228,13 +228,27 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Сохраняет идентификатор воспроизводимой книги в настройках приложения.
+    /// Сохраняет идентификатор воспроизводимой книги в базе данных.
     /// </summary>
     /// <remarks>Используется при закрытии приложения.</remarks>
     private void SaveLastBook()
     {
-        var book = Player.Book;
-        Properties.Settings.Default.LastBookId = book != null && !Player.MediaFailed ? book.BookId : 0;
+        if (Db.DbInfo == null)
+            return;
+        if (Properties.Settings.Default.LoadLastBook)
+        {
+            var lastBookId = Player.Book != null && !Player.MediaFailed ? Player.Book.BookId : 0;
+            if (Db.DbInfo.LastBookId != lastBookId)
+            {
+                Db.DbInfo.LastBookId = lastBookId;
+                Db.UpdateDbInfo();
+            }
+        }
+        else if (Db.DbInfo.LastBookId != 0)
+        {
+            Db.DbInfo.LastBookId = 0;
+            Db.UpdateDbInfo();
+        }
     }
 
     /// <summary>

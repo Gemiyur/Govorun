@@ -27,4 +27,9 @@ public class DbInfo : BaseModel
             OnPropertyChanged("Name");
         }
     }
+
+    /// <summary>
+    /// Идентификатор книги в проигрывателе при закрытии приложения.
+    /// </summary>
+    public int LastBookId { get; set; }
 }
