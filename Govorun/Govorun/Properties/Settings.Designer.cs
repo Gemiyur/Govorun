@@ -146,12 +146,12 @@ namespace Govorun.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SaveBookInfoWindowLocation {
+        public bool SaveBookWindowsLocation {
             get {
-                return ((bool)(this["SaveBookInfoWindowLocation"]));
+                return ((bool)(this["SaveBookWindowsLocation"]));
             }
             set {
-                this["SaveBookInfoWindowLocation"] = value;
+                this["SaveBookWindowsLocation"] = value;
             }
         }
         
@@ -181,18 +181,6 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SaveChaptersWindowLocation {
-            get {
-                return ((bool)(this["SaveChaptersWindowLocation"]));
-            }
-            set {
-                this["SaveChaptersWindowLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
         public global::System.Drawing.Point ChaptersPos {
             get {
@@ -212,18 +200,6 @@ namespace Govorun.Properties {
             }
             set {
                 this["ChaptersSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SaveBookmarksWindowLocation {
-            get {
-                return ((bool)(this["SaveBookmarksWindowLocation"]));
-            }
-            set {
-                this["SaveBookmarksWindowLocation"] = value;
             }
         }
         
@@ -299,27 +275,9 @@ namespace Govorun.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool PresetSaveBookInfoWindowLocation {
+        public bool PresetSaveBookWindowsLocation {
             get {
-                return ((bool)(this["PresetSaveBookInfoWindowLocation"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool PresetSaveChaptersWindowLocation {
-            get {
-                return ((bool)(this["PresetSaveChaptersWindowLocation"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool PresetSaveBookmarksWindowLocation {
-            get {
-                return ((bool)(this["PresetSaveBookmarksWindowLocation"]));
+                return ((bool)(this["PresetSaveBookWindowsLocation"]));
             }
         }
     }

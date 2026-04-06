@@ -158,7 +158,7 @@ public partial class BookmarksDialog : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        if (Properties.Settings.Default.SaveBookmarksWindowLocation &&
+        if (Properties.Settings.Default.SaveBookWindowsLocation &&
             App.SizeDefined(Properties.Settings.Default.BookmarksSize))
         {
             Left = Properties.Settings.Default.BookmarksPos.X;
@@ -170,7 +170,7 @@ public partial class BookmarksDialog : Window
 
     private void Window_Closed(object sender, EventArgs e)
     {
-        if (Properties.Settings.Default.SaveBookmarksWindowLocation)
+        if (Properties.Settings.Default.SaveBookWindowsLocation)
         {
             Properties.Settings.Default.BookmarksPos = new System.Drawing.Point((int)Left, (int)Top);
             Properties.Settings.Default.BookmarksSize = new System.Drawing.Size((int)Width, (int)Height);

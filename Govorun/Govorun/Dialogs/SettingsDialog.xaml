@@ -57,14 +57,8 @@
                     <CheckBox x:Name="SaveMainWindowLocationCheckBox"
                               Content="Сохранять положение и размер окна приложения"
                               Style="{StaticResource ParamCheckBoxStyle}" />
-                    <CheckBox x:Name="SaveBookInfoWindowLocationCheckBox"
-                              Content="Сохранять положение и размер окна «О книге»"
-                              Style="{StaticResource ParamCheckBoxStyle}" />
-                    <CheckBox x:Name="SaveChaptersWindowLocationCheckBox"
-                              Content="Сохранять положение и размер окна «Содержание»"
-                              Style="{StaticResource ParamCheckBoxStyle}" />
-                    <CheckBox x:Name="SaveBookmarksWindowLocationCheckBox"
-                              Content="Сохранять положение и размер окна «Закладки»"
+                    <CheckBox x:Name="SaveBookWindowsLocationCheckBox"
+                              Content="Сохранять положение и размер окон «О книге», «Содержание» и «Закладки»"
                               Style="{StaticResource ParamCheckBoxStyle}" />
                 </StackPanel>
             </TabItem>
