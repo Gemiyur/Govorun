@@ -51,7 +51,7 @@
                     <CheckBox x:Name="BooksListAuthorFullNameCheckBox"
                               Content="В списке книг отображать полные имена авторов"
                               Style="{StaticResource ParamCheckBoxStyle}" />
-                    <CheckBox x:Name="BookInfoAuthorFullNameCheckBox"
+                    <CheckBox x:Name="BookWindowsAuthorFullNameCheckBox"
                               Content="В окнах «О книге», «Содержание» и «Закладки» отображать полные имена авторов"
                               Style="{StaticResource ParamCheckBoxStyle}" />
                     <CheckBox x:Name="SaveMainWindowLocationCheckBox"

@@ -98,12 +98,12 @@ namespace Govorun.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool BookInfoAuthorFullName {
+        public bool BookWindowsAuthorFullName {
             get {
-                return ((bool)(this["BookInfoAuthorFullName"]));
+                return ((bool)(this["BookWindowsAuthorFullName"]));
             }
             set {
-                this["BookInfoAuthorFullName"] = value;
+                this["BookWindowsAuthorFullName"] = value;
             }
         }
         
@@ -281,9 +281,9 @@ namespace Govorun.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PresetBookInfoAuthorFullName {
+        public bool PresetBookWindowsAuthorFullName {
             get {
-                return ((bool)(this["PresetBookInfoAuthorFullName"]));
+                return ((bool)(this["PresetBookWindowsAuthorFullName"]));
             }
         }
         

@@ -119,7 +119,7 @@ public partial class BookmarksDialog : Window
         AuthorsTextBlock.Inlines.Clear();
         for (int i = 0; i < authors.Count; i++)
         {
-            var run = Properties.Settings.Default.BookInfoAuthorFullName
+            var run = Properties.Settings.Default.BookWindowsAuthorFullName
                 ? new Run(authors[i].NameFirstMiddleLast)
                 : new Run(authors[i].NameFirstLast);
             var link = new Hyperlink(run);

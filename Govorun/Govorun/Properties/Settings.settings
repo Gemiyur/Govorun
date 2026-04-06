@@ -20,7 +20,7 @@
     <Setting Name="BooksListAuthorFullName" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="BookInfoAuthorFullName" Type="System.Boolean" Scope="User">
+    <Setting Name="BookWindowsAuthorFullName" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="SaveMainWindowLocation" Type="System.Boolean" Scope="User">
@@ -68,7 +68,7 @@
     <Setting Name="PresetBooksListAuthorFullName" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="PresetBookInfoAuthorFullName" Type="System.Boolean" Scope="Application">
+    <Setting Name="PresetBookWindowsAuthorFullName" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="PresetSaveMainWindowLocation" Type="System.Boolean" Scope="Application">

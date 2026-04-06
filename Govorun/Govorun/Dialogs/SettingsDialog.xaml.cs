@@ -18,7 +18,7 @@ public partial class SettingsDialog : Window
         LoadLastBookCheckBox.IsChecked = Properties.Settings.Default.LoadLastBook;
         NavPanelAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.NavPanelAuthorFullName;
         BooksListAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BooksListAuthorFullName;
-        BookInfoAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BookInfoAuthorFullName;
+        BookWindowsAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BookWindowsAuthorFullName;
         SaveMainWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveMainWindowLocation;
         SaveBookInfoWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveBookInfoWindowLocation;
         SaveChaptersWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveChaptersWindowLocation;
@@ -89,7 +89,7 @@ public partial class SettingsDialog : Window
     {
         NavPanelAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetNavPanelAuthorFullName;
         BooksListAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBooksListAuthorFullName;
-        BookInfoAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookInfoAuthorFullName;
+        BookWindowsAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookWindowsAuthorFullName;
         SaveMainWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveMainWindowLocation;
         SaveBookInfoWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveBookInfoWindowLocation;
         SaveChaptersWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveChaptersWindowLocation;
@@ -106,7 +106,7 @@ public partial class SettingsDialog : Window
         Properties.Settings.Default.BooksListAuthorFullName = BooksListAuthorFullNameCheckBox.IsChecked == true;
         App.GetMainWindow().UpdateShownBooks();
 
-        Properties.Settings.Default.BookInfoAuthorFullName = BookInfoAuthorFullNameCheckBox.IsChecked == true;
+        Properties.Settings.Default.BookWindowsAuthorFullName = BookWindowsAuthorFullNameCheckBox.IsChecked == true;
         App.GetBookInfoDialog()?.UpdateAuthors();
         App.GetChaptersDialog()?.UpdateAuthors();
         App.GetBookmarksDialog()?.UpdateAuthors();
