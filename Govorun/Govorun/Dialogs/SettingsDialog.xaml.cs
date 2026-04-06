@@ -19,8 +19,6 @@ public partial class SettingsDialog : Window
         NavPanelAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.NavPanelAuthorFullName;
         BooksListAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BooksListAuthorFullName;
         BookInfoAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BookInfoAuthorFullName;
-        ChaptersAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.ChaptersAuthorFullName;
-        BookmarksAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BookmarksAuthorFullName;
         SaveMainWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveMainWindowLocation;
         SaveBookInfoWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveBookInfoWindowLocation;
         SaveChaptersWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveChaptersWindowLocation;
@@ -92,8 +90,6 @@ public partial class SettingsDialog : Window
         NavPanelAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetNavPanelAuthorFullName;
         BooksListAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBooksListAuthorFullName;
         BookInfoAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookInfoAuthorFullName;
-        ChaptersAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetChaptersAuthorFullName;
-        BookmarksAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookmarksAuthorFullName;
         SaveMainWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveMainWindowLocation;
         SaveBookInfoWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveBookInfoWindowLocation;
         SaveChaptersWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveChaptersWindowLocation;
@@ -112,11 +108,7 @@ public partial class SettingsDialog : Window
 
         Properties.Settings.Default.BookInfoAuthorFullName = BookInfoAuthorFullNameCheckBox.IsChecked == true;
         App.GetBookInfoDialog()?.UpdateAuthors();
-
-        Properties.Settings.Default.ChaptersAuthorFullName = ChaptersAuthorFullNameCheckBox.IsChecked == true;
         App.GetChaptersDialog()?.UpdateAuthors();
-
-        Properties.Settings.Default.BookmarksAuthorFullName = BookmarksAuthorFullNameCheckBox.IsChecked == true;
         App.GetBookmarksDialog()?.UpdateAuthors();
 
         Properties.Settings.Default.SaveMainWindowLocation = SaveMainWindowLocationCheckBox.IsChecked == true;

@@ -110,30 +110,6 @@ namespace Govorun.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ChaptersAuthorFullName {
-            get {
-                return ((bool)(this["ChaptersAuthorFullName"]));
-            }
-            set {
-                this["ChaptersAuthorFullName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool BookmarksAuthorFullName {
-            get {
-                return ((bool)(this["BookmarksAuthorFullName"]));
-            }
-            set {
-                this["BookmarksAuthorFullName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool SaveMainWindowLocation {
             get {
                 return ((bool)(this["SaveMainWindowLocation"]));
@@ -308,24 +284,6 @@ namespace Govorun.Properties {
         public bool PresetBookInfoAuthorFullName {
             get {
                 return ((bool)(this["PresetBookInfoAuthorFullName"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PresetChaptersAuthorFullName {
-            get {
-                return ((bool)(this["PresetChaptersAuthorFullName"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PresetBookmarksAuthorFullName {
-            get {
-                return ((bool)(this["PresetBookmarksAuthorFullName"]));
             }
         }
         

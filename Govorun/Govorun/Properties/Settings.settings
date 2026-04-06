@@ -23,12 +23,6 @@
     <Setting Name="BookInfoAuthorFullName" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ChaptersAuthorFullName" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="BookmarksAuthorFullName" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="SaveMainWindowLocation" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -75,12 +69,6 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="PresetBookInfoAuthorFullName" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="PresetChaptersAuthorFullName" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="PresetBookmarksAuthorFullName" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="PresetSaveMainWindowLocation" Type="System.Boolean" Scope="Application">
