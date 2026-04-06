@@ -97,7 +97,7 @@ public partial class MainWindow : Window
         GenresListBox.ItemsSource = Genres;
         ShownBooks.AddRange(Library.Books);
         BooksListBox.ItemsSource = ShownBooks;
-        BooksListBox.ItemTemplate = Properties.Settings.Default.BookListAuthorFullName
+        BooksListBox.ItemTemplate = Properties.Settings.Default.BooksListAuthorFullName
             ? (DataTemplate)FindResource("BookAuthorsFullNameDataTemplate")
             : (DataTemplate)FindResource("BookAuthorsShortNameDataTemplate");
         UpdateStatusBarBooksCount();
@@ -360,7 +360,7 @@ public partial class MainWindow : Window
                 ? Library.Books
                 : Library.Books.FindAll(x => x.Title.Contains(searchText, StringComparison.CurrentCultureIgnoreCase));
             ShownBooks.ReplaceRange(books);
-            BooksListBox.ItemTemplate = Properties.Settings.Default.BookListAuthorFullName
+            BooksListBox.ItemTemplate = Properties.Settings.Default.BooksListAuthorFullName
                 ? (DataTemplate)FindResource("BookAuthorsFullNameDataTemplate")
                 : (DataTemplate)FindResource("BookAuthorsShortNameDataTemplate");
             NavItemTextBlock.Text = "Все книги";
@@ -371,7 +371,7 @@ public partial class MainWindow : Window
                 ? Library.ListeningBooks
                 : Library.ListeningBooks.FindAll(x => x.Title.Contains(searchText, StringComparison.CurrentCultureIgnoreCase));
             ShownBooks.ReplaceRange(books);
-            BooksListBox.ItemTemplate = Properties.Settings.Default.BookListAuthorFullName
+            BooksListBox.ItemTemplate = Properties.Settings.Default.BooksListAuthorFullName
                 ? (DataTemplate)FindResource("BookAuthorsFullNameDataTemplate")
                 : (DataTemplate)FindResource("BookAuthorsShortNameDataTemplate");
             NavItemTextBlock.Text = "Слушаемые книги";
@@ -384,7 +384,7 @@ public partial class MainWindow : Window
                 : Library.GetAuthorBooks(author.AuthorId)
                     .FindAll(x => x.Title.Contains(searchText, StringComparison.CurrentCultureIgnoreCase));
             ShownBooks.ReplaceRange(books);
-            BooksListBox.ItemTemplate = Properties.Settings.Default.BookListAuthorFullName
+            BooksListBox.ItemTemplate = Properties.Settings.Default.BooksListAuthorFullName
                 ? (DataTemplate)FindResource("BookAuthorsFullNameDataTemplate")
                 : (DataTemplate)FindResource("BookAuthorsShortNameDataTemplate");
             NavItemTextBlock.Text = $"Автор: {author.NameLastFirstMiddle}";
@@ -397,7 +397,7 @@ public partial class MainWindow : Window
                 : Library.GetCycleBooks(cycle.CycleId)
                     .FindAll(x => x.Title.Contains(searchText, StringComparison.CurrentCultureIgnoreCase));
             ShownBooks.ReplaceRange(books);
-            BooksListBox.ItemTemplate = Properties.Settings.Default.BookListAuthorFullName
+            BooksListBox.ItemTemplate = Properties.Settings.Default.BooksListAuthorFullName
                 ? (DataTemplate)FindResource("BookCycleAuthorsFullNameDataTemplate")
                 : (DataTemplate)FindResource("BookCycleAuthorsShortNameDataTemplate");
             NavItemTextBlock.Text = $"Серия: {cycle.Title}";
@@ -410,7 +410,7 @@ public partial class MainWindow : Window
                 : Library.GetGenreBooks(genre.GenreId)
                     .FindAll(x => x.Title.Contains(searchText, StringComparison.CurrentCultureIgnoreCase));
             ShownBooks.ReplaceRange(books);
-            BooksListBox.ItemTemplate = Properties.Settings.Default.BookListAuthorFullName
+            BooksListBox.ItemTemplate = Properties.Settings.Default.BooksListAuthorFullName
                 ? (DataTemplate)FindResource("BookAuthorsFullNameDataTemplate")
                 : (DataTemplate)FindResource("BookAuthorsShortNameDataTemplate");
             NavItemTextBlock.Text = $"Жанр: {genre.Title}";

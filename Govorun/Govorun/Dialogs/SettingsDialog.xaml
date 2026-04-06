@@ -48,7 +48,7 @@
                     <CheckBox x:Name="NavPanelAuthorFullNameCheckBox"
                               Content="В панели навигации отображать полные имена авторов"
                               Style="{StaticResource ParamCheckBoxStyle}" />
-                    <CheckBox x:Name="BookListAuthorFullNameCheckBox"
+                    <CheckBox x:Name="BooksListAuthorFullNameCheckBox"
                               Content="В списке книг отображать полные имена авторов"
                               Style="{StaticResource ParamCheckBoxStyle}" />
                     <CheckBox x:Name="BookInfoAuthorFullNameCheckBox"
