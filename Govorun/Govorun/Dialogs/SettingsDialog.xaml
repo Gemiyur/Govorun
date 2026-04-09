@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Настройки"
-        Width="550" Height="360" ResizeMode="NoResize"
+        Width="550" ResizeMode="NoResize"
+        SizeToContent="Height"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -41,7 +42,7 @@
 
         <TabControl Grid.Row="0" x:Name="SettingsTabControl" SelectionChanged="SettingsTabControl_SelectionChanged">
             <TabItem x:Name="InterfaceTabItem" Header="Интерфейс">
-                <StackPanel Margin="10,0,0,0">
+                <StackPanel Margin="10,0,0,5">
                     <CheckBox x:Name="LoadLastBookCheckBox"
                               Content="При запуске загружать в проигрыватель последнюю книгу"
                               Style="{StaticResource ParamCheckBoxStyle}" />
