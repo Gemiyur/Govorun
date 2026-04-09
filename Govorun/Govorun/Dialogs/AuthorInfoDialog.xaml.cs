@@ -34,5 +34,24 @@ public partial class AuthorInfoDialog : Window
         _ = SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_MAXIMIZEBOX);
     }
 
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (Properties.Settings.Default.SaveAuthorWindowSize &&
+            App.SizeDefined(Properties.Settings.Default.AuthorWindowSize))
+        {
+            Width = Properties.Settings.Default.AuthorWindowSize.Width;
+            Height = Properties.Settings.Default.AuthorWindowSize.Height;
+        }
+        App.CenterOnScreen(this);
+    }
+
+    private void Window_Closed(object sender, EventArgs e)
+    {
+        if (Properties.Settings.Default.SaveAuthorWindowSize)
+        {
+            Properties.Settings.Default.AuthorWindowSize = new System.Drawing.Size((int)Width, (int)Height);
+        }
+    }
+
     private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
 }

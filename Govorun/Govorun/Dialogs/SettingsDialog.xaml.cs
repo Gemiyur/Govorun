@@ -21,6 +21,7 @@ public partial class SettingsDialog : Window
         BookWindowsAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BookWindowsAuthorFullName;
         SaveMainWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveMainWindowLocation;
         SaveBookWindowsLocationCheckBox.IsChecked = Properties.Settings.Default.SaveBookWindowsLocation;
+        SaveAuthorWindowSizeCheckBox.IsChecked = Properties.Settings.Default.SaveAuthorWindowSize;
 #if DEBUG
         DbNameTextBox.Text = Properties.Settings.Default.DebugDbName;
 #else
@@ -90,6 +91,7 @@ public partial class SettingsDialog : Window
         BookWindowsAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookWindowsAuthorFullName;
         SaveMainWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveMainWindowLocation;
         SaveBookWindowsLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveBookWindowsLocation;
+        SaveAuthorWindowSizeCheckBox.IsChecked = Properties.Settings.Default.PresetSaveAuthorWindowSize;
     }
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -123,6 +125,12 @@ public partial class SettingsDialog : Window
             Properties.Settings.Default.ChaptersSize = new System.Drawing.Size(0, 0);
             Properties.Settings.Default.BookmarksPos = new System.Drawing.Point(0, 0);
             Properties.Settings.Default.BookmarksSize = new System.Drawing.Size(0, 0);
+        }
+
+        Properties.Settings.Default.SaveAuthorWindowSize = SaveAuthorWindowSizeCheckBox.IsChecked == true;
+        if (!Properties.Settings.Default.SaveAuthorWindowSize)
+        {
+            Properties.Settings.Default.AuthorWindowSize = new System.Drawing.Size(0, 0);
         }
 
         if (DbNameChanged)

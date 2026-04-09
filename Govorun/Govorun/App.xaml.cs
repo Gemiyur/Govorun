@@ -55,6 +55,18 @@ public partial class App : Application
     public static string? DbName { get; set; }
 
     /// <summary>
+    /// Позиционирует указанное окно в центре рабочей области экрана.
+    /// </summary>
+    /// <param name="window">Окно.</param>
+    public static void CenterOnScreen(Window window)
+    {
+        // Важно! Позиция верхней левой точки окна задаётся относительно всего экрана, а не рабочей области.
+        var area = SystemParameters.WorkArea;
+        window.Left = area.Width > window.Width ? ((area.Width - window.Width) / 2) + area.Left : area.Left;
+        window.Top = area.Height > window.Height ? ((area.Height - window.Height) / 2) + area.Top : area.Top;
+    }
+
+    /// <summary>
     /// Закрывает открытые окна указанной книги.
     /// </summary>
     /// <param name="book">Книга.</param>

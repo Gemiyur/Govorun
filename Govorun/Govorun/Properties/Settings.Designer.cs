@@ -280,5 +280,38 @@ namespace Govorun.Properties {
                 return ((bool)(this["PresetSaveBookWindowsLocation"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SaveAuthorWindowSize {
+            get {
+                return ((bool)(this["SaveAuthorWindowSize"]));
+            }
+            set {
+                this["SaveAuthorWindowSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size AuthorWindowSize {
+            get {
+                return ((global::System.Drawing.Size)(this["AuthorWindowSize"]));
+            }
+            set {
+                this["AuthorWindowSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PresetSaveAuthorWindowSize {
+            get {
+                return ((bool)(this["PresetSaveAuthorWindowSize"]));
+            }
+        }
     }
 }
