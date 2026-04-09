@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 using Govorun.Models;
 using Govorun.Tools;
 
@@ -10,6 +12,15 @@ namespace Govorun.Dialogs;
 /// </summary>
 public partial class AuthorEditor : Window
 {
+    [DllImport("user32.dll")]
+    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+    [DllImport("user32.dll")]
+    private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+    private const int GWL_STYLE = -16;
+    private const int WS_MAXIMIZEBOX = 0x10000;
+    private const int WS_MINIMIZEBOX = 0x20000;
+
     /// <summary>
     /// Возвращает было ли изменено имя, фамилия или отчество автора.
     /// </summary>
@@ -47,6 +58,32 @@ public partial class AuthorEditor : Window
             MiddleNameTextBox.Text.Trim() != author.MiddleName;
 
         SaveButton.IsEnabled = !nameEmpty && (NameChanged || AboutTextBox.Text.Trim() != author.About);
+    }
+
+    private void Window_SourceInitialized(object sender, EventArgs e)
+    {
+        IntPtr handle = new WindowInteropHelper(this).Handle;
+        _ = SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_MINIMIZEBOX);
+        _ = SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_MAXIMIZEBOX);
+    }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (Properties.Settings.Default.SaveAuthorEditorSize &&
+            App.SizeDefined(Properties.Settings.Default.AuthorEditorSize))
+        {
+            Width = Properties.Settings.Default.AuthorEditorSize.Width;
+            Height = Properties.Settings.Default.AuthorEditorSize.Height;
+        }
+        App.CenterOnScreen(this);
+    }
+
+    private void Window_Closed(object sender, EventArgs e)
+    {
+        if (Properties.Settings.Default.SaveAuthorEditorSize)
+        {
+            Properties.Settings.Default.AuthorEditorSize = new System.Drawing.Size((int)Width, (int)Height);
+        }
     }
 
     private void LastNameTextBox_TextChanged(object sender, TextChangedEventArgs e) => CheckSaveButton();
