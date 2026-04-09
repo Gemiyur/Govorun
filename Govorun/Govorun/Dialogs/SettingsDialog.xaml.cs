@@ -22,6 +22,7 @@ public partial class SettingsDialog : Window
         SaveMainWindowLocationCheckBox.IsChecked = Properties.Settings.Default.SaveMainWindowLocation;
         SaveBookWindowsLocationCheckBox.IsChecked = Properties.Settings.Default.SaveBookWindowsLocation;
         SaveAuthorWindowSizeCheckBox.IsChecked = Properties.Settings.Default.SaveAuthorWindowSize;
+        SaveCycleWindowSizeCheckBox.IsChecked = Properties.Settings.Default.SaveCycleWindowSize;
 #if DEBUG
         DbNameTextBox.Text = Properties.Settings.Default.DebugDbName;
 #else
@@ -92,6 +93,7 @@ public partial class SettingsDialog : Window
         SaveMainWindowLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveMainWindowLocation;
         SaveBookWindowsLocationCheckBox.IsChecked = Properties.Settings.Default.PresetSaveBookWindowsLocation;
         SaveAuthorWindowSizeCheckBox.IsChecked = Properties.Settings.Default.PresetSaveAuthorWindowSize;
+        SaveCycleWindowSizeCheckBox.IsChecked = Properties.Settings.Default.PresetSaveCycleWindowSize;
     }
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -131,6 +133,12 @@ public partial class SettingsDialog : Window
         if (!Properties.Settings.Default.SaveAuthorWindowSize)
         {
             Properties.Settings.Default.AuthorWindowSize = new System.Drawing.Size(0, 0);
+        }
+
+        Properties.Settings.Default.SaveCycleWindowSize = SaveCycleWindowSizeCheckBox.IsChecked == true;
+        if (!Properties.Settings.Default.SaveCycleWindowSize)
+        {
+            Properties.Settings.Default.CycleWindowSize = new System.Drawing.Size(0, 0);
         }
 
         if (DbNameChanged)

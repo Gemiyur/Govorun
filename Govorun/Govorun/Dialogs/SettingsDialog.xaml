@@ -63,6 +63,9 @@
                     <CheckBox x:Name="SaveAuthorWindowSizeCheckBox"
                               Content="Сохранять размер окна «Об авторе»"
                               Style="{StaticResource ParamCheckBoxStyle}" />
+                    <CheckBox x:Name="SaveCycleWindowSizeCheckBox"
+                              Content="Сохранять размер окна «О серии»"
+                              Style="{StaticResource ParamCheckBoxStyle}" />
                 </StackPanel>
             </TabItem>
 

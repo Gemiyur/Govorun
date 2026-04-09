@@ -34,5 +34,24 @@ public partial class CycleInfoDialog : Window
         _ = SetWindowLong(handle, GWL_STYLE, GetWindowLong(handle, GWL_STYLE) & ~WS_MAXIMIZEBOX);
     }
 
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (Properties.Settings.Default.SaveCycleWindowSize &&
+            App.SizeDefined(Properties.Settings.Default.CycleWindowSize))
+        {
+            Width = Properties.Settings.Default.CycleWindowSize.Width;
+            Height = Properties.Settings.Default.CycleWindowSize.Height;
+        }
+        App.CenterOnScreen(this);
+    }
+
+    private void Window_Closed(object sender, EventArgs e)
+    {
+        if (Properties.Settings.Default.SaveCycleWindowSize)
+        {
+            Properties.Settings.Default.CycleWindowSize = new System.Drawing.Size((int)Width, (int)Height);
+        }
+    }
+
     private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
 }
