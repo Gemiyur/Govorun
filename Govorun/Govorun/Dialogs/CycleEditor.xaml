@@ -6,9 +6,13 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Серия"
-        Width="400" Height="400" ResizeMode="NoResize"
-        WindowStartupLocation="CenterOwner"
-        ShowInTaskbar="False">
+        Width="400" Height="400" ResizeMode="CanResizeWithGrip"
+        MinWidth="350" MinHeight="400"
+        d:Width="400" d:Height="400"
+        ShowInTaskbar="False"
+        SourceInitialized="Window_SourceInitialized"
+        Loaded="Window_Loaded"
+        Closed="Window_Closed">
 
     <Window.Resources>
         <ResourceDictionary>

@@ -24,6 +24,7 @@ public partial class SettingsDialog : Window
         SaveAuthorWindowSizeCheckBox.IsChecked = Properties.Settings.Default.SaveAuthorWindowSize;
         SaveCycleWindowSizeCheckBox.IsChecked = Properties.Settings.Default.SaveCycleWindowSize;
         SaveAuthorEditorSizeCheckBox.IsChecked = Properties.Settings.Default.SaveAuthorEditorSize;
+        SaveCycleEditorSizeCheckBox.IsChecked = Properties.Settings.Default.SaveCycleEditorSize;
 #if DEBUG
         DbNameTextBox.Text = Properties.Settings.Default.DebugDbName;
 #else
@@ -96,6 +97,7 @@ public partial class SettingsDialog : Window
         SaveAuthorWindowSizeCheckBox.IsChecked = Properties.Settings.Default.PresetSaveAuthorWindowSize;
         SaveCycleWindowSizeCheckBox.IsChecked = Properties.Settings.Default.PresetSaveCycleWindowSize;
         SaveAuthorEditorSizeCheckBox.IsChecked = Properties.Settings.Default.PresetSaveAuthorEditorSize;
+        SaveCycleEditorSizeCheckBox.IsChecked = Properties.Settings.Default.PresetSaveCycleEditorSize;
     }
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -147,6 +149,12 @@ public partial class SettingsDialog : Window
         if (!Properties.Settings.Default.SaveAuthorEditorSize)
         {
             Properties.Settings.Default.AuthorEditorSize = new System.Drawing.Size(0, 0);
+        }
+
+        Properties.Settings.Default.SaveCycleEditorSize = SaveCycleEditorSizeCheckBox.IsChecked == true;
+        if (!Properties.Settings.Default.SaveCycleEditorSize)
+        {
+            Properties.Settings.Default.CycleEditorSize = new System.Drawing.Size(0, 0);
         }
 
         if (DbNameChanged)

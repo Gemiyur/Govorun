@@ -379,5 +379,38 @@ namespace Govorun.Properties {
                 return ((bool)(this["PresetSaveAuthorEditorSize"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SaveCycleEditorSize {
+            get {
+                return ((bool)(this["SaveCycleEditorSize"]));
+            }
+            set {
+                this["SaveCycleEditorSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size CycleEditorSize {
+            get {
+                return ((global::System.Drawing.Size)(this["CycleEditorSize"]));
+            }
+            set {
+                this["CycleEditorSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PresetSaveCycleEditorSize {
+            get {
+                return ((bool)(this["PresetSaveCycleEditorSize"]));
+            }
+        }
     }
 }
