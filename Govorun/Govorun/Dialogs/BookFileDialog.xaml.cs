@@ -45,13 +45,7 @@ public partial class BookFileDialog : Window
         SaveButton.IsEnabled = true;
     }
 
-    private void SaveButton_Click(object sender, RoutedEventArgs e)
-    {
-        DialogResult = true;
-    }
+    private void SaveButton_Click(object sender, RoutedEventArgs e) => DialogResult = true;
 
-    private void CancelButton_Click(object sender, RoutedEventArgs e)
-    {
-        DialogResult = false;
-    }
+    private void CancelButton_Click(object sender, RoutedEventArgs e) => DialogResult = false;
 }

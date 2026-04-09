@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Govorun.Dialogs"
         mc:Ignorable="d"
         Title="Файл книги"
-        Width="700" Height="200" ResizeMode="NoResize"
+        Width="700" ResizeMode="NoResize"
+        SizeToContent="Height"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
 
@@ -25,7 +26,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Авторы и название -->
@@ -49,7 +50,7 @@
                  Margin="0,10,0,0" />
 
         <!-- Кнопки -->
-        <Grid Grid.Row="4">
+        <Grid Grid.Row="4" Margin="0,30,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
