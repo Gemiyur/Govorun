@@ -227,6 +227,102 @@ namespace Govorun.Properties {
             }
         }
         
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SaveAuthorWindowSize {
+            get {
+                return ((bool)(this["SaveAuthorWindowSize"]));
+            }
+            set {
+                this["SaveAuthorWindowSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size AuthorWindowSize {
+            get {
+                return ((global::System.Drawing.Size)(this["AuthorWindowSize"]));
+            }
+            set {
+                this["AuthorWindowSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SaveCycleWindowSize {
+            get {
+                return ((bool)(this["SaveCycleWindowSize"]));
+            }
+            set {
+                this["SaveCycleWindowSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size CycleWindowSize {
+            get {
+                return ((global::System.Drawing.Size)(this["CycleWindowSize"]));
+            }
+            set {
+                this["CycleWindowSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SaveAuthorEditorSize {
+            get {
+                return ((bool)(this["SaveAuthorEditorSize"]));
+            }
+            set {
+                this["SaveAuthorEditorSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size AuthorEditorSize {
+            get {
+                return ((global::System.Drawing.Size)(this["AuthorEditorSize"]));
+            }
+            set {
+                this["AuthorEditorSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SaveCycleEditorSize {
+            get {
+                return ((bool)(this["SaveCycleEditorSize"]));
+            }
+            set {
+                this["SaveCycleEditorSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size CycleEditorSize {
+            get {
+                return ((global::System.Drawing.Size)(this["CycleEditorSize"]));
+            }
+            set {
+                this["CycleEditorSize"] = value;
+            }
+        }
+        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -281,60 +377,12 @@ namespace Govorun.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SaveAuthorWindowSize {
-            get {
-                return ((bool)(this["SaveAuthorWindowSize"]));
-            }
-            set {
-                this["SaveAuthorWindowSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Size AuthorWindowSize {
-            get {
-                return ((global::System.Drawing.Size)(this["AuthorWindowSize"]));
-            }
-            set {
-                this["AuthorWindowSize"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool PresetSaveAuthorWindowSize {
             get {
                 return ((bool)(this["PresetSaveAuthorWindowSize"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SaveCycleWindowSize {
-            get {
-                return ((bool)(this["SaveCycleWindowSize"]));
-            }
-            set {
-                this["SaveCycleWindowSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Size CycleWindowSize {
-            get {
-                return ((global::System.Drawing.Size)(this["CycleWindowSize"]));
-            }
-            set {
-                this["CycleWindowSize"] = value;
             }
         }
         
@@ -347,60 +395,12 @@ namespace Govorun.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SaveAuthorEditorSize {
-            get {
-                return ((bool)(this["SaveAuthorEditorSize"]));
-            }
-            set {
-                this["SaveAuthorEditorSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Size AuthorEditorSize {
-            get {
-                return ((global::System.Drawing.Size)(this["AuthorEditorSize"]));
-            }
-            set {
-                this["AuthorEditorSize"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool PresetSaveAuthorEditorSize {
             get {
                 return ((bool)(this["PresetSaveAuthorEditorSize"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SaveCycleEditorSize {
-            get {
-                return ((bool)(this["SaveCycleEditorSize"]));
-            }
-            set {
-                this["SaveCycleEditorSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Size CycleEditorSize {
-            get {
-                return ((global::System.Drawing.Size)(this["CycleEditorSize"]));
-            }
-            set {
-                this["CycleEditorSize"] = value;
             }
         }
         
