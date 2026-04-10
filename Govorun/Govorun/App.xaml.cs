@@ -96,6 +96,18 @@ public partial class App : Application
         MessageBox.Show(message, caption, MessageBoxButton.YesNo) == MessageBoxResult.Yes;
 
     /// <summary>
+    /// Отображает окно сообщения подтверждения операции с кнопкой "Нет" по умолчанию.
+    /// </summary>
+    /// <param name="message">Сообщение.</param>
+    /// <param name="caption">Заголовок окна.</param>
+    /// <returns>Была ли подтверждена операция.</returns>
+    /// <remarks>
+    ///  Это обёртка для MessageBox.Show с кнопками Да и Нет.
+    /// </remarks>
+    public static bool ConfirmActionNoDefault(string message, string caption) =>
+        MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.None, MessageBoxResult.No) == MessageBoxResult.Yes;
+
+    /// <summary>
     /// Возвращает BitmapImage из указанного файла изображения.
     /// </summary>
     /// <param name="path">Путь к файлу.</param>

@@ -42,7 +42,7 @@
 
         <TabControl Grid.Row="0" x:Name="SettingsTabControl" SelectionChanged="SettingsTabControl_SelectionChanged">
             <TabItem x:Name="InterfaceTabItem" Header="Интерфейс">
-                <StackPanel Margin="10,0,0,5">
+                <StackPanel Margin="10,0,0,8">
                     <CheckBox x:Name="LoadLastBookCheckBox"
                               Content="При запуске загружать в проигрыватель последнюю книгу"
                               Style="{StaticResource ParamCheckBoxStyle}" />
@@ -106,7 +106,7 @@
                         </Grid>
                     </GroupBox>
 
-                    <GroupBox Header="Файл базы данных" Margin="0,15,0,0">
+                    <GroupBox Header="Файл базы данных" Margin="0,15,0,2">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition />
