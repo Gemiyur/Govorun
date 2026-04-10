@@ -116,6 +116,57 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
+    /// Удаляет указанный жанр из библиотеки и всех книг, у которых он есть.
+    /// </summary>
+    /// <param name="genre">Жанр.</param>
+    /// <returns>Удалось ли удалить жанр.</returns>
+    /// <remarks>
+    /// Жанр удаляется из библиотеки только если он был удалён у всех книг.<br/>
+    /// В процессе выполнения отображаются подтверждения и уведомления.<br/>
+    /// После успешного удаления обновляются жанры в панели навигации.
+    /// </remarks>
+    public bool DeleteGenre(Genre genre)
+    {
+        if (Library.GenreHasBooks(genre.GenreId))
+        {
+            var books = Library.GetGenreBooks(genre.GenreId);
+            var message = $"Жанр \"{genre.Title}\" есть у книг.\nКоличество книг с этим жанром: {books.Count}.\n" +
+                          "Удаляемый жанр будет удалён из этих книг.\n\nУдалить жанр у книг и из библиотеки?";
+            if (!App.ConfirmActionNoDefault(message, Title))
+            {
+                return false;
+            }
+            var bookInfoDialog = App.GetBookInfoDialog();
+            foreach (var book in books)
+            {
+                var oldGenres = new List<Genre>();
+                oldGenres.AddRange(book.Genres);
+                book.Genres.Remove(genre);
+                if (!Library.UpdateBook(book))
+                {
+                    book.Genres.Clear();
+                    book.Genres.AddRange(oldGenres);
+                    MessageBox.Show($"Не удалось удалить жанр у книги \"{book.Title}\".\nЖанр \"{genre.Title}\" не удалён.", Title);
+                    return false;
+                }
+                if (bookInfoDialog != null && bookInfoDialog.Book == book)
+                    bookInfoDialog.UpdateGenres();
+            }
+        }
+        else if (!App.ConfirmAction($"Удалить жанр \"{genre.Title}\" из библиотеки?", Title))
+        {
+            return false;
+        }
+        if (!Library.DeleteGenre(genre))
+        {
+            MessageBox.Show("Не удалось удалить жанр.", Title);
+            return false;
+        }
+        UpdateNavPanel(false, false, true);
+        return true;
+    }
+
+    /// <summary>
     /// Загружает в проигрыватель книгу, которая воспроизводилась при закрытии приложения.
     /// Книга только загружается, но не воспроизводится.
     /// </summary>
@@ -972,8 +1023,10 @@ public partial class MainWindow : Window
 
     private void GenreDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        e.CanExecute = GenresListBox != null && GenresListBox.SelectedItem != null &&
-                       !Library.GenreHasBooks(((Genre)GenresListBox.SelectedItem).GenreId);
+        //e.CanExecute = GenresListBox != null && GenresListBox.SelectedItem != null &&
+        //               !Library.GenreHasBooks(((Genre)GenresListBox.SelectedItem).GenreId);
+
+        e.CanExecute = GenresListBox != null && GenresListBox.SelectedItem != null;
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(
@@ -984,17 +1037,9 @@ public partial class MainWindow : Window
     private void GenreDelete_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         var genre = (Genre)GenresListBox.SelectedItem;
-        if (!App.ConfirmAction($"Удалить жанр \"{genre.Title}\" из библиотеки?", Title))
-        {
+        if (!DeleteGenre(genre))
             return;
-        }
-        if (!Library.DeleteGenre(genre))
-        {
-            MessageBox.Show("Не удалось удалить жанр.", Title);
-            return;
-        }
         Genres.Remove(genre);
-        UpdateNavPanel(false, false, true);
     }
 
     #endregion

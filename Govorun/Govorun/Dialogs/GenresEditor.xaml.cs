@@ -28,8 +28,10 @@ public partial class GenresEditor : Window
     private void GenresListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         EditButton.IsEnabled = GenresListBox.SelectedIndex >= 0;
-        DeleteButton.IsEnabled = GenresListBox.SelectedIndex >= 0 &&
-                                 !Library.GenreHasBooks(((Genre)GenresListBox.SelectedItem).GenreId);
+        DeleteButton.IsEnabled = GenresListBox.SelectedIndex >= 0;
+
+        //DeleteButton.IsEnabled = GenresListBox.SelectedIndex >= 0 &&
+        //                         !Library.GenreHasBooks(((Genre)GenresListBox.SelectedItem).GenreId);
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -56,17 +58,9 @@ public partial class GenresEditor : Window
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         var genre = (Genre)GenresListBox.SelectedItem;
-        if (!App.ConfirmAction($"Удалить жанр \"{genre.Title}\" из библиотеки?", Title))
-        {
+        if (!App.GetMainWindow().DeleteGenre(genre))
             return;
-        }
-        if (!Library.DeleteGenre(genre))
-        {
-            MessageBox.Show("Не удалось удалить жанр.", Title);
-            return;
-        }
         genres.Remove(genre);
-        App.GetMainWindow().UpdateNavPanel(false, false, true);
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
