@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using Gemiyur.Collections;
 using Govorun.Models;
-using Govorun.Properties;
 using Govorun.Tools;
 
 namespace Govorun.Dialogs;
