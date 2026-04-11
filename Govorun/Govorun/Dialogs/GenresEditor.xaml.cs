@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Gemiyur.Collections;
 using Govorun.Models;
+using Govorun.Properties;
 using Govorun.Tools;
 
 namespace Govorun.Dialogs;
@@ -28,10 +29,9 @@ public partial class GenresEditor : Window
     private void GenresListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         EditButton.IsEnabled = GenresListBox.SelectedIndex >= 0;
-        DeleteButton.IsEnabled = GenresListBox.SelectedIndex >= 0;
-
-        //DeleteButton.IsEnabled = GenresListBox.SelectedIndex >= 0 &&
-        //                         !Library.GenreHasBooks(((Genre)GenresListBox.SelectedItem).GenreId);
+        DeleteButton.IsEnabled = GenresListBox.SelectedIndex >= 0 &&
+                                 (Properties.Settings.Default.CascadeGenreDelete ||
+                                  !Library.GenreHasBooks(((Genre)GenresListBox.SelectedItem).GenreId));
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)

@@ -1023,10 +1023,9 @@ public partial class MainWindow : Window
 
     private void GenreDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-        //e.CanExecute = GenresListBox != null && GenresListBox.SelectedItem != null &&
-        //               !Library.GenreHasBooks(((Genre)GenresListBox.SelectedItem).GenreId);
-
-        e.CanExecute = GenresListBox != null && GenresListBox.SelectedItem != null;
+        e.CanExecute = GenresListBox != null && GenresListBox.SelectedItem != null &&
+                       (Properties.Settings.Default.CascadeGenreDelete ||
+                        !Library.GenreHasBooks(((Genre)GenresListBox.SelectedItem).GenreId));
         if (!IsVisible)
             return;
         var bitmap = App.GetBitmapImage(

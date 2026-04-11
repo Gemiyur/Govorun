@@ -73,6 +73,18 @@ namespace Govorun.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CascadeGenreDelete {
+            get {
+                return ((bool)(this["CascadeGenreDelete"]));
+            }
+            set {
+                this["CascadeGenreDelete"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool NavPanelAuthorFullName {
             get {
@@ -329,6 +341,15 @@ namespace Govorun.Properties {
         public bool PresetLoadLastBook {
             get {
                 return ((bool)(this["PresetLoadLastBook"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PresetCascadeGenreDelete {
+            get {
+                return ((bool)(this["PresetCascadeGenreDelete"]));
             }
         }
         

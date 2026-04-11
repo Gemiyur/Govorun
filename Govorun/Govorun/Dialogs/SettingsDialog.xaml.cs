@@ -16,6 +16,7 @@ public partial class SettingsDialog : Window
     {
         InitializeComponent();
         LoadLastBookCheckBox.IsChecked = Properties.Settings.Default.LoadLastBook;
+        CascadeGenreDeleteCheckBox.IsChecked = Properties.Settings.Default.CascadeGenreDelete;
         NavPanelAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.NavPanelAuthorFullName;
         BooksListAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BooksListAuthorFullName;
         BookWindowsAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.BookWindowsAuthorFullName;
@@ -89,6 +90,8 @@ public partial class SettingsDialog : Window
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
+        LoadLastBookCheckBox.IsChecked = Properties.Settings.Default.PresetLoadLastBook;
+        CascadeGenreDeleteCheckBox.IsChecked = Properties.Settings.Default.PresetCascadeGenreDelete;
         NavPanelAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetNavPanelAuthorFullName;
         BooksListAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBooksListAuthorFullName;
         BookWindowsAuthorFullNameCheckBox.IsChecked = Properties.Settings.Default.PresetBookWindowsAuthorFullName;
@@ -103,6 +106,8 @@ public partial class SettingsDialog : Window
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         Properties.Settings.Default.LoadLastBook = LoadLastBookCheckBox.IsChecked == true;
+
+        Properties.Settings.Default.CascadeGenreDelete = CascadeGenreDeleteCheckBox.IsChecked == true;
 
         Properties.Settings.Default.NavPanelAuthorFullName = NavPanelAuthorFullNameCheckBox.IsChecked == true;
         App.GetMainWindow().CheckNavPanelAuthorsNameFormat();
